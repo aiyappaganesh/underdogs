@@ -19,13 +19,12 @@
                                 <tr>
                                     <th></th>
                                     <th>Member</th>
-                                    <th>Score1</th>
-                                    <th>Score2</th>
-                                    <th>Score3</th>
+                                    <th>Influence</th>
+                                    <th>Expertise</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for member in members %}
+                                {% for member in users %}
                                 <tr>
                                     <td>{{forloop.counter}}</td>
                                     <td>{{member.name}}</td>
