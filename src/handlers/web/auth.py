@@ -69,6 +69,8 @@ class GitHubCallbackHandler(webapp2.RequestHandler):
 		response = urlfetch.fetch(get_github_access_token_url(code)).content
 		access_token = response.split('&')[0].split('=')[1]
 		fetch_and_save_github_user(access_token)
+		company_id = self.request.get('company_id')
+		self.redirect('/member/add?company_id=' + company_id)
 
 class LinkedInCallbackHandler(webapp2.RequestHandler):
     def get(self):
