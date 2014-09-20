@@ -30,6 +30,9 @@ handlers:
   static_dir: assets/scss
 
 ######################### WEB ENDPOINTS #########################
+- url: /member/.*
+  script: handlers.web.add_member.app
+
 - url: /.*
   script: handlers.web.index.app
 
