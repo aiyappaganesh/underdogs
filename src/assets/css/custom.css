@@ -1,0 +1,30 @@
+.navbar-toggle .icon-bar {
+    background-color: lightblue;
+}
+
+.content {
+    padding-top: 50px;
+}
+
+.landing-selection-box {
+    height: 100px;
+    width: 300px;
+    margin: auto;
+    text-align: center;
+    background-color: #F5F7FA;
+    color: #3BAFDA;
+}
+
+.landing-selection-box p {
+    padding-top: 20px;
+}
+
+@media (min-width: 992px) {
+    .container {
+        width: 960px;
+    }
+}
+
+.top-padded {
+    padding-top: 50px;
+}
