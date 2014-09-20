@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 
+{% block Scripts %}
+{% endblock %}
+
 {% block Content %}
     <div class="container">
         <div class="row">
@@ -35,7 +38,22 @@
                                 <tr>
                                     <td>{{forloop.counter}}</td>
                                     <td>{{member.name}}</td>
-                                    <td>{{member.influence}}</td>
+                                    <td>
+                                        <canvas id="influencedonut{{forloop.counter}}" height="30" width="30" style="width: 30px; height: 30px;"></canvas>
+                                        <script>
+                                            var doughnutData = [
+                                                    {
+                                                        value: {{member.influence}}*100,
+                                                        color:"#68dff0"
+                                                    },
+                                                    {
+                                                        value: 100-{{member.influence}}*100,
+                                                        color:"#bdfdfd"
+                                                    }
+                                                ];
+                                            var influenceDonut = new Chart(document.getElementById("influencedonut{{forloop.counter}}").getContext("2d")).Doughnut(doughnutData);
+                                        </script>
+                                    </td>
                                     <td>{{member.expertise}}</td>
                                 </tr>
                                 {% endfor %}
@@ -47,3 +65,4 @@
         </div>
     </div>
 {% endblock %}
+
