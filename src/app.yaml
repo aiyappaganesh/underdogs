@@ -32,15 +32,19 @@ handlers:
 ######################### WEB ENDPOINTS #########################
 - url: /member/.*
   script: handlers.web.add_member.app
+  secure: always
 
 - url: /users/.*
   script: handlers.web.auth.app
+  secure: always
 
 - url: /add_company
   script: handlers.web.add_member.app
+  secure: always
 
 - url: /.*
   script: handlers.web.index.app
+  secure: always
 
 libraries:
 - name: django
