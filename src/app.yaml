@@ -33,6 +33,9 @@ handlers:
 - url: /member/.*
   script: handlers.web.add_member.app
 
+- url: /users/.*
+  script: handlers.web.auth.app
+
 - url: /add_company
   script: handlers.web.add_member.app
 
