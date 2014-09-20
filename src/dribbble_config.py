@@ -1,0 +1,7 @@
+CLIENT_ID = 'a0839f46ba8e6a62bca7058274f8f7e62534c4019762bf77d2eca0d4bf32da46'
+CLIENT_SECRET = 'ad8a6596e5325a3c7b407ad677880738a51f5b427f0ce82ffbca7d41fdeea6e6'
+CLIENT_ACCESS_TOKEN = 'bd88b6086489f1e110a19f859d49080a051d920450c74db03ad48e0540dc1682'
+REDIRECT_URL = 'https://minyattra.appspot.com/users/dribbble/callback'
+AUTH_URL = 'https://dribbble.com/oauth/authorize'
+ACCESS_TOKEN_URL = 'https://dribbble.com/oauth/token'
+SCOPE = 'public'
