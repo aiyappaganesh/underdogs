@@ -1,6 +1,6 @@
 CLIENT_ID = '0bcbd1db8ddca3570fa9'
 CLIENT_SECRET = '026f27e44b1a07186ebf4ec5fa736cc6bbca5de7'
-REDIRECT_URL = 'https://minyattra.appspot.com/users/github/callback'
+REDIRECT_URL = 'https://minyattra.appspot.com/users/github/callback?company_id='
 SCOPE = 'repo,user:email'
 AUTH_URL = 'https://github.com/login/oauth/authorize'
 ACCESS_TOKEN_URL = 'https://github.com/login/oauth/access_token'

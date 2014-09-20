@@ -24,7 +24,7 @@ class ExposeThirdPartyPage(WebRequestHandler):
         user = users.get_current_user()
         User.get_or_insert(key_name=user.email(), parent=c)
         template_values = {'name':user.nickname(),
-                           'github_auth_url': get_github_auth_url(),
+                           'github_auth_url': get_github_auth_url(company_id),
                            'dribbble_auth_url': get_dribbble_auth_url(),
                            'linkedin_auth_url': get_linkedin_auth_url(company_id)}
         self.write(self.get_rendered_html(path, template_values), 200)
