@@ -28,3 +28,15 @@
 .top-padded {
     padding-top: 50px;
 }
+
+.scores-table {
+}
+
+.scores-table thead {
+    background-color: #f8f9fa;
+}
+
+.scores-table tbody tr {
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+}

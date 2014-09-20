@@ -12,6 +12,32 @@
         <div class="row">
             <div class="col-lg-12">
                 <h2 class="page-header">Members</h2>
+                <div class="container">
+                    <div class="row">
+                        <table class="table table-hover scores-table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Member</th>
+                                    <th>Score1</th>
+                                    <th>Score2</th>
+                                    <th>Score3</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for member in members %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{member.name}}</td>
+                                    <td>{{member.score1}}</td>
+                                    <td>{{member.score2}}</td>
+                                    <td>{{member.score3}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

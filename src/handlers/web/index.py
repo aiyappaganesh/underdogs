@@ -17,7 +17,7 @@ class StartupRegistrationPage(WebRequestHandler):
 class AddMemberPage(WebRequestHandler):
     def get(self):
         path = 'add_member.html'
-        template_values = {}
+        template_values = {'members':[{'name':'Test Name 1','score1':'90','score2':'85','score3':'94'},{'name':'Test Name 2','score1':'84','score2':'95','score3':'74'}]}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 app = webapp2.WSGIApplication(
