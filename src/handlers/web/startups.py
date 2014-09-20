@@ -13,9 +13,16 @@ class StartupsRegistrationPage(WebRequestHandler):
         template_values = {}
         self.write(self.get_rendered_html(path, template_values), 200)
 
+class StartupsCriteriaPage(WebRequestHandler):
+    def get(self):
+        path = 'startups_search_criteria.html'
+        template_values = {}
+        self.write(self.get_rendered_html(path, template_values), 200)
+
 app = webapp2.WSGIApplication(
     [
         ('/startups/registration', StartupsRegistrationPage),
+        ('/startups/search/criteria', StartupsCriteriaPage),
         ('/startups', StartupsPage)
     ]
 )
