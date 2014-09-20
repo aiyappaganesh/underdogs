@@ -10,10 +10,10 @@ import linkedin_config as linkedin
 
 def pull_data(user, third_party_user):
     response = json.loads(urlfetch.fetch(linkedin.PROFILE_URL%('num-connections,num-recommenders,publications,patents,skills,positions,educations,certifications', third_party_user.access_token)).content)
-    connections = response['numConnections']
-    recommenders = response['numRecommenders']
-    patents = response['patents']['_total'] if 'patents' in response else None
-    publications = response['publications']['_total'] if 'publications' in response else None
+    connections = response['numConnections'] if 'numConnections' in response else 0
+    recommenders = response['numRecommenders'] if 'numRecommenders' in response else 0
+    patents = response['patents']['_total'] if 'patents' in response else 0
+    publications = response['publications']['_total'] if 'publications' in response else 0
     skills = [skill['skill']['name'] for skill in response['skills']['values']] if 'skills' in response and response['skills']['_total'] > 0 else None
 
     influence_raw = (4 * connections) + (4 * recommenders) + (1 * patents) + (1 * publications)
