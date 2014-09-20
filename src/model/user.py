@@ -11,3 +11,10 @@ class User(db.Model):
 	    else:
 	        self.influence = (0.5 * self.influence) + (0.5 * influence_score)
 	    self.put()
+
+    def update_expertise_score(self, expertise_score):
+        if not self.expertise:
+            self.expertise = str(expertise_score)
+        else:
+            self.expertise += str(expertise_score)
+        self.put()
