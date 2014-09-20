@@ -28,11 +28,11 @@ def get_dribbble_auth_url():
 	params = {'client_id': dribbble.CLIENT_ID, 'redirect_uri': dribbble.REDIRECT_URL, 'scope': dribbble.SCOPE}
 	return "%s?%s"%(dribbble.AUTH_URL, urllib.urlencode(params))
 
-def get_linkedin_auth_url():
+def get_linkedin_auth_url(company_id):
     params = {'response_type' : linkedin.RESPONSE_TYPE,
               'client_id' : linkedin.CLIENT_ID,
               'scope' : linkedin.SCOPE,
-              'state' : linkedin.STATE,
+              'state' : company_id,
               'redirect_uri' : linkedin.REDIRECT_URI}
     return "%s?%s"%(linkedin.AUTHORIZATION_URL, urllib.urlencode(params))
 
@@ -74,18 +74,14 @@ class GitHubCallbackHandler(webapp2.RequestHandler):
 		access_token = response.split('&')[0].split('=')[1]
 		fetch_and_save_github_user(access_token)
 
-class LinkedInAuthHandler(webapp2.RequestHandler):
-    def get(self):
-        response = urlfetch.fetch(get_linkedin_auth_url()).content
-
 class LinkedInCallbackHandler(webapp2.RequestHandler):
     def get(self):
-        resp_code = str(self.request.get('code'))
-        resp_state = str(self.request.get('state'))
-        if resp_state == linkedin.STATE:
-            response = json.loads(urlfetch.fetch(get_linkedin_access_token_url(self.request.get('code')), method=urlfetch.POST).content)
-            access_token = response['access_token']
-            fetch_and_save_linkedin_user(access_token)
+        company_id = str(self.request.get('state'))
+        logging.info(company_id)
+        response = json.loads(urlfetch.fetch(get_linkedin_access_token_url(self.request.get('code')), method=urlfetch.POST).content)
+        access_token = response['access_token']
+        fetch_and_save_linkedin_user(access_token)
+        self.redirect('/member/add?company_id=' + company_id)
 
 class DribbbleAuthHandler(webapp2.RequestHandler):
 	def get(self):
@@ -107,5 +103,4 @@ app = webapp2.WSGIApplication([	('/users/github/authorize', GitHubAuthHandler),
 								('/users/github/callback', GitHubCallbackHandler),
 								('/users/dribbble/authorize', DribbbleAuthHandler),
 								('/users/dribbble/callback', DribbbleCallbackHandler),
-								('/users/linkedin/authorize', LinkedInAuthHandler),
                                 ('/users/handle_linkedin_auth', LinkedInCallbackHandler)])

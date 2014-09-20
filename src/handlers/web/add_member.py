@@ -26,7 +26,7 @@ class ExposeThirdPartyPage(WebRequestHandler):
         template_values = {'name':user.nickname(),
                            'github_auth_url': get_github_auth_url(),
                            'dribbble_auth_url': get_dribbble_auth_url(),
-                           'linkedin_auth_url': get_linkedin_auth_url()}
+                           'linkedin_auth_url': get_linkedin_auth_url(company_id)}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class AddCompanyPage(WebRequestHandler):
