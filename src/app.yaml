@@ -45,6 +45,10 @@ handlers:
   script: handlers.web.add_member.app
   secure: always
 
+- url: /startups.*
+  script: handlers.web.startups.app
+  secure: always
+
 - url: /.*
   script: handlers.web.index.app
   secure: always
