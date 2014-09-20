@@ -6,6 +6,8 @@ import math
 from google.appengine.api import urlfetch
 from google.appengine.ext import deferred
 
+from model.skill import Skill
+
 import linkedin_config as linkedin
 
 def pull_data(user, third_party_user):
@@ -20,7 +22,9 @@ def pull_data(user, third_party_user):
     influence = math.log(influence_raw)/10.0
     expertise = {}
     for skill in skills:
-    	expertise[skill.lower()] = '0.5'
+        key = skill.lower()
+    	expertise[key] = '0.5'
+        Skill.get_or_insert(key_name=key, name=key)
     
     influence_score = influence if influence < 1.0 else 1.0
     user.update_score(influence_score)

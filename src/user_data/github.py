@@ -5,6 +5,7 @@ import math
 
 from google.appengine.api import urlfetch
 from google.appengine.ext import deferred
+from model.skill import Skill
 
 import github_config as github
 
@@ -35,6 +36,8 @@ def pull_data(user, third_party_user):
     for repo in repos:
         language = repo['language'] if 'language' in repo and repo['language'] else 'un_known'
         language = language.lower()
+        Skill.get_or_insert(key_name=language, name=language)
+        
         owner = repo['owner']['login']
         contributions = json.loads(urlfetch.fetch(github.REPO_STATS_URL%(owner,repo['name'], third_party_user.access_token)).content)
         for contrib in contributions:
