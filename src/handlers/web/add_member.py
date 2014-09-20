@@ -42,7 +42,11 @@ class AddCompanyPage(WebRequestHandler):
 class ListMemberPage(WebRequestHandler):
     def get(self):
         path = 'list_member.html'
-        template_values = {'company_id' : self['company_id']}
+        company_id = self['company_id']
+        c = Company.get_by_id(int(company_id))
+        q = User.all().ancestor(c)
+        template_values = {'company_id' : company_id,
+                           'users' : q.fetch(1000)}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 app = webapp2.WSGIApplication(
