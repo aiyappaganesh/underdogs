@@ -36,12 +36,19 @@ class AddCompanyPage(WebRequestHandler):
         c.email = self['InputEmail']
         c.details = self['InputMessage']
         c.put()
-        self.redirect('/member/add?company_id=' + str(c.key().id()))
+        self.redirect('/member/list?company_id=' + str(c.key().id()))
+
+class ListMemberPage(WebRequestHandler):
+    def get(self):
+        path = 'list_member.html'
+        template_values = {'company_id' : self['company_id']}
+        self.write(self.get_rendered_html(path, template_values), 200)
 
 app = webapp2.WSGIApplication(
     [
         ('/member/add', AddMemberPage),
         ('/member/expose_third_party', ExposeThirdPartyPage),
+        ('/member/list', ListMemberPage),
         ('/add_company', AddCompanyPage)
     ]
 )
