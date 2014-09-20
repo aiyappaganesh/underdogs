@@ -27,5 +27,5 @@ def pull_data(user, third_party_user):
 
     influence_raw = (followers * 4) + (forks * 2) + (stars + 2) + (contributors * 1.5) + (comments * 0.5)
     influence = math.log(influence_raw)/10
-    user.influence = influence if influence < 1.0 else 1.0
-    user.put()
+    influence_score = influence if influence < 1.0 else 1.0
+    user.update_score(influence_score)

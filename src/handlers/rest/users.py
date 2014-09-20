@@ -3,6 +3,7 @@ import logging
 
 from model.third_party_user import ThirdPartyUser
 from model.user import User
+from model.company import Company
 from networks import GITHUB, LINKEDIN
 from user_data import github, linkedin
 
@@ -14,12 +15,15 @@ networks = {
 
 class MemberDataPullHandler(webapp2.RequestHandler):
 	def get(self):
-		network = self.request.get('network')
-		email = self.request.get('email')
-		user = User.get_by_key_name(email)
-		logging.info(email)
-		logging.info(user)
-		third_party_user = ThirdPartyUser.get_by_key_name(network, parent=user)
-		networks[network].pull_data(user, third_party_user)
+		company_id = self.request.get('company_id')
+		company = Company.get_by_id(int(company_id))
+		users = User.all().ancestor(company)
+		for user in users:
+			for network, user_data in networks.iteritems():
+				logging.info(network)
+				logging.info(user.key().name())
+				third_party_user = ThirdPartyUser.get_by_key_name(network, parent=user)
+				logging.info(third_party_user)
+				user_data.pull_data(user, third_party_user)
 
 app = webapp2.WSGIApplication([	('/api/members/pull_data', MemberDataPullHandler)])

@@ -22,6 +22,7 @@ def pull_data(user, third_party_user):
     for skill in skills:
     	expertise = expertise + skill +':0.5,'
     
-    user.influence = influence if influence < 1.0 else 1.0
+    influence_score = influence if influence < 1.0 else 1.0
+    user.update_score(influence_score)
     user.expertise = expertise
     user.put()

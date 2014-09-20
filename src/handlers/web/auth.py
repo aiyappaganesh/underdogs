@@ -9,6 +9,7 @@ from google.appengine.api import urlfetch
 from google.appengine.ext import deferred
 from google.appengine.api import users
 
+from model.company import Company
 import github_config as github
 import dribbble_config as dribbble
 import linkedin_config as linkedin
@@ -46,9 +47,10 @@ def get_linkedin_access_token_url(code):
               'client_secret' : linkedin.CLIENT_SECRET}
     return "%s?%s"%(linkedin.ACCESS_TOKEN_URL, urllib.urlencode(params))
 
-def fetch_and_save_github_user(access_token):
+def fetch_and_save_github_user(access_token, company_id):
 	email = users.get_current_user().email()
-	user = User.get_by_key_name(email)
+	company = Company.get_by_id(int(company_id))
+	user = User.get_by_key_name(email, parent=company)
 	response = json.loads(urlfetch.fetch(github.USER_URL%access_token).content)
 	id, followers = response['login'], response['followers']
 	ThirdPartyUser(key_name=GITHUB, parent=user, access_token=access_token, id=id, followers=followers).put()
@@ -58,9 +60,10 @@ def fetch_and_save_dribbble_user(access_token):
 	user = User.get_by_key_name(email)
 	ThirdPartyUser(key_name=DRIBBBLE, parent=user, access_token=access_token).put()
 
-def fetch_and_save_linkedin_user(access_token):
+def fetch_and_save_linkedin_user(access_token, company_id):
 	email = users.get_current_user().email()
-	user = User.get_by_key_name(email)
+	company = Company.get_by_id(int(company_id))
+	user = User.get_by_key_name(email, parent=company)
 	ThirdPartyUser(key_name=LINKEDIN, parent=user, access_token=access_token).put()
 
 class GitHubCallbackHandler(webapp2.RequestHandler):
@@ -68,8 +71,8 @@ class GitHubCallbackHandler(webapp2.RequestHandler):
 		code = self.request.get('code')
 		response = urlfetch.fetch(get_github_access_token_url(code)).content
 		access_token = response.split('&')[0].split('=')[1]
-		fetch_and_save_github_user(access_token)
 		company_id = self.request.get('company_id')
+		fetch_and_save_github_user(access_token, company_id)
 		self.redirect('/member/add?company_id=' + company_id)
 
 class LinkedInCallbackHandler(webapp2.RequestHandler):
@@ -78,7 +81,7 @@ class LinkedInCallbackHandler(webapp2.RequestHandler):
         logging.info(company_id)
         response = json.loads(urlfetch.fetch(get_linkedin_access_token_url(self.request.get('code')), method=urlfetch.POST).content)
         access_token = response['access_token']
-        fetch_and_save_linkedin_user(access_token)
+        fetch_and_save_linkedin_user(access_token, company_id)
         self.redirect('/member/add?company_id=' + company_id)
 
 class DribbbleAuthHandler(webapp2.RequestHandler):
