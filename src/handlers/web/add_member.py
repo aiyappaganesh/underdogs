@@ -22,7 +22,7 @@ class ExposeThirdPartyPage(WebRequestHandler):
         c = Company.get_by_id(int(company_id))
         path = 'expose_social_data.html'
         user = users.get_current_user()
-        User.get_or_insert(key_name=user.email(), parent=c)
+        User.get_or_insert(key_name=user.email(), parent=c, name=user.nickname())
         template_values = {'name':user.nickname(),
                            'github_auth_url': get_github_auth_url(company_id),
                            'dribbble_auth_url': get_dribbble_auth_url(),
