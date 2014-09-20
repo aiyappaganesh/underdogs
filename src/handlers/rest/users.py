@@ -23,6 +23,6 @@ class MemberDataPullHandler(webapp2.RequestHandler):
 				third_party_user = ThirdPartyUser.get_by_key_name(network, parent=user)
 				if third_party_user:
 					user_data.pull_data(user, third_party_user)
-		self.redirect('/member/list?company_id' + company_id)
+		self.redirect('/member/list?company_id=' + str(company_id))
 
 app = webapp2.WSGIApplication([	('/api/members/pull_data', MemberDataPullHandler)])
