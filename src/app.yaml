@@ -12,6 +12,9 @@ builtins:
 handlers:
 
 ######################### REST ENDPOINTS #########################
+- url: /api/members/.*
+  script: handlers.rest.users.app
+  secure: always
 
 ######################### STATIC ENDPOINTS #########################
 - url: /assets/css
