@@ -33,7 +33,8 @@ def pull_data(user, third_party_user):
     expertise = {}
     repos = json.loads(urlfetch.fetch(github.REPOS_URL%third_party_user.access_token).content)
     for repo in repos:
-        language = repo['language'] if 'language' in repo else 'un_known'
+        language = repo['language'] if 'language' in repo and repo['language'] else 'un_known'
+        language = language.lower()
         owner = repo['owner']['login']
         contributions = json.loads(urlfetch.fetch(github.REPO_STATS_URL%(owner,repo['name'], third_party_user.access_token)).content)
         for contrib in contributions:

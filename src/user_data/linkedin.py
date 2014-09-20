@@ -18,11 +18,11 @@ def pull_data(user, third_party_user):
 
     influence_raw = (4 * connections) + (4 * recommenders) + (1 * patents) + (1 * publications)
     influence = math.log(influence_raw)/10.0
-    expertise = ''
+    expertise = {}
     for skill in skills:
-    	expertise = expertise + skill +':0.5,'
+    	expertise[skill.lower()] = '0.5'
     
     influence_score = influence if influence < 1.0 else 1.0
     user.update_score(influence_score)
-    user.expertise = expertise
-    user.put()
+    user.update_expertise_score(expertise)
+
