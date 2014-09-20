@@ -13,50 +13,10 @@
                             <h5>Expertise
                                 <small>Select the skills most needed for your projects</small>
                             </h5>
-                            <select name="criteria-1">
-                                <option>Option1</option>
-                                <option>Option2</option>
-                                <option>Option3</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-4 col-sm-6 text-center">
-                            <h5>Criteria Name
-                                <small>Criteria Description</small>
-                            </h5>
-                            <select name="criteria-1">
-                                <option>Option1</option>
-                                <option>Option2</option>
-                                <option>Option3</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-4 col-sm-6 text-center">
-                            <h5>Criteria Name
-                                <small>Criteria Description</small>
-                            </h5>
-                            <select name="criteria-1">
-                                <option>Option1</option>
-                                <option>Option2</option>
-                                <option>Option3</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-4 col-sm-6 text-center">
-                            <h5>Criteria Name
-                                <small>Criteria Description</small>
-                            </h5>
-                            <select name="criteria-1">
-                                <option>Option1</option>
-                                <option>Option2</option>
-                                <option>Option3</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-4 col-sm-6 text-center">
-                            <h5>Criteria Name
-                                <small>Criteria Description</small>
-                            </h5>
-                            <select name="criteria-1">
-                                <option>Option1</option>
-                                <option>Option2</option>
-                                <option>Option3</option>
+                            <select name="Skill">
+                                {% for skill in skills %}
+                                    <option>{{ skill.name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
