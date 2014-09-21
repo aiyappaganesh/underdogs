@@ -1,6 +1,8 @@
 import webapp2
 import logging
 
+from google.appengine.ext import deferred
+
 from model.third_party_user import ThirdPartyUser
 from model.user import User
 from model.company import Company
@@ -24,7 +26,9 @@ class MemberDataPullHandler(webapp2.RequestHandler):
             for network, user_data in networks.iteritems():
                 third_party_user = ThirdPartyUser.get_by_key_name(network, parent=user)
                 if third_party_user:
-                    user_data.pull_data(user, third_party_user)
+                	deferred.defer(user_data.pull_data, user, third_party_user)
+            if not user.influence or not user.expertise:
+            	continue
             influence_total += user.influence
             for expertise in user.expertise:
             	skill, score = expertise.split(' : ')

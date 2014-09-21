@@ -4,7 +4,6 @@ import urllib2
 import math
 
 from google.appengine.api import urlfetch
-from google.appengine.ext import deferred
 from model.skill import Skill
 
 import github_config as github
