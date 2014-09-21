@@ -55,7 +55,22 @@ body a {
 }
 
 .btn-bootflat {
+    color: rgb(59, 175, 218);
+    background-color: transparent;
+    border-color: #3bafda;
+    transition: 0.1s background-color linear;
+    height: 44px;
+    width: 200px;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 3px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.btn-bootflat:hover, .btn-bootflat:active {
     background-color: #3bafda;
+    color: #ffffff;
     border-color: #3bafda;
 }
 
@@ -70,4 +85,8 @@ body a {
 
 table td {
     vertical-align: middle !important;
+}
+
+.score-text {
+    font-size: 40px;
 }

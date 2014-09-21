@@ -7,21 +7,24 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="page-header">{{name}}
+                <h3>{{name}}</h3>
+                <h3 class="page-header">
                     <small>Influence:</small>
                     <canvas id="companyinfluencedonut{{forloop.counter}}" height="80" width="80" class="donut_canvas"></canvas>
+                    <span class="score-text" id="companyinfluencedonuttext{{forloop.counter}}"></span>
                     <script>
                         var doughnutData = [
                                 {
-                                    value: {{influence}}*100,
+                                    value: parseInt({{influence}}*100),
                                     color:"#68dff0"
                                 },
                                 {
-                                    value: 100-{{influence}}*100,
+                                    value: 100-parseInt({{influence}}*100),
                                     color:"#bdfdfd"
                                 }
                             ];
                         var companyInfluenceDonut = new Chart(document.getElementById("companyinfluencedonut{{forloop.counter}}").getContext("2d")).Doughnut(doughnutData);
+                        document.getElementById("companyinfluencedonuttext{{forloop.counter}}").innerHTML = parseInt({{influence}}*100)+'%';
                     </script>
                     <small>Expertise:</small>
                     <select id="company-expertise-select">
@@ -37,6 +40,7 @@
                     {% endfor %}
                     </select>
                     <canvas id="companyexpertisedonut" height="80" width="80" class="donut_canvas"></canvas>
+                    <span class="score-text" id="companyexpertisedonuttext{{forloop.counter}}"></span>
                     <script>
                         document.getElementById("company-expertise-select").onchange = function() {
                             var doughnutData = [
@@ -50,9 +54,10 @@
                                 }
                             ];
                             var companyExpertiseDonut = new Chart(document.getElementById("companyexpertisedonut").getContext("2d")).Doughnut(doughnutData);
+                            document.getElementById("companyexpertisedonuttext{{forloop.counter}}").innerHTML = parseInt(this.value)+'%';
                         }
                     </script>
-                </h2>
+                </h3>
             </div>
         </div>
         <div class="row">
@@ -90,18 +95,20 @@
                                     <td>{{member.name}}</td>
                                     <td>
                                         <canvas id="influencedonut{{forloop.counter}}" height="80" width="80" class="donut_canvas"></canvas>
+                                        <span class="score-text" id="influencedonuttext{{forloop.counter}}"></span>
                                         <script>
                                             var doughnutData = [
                                                     {
-                                                        value: {{member.influence}}*100,
+                                                        value: parseInt({{member.influence}}*100),
                                                         color:"#68dff0"
                                                     },
                                                     {
-                                                        value: 100-{{member.influence}}*100,
+                                                        value: 100-parseInt({{member.influence}}*100),
                                                         color:"#bdfdfd"
                                                     }
                                                 ];
                                             var influenceDonut = new Chart(document.getElementById("influencedonut{{forloop.counter}}").getContext("2d")).Doughnut(doughnutData);
+                                            document.getElementById("influencedonuttext{{forloop.counter}}").innerHTML = parseInt({{member.influence}}*100)+'%';
                                         </script>
                                     </td>
                                     <td>
@@ -118,6 +125,7 @@
                                         {% endfor %}
                                         </select>
                                         <canvas id="expertisedonut" height="80" width="80" class="donut_canvas"></canvas>
+                                        <span class="score-text" id="expertisedonuttext{{forloop.counter}}"></span>
                                         <script>
                                             document.getElementById("expertise-select").onchange = function() {
                                                 var doughnutData = [
@@ -131,6 +139,7 @@
                                                     }
                                                 ];
                                                 var expertiseDonut = new Chart(document.getElementById("expertisedonut").getContext("2d")).Doughnut(doughnutData);
+                                                document.getElementById("expertisedonuttext{{forloop.counter}}").innerHTML = parseInt(this.value)+'%';
                                             }
                                         </script>
                                     </td>
