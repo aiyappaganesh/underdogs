@@ -67,3 +67,7 @@ body a {
     width: 30px; 
     height: 30px;
 }
+
+table td {
+    vertical-align: middle !important;
+}
