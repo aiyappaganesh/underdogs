@@ -112,22 +112,22 @@
                                         </script>
                                     </td>
                                     <td>
-                                        <select id="expertise-select">
-                                        <option id="item0" value="">Select Expertise</option>
+                                        <select id="expertise-select{{forloop.counter}}">
+                                        <option id="item{{forloop.parentloop.counter}}0" value="">Select Expertise</option>
                                         {% for item in member.expertise %}
-                                        <option id="item{{forloop.counter}}" value=""></option>
+                                        <option id="item{{forloop.parentloop.counter}}{{forloop.counter}}" value=""></option>
                                         <script>
                                             var str = '{{item}}';
                                             var arr = str.split(' : ');
-                                            document.getElementById("item{{forloop.counter}}").innerHTML = arr[0];
-                                            document.getElementById("item{{forloop.counter}}").setAttribute('value', parseFloat(arr[1])*100);
+                                            document.getElementById("item{{forloop.parentloop.counter}}{{forloop.counter}}").innerHTML = arr[0];
+                                            document.getElementById("item{{forloop.parentloop.counter}}{{forloop.counter}}").setAttribute('value', parseFloat(arr[1])*100);
                                         </script>
                                         {% endfor %}
                                         </select>
-                                        <canvas id="expertisedonut" height="80" width="80" class="donut_canvas"></canvas>
+                                        <canvas id="expertisedonut{{forloop.counter}}" height="80" width="80" class="donut_canvas"></canvas>
                                         <span class="score-text" id="expertisedonuttext{{forloop.counter}}"></span>
                                         <script>
-                                            document.getElementById("expertise-select").onchange = function() {
+                                            document.getElementById("expertise-select{{forloop.counter}}").onchange = function() {
                                                 var doughnutData = [
                                                     {
                                                         value: parseInt(this.value),
@@ -138,7 +138,7 @@
                                                         color:"#bdfdfd"
                                                     }
                                                 ];
-                                                var expertiseDonut = new Chart(document.getElementById("expertisedonut").getContext("2d")).Doughnut(doughnutData);
+                                                var expertiseDonut = new Chart(document.getElementById("expertisedonut{{forloop.counter}}").getContext("2d")).Doughnut(doughnutData);
                                                 document.getElementById("expertisedonuttext{{forloop.counter}}").innerHTML = parseInt(this.value)+'%';
                                             }
                                         </script>
