@@ -94,3 +94,11 @@ table td {
 .sd-btn {
     padding-top: 10px;
 }
+
+small {
+    color: #8d8d8d !important;
+}
+
+a small {
+    color: #51b9db !important;
+}

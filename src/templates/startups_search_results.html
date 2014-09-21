@@ -25,7 +25,8 @@
                                     <td>{{forloop.counter}}</td>
                                     <td>{{startup.0.name}}</td>
                                     <td>
-                                        <canvas id="influencedonut{{forloop.counter}}" height="80" width="80" style="width: 30px; height: 30px;"></canvas>
+                                        <canvas id="influencedonut{{forloop.counter}}" height="80" width="80" class="donut_canvas"></canvas>
+                                        <span class="score-text" id="influencedonuttext{{forloop.counter}}"></span>
                                         <script>
                                             var doughnutData = [
                                                     {
@@ -38,10 +39,12 @@
                                                     }
                                                 ];
                                             var influenceDonut = new Chart(document.getElementById("influencedonut{{forloop.counter}}").getContext("2d")).Doughnut(doughnutData);
+                                            document.getElementById("influencedonuttext{{forloop.counter}}").innerHTML = parseInt({{startup.0.influence_avg}}*100)+'%';
                                         </script>
                                     </td>
                                     <td>
-                                        <canvas id="expertisedonut{{forloop.counter}}" height="80" width="80" style="width: 30px; height: 30px;"></canvas>
+                                        <canvas id="expertisedonut{{forloop.counter}}" height="80" width="80" class="donut_canvas"></canvas>
+                                        <span class="score-text" id="expertisedonuttext{{forloop.counter}}"></span>
                                         <script>
                                                 var doughnutData = [
                                                     {
@@ -54,6 +57,7 @@
                                                     }
                                                 ];
                                                 var expertiseDonut = new Chart(document.getElementById("expertisedonut{{forloop.counter}}").getContext("2d")).Doughnut(doughnutData);
+                                                document.getElementById("expertisedonuttext{{forloop.counter}}").innerHTML = parseInt({{startup.1}}*100)+'%';
                                         </script>
                                     </td>
                                 </tr>
