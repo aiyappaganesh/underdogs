@@ -7,21 +7,71 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="page-header">Add team member
+                <h2 class="page-header">{{name}}
+                    <small>Influence:</small>
+                    <canvas id="companyinfluencedonut{{forloop.counter}}" height="80" width="80" class="donut_canvas"></canvas>
+                    <script>
+                        var doughnutData = [
+                                {
+                                    value: {{influence}}*100,
+                                    color:"#68dff0"
+                                },
+                                {
+                                    value: 100-{{influence}}*100,
+                                    color:"#bdfdfd"
+                                }
+                            ];
+                        var companyInfluenceDonut = new Chart(document.getElementById("companyinfluencedonut{{forloop.counter}}").getContext("2d")).Doughnut(doughnutData);
+                    </script>
+                    <small>Expertise:</small>
+                    <select id="company-expertise-select">
+                    <option id="companyitem0" value="">Select Expertise</option>
+                    {% for item in expertise %}
+                    <option id="companyitem{{forloop.counter}}" value=""></option>
+                    <script>
+                        var str = '{{item}}';
+                        var arr = str.split(' : ');
+                        document.getElementById("companyitem{{forloop.counter}}").innerHTML = arr[0];
+                        document.getElementById("companyitem{{forloop.counter}}").setAttribute('value', parseFloat(arr[1])*100);
+                    </script>
+                    {% endfor %}
+                    </select>
+                    <canvas id="companyexpertisedonut" height="80" width="80" class="donut_canvas"></canvas>
+                    <script>
+                        document.getElementById("company-expertise-select").onchange = function() {
+                            var doughnutData = [
+                                {
+                                    value: parseInt(this.value),
+                                    color:"#68dff0"
+                                },
+                                {
+                                    value: 100-parseInt(this.value),
+                                    color:"#bdfdfd"
+                                }
+                            ];
+                            var companyExpertiseDonut = new Chart(document.getElementById("companyexpertisedonut").getContext("2d")).Doughnut(doughnutData);
+                        }
+                    </script>
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h4 class="page-header">Add team member
                     <a href="/member/add?company_id={{ company_id }}"><small>Click here</small></a>
-                </h2>
+                </h4>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="page-header">Acquire data
+                <h4 class="page-header">Acquire data
                     <a href="/api/members/pull_data?company_id={{ company_id }}"><small>Click here</small></a>
-                </h2>
+                </h4>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="page-header">Team members</h2>
+                <h4 class="page-header">Team members</h4>
                 <div class="container">
                     <div class="row">
                         <table class="table table-hover scores-table">
@@ -56,6 +106,7 @@
                                     </td>
                                     <td>
                                         <select id="expertise-select">
+                                        <option id="item0" value="">Select Expertise</option>
                                         {% for item in member.expertise %}
                                         <option id="item{{forloop.counter}}" value=""></option>
                                         <script>
@@ -66,7 +117,7 @@
                                         </script>
                                         {% endfor %}
                                         </select>
-                                        <canvas id="expertisedonut" height="80" width="80" style="width: 30px; height: 30px;"></canvas>
+                                        <canvas id="expertisedonut" height="80" width="80" class="donut_canvas"></canvas>
                                         <script>
                                             document.getElementById("expertise-select").onchange = function() {
                                                 var doughnutData = [
@@ -93,4 +144,3 @@
         </div>
     </div>
 {% endblock %}
-

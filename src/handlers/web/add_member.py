@@ -46,8 +46,9 @@ class ListMemberPage(WebRequestHandler):
         c = Company.get_by_id(int(company_id))
         q = User.all().ancestor(c)
         template_values = { 'company_id' : company_id,
-                            'influence_average': c.influence_avg if c.influence_avg else 0.0,
-                            'expertise_average': c.expertise_avg if c.expertise_avg else 0.0,
+                            'name' : c.name,
+                            'influence': c.influence_avg if c.influence_avg else 0.0,
+                            'expertise': c.expertise_avg if c.expertise_avg else [],
                             'users' : q.fetch(1000)}
         self.write(self.get_rendered_html(path, template_values), 200)
 
