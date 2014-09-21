@@ -7,21 +7,21 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="page-header">Add a member?
+                <h2 class="page-header">Add team member
                     <a href="/member/add?company_id={{ company_id }}"><small>Click here</small></a>
                 </h2>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="page-header">Pull data for all?
+                <h2 class="page-header">Acquire data
                     <a href="/api/members/pull_data?company_id={{ company_id }}"><small>Click here</small></a>
                 </h2>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="page-header">Members</h2>
+                <h2 class="page-header">Team members</h2>
                 <div class="container">
                     <div class="row">
                         <table class="table table-hover scores-table">
@@ -37,9 +37,9 @@
                                 {% for member in users %}
                                 <tr>
                                     <td>{{forloop.counter}}</td>
-                                    <td>{{member.name}}</td>
+                                    <td valign="bottom">{{member.name}}</td>
                                     <td>
-                                        <canvas id="influencedonut{{forloop.counter}}" height="30" width="30" style="width: 30px; height: 30px;"></canvas>
+                                        <canvas id="influencedonut{{forloop.counter}}" height="80" width="80" class="donut_canvas"></canvas>
                                         <script>
                                             var doughnutData = [
                                                     {
@@ -66,7 +66,7 @@
                                         </script>
                                         {% endfor %}
                                         </select>
-                                        <canvas id="expertisedonut" height="30" width="30" style="width: 30px; height: 30px;"></canvas>
+                                        <canvas id="expertisedonut" height="80" width="80" style="width: 30px; height: 30px;"></canvas>
                                         <script>
                                             document.getElementById("expertise-select").onchange = function() {
                                                 var doughnutData = [
