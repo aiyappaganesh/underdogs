@@ -41,32 +41,19 @@
                                         </script>
                                     </td>
                                     <td>
-                                        <select id="expertise-select">
-                                        {% for item in startup.0.expertise %}
-                                        <option id="item{{forloop.counter}}" value=""></option>
+                                        <canvas id="expertisedonut{{forloop.counter}}" height="30" width="30" style="width: 30px; height: 30px;"></canvas>
                                         <script>
-                                            var str = '{{item}}';
-                                            var arr = str.split(' : ');
-                                            document.getElementById("item{{forloop.counter}}").innerHTML = arr[0];
-                                            document.getElementById("item{{forloop.counter}}").setAttribute('value', parseFloat(arr[1])*100);
-                                        </script>
-                                        {% endfor %}
-                                        </select>
-                                        <canvas id="expertisedonut" height="30" width="30" style="width: 30px; height: 30px;"></canvas>
-                                        <script>
-                                            document.getElementById("expertise-select").onchange = function() {
                                                 var doughnutData = [
                                                     {
-                                                        value: parseInt(this.value),
+                                                        value: {{ startup.1 }}*100,
                                                         color:"#68dff0"
                                                     },
                                                     {
-                                                        value: 100-parseInt(this.value),
+                                                        value: 100-{{ startup.1 }}*100,
                                                         color:"#bdfdfd"
                                                     }
                                                 ];
-                                                var expertiseDonut = new Chart(document.getElementById("expertisedonut").getContext("2d")).Doughnut(doughnutData);
-                                            }
+                                                var expertiseDonut = new Chart(document.getElementById("expertisedonut{{forloop.counter}}").getContext("2d")).Doughnut(doughnutData);
                                         </script>
                                     </td>
                                 </tr>

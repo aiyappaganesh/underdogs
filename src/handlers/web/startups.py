@@ -44,7 +44,6 @@ class StartupsSearchResultsPage(WebRequestHandler):
                 score = float(expertise_dict[skill])
             sorted_companies[c] = score
         sorted_companies = sorted(sorted_companies.iteritems(), key=operator.itemgetter(1), reverse = True)
-        logging.info(sorted_companies)
         template_values = {'startups' : sorted_companies}
         self.write(self.get_rendered_html(path, template_values), 200)
 
