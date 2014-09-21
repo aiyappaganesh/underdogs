@@ -13,7 +13,7 @@ body a {
 }
 
 .content {
-    padding-top: 100px;
+    padding-top: 30px;
 }
 
 .landing-selection {
@@ -89,4 +89,8 @@ table td {
 
 .score-text {
     font-size: 40px;
+}
+
+.sd-btn {
+    padding-top: 10px;
 }
