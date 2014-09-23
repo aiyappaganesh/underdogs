@@ -9,12 +9,8 @@ from handlers.web.auth import get_github_auth_url, get_dribbble_auth_url, get_li
 
 class AddMemberPage(WebRequestHandler):
     def get(self):
-        user = users.get_current_user()
-        company_id = self['company_id']
-        if user:
-            self.redirect('/member/expose_third_party?company_id=' + company_id)
-        else:
-            self.redirect(users.create_login_url('/member/expose_third_party?company_id=' + company_id))
+        path = 'sign_in.html'
+        self.write(self.get_rendered_html(path, None), 200)
 
 class ExposeThirdPartyPage(WebRequestHandler):
     def get(self):
