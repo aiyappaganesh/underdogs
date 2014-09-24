@@ -41,10 +41,17 @@ class ListMemberPage(WebRequestHandler):
                             'users' : q.fetch(1000)}
         self.write(self.get_rendered_html(path, template_values), 200)
 
+class MemberLoginPageHandler(WebRequestHandler):
+    def get(self):
+        path = 'member_login.html'
+        template_values = {}
+        self.write(self.get_rendered_html(path, template_values), 200)
+
 app = webapp2.WSGIApplication(
     [
         ('/member/add', AddMemberPage),
         ('/member/expose_third_party', ExposeThirdPartyPage),
-        ('/member/list', ListMemberPage)
+        ('/member/list', ListMemberPage),
+        ('/member/login', MemberLoginPageHandler)
     ]
 )

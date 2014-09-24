@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block Styles %}
+    <link href="/assets/css/exposedata.css" type="text/css" rel="stylesheet">
+    <link href="/assets/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block Content %}
+    <div style="text-align:center;background-size:cover;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div>
+                        <h1>Sign In</h1>
+                        <hr class="intro-divider">
+                        <ul class="list-inline intro-social-buttons">
+                            <li>
+                                <a href="{{facebook_login_url}}" class="btn btn-bootflat sd-btn"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Use Facebook</span></a>
+                            </li>
+                            <li>
+                                <a href="{{twitter_login_url}}" class="btn btn-bootflat sd-btn"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Use Twitter</span></a>
+                            </li>
+                            <li>
+                                <a href="{{linkedin_login_url}}" class="btn btn-bootflat sd-btn"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Use LinkedIn</span></a>
+                            </li>
+                        </ul>
+                        <hr class="intro-divider">
+                        <h1>Sign In With Email</h1>
+                        <form role="form" action="{{login_form_url}}">
+                            <div class="col-lg-12">
+                                {% include "components/form_input.html" with id="email" name="email" placeholder="Email" %}
+                                {% include "components/form_input.html" with type="password" id="password" name="password" placeholder="Password" %}
+                                <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-bootflat">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

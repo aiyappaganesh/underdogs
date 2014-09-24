@@ -18,7 +18,7 @@ body a {
 
 .landing-selection {
     padding-top: 20px;
-    font-size: 50px;
+    font-size: 40px;
     text-transform: uppercase;
 }
 
@@ -101,4 +101,8 @@ small {
 
 a small {
     color: #51b9db !important;
+}
+
+.input-container {
+    width: 100%;
 }
