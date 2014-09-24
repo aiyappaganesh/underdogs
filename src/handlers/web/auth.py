@@ -17,19 +17,58 @@ from model.third_party_user import ThirdPartyUser
 from model.user import User
 from networks import GITHUB, DRIBBBLE, LINKEDIN
 
+networks = {
+    GITHUB: github,
+    LINKEDIN: linkedin
+}
+
+class Auth(object):
+    def __init__(self, network):
+        self.config = networks[network].config
+        self._auth_url = self.config['auth_url']
+        self.token_url = self.config['token_url']
+        self.client_id = self.config['client_id']
+        self.client_secret = self.config['client_secret']
+        self.redirect_url = self.config['redirect_url']
+        self.scope = self.config['scope']
+
+    def get_auth_url(self, **kwargs):
+        params = {  'client_id': self.client_id,
+                    'redirect_uri': "%s?%s"%(self.redirect_url, urllib.urlencode(kwargs.items())) if kwargs else self.redirect_url,
+                    'scope': self.scope
+        }
+        return "%s?%s"%(self._auth_url, urllib.urlencode(params))
+
+class GithubAuth(Auth):
+    def __init__(self):
+        Auth.__init__(self, GITHUB)
+
+class LinkedinAuth(Auth):
+    def __init__(self):
+        Auth.__init__(self, LINKEDIN)
+        self.response_type = self.config['response_type']
+
+    def get_auth_url(self, state=None):
+        auth_url = super(LinkedinAuth, self).get_auth_url()
+        params = {
+            'state': state,
+            'response_type': self.response_type
+        }
+        return "%s&%s"%(auth_url, urllib.urlencode(params))
+
 def get_github_auth_url(company_id):
-	params = {'client_id': github.CLIENT_ID,
+    params = {'client_id': github.CLIENT_ID,
               'redirect_uri': github.REDIRECT_URL + company_id,
               'scope': github.SCOPE}
-	return "%s?%s"%(github.AUTH_URL, urllib.urlencode(params))
+    return "%s?%s"%(github.AUTH_URL, urllib.urlencode(params))
 
 def get_github_access_token_url(code):
-	params = {'code': code, 'client_id': github.CLIENT_ID, 'client_secret': github.CLIENT_SECRET}
-	return "%s?%s"%(github.ACCESS_TOKEN_URL, urllib.urlencode(params))
+    params = {'code': code, 'client_id': github.CLIENT_ID, 'client_secret': github.CLIENT_SECRET}
+    return "%s?%s"%(github.ACCESS_TOKEN_URL, urllib.urlencode(params))
 
 def get_dribbble_auth_url():
-	params = {'client_id': dribbble.CLIENT_ID, 'redirect_uri': dribbble.REDIRECT_URL, 'scope': dribbble.SCOPE}
-	return "%s?%s"%(dribbble.AUTH_URL, urllib.urlencode(params))
+    params = {'client_id': dribbble.CLIENT_ID, 'redirect_uri': dribbble.REDIRECT_URL, 'scope': dribbble.SCOPE}
+    return "%s?%s"%(dribbble.AUTH_URL, urllib.urlencode(params))
 
 def get_linkedin_auth_url(company_id):
     params = {'response_type' : linkedin.RESPONSE_TYPE,
@@ -48,59 +87,61 @@ def get_linkedin_access_token_url(code):
     return "%s?%s"%(linkedin.ACCESS_TOKEN_URL, urllib.urlencode(params))
 
 def fetch_and_save_github_user(access_token, company_id):
-	email = users.get_current_user().email()
-	company = Company.get_by_id(int(company_id))
-	user = User.get_by_key_name(email, parent=company)
-	response = json.loads(urlfetch.fetch(github.USER_URL%access_token).content)
-	id, followers = response['login'], response['followers']
-	ThirdPartyUser(key_name=GITHUB, parent=user, access_token=access_token, id=id, followers=followers).put()
+    email = users.get_current_user().email()
+    company = Company.get_by_id(int(company_id))
+    user = User.get_by_key_name(email, parent=company)
+    response = json.loads(urlfetch.fetch(github.USER_URL%access_token).content)
+    id, followers = response['login'], response['followers']
+    ThirdPartyUser(key_name=GITHUB, parent=user, access_token=access_token, id=id, followers=followers).put()
 
 def fetch_and_save_dribbble_user(access_token):
-	email = users.get_current_user().email()
-	user = User.get_by_key_name(email)
-	ThirdPartyUser(key_name=DRIBBBLE, parent=user, access_token=access_token).put()
+    email = users.get_current_user().email()
+    user = User.get_by_key_name(email)
+    ThirdPartyUser(key_name=DRIBBBLE, parent=user, access_token=access_token).put()
 
 def fetch_and_save_linkedin_user(access_token, company_id):
-	email = users.get_current_user().email()
-	company = Company.get_by_id(int(company_id))
-	user = User.get_by_key_name(email, parent=company)
-	ThirdPartyUser(key_name=LINKEDIN, parent=user, access_token=access_token).put()
+    email = users.get_current_user().email()
+    company = Company.get_by_id(int(company_id))
+    user = User.get_by_key_name(email, parent=company)
+    ThirdPartyUser(key_name=LINKEDIN, parent=user, access_token=access_token).put()
 
 class GitHubCallbackHandler(webapp2.RequestHandler):
-	def get(self):
-		code = self.request.get('code')
-		response = urlfetch.fetch(get_github_access_token_url(code)).content
-		access_token = response.split('&')[0].split('=')[1]
-		company_id = self.request.get('company_id')
-		fetch_and_save_github_user(access_token, company_id)
-		self.redirect('/member/add?company_id=' + company_id)
+    def get(self):
+        code = self.request.get('code')
+        response = urlfetch.fetch(get_github_access_token_url(code)).content
+        access_token = response.split('&')[0].split('=')[1]
+        company_id = self.request.get('company_id')
+        logging.info(company_id)
+        fetch_and_save_github_user(access_token, company_id)
+        self.redirect('/member/add?company_id=' + company_id)
 
 class LinkedInCallbackHandler(webapp2.RequestHandler):
     def get(self):
         company_id = str(self.request.get('state'))
-        logging.info(company_id)
         response = json.loads(urlfetch.fetch(get_linkedin_access_token_url(self.request.get('code')), method=urlfetch.POST).content)
+        logging.info('linkedin response')
+        logging.info(response)
         access_token = response['access_token']
         fetch_and_save_linkedin_user(access_token, company_id)
         self.redirect('/member/add?company_id=' + company_id)
 
 class DribbbleAuthHandler(webapp2.RequestHandler):
-	def get(self):
-		template_values = {'dribbble_auth_url' : get_dribbble_auth_url()}
-		index_path = 'templates/users/login.html'
-		self.response.out.write(template.render(index_path, template_values))
+    def get(self):
+        template_values = {'dribbble_auth_url' : get_dribbble_auth_url()}
+        index_path = 'templates/users/login.html'
+        self.response.out.write(template.render(index_path, template_values))
 
 class DribbbleCallbackHandler(webapp2.RequestHandler):
-	def get(self):
-		code = self.request.get('code')
-		params = {'code': code, 'client_id': dribbble.CLIENT_ID, 'client_secret': dribbble.CLIENT_SECRET}
-		response = json.loads(urlfetch.fetch(dribbble.ACCESS_TOKEN_URL, payload=urllib.urlencode(params), method=urlfetch.POST).content)
-		logging.info('callbak-----')
-		logging.info(response)
-		access_token = response['access_token']
-		fetch_and_save_dribbble_user(access_token)
+    def get(self):
+        code = self.request.get('code')
+        params = {'code': code, 'client_id': dribbble.CLIENT_ID, 'client_secret': dribbble.CLIENT_SECRET}
+        response = json.loads(urlfetch.fetch(dribbble.ACCESS_TOKEN_URL, payload=urllib.urlencode(params), method=urlfetch.POST).content)
+        logging.info('callbak-----')
+        logging.info(response)
+        access_token = response['access_token']
+        fetch_and_save_dribbble_user(access_token)
 
-app = webapp2.WSGIApplication([	('/users/github/callback', GitHubCallbackHandler),
-								('/users/dribbble/authorize', DribbbleAuthHandler),
-								('/users/dribbble/callback', DribbbleCallbackHandler),
+app = webapp2.WSGIApplication([ ('/users/github/callback', GitHubCallbackHandler),
+                                ('/users/dribbble/authorize', DribbbleAuthHandler),
+                                ('/users/dribbble/callback', DribbbleCallbackHandler),
                                 ('/users/handle_linkedin_auth', LinkedInCallbackHandler)])

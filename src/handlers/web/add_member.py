@@ -6,6 +6,7 @@ import logging
 from model.user import User
 from model.company import Company
 from handlers.web.auth import get_github_auth_url, get_dribbble_auth_url, get_linkedin_auth_url
+from handlers.web.auth import GithubAuth, LinkedinAuth
 
 class AddMemberPage(WebRequestHandler):
     def get(self):
@@ -19,10 +20,13 @@ class ExposeThirdPartyPage(WebRequestHandler):
         path = 'expose_social_data.html'
         user = users.get_current_user()
         User.get_or_insert(key_name=user.email(), parent=c, name=user.nickname())
+        github_auth_url = GithubAuth().get_auth_url(company_id=company_id)
+        linkedin_auth_url = LinkedinAuth().get_auth_url(state=company_id)
+        logging.info(get_linkedin_auth_url(company_id))
         template_values = {'name':user.nickname(),
-                           'github_auth_url': get_github_auth_url(company_id),
+                           'github_auth_url': github_auth_url,
                            'dribbble_auth_url': get_dribbble_auth_url(),
-                           'linkedin_auth_url': get_linkedin_auth_url(company_id),
+                           'linkedin_auth_url': linkedin_auth_url,
                            'logout_url': users.create_logout_url('/member/list?company_id=' + company_id)}
         self.write(self.get_rendered_html(path, template_values), 200)
 
