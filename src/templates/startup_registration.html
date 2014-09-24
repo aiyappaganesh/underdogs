@@ -2,64 +2,16 @@
 
 {% block Styles %}
     <link href="/assets/css/jasny-bootstrap.css" type="text/css" rel="stylesheet">
-    <style>
-      #locationField, #controls {
-        position: relative;
-        width: 480px;
-      }
-      #autocomplete {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        width: 99%;
-      }
-      .label {
-        text-align: right;
-        font-weight: bold;
-        width: 100px;
-        color: #303030;
-      }
-      #address {
-        border: 1px solid #000090;
-        background-color: #f0f0ff;
-        width: 480px;
-        padding-right: 2px;
-      }
-      #address td {
-        font-size: 10pt;
-      }
-      .field {
-        width: 99%;
-      }
-      .slimField {
-        width: 80px;
-      }
-      .wideField {
-        width: 200px;
-      }
-      #locationField {
-        height: 20px;
-        margin-bottom: 2px;
-      }
-    </style>
+    <link href="/assets/css/registration.css" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block Content %}
     <div class="container">
-        <div class="row">
-            <form role="form" action={{ form_url }} method="POST" enctype="multipart/form-data">
+        <div class="row registration-form">
+            <form role="form" action={{form_url}} method="POST" enctype="multipart/form-data">
                 <div class="col-lg-12">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <h3>Company Info</h3>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="InputName" id="InputName" placeholder="Company Name" required>
-                            <span class="input-group-addon"><span class="glyphicon"></span></span>
-                        </div>
-                    </div>
+                    <h3>Company Info</h3>
+                    {% include "components/form_input.html" with id="company-name" name="company_name" placeholder="Company Name" %}
                     <div class="form-group">
                         <div class="input-group">
                             <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -78,39 +30,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="InputName" id="InputName" placeholder="Have them at hello!" required>
-                            <span class="input-group-addon"><span class="glyphicon"></span></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="InputEmailFirst" name="InputEmail" placeholder="Website" required>
-                            <span class="input-group-addon"><span class="glyphicon"></span></span>
-                        </div>
-                    </div>
+                    {% include "components/form_input.html" with id="hello" name="hello" placeholder="Have them at hello!" %}
+                    {% include "components/form_input.html" with id="website" name="website" placeholder="Website" %}
                     <div class="form-group">
                         <label for="InputMessage">Profile</label>
-                        <div class="input-group">
+                        <div class="input-group registration-input-container">
                             <textarea name="InputMessage" id="InputMessage" class="form-control" rows="5" placeholder="What makes your company different?" required></textarea>
-                            <span class="input-group-addon"><span class="glyphicon"></span></span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div id="locationField">
-                                <input id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text" placeholder="Location"></input>
-                            </div>
-                            <span class="input-group-addon"><span class="glyphicon"></span></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="InputEmailFirst" name="InputEmail" placeholder="Tags" required>
-                            <span class="input-group-addon"><span class="glyphicon"></span></span>
-                        </div>
-                    </div>
+                    {% include "components/form_input.html" with id="geo-location" name="geo_location" placeholder="Enter your address" other="onFocus='geolocate()'" %}
+                    {% include "components/form_input.html" with id="tags" name="tags" placeholder="Tags" %}
                     <input type="submit" name="submit" id="submit" value="Create Company" class="btn btn-bootflat pull-right">
                 </div>
             </form>
@@ -137,7 +66,7 @@
           // Create the autocomplete object, restricting the search
           // to geographical location types.
           autocomplete = new google.maps.places.Autocomplete(
-              (document.getElementById('autocomplete')),
+              (document.getElementById('geo-location')),
               { types: ['geocode'] });
           // When the user selects an address from the dropdown,
           // populate the address fields in the form.
