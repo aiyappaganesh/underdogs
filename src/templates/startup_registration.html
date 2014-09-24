@@ -38,7 +38,8 @@
                             <textarea name="InputMessage" id="InputMessage" class="form-control" rows="5" placeholder="What makes your company different?" required></textarea>
                         </div>
                     </div>
-                    {% include "components/form_input.html" with id="geo-location" name="geo_location" placeholder="Enter your address" other="onFocus='geolocate()'" %}
+                    {% include "components/form_input.html" with id="geo-location" name="geo_location" placeholder="Enter your address" other="onFocus='geolocate()' onfocusout='needMap()'" %}
+                    <div id="company-map" class="company-map"></div>
                     {% include "components/form_input.html" with id="tags" name="tags" placeholder="Tags" %}
                     <input type="submit" name="submit" id="submit" value="Create Company" class="btn btn-bootflat pull-right">
                 </div>
@@ -67,10 +68,12 @@
           // to geographical location types.
           autocomplete = new google.maps.places.Autocomplete(
               (document.getElementById('geo-location')),
-              { types: ['geocode'] });
+              { types: [] });
           // When the user selects an address from the dropdown,
           // populate the address fields in the form.
           google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            var place = autocomplete.getPlace();
+            initialize_company_map(place);
             //fillInAddress();
           });
         }
@@ -87,6 +90,29 @@
                   geolocation));
             });
           }
+        }
+
+        function needMap() {
+            if($('#geo-location').val() == '') {
+                $('#company-map').hide();
+            }
+        }
+
+        function initialize_company_map(place) {
+            $('#company-map').show();
+            map = new google.maps.Map(document.getElementById("company-map"), {
+                center: place.geometry.location,
+                zoom: 17,
+                zoomControlOptions: {
+                    style: google.maps.ZoomControlStyle.DEFAULT,
+                    position: google.maps.ControlPosition.RIGHT_BOTTOM
+                }
+            });
+            var marker = new google.maps.Marker({
+                map: map
+              });
+            marker.setPosition(place.geometry.location);
+            marker.setVisible(true);
         }
     </script>
 {% endblock %}
