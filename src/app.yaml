@@ -16,6 +16,10 @@ handlers:
   script: handlers.rest.users.app
   secure: always
 
+- url: /api/startups/.*
+  script: handlers.rest.startups.app
+  secure: always
+
 ######################### STATIC ENDPOINTS #########################
 - url: /assets/css
   static_dir: assets/css

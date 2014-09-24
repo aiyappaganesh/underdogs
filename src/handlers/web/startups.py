@@ -2,6 +2,7 @@ import webapp2
 from handlers.web import WebRequestHandler
 from model.skill import Skill
 from model.company import Company
+from google.appengine.api.blobstore import blobstore
 import operator
 import logging
 
@@ -14,7 +15,8 @@ class StartupsPage(WebRequestHandler):
 class StartupsRegistrationPage(WebRequestHandler):
     def get(self):
         path = 'startup_registration.html'
-        template_values = {}
+        form_url = blobstore.create_upload_url('/api/startups/add_company')
+        template_values = {'form_url':form_url}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class StartupsCriteriaPage(WebRequestHandler):

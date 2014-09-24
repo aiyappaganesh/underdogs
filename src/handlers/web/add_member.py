@@ -26,15 +26,6 @@ class ExposeThirdPartyPage(WebRequestHandler):
                            'logout_url': users.create_logout_url('/member/list?company_id=' + company_id)}
         self.write(self.get_rendered_html(path, template_values), 200)
 
-class AddCompanyPage(WebRequestHandler):
-    def get(self):
-        c = Company()
-        c.name = self['InputName']
-        c.email = self['InputEmail']
-        c.details = self['InputMessage']
-        c.put()
-        self.redirect('/member/list?company_id=' + str(c.key().id()))
-
 class ListMemberPage(WebRequestHandler):
     def get(self):
         path = 'list_member.html'
@@ -52,7 +43,6 @@ app = webapp2.WSGIApplication(
     [
         ('/member/add', AddMemberPage),
         ('/member/expose_third_party', ExposeThirdPartyPage),
-        ('/member/list', ListMemberPage),
-        ('/add_company', AddCompanyPage)
+        ('/member/list', ListMemberPage)
     ]
 )
