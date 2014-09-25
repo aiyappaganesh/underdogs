@@ -9,7 +9,6 @@ webapp2_extras.sessions.default_config['cookie_name'] = 'underdogs'
 APP_JSON = "application/json"
 
 class RequestHandlerMixin(object):
-
     def write(self,text=None, status=None, content_type = None):
         http_util.write(self.response, text, status, content_type)
 

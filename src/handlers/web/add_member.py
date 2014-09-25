@@ -3,6 +3,7 @@ from handlers.web import WebRequestHandler
 from google.appengine.api import users
 import logging
 
+from handlers.web.auth import login_required
 from model.user import User
 from model.company import Company
 from handlers.web.auth import GithubAuth, LinkedinAuth, get_dribbble_auth_url
@@ -44,10 +45,12 @@ class ListMemberPage(WebRequestHandler):
 class MemberLoginPageHandler(WebRequestHandler):
     def get(self):
         path = 'member_login.html'
-        template_values = {}
+        redirect_url = self['redirect_url']
+        template_values = {'redirect_url': redirect_url}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberDashboardHandler(WebRequestHandler):
+    @login_required
     def get(self):
         path = 'member_dashboard.html'
         member_id = str(self['member_id'])

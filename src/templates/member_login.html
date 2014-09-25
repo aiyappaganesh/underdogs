@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block Content %}
+{% if redirect_url %} + "redirect_url=" + "{{ redirect_url }}"; {% endif %}
     <script type="text/javascript">
         window.fbAsyncInit = function() {
           FB.init({
@@ -44,7 +45,9 @@
             function handleLoggedInUser(response){
                 var accessToken = response.authResponse.accessToken;
                 var userID = response.authResponse.userID;
-                window.location = "/users/facebook/callback?" + "access_token=" + accessToken + "&id=" + userID + "&network=facebook";
+                var redirect_url = "/users/facebook/callback?" +  "access_token=" + accessToken + "&id=" + userID + "&network=facebook" {% if redirect_url %} + "&redirect_url=" + "{{ redirect_url }}" {% endif %};
+                console.log(redirect_url);
+                window.location = redirect_url;
             }
         }
     </script>

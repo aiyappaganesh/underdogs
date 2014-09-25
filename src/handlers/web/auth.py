@@ -17,12 +17,28 @@ import facebook_config as facebook
 from model.third_party_user import ThirdPartyUser
 from model.user import User
 from networks import GITHUB, DRIBBBLE, LINKEDIN, FACEBOOK
+from handlers import RequestHandler
 
 networks = {
     GITHUB: github,
     LINKEDIN: linkedin,
     FACEBOOK: facebook
 }
+
+def _user_logged_in(handler):
+    if not 'login_id' in handler.session:
+        handler.redirect('/member/login?' + urllib.urlencode({'redirect_url': handler.request.url}))
+        return False
+    user = User.all().filter('login_id =', handler.session['login_id']).get()
+    if not user:
+        return False
+    return True
+
+def login_required(fn):
+    def check_login(self, *args):
+        if _user_logged_in(self):
+            fn(self, *args)
+    return check_login
 
 class Auth(object):
     def __init__(self, network):
@@ -43,9 +59,9 @@ class Auth(object):
         return "%s?%s"%(self._auth_url, urllib.urlencode(params))
 
     def fetch_and_save_user(self, req_handler):
-        response = urlfetch.fetch(self.get_thirdparty_access_token_url(req_handler.request.get('code'))).content
+        response = urlfetch.fetch(self.get_thirdparty_access_token_url(req_handler['code'])).content
         access_token = self.get_access_token(response)
-        company_id = req_handler.request.get(self.company_param)
+        company_id = req_handler[self.company_param]
         self.save_user(access_token, company_id)
         return '/member/add?company_id=' + company_id
 
@@ -59,10 +75,13 @@ class Auth(object):
     def save_user(self, access_token, company_id):
         pass
 
+    def set_session(self, req_handler, login_id):
+        req_handler.session['login_id'] = login_id
+
     @staticmethod
     def get_handler_obj(req_handler):
-        company_id = req_handler.request.get('company_id')
-        network = req_handler.request.get('network')
+        company_id = req_handler['company_id']
+        network = req_handler['network']
         if company_id and len(company_id) > 0:
             return GithubAuth()
         elif network and network == 'facebook':
@@ -88,19 +107,19 @@ class FacebookAuth(Auth):
         Auth.__init__(self, FACEBOOK)
 
     def fetch_and_save_user(self, req_handler):
-        access_token = req_handler.request.get('access_token')
-        id = req_handler.request.get('id')
-        users = User().all().filter('login_id =', id)
-        third_party_users = []
-        redirect_url = '/startups/registration'
+        access_token = req_handler['access_token']
+        login_id = req_handler['id']
+        redirect_url = req_handler['redirect_url']
+        self.set_session(req_handler, login_id)
+        users = User().all().filter('login_id =', login_id)
         if users.count() == 0:
-            user = User(login_id=id).put()
+            User(login_id=login_id).put()
+            return '/startups/registration'
         else:
-            for user in users:
-                if ThirdPartyUser().all().ancestor(user).count() > 0:
-                    redirect_url = '/member/dashboard'
-                    break
-        return redirect_url
+            if redirect_url:
+                return str(redirect_url)
+            else:
+                return '/member/dashboard'
 
 class LinkedinAuth(Auth):
     def __init__(self):
@@ -109,9 +128,9 @@ class LinkedinAuth(Auth):
         self.company_param = 'state'
 
     def fetch_and_save_user(self, req_handler):
-        response = urlfetch.fetch(self.get_thirdparty_access_token_url(req_handler.request.get('code')), method=urlfetch.POST).content
+        response = urlfetch.fetch(self.get_thirdparty_access_token_url(req_handler['code']), method=urlfetch.POST).content
         access_token = self.get_access_token(response)
-        company_id = req_handler.request.get(self.company_param)
+        company_id = req_handler[self.company_param]
         self.save_user(access_token, company_id)
         return '/member/add?company_id=' + company_id
 
@@ -149,21 +168,21 @@ def fetch_and_save_dribbble_user(access_token):
     user = User.get_by_key_name(email)
     ThirdPartyUser(key_name=DRIBBBLE, parent=user, access_token=access_token).put()    
 
-class ThirdPartyRequestHandler(webapp2.RequestHandler):
+class ThirdPartyRequestHandler(RequestHandler):
     def get(self):
         handler = Auth.get_handler_obj(self)
         redirect_uri = handler.fetch_and_save_user(self)
         self.redirect(redirect_uri)
     
-class DribbbleAuthHandler(webapp2.RequestHandler):
+class DribbbleAuthHandler(RequestHandler):
     def get(self):
         template_values = {'dribbble_auth_url' : get_dribbble_auth_url()}
         index_path = 'templates/users/login.html'
         self.response.out.write(template.render(index_path, template_values))
 
-class DribbbleCallbackHandler(webapp2.RequestHandler):
+class DribbbleCallbackHandler(RequestHandler):
     def get(self):
-        code = self.request.get('code')
+        code = self['code']
         params = {'code': code, 'client_id': dribbble.CLIENT_ID, 'client_secret': dribbble.CLIENT_SECRET}
         response = json.loads(urlfetch.fetch(dribbble.ACCESS_TOKEN_URL, payload=urllib.urlencode(params), method=urlfetch.POST).content)
         logging.info('callbak-----')
