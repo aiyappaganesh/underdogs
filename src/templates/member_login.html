@@ -6,6 +6,48 @@
 {% endblock %}
 
 {% block Content %}
+    <script type="text/javascript">
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '329949690519073',
+            xfbml      : false,
+            version    : 'v2.1',
+            status     : false
+          });
+        };
+
+        (function(d, s, id){
+           var js, fjs = d.getElementsByTagName(s)[0];
+           if (d.getElementById(id)) {return;}
+           js = d.createElement(s); js.id = id;
+           js.src = "//connect.facebook.net/en_US/sdk/debug.js";
+           fjs.parentNode.insertBefore(js, fjs);
+         }(document, 'script', 'facebook-jssdk'));
+
+        function facebookLogin(){
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+
+            function statusChangeCallback(response){
+                if(response.status === "not_authorized" || response.status === "unknown"){
+                    FB.login(function(response){    
+                        if(response.status === "connected")
+                            handleLoggedInUser(response);
+                    });
+                }
+                else if(response.status === "connected"){
+                    handleLoggedInUser(response);
+                }
+            }
+
+            function handleLoggedInUser(response){
+                var accessToken = response.authResponse.accessToken;
+                var userID = response.authResponse.userID;
+                window.location = "/users/facebook/callback?" + "access_token=" + accessToken + "&id=" + userID + "&network=facebook";
+            }
+        }
+    </script>
     <div style="text-align:center;background-size:cover;">
         <div class="container">
             <div class="row">
@@ -15,7 +57,7 @@
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
                             <li>
-                                <a href="{{facebook_login_url}}" class="btn btn-bootflat sd-btn"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Use Facebook</span></a>
+                                <button type="button" onclick=facebookLogin()>Use Facebook</button>
                             </li>
                             <li>
                                 <a href="{{twitter_login_url}}" class="btn btn-bootflat sd-btn"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Use Twitter</span></a>

@@ -13,13 +13,15 @@ from model.company import Company
 import github_config as github
 import dribbble_config as dribbble
 import linkedin_config as linkedin
+import facebook_config as facebook
 from model.third_party_user import ThirdPartyUser
 from model.user import User
-from networks import GITHUB, DRIBBBLE, LINKEDIN
+from networks import GITHUB, DRIBBBLE, LINKEDIN, FACEBOOK
 
 networks = {
     GITHUB: github,
-    LINKEDIN: linkedin
+    LINKEDIN: linkedin,
+    FACEBOOK: facebook
 }
 
 class Auth(object):
@@ -60,10 +62,14 @@ class Auth(object):
     @staticmethod
     def get_handler_obj(req_handler):
         company_id = req_handler.request.get('company_id')
+        network = req_handler.request.get('network')
         if company_id and len(company_id) > 0:
             return GithubAuth()
+        elif network and network == 'facebook':
+            return FacebookAuth()
         else:
             return LinkedinAuth()
+
 
 class GithubAuth(Auth):
     def __init__(self):
@@ -76,6 +82,25 @@ class GithubAuth(Auth):
         response = json.loads(urlfetch.fetch(github.USER_URL%access_token).content)
         id, followers = response['login'], response['followers']
         ThirdPartyUser(key_name=GITHUB, parent=user, access_token=access_token, id=id, followers=followers).put()
+
+class FacebookAuth(Auth):
+    def __init__(self):
+        Auth.__init__(self, FACEBOOK)
+
+    def fetch_and_save_user(self, req_handler):
+        access_token = req_handler.request.get('access_token')
+        id = req_handler.request.get('id')
+        users = User().all().filter('login_id =', id)
+        third_party_users = []
+        redirect_url = '/startups/registration'
+        if users.count() == 0:
+            user = User(login_id=id).put()
+        else:
+            for user in users:
+                if ThirdPartyUser().all().ancestor(user).count() > 0:
+                    redirect_url = '/member/dashboard'
+                    break
+        return redirect_url
 
 class LinkedinAuth(Auth):
     def __init__(self):
@@ -147,6 +172,7 @@ class DribbbleCallbackHandler(webapp2.RequestHandler):
         fetch_and_save_dribbble_user(access_token)
 
 app = webapp2.WSGIApplication([ ('/users/github/callback', ThirdPartyRequestHandler),
+                                ('/users/facebook/callback', ThirdPartyRequestHandler),
                                 ('/users/dribbble/authorize', DribbbleAuthHandler),
                                 ('/users/dribbble/callback', DribbbleCallbackHandler),
                                 ('/users/handle_linkedin_auth', ThirdPartyRequestHandler)])
