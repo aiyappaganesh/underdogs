@@ -47,11 +47,29 @@ class MemberLoginPageHandler(WebRequestHandler):
         template_values = {}
         self.write(self.get_rendered_html(path, template_values), 200)
 
+class MemberDashboardHandler(WebRequestHandler):
+    def get(self):
+        path = 'member_dashboard.html'
+        member_id = str(self['member_id'])
+        member_objs = User.all().filter('login_id =',member_id).fetch(100)
+        info_list = []
+        if member_objs:
+            if len(member_objs) > 1:
+                for member in member_objs:
+                    company = member.parent()
+                    info_list.append({'company':company,'member':member})
+            else:
+                company = member_objs.parent()
+                info_list.append({'company':company,'member':member_objs})
+        template_values = {'info_list':info_list,'member_id':member_id}
+        self.write(self.get_rendered_html(path, template_values), 200)
+
 app = webapp2.WSGIApplication(
     [
         ('/member/add', AddMemberPage),
         ('/member/expose_third_party', ExposeThirdPartyPage),
         ('/member/list', ListMemberPage),
-        ('/member/login', MemberLoginPageHandler)
+        ('/member/login', MemberLoginPageHandler),
+        ('/member/dashboard', MemberDashboardHandler)
     ]
 )
