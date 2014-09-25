@@ -26,12 +26,16 @@ networks = {
 }
 
 def _user_logged_in(handler):
+    logging.info(handler.session['login_id'])
     if not 'login_id' in handler.session:
         handler.redirect('/member/login?' + urllib.urlencode({'redirect_url': handler.request.url}))
+        logging.info('returning false one')
         return False
     user = User.all().filter('login_id =', handler.session['login_id']).get()
     if not user:
+        logging.info('returning false two')
         return False
+    logging.info('returning true')
     return True
 
 def login_required(fn):
@@ -76,6 +80,7 @@ class Auth(object):
         pass
 
     def set_session(self, req_handler, login_id):
+        logging.info('Setting the login_id')
         req_handler.session['login_id'] = login_id
 
     @staticmethod
@@ -107,19 +112,31 @@ class FacebookAuth(Auth):
         Auth.__init__(self, FACEBOOK)
 
     def fetch_and_save_user(self, req_handler):
+        create_user = req_handler['create_user']
         access_token = req_handler['access_token']
         login_id = req_handler['id']
         redirect_url = req_handler['redirect_url']
-        self.set_session(req_handler, login_id)
         user = User().all().filter('login_id =', login_id).get()
-        if not user:
-            User(login_id=login_id).put()
-            return '/startups/registration'
-        else:
-            if redirect_url:
-                return str(redirect_url)
+        if create_user == 'false':
+            logging.info('In the false path...')
+            if not user:
+                return '/startups/registration'
             else:
-                return '/member/dashboard'
+                if redirect_url:
+                    return str(redirect_url)
+                else:
+                    return '/member/dashboard'
+        else:
+            logging.info('In the true path...')
+            self.set_session(req_handler, login_id)
+            if not user:
+                User(login_id=login_id).put()
+                return '/startups/registration'
+            else:
+                if redirect_url:
+                    return str(redirect_url)
+                else:
+                    return '/member/dashboard'
 
 class LinkedinAuth(Auth):
     def __init__(self):

@@ -46,7 +46,8 @@ class MemberLoginPageHandler(WebRequestHandler):
     def get(self):
         path = 'member_login.html'
         redirect_url = self['redirect_url']
-        template_values = {'redirect_url': redirect_url}
+        template_values = {'redirect_url': redirect_url,
+                           'create_user': self['create_user']}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberDashboardHandler(WebRequestHandler):

@@ -45,8 +45,7 @@
             function handleLoggedInUser(response){
                 var accessToken = response.authResponse.accessToken;
                 var userID = response.authResponse.userID;
-                var redirect_url = "/users/facebook/callback?" +  "access_token=" + accessToken + "&id=" + userID + "&network=facebook" {% if redirect_url %} + "&redirect_url=" + "{{ redirect_url }}" {% endif %};
-                console.log(redirect_url);
+                var redirect_url = "/users/facebook/callback?" +  "access_token=" + accessToken + "&create_user={{create_user}}" + "&id=" + userID + "&network=facebook" {% if redirect_url %} + "&redirect_url=" + "{{ redirect_url }}" {% endif %};
                 window.location = redirect_url;
             }
         }
