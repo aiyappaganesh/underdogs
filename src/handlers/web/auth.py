@@ -111,8 +111,8 @@ class FacebookAuth(Auth):
         login_id = req_handler['id']
         redirect_url = req_handler['redirect_url']
         self.set_session(req_handler, login_id)
-        users = User().all().filter('login_id =', login_id)
-        if users.count() == 0:
+        user = User().all().filter('login_id =', login_id).get()
+        if not user:
             User(login_id=login_id).put()
             return '/startups/registration'
         else:
