@@ -23,7 +23,7 @@
                                 {% for info in info_list %}
                                 <tr>
                                     <td>{{forloop.counter}}</td>
-                                    <td>{{info.company.name}}</td>
+                                    <td><a href="/member/list?company_id={{info.company.key.id}}">{{info.company.name}}</a></td>
                                     <td>
                                         <canvas id="influencedonut{{forloop.counter}}" height="80" width="80" class="donut_canvas"></canvas>
                                         <span class="score-text" id="influencedonuttext{{forloop.counter}}"></span>

@@ -56,6 +56,7 @@ class MemberDashboardHandler(WebRequestHandler):
         path = 'member_dashboard.html'
         member_id = str(self['member_id'])
         member_objs = User.all().filter('login_id =',member_id).fetch(100)
+        #member_objs = User.all().filter('name =','test@example.com').fetch(100) #use this line for testing on local by indexing name field in user
         info_list = []
         if member_objs:
             if len(member_objs) > 1:
