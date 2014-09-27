@@ -16,9 +16,7 @@ class StartupsPage(WebRequestHandler):
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class StartupsRegistrationPage(WebRequestHandler):
-    @login_required
     def get(self):
-        logging.info('Trying to render')
         path = 'startup_registration.html'
         form_url = blobstore.create_upload_url('/api/startups/add_company')
         template_values = {'form_url': form_url}
