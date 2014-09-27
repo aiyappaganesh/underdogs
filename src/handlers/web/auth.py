@@ -54,6 +54,7 @@ class Auth(object):
         self.redirect_url = self.config['redirect_url']
         self.scope = self.config['scope']
         self.company_param = 'company_id'
+        self.separator = ' : '
 
     def get_auth_url(self, **kwargs):
         params = {  'client_id': self.client_id,
@@ -65,9 +66,9 @@ class Auth(object):
     def fetch_and_save_user(self, req_handler):
         response = urlfetch.fetch(self.get_thirdparty_access_token_url(req_handler['code'])).content
         access_token = self.get_access_token(response)
-        company_id = req_handler[self.company_param]
-        self.save_user(access_token, company_id)
-        return '/member/add?company_id=' + company_id
+        company_id, user_id = req_handler[self.company_param].split(self.separator)
+        self.save_user(access_token, company_id, user_id)
+        return '/member/expose_third_party?company_id=' + company_id + '&user_id=' + user_id
 
     def get_thirdparty_access_token_url(self, code):
         params = {'code': code, 'client_id': self.client_id, 'client_secret': self.client_secret}
@@ -76,7 +77,7 @@ class Auth(object):
     def get_access_token(self, response):
         return response.split('&')[0].split('=')[1]
 
-    def save_user(self, access_token, company_id):
+    def save_user(self, access_token, company_id, user_id):
         pass
 
     def set_session(self, req_handler, login_id):
@@ -87,10 +88,10 @@ class Auth(object):
     def get_handler_obj(req_handler):
         company_id = req_handler['company_id']
         network = req_handler['network']
-        if company_id and len(company_id) > 0:
-            return GithubAuth()
-        elif network and network == 'facebook':
+        if network and network == 'facebook':
             return FacebookAuth()
+        elif company_id and len(company_id) > 0:
+            return GithubAuth()
         else:
             return LinkedinAuth()
 
@@ -99,10 +100,9 @@ class GithubAuth(Auth):
     def __init__(self):
         Auth.__init__(self, GITHUB)
 
-    def save_user(self, access_token, company_id):
-        email = users.get_current_user().email()
+    def save_user(self, access_token, company_id, user_id):
         company = Company.get_by_id(int(company_id))
-        user = User.get_by_key_name(email, parent=company)
+        user = User.get_by_key_name(user_id, parent=company)
         response = json.loads(urlfetch.fetch(github.USER_URL%access_token).content)
         id, followers = response['login'], response['followers']
         ThirdPartyUser(key_name=GITHUB, parent=user, access_token=access_token, id=id, followers=followers).put()
@@ -120,23 +120,19 @@ class FacebookAuth(Auth):
         if create_user == 'false':
             logging.info('In the false path...')
             if not user:
-                return '/startups/registration'
+                return '/member/missing'
             else:
                 if redirect_url:
                     return str(redirect_url)
                 else:
-                    return '/member/dashboard'
+                    return '/member/dashboard?member_id=' + login_id
         else:
             logging.info('In the true path...')
-            self.set_session(req_handler, login_id)
             if not user:
-                User(login_id=login_id).put()
-                return '/startups/registration'
-            else:
-                if redirect_url:
-                    return str(redirect_url)
-                else:
-                    return '/member/dashboard'
+                company_id = req_handler['company_id']
+                c = Company.get_by_id(int(company_id))
+                User(key_name=login_id, parent=c, login_id=login_id, name=req_handler['name']).put()
+            return '/member/expose_third_party?company_id=' + company_id + '&user_id=' + login_id
 
 class LinkedinAuth(Auth):
     def __init__(self):
@@ -146,15 +142,18 @@ class LinkedinAuth(Auth):
 
     def fetch_and_save_user(self, req_handler):
         response = urlfetch.fetch(self.get_thirdparty_access_token_url(req_handler['code']), method=urlfetch.POST).content
+        logging.info(response)
         access_token = self.get_access_token(response)
-        company_id = req_handler[self.company_param]
-        self.save_user(access_token, company_id)
-        return '/member/add?company_id=' + company_id
+        company_id, user_id = req_handler[self.company_param].split(self.separator)
+        self.save_user(access_token, company_id, user_id)
+        return '/member/expose_third_party?company_id=' + company_id + '&user_id=' + user_id
 
-    def get_auth_url(self, state=None):
+    def get_auth_url(self, **kwargs):
         auth_url = super(LinkedinAuth, self).get_auth_url()
+        company_id = kwargs['company_id']
+        user_id = kwargs['user_id']
         params = {
-            'state': state,
+            'state': company_id + self.separator + user_id,
             'response_type': self.response_type
         }
         return "%s&%s"%(auth_url, urllib.urlencode(params))
@@ -170,10 +169,9 @@ class LinkedinAuth(Auth):
     def get_access_token(self, response):
         return json.loads(response)['access_token']
 
-    def save_user(self, access_token, company_id):
-        email = users.get_current_user().email()
+    def save_user(self, access_token, company_id, user_id):
         company = Company.get_by_id(int(company_id))
-        user = User.get_by_key_name(email, parent=company)
+        user = User.get_by_key_name(user_id, parent=company)
         ThirdPartyUser(key_name=LINKEDIN, parent=user, access_token=access_token).put()
 
 def get_dribbble_auth_url():

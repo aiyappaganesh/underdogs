@@ -43,10 +43,14 @@
             }
 
             function handleLoggedInUser(response){
+                console.log(response);
                 var accessToken = response.authResponse.accessToken;
                 var userID = response.authResponse.userID;
-                var redirect_url = "/users/facebook/callback?" +  "access_token=" + accessToken + "&create_user={{create_user}}" + "&id=" + userID + "&network=facebook" {% if redirect_url %} + "&redirect_url=" + "{{ redirect_url }}" {% endif %};
-                window.location = redirect_url;
+                FB.api('/me', function(response) {
+                    var name = JSON.stringify(response.name);
+                    var redirect_url = "/users/facebook/callback?name=" + name + "&company_id={{company_id}}&access_token=" + accessToken + "&create_user={{create_user}}" + "&id=" + userID + "&network=facebook" {% if redirect_url %} + "&redirect_url=" + "{{ redirect_url }}" {% endif %};
+                    window.location = redirect_url;
+                });
             }
         }
     </script>

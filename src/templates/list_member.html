@@ -4,6 +4,46 @@
 {% endblock %}
 
 {% block Content %}
+    <script type="text/javascript">
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '329949690519073',
+            xfbml      : false,
+            version    : 'v2.1',
+            status     : false
+          });
+        };
+
+        (function(d, s, id){
+           var js, fjs = d.getElementsByTagName(s)[0];
+           if (d.getElementById(id)) {return;}
+           js = d.createElement(s); js.id = id;
+           js.src = "//connect.facebook.net/en_US/sdk/debug.js";
+           fjs.parentNode.insertBefore(js, fjs);
+         }(document, 'script', 'facebook-jssdk'));
+
+        function add_member(){
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+
+            function statusChangeCallback(response){
+                if(response.status === "not_authorized" || response.status === "unknown"){
+                    window.location = '/member/login?create_user=true&company_id={{company_id}}';
+                }
+                else if(response.status === "connected"){
+                    var accessToken = response.authResponse.accessToken;
+                    var userID = response.authResponse.userID;
+                    FB.api('/me', function(response) {
+                    var name = JSON.stringify(response.name);
+                    var redirect_url = "/users/facebook/callback?name=" + name + "&company_id={{company_id}}&access_token=" + accessToken + "&create_user=true" + "&id=" + userID + "&network=facebook" {% if redirect_url %} + "&redirect_url=" + "{{ redirect_url }}" {% endif %};
+                    window.location = redirect_url;
+                });
+                }
+            }
+            return false;
+        }
+    </script>
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -63,7 +103,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h4 class="page-header">Add team member
-                    <a href="/member/add?company_id={{ company_id }}"><small>Click here</small></a>
+                    <a href="/member/add?company_id={{ company_id }}" onclick="return add_member();"><small>Click here</small></a>
                 </h4>
             </div>
         </div>
