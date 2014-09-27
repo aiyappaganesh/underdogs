@@ -55,15 +55,16 @@ class MemberMissingHandler(WebRequestHandler):
 class MemberDashboardHandler(WebRequestHandler):
     def get(self):
         path = 'member_dashboard.html'
-        member_id = str(self['member_id'])
-        member_objs = User.all().filter('login_id =',member_id).fetch(100)
+        name = ''
+        member_objs = User.all().filter('login_id =',self['member_id']).fetch(100)
         #member_objs = User.all().filter('name =','test@example.com').fetch(100) #use this line for testing on local by indexing name field in user
         info_list = []
         if member_objs:
             for member in member_objs:
+                name = member.name
                 company = member.parent()
                 info_list.append({'company':company,'member':member})
-        template_values = {'info_list':info_list,'member_id':member_id}
+        template_values = {'info_list':info_list,'name':name}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 app = webapp2.WSGIApplication(

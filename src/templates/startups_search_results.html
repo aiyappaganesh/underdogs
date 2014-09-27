@@ -23,7 +23,7 @@
                                 {% for startup in startups %}
                                 <tr>
                                     <td>{{forloop.counter}}</td>
-                                    <td>{{startup.0.name}}</td>
+                                    <td><a href="/member/list?company_id={{startup.0.key.id}}">{{startup.0.name}}</td>
                                     <td>
                                         <canvas id="influencedonut{{forloop.counter}}" height="80" width="80" class="donut_canvas"></canvas>
                                         <span class="score-text" id="influencedonuttext{{forloop.counter}}"></span>
