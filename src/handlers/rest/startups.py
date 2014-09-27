@@ -8,7 +8,7 @@ class AddCompanyPage(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
         image = self.get_uploads("company_image")
         image_key = str(image[0].key()) if image else None
         c = Company()
-        c.name = self['InputName']
+        c.name = self['company_name']
         c.email = self['InputEmail']
         c.details = self['InputMessage']
         c.image = image_key
