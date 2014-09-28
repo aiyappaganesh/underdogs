@@ -6,6 +6,7 @@ class User(db.Model):
     influence = db.FloatProperty(indexed=False)
     expertise = db.StringListProperty(indexed=False)
     login_id = db.StringProperty()
+    isAdmin = db.BooleanProperty(required=True)
 
     def update_score(self, influence_score):
         if not self.influence:

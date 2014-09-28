@@ -35,12 +35,15 @@
                     <div class="form-group">
                         <label for="InputMessage">Profile</label>
                         <div class="input-group registration-input-container">
-                            <textarea name="InputMessage" id="InputMessage" class="form-control" rows="5" placeholder="What makes your company different?" required></textarea>
+                            <textarea name="InputMessage" id="InputMessage" class="form-control" rows="5" placeholder="What makes your company different?"></textarea>
                         </div>
                     </div>
                     {% include "components/form_input.html" with id="geo-location" name="geo_location" placeholder="Enter your address" other="onFocus='geolocate()' onfocusout='needMap()'" %}
                     <div id="company-map" class="company-map"></div>
                     {% include "components/form_input.html" with id="tags" name="tags" placeholder="Tags" %}
+                    <input type="hidden" value="{{user_id}}" name="user_id">
+                    <input type="hidden" value="{{name}}" name="name">
+                    <input type="hidden" value="{{access_token}}" name="access_token">
                     <input type="submit" name="submit" id="submit" value="Create Company" class="btn btn-bootflat pull-right">
                 </div>
             </form>

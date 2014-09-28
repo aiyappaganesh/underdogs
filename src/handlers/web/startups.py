@@ -19,7 +19,7 @@ class StartupsRegistrationPage(WebRequestHandler):
     def get(self):
         path = 'startup_registration.html'
         form_url = blobstore.create_upload_url('/api/startups/add_company')
-        template_values = {'form_url': form_url}
+        template_values = {'form_url': form_url, 'user_id': self['user_id'], 'name':self['name'], 'access_token':self['access_token']}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class StartupsCriteriaPage(WebRequestHandler):

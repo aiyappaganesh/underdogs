@@ -117,21 +117,20 @@ class FacebookAuth(Auth):
         login_id = req_handler['id']
         redirect_url = req_handler['redirect_url']
         user = User().all().filter('login_id =', login_id).get()
+        name = req_handler['name']
         if create_user == 'false':
-            logging.info('In the false path...')
             if not user:
-                return '/member/missing'
+                return '/member/missing?user_id=' + login_id + '&name=' + name + '&access_token=' + req_handler['access_token']
             else:
                 if redirect_url:
                     return str(redirect_url)
                 else:
                     return '/member/dashboard?member_id=' + login_id
         else:
-            logging.info('In the true path...')
             if not user:
                 company_id = req_handler['company_id']
                 c = Company.get_by_id(int(company_id))
-                User(key_name=login_id, parent=c, login_id=login_id, name=req_handler['name']).put()
+                User(key_name=login_id, parent=c, login_id=login_id, name=name).put()
             return '/member/expose_third_party?company_id=' + company_id + '&user_id=' + login_id
 
 class LinkedinAuth(Auth):
