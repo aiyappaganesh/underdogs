@@ -11,18 +11,19 @@ from google.appengine.api import users
 
 from model.company import Company
 import github_config as github
-import dribbble_config as dribbble
+import angellist_config as angellist
 import linkedin_config as linkedin
 import facebook_config as facebook
 from model.third_party_user import ThirdPartyUser
 from model.user import User
-from networks import GITHUB, DRIBBBLE, LINKEDIN, FACEBOOK
+from networks import GITHUB, ANGELLIST, LINKEDIN, FACEBOOK
 from handlers import RequestHandler
 
 networks = {
     GITHUB: github,
     LINKEDIN: linkedin,
-    FACEBOOK: facebook
+    FACEBOOK: facebook,
+    ANGELLIST: angellist
 }
 
 def _user_logged_in(handler):
@@ -52,7 +53,7 @@ class Auth(object):
         self.client_id = self.config['client_id']
         self.client_secret = self.config['client_secret']
         self.redirect_url = self.config['redirect_url']
-        self.scope = self.config['scope']
+        self.scope = self.config['scope'] if 'scope' in self.config else ''
         self.company_param = 'company_id'
         self.separator = ' : '
 
@@ -90,6 +91,8 @@ class Auth(object):
         network = req_handler['network']
         if network and network == 'facebook':
             return FacebookAuth()
+        elif ANGELLIST in req_handler[AngellistAuth().company_param]:
+            return AngellistAuth()
         elif company_id and len(company_id) > 0:
             return GithubAuth()
         else:
@@ -141,7 +144,6 @@ class LinkedinAuth(Auth):
 
     def fetch_and_save_user(self, req_handler):
         response = urlfetch.fetch(self.get_thirdparty_access_token_url(req_handler['code']), method=urlfetch.POST).content
-        logging.info(response)
         access_token = self.get_access_token(response)
         company_id, user_id = req_handler[self.company_param].split(self.separator)
         self.save_user(access_token, company_id, user_id)
@@ -173,39 +175,49 @@ class LinkedinAuth(Auth):
         user = User.get_by_key_name(user_id, parent=company)
         ThirdPartyUser(key_name=LINKEDIN, parent=user, access_token=access_token).put()
 
-def get_dribbble_auth_url():
-    params = {'client_id': dribbble.CLIENT_ID, 'redirect_uri': dribbble.REDIRECT_URL, 'scope': dribbble.SCOPE}
-    return "%s?%s"%(dribbble.AUTH_URL, urllib.urlencode(params))
+class AngellistAuth(Auth):
+    def __init__(self):
+        Auth.__init__(self, ANGELLIST)
+        self.company_param = 'state'
 
-def fetch_and_save_dribbble_user(access_token):
-    email = users.get_current_user().email()
-    user = User.get_by_key_name(email)
-    ThirdPartyUser(key_name=DRIBBBLE, parent=user, access_token=access_token).put()    
+    def get_auth_url(self, **kwargs):
+        company_id = kwargs['company_id']
+        user_id = kwargs['user_id']
+        params = {
+            'client_id' : self.config['client_id'],
+            'state': ANGELLIST + self.separator + company_id + self.separator + user_id,
+            'network': ANGELLIST,
+            'response_type': 'code'
+        }
+        return "%s?%s"%(self.config['auth_url'], urllib.urlencode(params))
+
+    def fetch_and_save_user(self, req_handler):
+        response = urlfetch.fetch(self.get_thirdparty_access_token_url(req_handler['code']), method=urlfetch.POST).content
+        logging.info(response)
+        access_token = self.get_access_token(response)
+        network_name, company_id, user_id = req_handler[self.company_param].split(self.separator)
+        self.save_user(access_token, company_id, user_id)
+        return '/member/expose_third_party?company_id=' + company_id + '&user_id=' + user_id
+
+    def get_thirdparty_access_token_url(self, code):
+        params = {'code' : code,
+              'grant_type' : 'authorization_code',
+              'client_id' : self.client_id,
+              'client_secret' : self.client_secret}
+        return "%s?%s"%(self.token_url, urllib.urlencode(params))
+
+    def save_user(self, access_token, company_id, user_id):
+        company = Company.get_by_id(int(company_id))
+        user = User.get_by_key_name(user_id, parent=company)
+        ThirdPartyUser(key_name=ANGELLIST, parent=user, access_token=access_token).put()
 
 class ThirdPartyRequestHandler(RequestHandler):
     def get(self):
         handler = Auth.get_handler_obj(self)
         redirect_uri = handler.fetch_and_save_user(self)
         self.redirect(redirect_uri)
-    
-class DribbbleAuthHandler(RequestHandler):
-    def get(self):
-        template_values = {'dribbble_auth_url' : get_dribbble_auth_url()}
-        index_path = 'templates/users/login.html'
-        self.response.out.write(template.render(index_path, template_values))
-
-class DribbbleCallbackHandler(RequestHandler):
-    def get(self):
-        code = self['code']
-        params = {'code': code, 'client_id': dribbble.CLIENT_ID, 'client_secret': dribbble.CLIENT_SECRET}
-        response = json.loads(urlfetch.fetch(dribbble.ACCESS_TOKEN_URL, payload=urllib.urlencode(params), method=urlfetch.POST).content)
-        logging.info('callbak-----')
-        logging.info(response)
-        access_token = response['access_token']
-        fetch_and_save_dribbble_user(access_token)
 
 app = webapp2.WSGIApplication([ ('/users/github/callback', ThirdPartyRequestHandler),
                                 ('/users/facebook/callback', ThirdPartyRequestHandler),
-                                ('/users/dribbble/authorize', DribbbleAuthHandler),
-                                ('/users/dribbble/callback', DribbbleCallbackHandler),
+                                ('/users/angellist/callback', ThirdPartyRequestHandler),
                                 ('/users/handle_linkedin_auth', ThirdPartyRequestHandler)])

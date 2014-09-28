@@ -6,7 +6,7 @@ import logging
 from handlers.web.auth import login_required
 from model.user import User
 from model.company import Company
-from handlers.web.auth import GithubAuth, LinkedinAuth, get_dribbble_auth_url
+from handlers.web.auth import GithubAuth, LinkedinAuth, AngellistAuth
 from util.util import isAdminAccess
 
 class ExposeThirdPartyPage(WebRequestHandler):
@@ -19,10 +19,11 @@ class ExposeThirdPartyPage(WebRequestHandler):
         githubAuth = GithubAuth()
         github_auth_url = githubAuth.get_auth_url(company_id=company_id + githubAuth.separator + user_id)
         linkedin_auth_url = LinkedinAuth().get_auth_url(company_id=company_id, user_id=user_id)
+        angellist_auth_url = AngellistAuth().get_auth_url(company_id=company_id, user_id=user_id)
         logout_url = '/member/list?company_id=' + company_id + '&user_id=' + user_id
         template_values = {'name':user.name,
                            'github_auth_url': github_auth_url,
-                           'dribbble_auth_url': get_dribbble_auth_url(),
+                           'angellist_auth_url': angellist_auth_url,
                            'linkedin_auth_url': linkedin_auth_url,
                            'logout_url': users.create_logout_url(logout_url)}
         self.write(self.get_rendered_html(path, template_values), 200)
