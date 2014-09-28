@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block Styles %}
+    <link href="/assets/css/registration.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block Content %}
+	<div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+            	<h3>Enter member details and we will send him a mail</h3>
+            </div>
+        </div>
+        <div class="row registration-form">
+            <form role="form" action="/api/members/invite?admin_id={{admin_id}}&amp;company_id={{company_id}}" method="POST" enctype="multipart/form-data" required>
+        		{% include "components/form_input.html" with id="email" name="email" placeholder="Email" %}
+        		<input type="submit" name="submit" id="submit" value="Invite" class="btn btn-bootflat pull-right">
+        	</form>
+        </div>
+    </div>
+{% endblock %}

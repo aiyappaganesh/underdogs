@@ -7,6 +7,7 @@ from handlers.web.auth import login_required
 from model.user import User
 from model.company import Company
 from handlers.web.auth import GithubAuth, LinkedinAuth, get_dribbble_auth_url
+from util.util import isAdminAccess
 
 class ExposeThirdPartyPage(WebRequestHandler):
     def get(self):
@@ -48,7 +49,8 @@ class ListMemberPage(WebRequestHandler):
                             'influence': c.influence_avg if c.influence_avg else 0.0,
                             'expertise': c.expertise_avg if c.expertise_avg else [],
                             'users' : q.fetch(1000),
-                            'access_type' : access_type}
+                            'access_type' : access_type,
+                            'admin_id' : self['user_id']}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberLoginPageHandler(WebRequestHandler):
@@ -81,12 +83,22 @@ class MemberDashboardHandler(WebRequestHandler):
         template_values = {'info_list':info_list,'name':name}
         self.write(self.get_rendered_html(path, template_values), 200)
 
+class MemberInvitePage(WebRequestHandler):
+    def get(self):
+        if not isAdminAccess(self):
+            return
+        path = 'invite_member.html'
+        template_values = {'admin_id' : self['admin_id'],
+                           'company_id' : self['company_id']}
+        self.write(self.get_rendered_html(path, template_values), 200)
+
 app = webapp2.WSGIApplication(
     [
         ('/member/expose_third_party', ExposeThirdPartyPage),
         ('/member/list', ListMemberPage),
         ('/member/login', MemberLoginPageHandler),
         ('/member/dashboard', MemberDashboardHandler),
-        ('/member/missing', MemberMissingHandler)
+        ('/member/missing', MemberMissingHandler),
+        ('/member/invite', MemberInvitePage)
     ]
 )

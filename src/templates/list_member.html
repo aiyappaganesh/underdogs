@@ -1,8 +1,5 @@
 {% extends "base.html" %}
 
-{% block Scripts %}
-{% endblock %}
-
 {% block Content %}
     <script type="text/javascript">
         window.fbAsyncInit = function() {
@@ -22,7 +19,7 @@
            fjs.parentNode.insertBefore(js, fjs);
          }(document, 'script', 'facebook-jssdk'));
 
-        function add_member(){
+        function add_myself(){
             FB.getLoginStatus(function(response) {
                 statusChangeCallback(response);
             });
@@ -35,10 +32,10 @@
                     var accessToken = response.authResponse.accessToken;
                     var userID = response.authResponse.userID;
                     FB.api('/me', function(response) {
-                    var name = JSON.stringify(response.name);
-                    var redirect_url = "/users/facebook/callback?name=" + name + "&company_id={{company_id}}&access_token=" + accessToken + "&create_user=true" + "&id=" + userID + "&network=facebook" {% if redirect_url %} + "&redirect_url=" + "{{ redirect_url }}" {% endif %};
-                    window.location = redirect_url;
-                });
+                        var name = JSON.stringify(response.name);
+                        var redirect_url = "/users/facebook/callback?name=" + name + "&company_id={{company_id}}&access_token=" + accessToken + "&create_user=true" + "&id=" + userID + "&network=facebook" {% if redirect_url %} + "&redirect_url=" + "{{ redirect_url }}" {% endif %};
+                        window.location = redirect_url;
+                    });
                 }
             }
             return false;
@@ -113,8 +110,15 @@
         {% ifequal access_type "admin" %}
             <div class="row">
                 <div class="col-lg-12">
-                    <h4 class="page-header">Add team member
-                        <a href="/member/add?company_id={{ company_id }}" onclick="return add_member();"><small>Click here</small></a>
+                    <h4 class="page-header">Add myself
+                        <a href="" onclick="return add_myself();"><small>Click here</small></a>
+                    </h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4 class="page-header">Invite team member
+                        <a href="/member/invite?admin_id={{admin_id}}&amp;company_id={{company_id}}"><small>Click here</small></a>
                     </h4>
                 </div>
             </div>

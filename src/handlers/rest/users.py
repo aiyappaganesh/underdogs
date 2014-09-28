@@ -8,7 +8,9 @@ from model.user import User
 from model.company import Company
 from networks import GITHUB, LINKEDIN
 from user_data import github, linkedin
-
+from util.util import isAdminAccess
+from handlers.web import WebRequestHandler
+from google.appengine.api import mail
 
 networks = {
 	GITHUB: github,
@@ -45,4 +47,24 @@ class MemberDataPullHandler(webapp2.RequestHandler):
         company = Company.get_by_id(company_id)
         deferred.defer(pull_company_data, company)
 
-app = webapp2.WSGIApplication([	('/api/members/pull_data', MemberDataPullHandler)])
+class MemberInviteHandler(WebRequestHandler):
+    def post(self):
+        if not isAdminAccess(self):
+            return
+        company = Company.get_by_id(int(self['company_id']))
+        mail.send_mail(sender="Underdog Admin <ranju@b-eagles.com>",
+              to=self['email'],
+              subject="Invitation to join " + company.name,
+              body="""
+Hello!
+
+Please follow this link to add yourself:
+
+https://minyattra.appspot.com/member/finish_invite?company_id={0}
+
+Thanks!
+""".format(self['company_id']))
+            
+
+app = webapp2.WSGIApplication([	('/api/members/pull_data', MemberDataPullHandler),
+                                ('/api/members/invite', MemberInviteHandler)])

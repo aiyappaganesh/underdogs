@@ -127,8 +127,8 @@ class FacebookAuth(Auth):
                 else:
                     return '/member/dashboard?member_id=' + login_id
         else:
+            company_id = req_handler['company_id']
             if not user:
-                company_id = req_handler['company_id']
                 c = Company.get_by_id(int(company_id))
                 User(key_name=login_id, parent=c, login_id=login_id, name=name).put()
             return '/member/expose_third_party?company_id=' + company_id + '&user_id=' + login_id
