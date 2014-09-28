@@ -18,24 +18,37 @@ class ExposeThirdPartyPage(WebRequestHandler):
         githubAuth = GithubAuth()
         github_auth_url = githubAuth.get_auth_url(company_id=company_id + githubAuth.separator + user_id)
         linkedin_auth_url = LinkedinAuth().get_auth_url(company_id=company_id, user_id=user_id)
+        logout_url = '/member/list?company_id=' + company_id + '&user_id=' + user_id
         template_values = {'name':user.name,
                            'github_auth_url': github_auth_url,
                            'dribbble_auth_url': get_dribbble_auth_url(),
                            'linkedin_auth_url': linkedin_auth_url,
-                           'logout_url': users.create_logout_url('/member/list?company_id=' + company_id)}
+                           'logout_url': users.create_logout_url(logout_url)}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class ListMemberPage(WebRequestHandler):
+    def get_access_type(self, company):
+        user = User.get_by_key_name(self['user_id'], parent=company)
+        if user:
+            if user.isAdmin:
+                return 'admin'
+            else:
+                return 'member'
+        else:
+            return 'public'
+
     def get(self):
         path = 'list_member.html'
         company_id = self['company_id']
         c = Company.get_by_id(int(company_id))
+        access_type = self.get_access_type(c)
         q = User.all().ancestor(c)
         template_values = { 'company_id' : company_id,
                             'name' : c.name,
                             'influence': c.influence_avg if c.influence_avg else 0.0,
                             'expertise': c.expertise_avg if c.expertise_avg else [],
-                            'users' : q.fetch(1000)}
+                            'users' : q.fetch(1000),
+                            'access_type' : access_type}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberLoginPageHandler(WebRequestHandler):

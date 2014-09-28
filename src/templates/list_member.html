@@ -43,6 +43,16 @@
             }
             return false;
         }
+
+        function triggerDataPull(){
+            $.ajax({
+                url: '/api/members/pull_data?company_id={{ company_id }}',
+                type: 'PUT',
+                success: function(result) {
+                    console.log('Triggered data pull');
+                }
+            });
+        }
     </script>
     <div class="container">
         <div class="row">
@@ -100,96 +110,100 @@
                 </h3>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <h4 class="page-header">Add team member
-                    <a href="/member/add?company_id={{ company_id }}" onclick="return add_member();"><small>Click here</small></a>
-                </h4>
+        {% ifequal access_type "admin" %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4 class="page-header">Add team member
+                        <a href="/member/add?company_id={{ company_id }}" onclick="return add_member();"><small>Click here</small></a>
+                    </h4>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <h4 class="page-header">Acquire data
-                    <a href="/api/members/pull_data?company_id={{ company_id }}"><small>Click here</small></a>
-                </h4>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4 class="page-header">Acquire data
+                        <a href="" onclick="return triggerDataPull();"><small>Click here</small></a>
+                    </h4>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <h4 class="page-header">Team members</h4>
-                <div class="container">
-                    <div class="row">
-                        <table class="table table-hover scores-table">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Member</th>
-                                    <th>Influence</th>
-                                    <th>Expertise</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for member in users %}
-                                <tr>
-                                    <td>{{forloop.counter}}</td>
-                                    <td>{{member.name}}</td>
-                                    <td>
-                                        <canvas id="influencedonut{{forloop.counter}}" height="80" width="80" class="donut_canvas"></canvas>
-                                        <span class="score-text" id="influencedonuttext{{forloop.counter}}"></span>
-                                        <script>
-                                            var doughnutData = [
-                                                    {
-                                                        value: parseInt({{member.influence}}*100),
-                                                        color:"#68dff0"
-                                                    },
-                                                    {
-                                                        value: 100-parseInt({{member.influence}}*100),
-                                                        color:"#bdfdfd"
-                                                    }
-                                                ];
-                                            var influenceDonut = new Chart(document.getElementById("influencedonut{{forloop.counter}}").getContext("2d")).Doughnut(doughnutData);
-                                            document.getElementById("influencedonuttext{{forloop.counter}}").innerHTML = parseInt({{member.influence}}*100)+'%';
-                                        </script>
-                                    </td>
-                                    <td>
-                                        <select id="expertise-select{{forloop.counter}}">
-                                        <option id="item{{forloop.parentloop.counter}}0" value="">Select Expertise</option>
-                                        {% for item in member.expertise %}
-                                        <option id="item{{forloop.parentloop.counter}}{{forloop.counter}}" value=""></option>
-                                        <script>
-                                            var str = '{{item}}';
-                                            var arr = str.split(' : ');
-                                            document.getElementById("item{{forloop.parentloop.counter}}{{forloop.counter}}").innerHTML = arr[0];
-                                            document.getElementById("item{{forloop.parentloop.counter}}{{forloop.counter}}").setAttribute('value', parseFloat(arr[1])*100);
-                                        </script>
-                                        {% endfor %}
-                                        </select>
-                                        <canvas id="expertisedonut{{forloop.counter}}" height="80" width="80" class="donut_canvas"></canvas>
-                                        <span class="score-text" id="expertisedonuttext{{forloop.counter}}"></span>
-                                        <script>
-                                            document.getElementById("expertise-select{{forloop.counter}}").onchange = function() {
+        {% endifequal %}
+        {% if access_type == "admin" or access_type == "member"%}
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4 class="page-header">Team members</h4>
+                    <div class="container">
+                        <div class="row">
+                            <table class="table table-hover scores-table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Member</th>
+                                        <th>Influence</th>
+                                        <th>Expertise</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for member in users %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{member.name}}</td>
+                                        <td>
+                                            <canvas id="influencedonut{{forloop.counter}}" height="80" width="80" class="donut_canvas"></canvas>
+                                            <span class="score-text" id="influencedonuttext{{forloop.counter}}"></span>
+                                            <script>
                                                 var doughnutData = [
-                                                    {
-                                                        value: parseInt(this.value),
-                                                        color:"#68dff0"
-                                                    },
-                                                    {
-                                                        value: 100-parseInt(this.value),
-                                                        color:"#bdfdfd"
-                                                    }
-                                                ];
-                                                var expertiseDonut = new Chart(document.getElementById("expertisedonut{{forloop.counter}}").getContext("2d")).Doughnut(doughnutData);
-                                                document.getElementById("expertisedonuttext{{forloop.counter}}").innerHTML = parseInt(this.value)+'%';
-                                            }
-                                        </script>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                                                        {
+                                                            value: parseInt({{member.influence}}*100),
+                                                            color:"#68dff0"
+                                                        },
+                                                        {
+                                                            value: 100-parseInt({{member.influence}}*100),
+                                                            color:"#bdfdfd"
+                                                        }
+                                                    ];
+                                                var influenceDonut = new Chart(document.getElementById("influencedonut{{forloop.counter}}").getContext("2d")).Doughnut(doughnutData);
+                                                document.getElementById("influencedonuttext{{forloop.counter}}").innerHTML = parseInt({{member.influence}}*100)+'%';
+                                            </script>
+                                        </td>
+                                        <td>
+                                            <select id="expertise-select{{forloop.counter}}">
+                                            <option id="item{{forloop.parentloop.counter}}0" value="">Select Expertise</option>
+                                            {% for item in member.expertise %}
+                                            <option id="item{{forloop.parentloop.counter}}{{forloop.counter}}" value=""></option>
+                                            <script>
+                                                var str = '{{item}}';
+                                                var arr = str.split(' : ');
+                                                document.getElementById("item{{forloop.parentloop.counter}}{{forloop.counter}}").innerHTML = arr[0];
+                                                document.getElementById("item{{forloop.parentloop.counter}}{{forloop.counter}}").setAttribute('value', parseFloat(arr[1])*100);
+                                            </script>
+                                            {% endfor %}
+                                            </select>
+                                            <canvas id="expertisedonut{{forloop.counter}}" height="80" width="80" class="donut_canvas"></canvas>
+                                            <span class="score-text" id="expertisedonuttext{{forloop.counter}}"></span>
+                                            <script>
+                                                document.getElementById("expertise-select{{forloop.counter}}").onchange = function() {
+                                                    var doughnutData = [
+                                                        {
+                                                            value: parseInt(this.value),
+                                                            color:"#68dff0"
+                                                        },
+                                                        {
+                                                            value: 100-parseInt(this.value),
+                                                            color:"#bdfdfd"
+                                                        }
+                                                    ];
+                                                    var expertiseDonut = new Chart(document.getElementById("expertisedonut{{forloop.counter}}").getContext("2d")).Doughnut(doughnutData);
+                                                    document.getElementById("expertisedonuttext{{forloop.counter}}").innerHTML = parseInt(this.value)+'%';
+                                                }
+                                            </script>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     </div>
 {% endblock %}

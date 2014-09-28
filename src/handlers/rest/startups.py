@@ -22,13 +22,14 @@ class AddCompanyPage(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
         return c
 
     def create_company_admin(self, c):
-        User.get_or_insert(key_name=self['user_id'], parent=c, name=self['name'], isAdmin=True, login_id=self['user_id'])
+        admin = User.get_or_insert(key_name=self['user_id'], parent=c, name=self['name'], isAdmin=True, login_id=self['user_id'])
+        return admin
 
     def post(self):
         image_key = self.read_image()
         c = self.create_company(image_key)
-        self.create_company_admin(c)
-        self.redirect('/member/list?company_id=' + str(c.key().id()))
+        a = self.create_company_admin(c)
+        self.redirect('/member/list?company_id=' + str(c.key().id()) + '&user_id=' + a.login_id)
 
 app = RestApplication([
     ('/api/startups/add_company', AddCompanyPage)

@@ -40,10 +40,9 @@ def pull_company_data(company):
     company.put()
 
 class MemberDataPullHandler(webapp2.RequestHandler):
-    def get(self):
+    def put(self):
         company_id = int(self.request.get('company_id'))
         company = Company.get_by_id(company_id)
         deferred.defer(pull_company_data, company)
-        self.redirect('/member/list?company_id=' + str(company_id))
 
 app = webapp2.WSGIApplication([	('/api/members/pull_data', MemberDataPullHandler)])
