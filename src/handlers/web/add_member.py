@@ -92,6 +92,10 @@ class MemberInvitePage(WebRequestHandler):
                            'company_id' : self['company_id']}
         self.write(self.get_rendered_html(path, template_values), 200)
 
+class MemberFinishInvitePage(WebRequestHandler):
+    def get(self):
+        self.redirect('/member/login?creat_user=true&company_id=' + self['company_id'])
+
 app = webapp2.WSGIApplication(
     [
         ('/member/expose_third_party', ExposeThirdPartyPage),
@@ -99,6 +103,7 @@ app = webapp2.WSGIApplication(
         ('/member/login', MemberLoginPageHandler),
         ('/member/dashboard', MemberDashboardHandler),
         ('/member/missing', MemberMissingHandler),
-        ('/member/invite', MemberInvitePage)
+        ('/member/invite', MemberInvitePage),
+        ('/member/finish_invite', MemberFinishInvitePage)
     ]
 )

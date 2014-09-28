@@ -52,6 +52,7 @@ class MemberInviteHandler(WebRequestHandler):
         if not isAdminAccess(self):
             return
         company = Company.get_by_id(int(self['company_id']))
+        logging.info('https://minyattra.appspot.com/member/finish_invite?company_id=' + self['company_id'])
         mail.send_mail(sender="Underdog Admin <ranju@b-eagles.com>",
               to=self['email'],
               subject="Invitation to join " + company.name,
@@ -64,7 +65,6 @@ https://minyattra.appspot.com/member/finish_invite?company_id={0}
 
 Thanks!
 """.format(self['company_id']))
-            
 
 app = webapp2.WSGIApplication([	('/api/members/pull_data', MemberDataPullHandler),
                                 ('/api/members/invite', MemberInviteHandler)])

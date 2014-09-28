@@ -43,7 +43,6 @@
             }
 
             function handleLoggedInUser(response){
-                console.log(response);
                 var accessToken = response.authResponse.accessToken;
                 var userID = response.authResponse.userID;
                 FB.api('/me', function(response) {
