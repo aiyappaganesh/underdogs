@@ -18,7 +18,6 @@ from model.third_party_user import ThirdPartyUser
 from model.user import User
 from networks import GITHUB, ANGELLIST, LINKEDIN, FACEBOOK
 from handlers import RequestHandler
-from angellist import AngelList
 
 networks = {
     GITHUB: github,
