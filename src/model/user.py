@@ -10,9 +10,9 @@ class User(db.Model):
 
     def update_score(self, influence_score):
         if not self.influence:
-            self.influence = influence_score
+            self.influence = (1.0/3.0) * influence_score
         else:
-            self.influence = (0.5 * self.influence) + (0.5 * influence_score)
+            self.influence = self.influence + ((1.0/3.0) * influence_score)
         self.put()
 
     def update_expertise_score(self, expertise_score):

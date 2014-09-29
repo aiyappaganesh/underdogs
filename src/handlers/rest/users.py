@@ -6,15 +6,16 @@ from google.appengine.ext import deferred
 from model.third_party_user import ThirdPartyUser
 from model.user import User
 from model.company import Company
-from networks import GITHUB, LINKEDIN
-from user_data import github, linkedin
+from networks import GITHUB, LINKEDIN, ANGELLIST
+from user_data import github, linkedin, angellist
 from util.util import isAdminAccess
 from handlers.web import WebRequestHandler
 from google.appengine.api import mail
 
 networks = {
 	GITHUB: github,
-	LINKEDIN: linkedin
+	LINKEDIN: linkedin,
+    ANGELLIST: angellist
 }
 
 def pull_company_data(company):
@@ -37,7 +38,6 @@ def pull_company_data(company):
     company.influence_avg = (influence_total) / float(users.count())
     company.expertise_avg = []
     for skill, score in expertise_total.iteritems():
-    	logging.info('here...')
     	company.expertise_avg.append(skill + ' : ' + str(score / float(users.count())))
     company.put()
 
