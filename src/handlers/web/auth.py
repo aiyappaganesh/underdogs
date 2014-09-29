@@ -18,6 +18,7 @@ from model.third_party_user import ThirdPartyUser
 from model.user import User
 from networks import GITHUB, ANGELLIST, LINKEDIN, FACEBOOK
 from handlers import RequestHandler
+from angellist import AngelList
 
 networks = {
     GITHUB: github,
@@ -192,19 +193,19 @@ class AngellistAuth(Auth):
         return "%s?%s"%(self.config['auth_url'], urllib.urlencode(params))
 
     def fetch_and_save_user(self, req_handler):
-        response = urlfetch.fetch(self.get_thirdparty_access_token_url(req_handler['code']), method=urlfetch.POST).content
-        logging.info(response)
-        access_token = self.get_access_token(response)
-        network_name, company_id, user_id = req_handler[self.company_param].split(self.separator)
+        url = "%s?client_id=%s&client_secret=%s&code=%s&grant_type=authorization_code" % (self.token_url, self.client_id, self.client_secret, req_handler['code'])
+        try:
+            headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/plain"}
+            params = urllib.urlencode({})
+            response = urllib2.urlopen(urllib2.Request(url, params, headers))
+            json_data = json.loads(response.read())
+            access_token = json_data['access_token']
+        except:
+            logging.info("Unexpected error:" + sys.exc_info()[0])
+            access_token = ''
+        network, company_id, user_id = req_handler[self.company_param].split(self.separator)
         self.save_user(access_token, company_id, user_id)
         return '/member/expose_third_party?company_id=' + company_id + '&user_id=' + user_id
-
-    def get_thirdparty_access_token_url(self, code):
-        params = {'code' : code,
-              'grant_type' : 'authorization_code',
-              'client_id' : self.client_id,
-              'client_secret' : self.client_secret}
-        return "%s?%s"%(self.token_url, urllib.urlencode(params))
 
     def save_user(self, access_token, company_id, user_id):
         company = Company.get_by_id(int(company_id))
