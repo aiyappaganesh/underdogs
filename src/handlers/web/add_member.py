@@ -94,7 +94,7 @@ class MemberInvitePage(WebRequestHandler):
 
 class MemberFinishInvitePage(WebRequestHandler):
     def get(self):
-        self.redirect('/member/login?creat_user=true&company_id=' + self['company_id'])
+        self.redirect('/member/login?create_user=true&company_id=' + self['company_id'])
 
 app = webapp2.WSGIApplication(
     [
