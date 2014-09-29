@@ -91,7 +91,7 @@ class Auth(object):
         network = req_handler['network']
         if network and network == 'facebook':
             return FacebookAuth()
-        elif ANGELLIST in req_handler[AngellistAuth().company_param]:
+        elif req_handler[AngellistAuth().company_param] and ANGELLIST in req_handler[AngellistAuth().company_param]:
             return AngellistAuth()
         elif company_id and len(company_id) > 0:
             return GithubAuth()
