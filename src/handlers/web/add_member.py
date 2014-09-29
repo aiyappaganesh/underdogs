@@ -30,14 +30,13 @@ class ExposeThirdPartyPage(WebRequestHandler):
 
 class ListMemberPage(WebRequestHandler):
     def get_access_type(self, company):
-        user = User.get_by_key_name(self['user_id'], parent=company)
-        if user:
-            if user.isAdmin:
-                return 'admin'
-            else:
-                return 'member'
-        else:
+        if not self['user_id']:
             return 'public'
+        user = User.get_by_key_name(self['user_id'], parent=company)
+        if user.isAdmin:
+            return 'admin'
+        else:
+            return 'member'
 
     def get(self):
         path = 'list_member.html'
