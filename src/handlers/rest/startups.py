@@ -29,7 +29,7 @@ class AddCompanyPage(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
         image_key = self.read_image()
         c = self.create_company(image_key)
         a = self.create_company_admin(c)
-        self.redirect('/member/list?company_id=' + str(c.key().id()) + '&user_id=' + a.login_id)
+        self.redirect('/member/invite?company_id=' + str(c.key().id()))
 
 app = RestApplication([
     ('/api/startups/add_company', AddCompanyPage)

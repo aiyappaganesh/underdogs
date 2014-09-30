@@ -5,14 +5,10 @@ from model.company import Company
 from google.appengine.api.blobstore import blobstore
 from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
+from util.util import registration_breadcrumbs
 
 import operator
 import logging
-
-breadcrumbs = [('Get started', 'Tell us about your startup!'),
-              ('Invite team members', 'Build your team'),
-              ('Give us access to your data', 'Help us learn more about you'),
-              ('Pull data', 'Kick off the analytics!')]
 
 class StartupsPage(WebRequestHandler):
     def get(self):
@@ -31,7 +27,7 @@ class StartupsRegistrationPage(WebRequestHandler):
                            'name':session['me_name'], 
                            'access_token':session['me_access_token'],
                            'breadcrumb_idx':1,
-                           'breadcrumbs':breadcrumbs}
+                           'breadcrumbs':registration_breadcrumbs}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class StartupsCriteriaPage(WebRequestHandler):

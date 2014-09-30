@@ -11,6 +11,7 @@ from user_data import github, linkedin, angellist
 from util.util import isAdminAccess
 from handlers.web import WebRequestHandler
 from google.appengine.api import mail
+from handlers.web.auth import web_login_required
 
 networks = {
 	GITHUB: github,
@@ -48,11 +49,11 @@ class MemberDataPullHandler(webapp2.RequestHandler):
         deferred.defer(pull_company_data, company)
 
 class MemberInviteHandler(WebRequestHandler):
+    @web_login_required
     def post(self):
         if not isAdminAccess(self):
             return
         company = Company.get_by_id(int(self['company_id']))
-        logging.info('https://minyattra.appspot.com/member/finish_invite?company_id=' + self['company_id'])
         mail.send_mail(sender="Underdog Admin <ranju@b-eagles.com>",
               to=self['email'],
               subject="Invitation to join " + company.name,

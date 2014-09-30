@@ -9,6 +9,8 @@ from model.company import Company
 from handlers.web.auth import GithubAuth, LinkedinAuth, AngellistAuth
 from util.util import isAdminAccess
 from gaesessions import get_current_session
+from handlers.web.auth import web_login_required
+from util.util import registration_breadcrumbs
 
 class ExposeThirdPartyPage(WebRequestHandler):
     def get(self):
@@ -91,12 +93,14 @@ class MemberDashboardHandler(WebRequestHandler):
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberInvitePage(WebRequestHandler):
+    @web_login_required
     def get(self):
         if not isAdminAccess(self):
             return
         path = 'invite_member.html'
-        template_values = {'admin_id' : self['admin_id'],
-                           'company_id' : self['company_id']}
+        template_values = {'company_id' : self['company_id'],
+                           'breadcrumbs' : registration_breadcrumbs,
+                           'breadcrumb_idx':2}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberFinishInvitePage(WebRequestHandler):
