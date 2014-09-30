@@ -58,3 +58,21 @@
 .company-map img {
     max-width: none !important;
 }
+
+table {
+    width: 100%;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th.inactive {
+    color: #999;
+    background-color: #f9f9fa;
+}
