@@ -4,7 +4,7 @@ from model.skill import Skill
 from model.company import Company
 from google.appengine.api.blobstore import blobstore
 
-from handlers.web.auth import login_required
+from handlers.web.auth import web_login_required
 
 import operator
 import logging
@@ -16,6 +16,7 @@ class StartupsPage(WebRequestHandler):
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class StartupsRegistrationPage(WebRequestHandler):
+    @web_login_required
     def get(self):
         path = 'startup_registration.html'
         form_url = blobstore.create_upload_url('/api/startups/add_company')

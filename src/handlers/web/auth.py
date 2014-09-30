@@ -18,6 +18,7 @@ from model.third_party_user import ThirdPartyUser
 from model.user import User
 from networks import GITHUB, ANGELLIST, LINKEDIN, FACEBOOK
 from handlers import RequestHandler
+from gaesessions import get_current_session
 
 networks = {
     GITHUB: github,
@@ -27,22 +28,17 @@ networks = {
 }
 
 def _user_logged_in(handler):
-    logging.info(handler.session['login_id'])
-    if not 'login_id' in handler.session:
-        handler.redirect('/member/login?' + urllib.urlencode({'redirect_url': handler.request.url}))
-        logging.info('returning false one')
-        return False
-    user = User.all().filter('login_id =', handler.session['login_id']).get()
-    if not user:
-        logging.info('returning false two')
-        return False
-    logging.info('returning true')
-    return True
+    session = get_current_session()
+    if session.is_active() and 'me_id' in session:
+        return True
+    return False
 
-def login_required(fn):
+def web_login_required(fn):
     def check_login(self, *args):
         if _user_logged_in(self):
             fn(self, *args)
+        else:
+            self.redirect('/member/login')
     return check_login
 
 class Auth(object):
@@ -114,27 +110,18 @@ class FacebookAuth(Auth):
     def __init__(self):
         Auth.__init__(self, FACEBOOK)
 
+    def set_session(self, req_handler):
+        curr_session = get_current_session()
+        if curr_session.is_active():
+            curr_session.terminate()
+        curr_session['me_id'] = req_handler['id']
+        curr_session['me_access_token'] = req_handler['access_token']
+        curr_session['me_name'] = req_handler['name']
+
     def fetch_and_save_user(self, req_handler):
-        create_user = req_handler['create_user']
-        access_token = req_handler['access_token']
-        login_id = req_handler['id']
+        self.set_session(req_handler)
         redirect_url = req_handler['redirect_url']
-        user = User().all().filter('login_id =', login_id).get()
-        name = req_handler['name']
-        if create_user == 'false':
-            if not user:
-                return '/member/missing?user_id=' + login_id + '&name=' + name + '&access_token=' + req_handler['access_token']
-            else:
-                if redirect_url:
-                    return str(redirect_url)
-                else:
-                    return '/member/dashboard?member_id=' + login_id
-        else:
-            company_id = req_handler['company_id']
-            if not user:
-                c = Company.get_by_id(int(company_id))
-                User(key_name=login_id, parent=c, login_id=login_id, name=name).put()
-            return '/member/expose_third_party?company_id=' + company_id + '&user_id=' + login_id
+        return redirect_url
 
 class LinkedinAuth(Auth):
     def __init__(self):

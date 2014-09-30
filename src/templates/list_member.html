@@ -26,7 +26,7 @@
 
             function statusChangeCallback(response){
                 if(response.status === "not_authorized" || response.status === "unknown"){
-                    window.location = '/member/login?create_user=true&company_id={{company_id}}';
+                    window.location = '/member/login';
                 }
                 else if(response.status === "connected"){
                     var accessToken = response.authResponse.accessToken;

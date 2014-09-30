@@ -3,7 +3,7 @@ from handlers.web import WebRequestHandler
 from google.appengine.api import users
 import logging
 
-from handlers.web.auth import login_required
+from handlers.web.auth import web_login_required
 from model.user import User
 from model.company import Company
 from handlers.web.auth import GithubAuth, LinkedinAuth, AngellistAuth
@@ -94,7 +94,7 @@ class MemberInvitePage(WebRequestHandler):
 
 class MemberFinishInvitePage(WebRequestHandler):
     def get(self):
-        self.redirect('/member/login?create_user=true&company_id=' + self['company_id'])
+        self.redirect('/member/login?company_id=' + self['company_id'])
 
 app = webapp2.WSGIApplication(
     [
