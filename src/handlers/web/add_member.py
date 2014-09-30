@@ -72,7 +72,7 @@ class MemberLogoutPageHandler(WebRequestHandler):
 class MemberMissingHandler(WebRequestHandler):
     def get(self):
         path = 'member_missing.html'
-        template_values = {'user_id':self['user_id'], 'name':self['name'], 'access_token':self['access_token']}
+        template_values = {'redirect_url' : self['redirect_url']}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberDashboardHandler(WebRequestHandler):

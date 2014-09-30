@@ -38,7 +38,7 @@ def web_login_required(fn):
         if _user_logged_in(self):
             fn(self, *args)
         else:
-            self.redirect('/member/missing')
+            self.redirect('/member/missing?redirect_url=' + self.request.path)
     return check_login
 
 class Auth(object):

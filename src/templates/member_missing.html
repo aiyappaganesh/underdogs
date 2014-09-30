@@ -1,9 +1,18 @@
 {% extends "base.html" %}
 
+{% block Styles %}
+    <link href="/assets/css/exposedata.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
 {% block Content %}
 	<div class="container">
 		<div class="row top-padded">
 			<p class="landing-selection">Sorry, this part of the site is available only to logged in members</p>
+		</div>
+		<div class="row top-padded">
+			<a href="/member/login?redirect_url={{redirect_url}}" class="btn btn-bootflat sd-btn">
+				<span class="network-name">Log In</span>
+			</a>
 		</div>
     </div>
 {% endblock %}
