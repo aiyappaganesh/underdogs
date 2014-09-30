@@ -29,8 +29,8 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/startups/registration">Join</a></li>
-                        <li><a href="/member/login?create_user=false">Log In</a></li>
+                        {% if hide_navbar_join != 'true' %}<li><a href="/startups/registration">Join</a></li>{% endif %}
+                        {% if hide_navbar_login != 'true' %}<li><a href="/member/login?create_user=false">Log In</a></li>{% endif %}
                     </ul>
                 </div>
             </div>

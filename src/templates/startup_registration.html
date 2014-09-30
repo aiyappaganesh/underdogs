@@ -5,6 +5,12 @@
     <link href="/assets/css/registration.css" type="text/css" rel="stylesheet">
 {% endblock %}
 
+{% block Navbar %}
+  {% with hide_navbar_join='true' %}
+  {{block.super}}
+  {% endwith %}
+{% endblock %}
+
 {% block Content %}
     <div class="container">
         <div class="row registration-form">

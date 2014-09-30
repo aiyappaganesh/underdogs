@@ -5,6 +5,12 @@
     <link href="/assets/css/font-awesome.min.css" type="text/css" rel="stylesheet">
 {% endblock %}
 
+{% block Navbar %}
+  {% with hide_navbar_login='true' %}
+  {{block.super}}
+  {% endwith %}
+{% endblock %}
+
 {% block Content %}
 {% if redirect_url %} + "redirect_url=" + "{{ redirect_url }}"; {% endif %}
     <script type="text/javascript">
