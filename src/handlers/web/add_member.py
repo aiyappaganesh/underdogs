@@ -13,9 +13,11 @@ from handlers.web.auth import web_login_required
 from util.util import registration_breadcrumbs
 
 class ExposeThirdPartyPage(WebRequestHandler):
+    @web_login_required
     def get(self):
+        session = get_current_session()
         company_id = self['company_id']
-        user_id = self['user_id']
+        user_id = session['me_id']
         c = Company.get_by_id(int(company_id))
         path = 'expose_social_data.html'
         user = User.get_by_key_name(user_id, parent=c)
@@ -25,22 +27,26 @@ class ExposeThirdPartyPage(WebRequestHandler):
         angellist_auth_url = AngellistAuth().get_auth_url(company_id=company_id, user_id=user_id)
         logout_url = '/member/list?company_id=' + company_id + '&user_id=' + user_id
         template_values = {'name':user.name,
+                           'company_id': company_id,
                            'github_auth_url': github_auth_url,
                            'angellist_auth_url': angellist_auth_url,
                            'linkedin_auth_url': linkedin_auth_url,
-                           'logout_url': users.create_logout_url(logout_url)}
+                           'breadcrumbs' : registration_breadcrumbs,
+                           'breadcrumb_idx':3}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class ListMemberPage(WebRequestHandler):
     def get_access_type(self, company):
-        if not self['user_id']:
+        session = get_current_session()
+        if not session['me_id']:
             return 'public'
-        user = User.get_by_key_name(self['user_id'], parent=company)
+        user = User.get_by_key_name(session['me_id'], parent=company)
         if user.isAdmin:
             return 'admin'
         else:
             return 'member'
 
+    @web_login_required
     def get(self):
         path = 'list_member.html'
         company_id = self['company_id']
@@ -58,8 +64,8 @@ class ListMemberPage(WebRequestHandler):
 
 class MemberLoginPageHandler(WebRequestHandler):
     def get(self):
-        path = 'member_login.html'
         redirect_url = self['redirect_url']
+        path = 'member_login.html'
         template_values = {'redirect_url': redirect_url,
                            'create_user': self['create_user'],
                            'company_id':self['company_id']}
@@ -78,11 +84,12 @@ class MemberMissingHandler(WebRequestHandler):
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberDashboardHandler(WebRequestHandler):
+    @web_login_required
     def get(self):
+        session = get_current_session()
         path = 'member_dashboard.html'
         name = ''
-        member_objs = User.all().filter('login_id =',self['member_id']).fetch(100)
-        #member_objs = User.all().filter('name =','test@example.com').fetch(100) #use this line for testing on local by indexing name field in user
+        member_objs = User.all().filter('login_id =',session['me_id']).fetch(100)
         info_list = []
         if member_objs:
             for member in member_objs:

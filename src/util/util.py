@@ -6,8 +6,7 @@ from gaesessions import get_current_session
 
 registration_breadcrumbs = [('Get started', 'Tell us about your startup!'),
               ('Invite team members', 'Build your team'),
-              ('Give us access to your data', 'Help us learn more about you'),
-              ('Pull data', 'Kick off the analytics!')]
+              ('Give us access to your data', 'Help us learn more about you')]
 
 def isAdminAccess(req_handler):
 	session = get_current_session()

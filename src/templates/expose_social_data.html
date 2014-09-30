@@ -3,15 +3,29 @@
 {% block Styles %}
     <link href="/assets/css/exposedata.css" type="text/css" rel="stylesheet">
     <link href="/assets/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+    <link href="/assets/css/registration.css" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block Content %}
+    <script type="text/javascript">
+        function triggerDataPull(){
+            $.ajax({
+                url: '/api/members/pull_data?company_id={{ company_id }}',
+                type: 'PUT',
+                success: function(result) {
+                    alert('We are working our magic. You will see your scores in no time!');
+                    window.location='/member/list?company_id=' + {{company_id}};
+                }
+            });
+            return false;
+        }
+    </script>
     <div class="intro-header">
         <div class="container">
+            {% include "components/registration_breadcrumbs.html" %}
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-message">
-                        <h1>Welcome {{name}}</h1>
                         <h3>Add one or more of the below social data</h3>
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
@@ -27,7 +41,7 @@
                         </ul>
                         <ul class="list-inline intro-social-buttons">
                             <li>
-                                <a href="{{logout_url}}" class="btn btn-bootflat sd-btn"><i class="fa-fw"></i> <span class="network-name">Done</span></a>
+                                <a href="" class="btn btn-bootflat sd-btn" onclick="return triggerDataPull()"><i class="fa-fw"></i> <span class="network-name">Kick off analytics!</span></a>
                             </li>
                         </ul>
                     </div>

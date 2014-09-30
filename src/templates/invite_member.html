@@ -14,6 +14,11 @@
                    });
             return false;
         }
+
+        function done_inviting(){
+            window.location='/member/expose_third_party?company_id=' + {{company_id}};
+            return false;
+        }
     </script>
 
 	<div class="container">
@@ -24,10 +29,9 @@
             </div>
         </div>
         <div class="row registration-form">
-            <form role="form" action="" method="POST" enctype="multipart/form-data" required>
-        		{% include "components/form_input.html" with id="new_member_email" name="email" placeholder="Email" %}
-        		<input type="button" id="submit" value="Invite" onclick="return invite_by_email();" class="btn btn-bootflat pull-right">
-        	</form>
+    		{% include "components/form_input.html" with id="new_member_email" name="email" placeholder="Email" %}
+    		<input type="button" id="invite" value="Invite" onclick="return invite_by_email();" class="btn btn-bootflat pull-right">
+            <input type="button" id="done" value="Done inviting!" onclick="return done_inviting();" class="btn btn-bootflat pull-right" style="padding-left:10px;">
         </div>
     </div>
 {% endblock %}
