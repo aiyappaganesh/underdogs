@@ -8,6 +8,7 @@ from model.user import User
 from model.company import Company
 from handlers.web.auth import GithubAuth, LinkedinAuth, AngellistAuth
 from util.util import isAdminAccess
+from gaesessions import get_current_session
 
 class ExposeThirdPartyPage(WebRequestHandler):
     def get(self):
@@ -62,6 +63,12 @@ class MemberLoginPageHandler(WebRequestHandler):
                            'company_id':self['company_id']}
         self.write(self.get_rendered_html(path, template_values), 200)
 
+class MemberLogoutPageHandler(WebRequestHandler):
+    def get(self):
+        session = get_current_session()
+        session.terminate()
+        self.redirect('/')
+
 class MemberMissingHandler(WebRequestHandler):
     def get(self):
         path = 'member_missing.html'
@@ -101,6 +108,7 @@ app = webapp2.WSGIApplication(
         ('/member/expose_third_party', ExposeThirdPartyPage),
         ('/member/list', ListMemberPage),
         ('/member/login', MemberLoginPageHandler),
+        ('/member/logout', MemberLogoutPageHandler),
         ('/member/dashboard', MemberDashboardHandler),
         ('/member/missing', MemberMissingHandler),
         ('/member/invite', MemberInvitePage),
