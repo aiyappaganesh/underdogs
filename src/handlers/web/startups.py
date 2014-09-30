@@ -9,6 +9,11 @@ from handlers.web.auth import web_login_required
 import operator
 import logging
 
+breadcrumbs = [('Get started', 'Tell us about your startup!'),
+              ('Invite team members', 'Build your team'),
+              ('Give us access to your data', 'Help us learn more about you'),
+              ('Pull data', 'Kick off the analytics!')]
+
 class StartupsPage(WebRequestHandler):
     def get(self):
         path = 'startups.html'
@@ -21,7 +26,12 @@ class StartupsRegistrationPage(WebRequestHandler):
         session = get_current_session()
         path = 'startup_registration.html'
         form_url = blobstore.create_upload_url('/api/startups/add_company')
-        template_values = {'form_url': form_url, 'user_id': session['me_id'], 'name':session['me_name'], 'access_token':session['me_access_token']}
+        template_values = {'form_url': form_url, 
+                           'user_id': session['me_id'], 
+                           'name':session['me_name'], 
+                           'access_token':session['me_access_token'],
+                           'breadcrumb_idx':1,
+                           'breadcrumbs':breadcrumbs}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class StartupsCriteriaPage(WebRequestHandler):
