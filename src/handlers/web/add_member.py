@@ -20,7 +20,7 @@ class ExposeThirdPartyPage(WebRequestHandler):
         user_id = session['me_id']
         c = Company.get_by_id(int(company_id))
         path = 'expose_social_data.html'
-        user = User.get_by_key_name(user_id, parent=c)
+        user = User.get_or_insert(key_name=user_id, parent=c, name=session['me_name'], isAdmin=False, login_id=user_id)
         githubAuth = GithubAuth()
         github_auth_url = githubAuth.get_auth_url(company_id=company_id + githubAuth.separator + user_id)
         linkedin_auth_url = LinkedinAuth().get_auth_url(company_id=company_id, user_id=user_id)
@@ -112,7 +112,7 @@ class MemberInvitePage(WebRequestHandler):
 
 class MemberFinishInvitePage(WebRequestHandler):
     def get(self):
-        self.redirect('/member/login?company_id=' + self['company_id'])
+        self.redirect('/member/login?redirect_url=/member/expose_third_party?company_id=' + self['company_id'])
 
 app = webapp2.WSGIApplication(
     [
