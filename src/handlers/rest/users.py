@@ -21,9 +21,15 @@ networks = {
 
 def pull_company_data(company):
     users = User.all().ancestor(company)
+    company.influence_avg = None
+    company.expertise_avg = []
+    company.put()
     influence_total = 0.0
     expertise_total = {}
     for user in users:
+        user.influence = None
+        user.expertise = []
+        user.put()
         for network, user_data in networks.iteritems():
             third_party_user = ThirdPartyUser.get_by_key_name(network, parent=user)
             if third_party_user:
