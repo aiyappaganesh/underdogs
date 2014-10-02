@@ -13,7 +13,7 @@ import linkedin_config as linkedin
 def pull_data(user, third_party_user):
     response = json.loads(urlfetch.fetch('https://api.angel.co/1/me?access_token=' + third_party_user.access_token).content)
     followers = response['follower_count'] if 'follower_count' in response else 0
-    skills = [skill['skill']['name'] for skill in response['skills']['values']] if 'skills' in response and len(response['skills']) > 0 else []
+    skills = [skill['name'] for skill in response['skills']] if 'skills' in response and len(response['skills']) > 0 else []
 
     influence_raw = (10 * followers)
     influence = math.log(influence_raw) / 10.0
