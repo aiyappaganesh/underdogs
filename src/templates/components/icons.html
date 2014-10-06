@@ -1,0 +1,31 @@
+<div class="row landing-section">
+    {% if icons.icons_first %}
+        <div class="col-lg-6 icons">
+        {% for icon_set in icons.icon_sets %}
+            <div class="row">
+                {% for icon in icon_set %}
+                <div class="col-sm-4"><img class="startup-icon" src="/assets/img/{{icon}}"></div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        </div>
+        <div class="col-lg-6">
+            <p class="landing-selection landing-big-font">{{icons.title}}</p>
+            <p class="landing-selection landing-small-font">{{icons.description}}</p>
+        </div>
+    {% else %}
+        <div class="col-lg-6">
+            <p class="landing-selection landing-big-font">{{icons.title}}</p>
+            <p class="landing-selection landing-small-font">{{icons.description}}</p>
+        </div>
+        <div class="col-lg-6 icons">
+        {% for icon_set in icons.icon_sets %}
+            <div class="row">
+                {% for icon in icon_set %}
+                <div class="col-sm-4"><img class="startup-icon" src="/assets/img/{{icon}}"></div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+</div>
