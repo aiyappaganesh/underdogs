@@ -10,7 +10,8 @@ from model.user import User
 class AddProjectHandler(RequestHandler):
 	def create_project(self):
 		p = Project()
-		p.title = "Blah"
+		p.title = self['project_title']
+		p.description = self['description']
 		p.put()
 		return p
 
