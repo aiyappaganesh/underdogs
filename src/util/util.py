@@ -22,13 +22,13 @@ def isAdminAccess(req_handler):
 def get_user_parents(parent_type):
 	session = get_current_session()
 	user_id = session['me_id']
-	member_objs = User.all().filter('login_id =',session['me_id']).fetch(100)
-	parents = []
+	member_objs = User.all().filter('login_id =',user_id).fetch(100)
+	user_parents = []
 	for member_obj in member_objs:
 		parent = member_obj.parent()
 		if type(parent) is parent_type:
-			parents.append(parent)
-	return parents
+			user_parents.append({'parent':parent,'member':member_obj})
+	return user_parents
 
 def get_user_projects():
 	return get_user_parents(Project)
