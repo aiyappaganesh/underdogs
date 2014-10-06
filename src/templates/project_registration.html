@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
+{% block Styles %}
+    <link href="/assets/css/jasny-bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="/assets/css/registration.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
 {% block Navbar %}
   {% with hide_navbar_join='true' %}
   {{block.super}}
@@ -7,5 +12,11 @@
 {% endblock %}
 
 {% block Content %}
-	<div>Hello world</div>
+	<h3 class="center-align">Project Info</h3>
+    <div class="row registration-form">
+    	<form role="form" action="/api/projects/add_project" method="POST" enctype="multipart/form-data">
+    		<input type="submit" name="submit" id="submit" value="Create Project" class="btn btn-bootflat pull-right">
+    	</form>
+    </div>
+	
 {% endblock %}
