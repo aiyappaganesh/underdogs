@@ -6,6 +6,7 @@ from google.appengine.api.blobstore import blobstore
 from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
 from util.util import registration_breadcrumbs
+from util.util import get_user_projects
 
 import operator
 import logging
@@ -31,11 +32,22 @@ class StartupsRegistrationPage(WebRequestHandler):
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class StartupsCriteriaPage(WebRequestHandler):
-    def get(self):
-        path = 'startups_search_criteria.html'
-        q = Skill.all()
-        template_values = {'skills' : q.fetch(50)}
+    def render_project_selector(self, projects):
+        path = 'project_selector.html'
+        template_values = {'projects' : projects}
         self.write(self.get_rendered_html(path, template_values), 200)
+
+    def render_project_creator(self):
+        path = 'project_creator.html'
+        self.write(self.get_rendered_html(path, None), 200)
+
+    @web_login_required
+    def get(self):
+        projects = get_user_projects()
+        if projects and len(projects) > 0:
+            self.render_project_selector(projects)
+        else:
+            self.render_project_creator()
 
 class StartupsSearchResultsPage(WebRequestHandler):
     def convert_string_list_to_dict(self, str_list):

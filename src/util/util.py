@@ -1,6 +1,7 @@
 import logging
 
 from model.company import Company
+from model.project import Project
 from model.user import User
 from gaesessions import get_current_session
 
@@ -17,3 +18,20 @@ def isAdminAccess(req_handler):
 	if a and a.isAdmin:
 		return True
 	return False
+
+def get_user_parents(parent_type):
+	session = get_current_session()
+	user_id = session['me_id']
+	member_objs = User.all().filter('login_id =',session['me_id']).fetch(100)
+	parents = []
+	for member_obj in member_objs:
+		parent = member_obj.parent()
+		if type(parent) is Project:
+			parents.append(parent)
+	return parents
+
+def get_user_projects():
+	return get_user_parents(Project)
+
+def get_user_companies():
+	return get_user_parents(Company)
