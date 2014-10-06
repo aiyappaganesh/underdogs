@@ -10,7 +10,7 @@ from handlers.web.auth import GithubAuth, LinkedinAuth, AngellistAuth
 from util.util import isAdminAccess
 from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
-from util.util import registration_breadcrumbs, get_user_companies
+from util.util import registration_breadcrumbs, get_user_companies, get_user_projects
 
 class ExposeThirdPartyPage(WebRequestHandler):
     @web_login_required
@@ -98,7 +98,11 @@ class ProjectsDashboardHandler(WebRequestHandler):
     @web_login_required
     def get(self):
         path = 'projects_dashboard.html'
-        self.write(self.get_rendered_html(path, {}), 200)
+        session = get_current_session()
+        name = session['me_name']
+        info_list = get_user_projects()
+        template_values = {'info_list':info_list,'name':name}
+        self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberInvitePage(WebRequestHandler):
     @web_login_required

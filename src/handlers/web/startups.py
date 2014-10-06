@@ -35,10 +35,10 @@ class StartupsCriteriaPage(WebRequestHandler):
     def render_project_selector(self, projects):
         path = 'project_selector.html'
         project_options = []
-        for project in projects:
+        for user_project in projects:
             option = {}
-            option['name'] = project.title
-            option['value'] = project.key().id
+            option['name'] = user_project['parent'].title
+            option['value'] = user_project['parent'].key().id
             project_options.append(option)
         template_values = {'projects' : project_options}
         self.write(self.get_rendered_html(path, template_values), 200)
@@ -49,9 +49,9 @@ class StartupsCriteriaPage(WebRequestHandler):
 
     @web_login_required
     def get(self):
-        projects = get_user_projects()
-        if projects and len(projects) > 0:
-            self.render_project_selector(projects)
+        user_projects = get_user_projects()
+        if user_projects and len(user_projects) > 0:
+            self.render_project_selector(user_projects)
         else:
             self.render_project_creator()
 
