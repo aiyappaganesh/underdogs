@@ -53,6 +53,10 @@ handlers:
   script: handlers.web.startups.app
   secure: always
 
+- url: /projects.*
+  script: handlers.web.projects.app
+  secure: always  
+
 - url: /.*
   script: handlers.web.index.app
   secure: always

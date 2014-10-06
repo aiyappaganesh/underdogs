@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block Navbar %}
+  {% with hide_navbar_join='true' %}
+  {{block.super}}
+  {% endwith %}
+{% endblock %}
+
+{% block Content %}
+	<div>Hello world</div>
+{% endblock %}
