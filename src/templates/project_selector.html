@@ -1,9 +1,24 @@
 {% extends "base.html" %}
 
 {% block Styles %}
-    
+    <link href="/assets/css/jasny-bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="/assets/css/registration.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block Navbar %}
+  {% with hide_navbar_join='true' %}
+  {{block.super}}
+  {% endwith %}
 {% endblock %}
 
 {% block Content %}
-    <div>Hello selector world</div>
+    <h3 class="center-align">Project Selection</h3>
+    <div class="row registration-form">
+        <form role="form" action="/projects/project_details" method="POST">
+            <div class="col-lg-12">
+                {% include "components/form_select.html" with id="project-id" name="project_id" options=projects default="Select Project" %}
+                <input type="submit" name="submit" id="submit" value="Show Project" class="btn btn-bootflat pull-right">
+            </div>
+        </form>
+    </div>
 {% endblock %}

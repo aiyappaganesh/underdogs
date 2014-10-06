@@ -34,7 +34,13 @@ class StartupsRegistrationPage(WebRequestHandler):
 class StartupsCriteriaPage(WebRequestHandler):
     def render_project_selector(self, projects):
         path = 'project_selector.html'
-        template_values = {'projects' : projects}
+        project_options = []
+        for project in projects:
+            option = {}
+            option['name'] = project.title
+            option['value'] = project.key().id
+            project_options.append(option)
+        template_values = {'projects' : project_options}
         self.write(self.get_rendered_html(path, template_values), 200)
 
     def render_project_creator(self):
