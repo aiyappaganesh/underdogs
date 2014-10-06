@@ -38,8 +38,7 @@ def web_login_required(fn):
         if _user_logged_in(self):
             fn(self, *args)
         else:
-            logging.info('#'*80)
-            self.redirect('/member/missing?redirect_url=' + self.request.path + '?' + self.request.query_string if self.request.query_string else '')
+            self.redirect('/member/missing?redirect_url=' + self.request.path + ('?' + self.request.query_string if self.request.query_string else ''))
     return check_login
 
 class Auth(object):
