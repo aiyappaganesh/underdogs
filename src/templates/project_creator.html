@@ -1,9 +1,17 @@
 {% extends "base.html" %}
 
 {% block Styles %}
-    
 {% endblock %}
 
 {% block Content %}
-    <div>Hello creator world</div>
+	<div class="container">
+		<div class="row top-padded">
+			<h2 class="landing-selection">Sorry, this part of the site is only available for registered projects</h2>
+		</div>
+		<div class="row top-padded center-align">
+			<a href="/projects/registration" class="btn btn-bootflat sd-btn">
+				<span class="network-name">Register Project</span>
+			</a>
+		</div>
+    </div>
 {% endblock %}
