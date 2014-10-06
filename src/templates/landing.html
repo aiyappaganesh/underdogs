@@ -15,10 +15,14 @@
             </div>
         </div>
         <div class="row top-padded bottom-padded">
-            {% for key, value in footer_buttons.items %}
-                <div class="col-lg-3 col-lg-offset-2">
-                    <a href="{{key}}" class="btn btn-bootflat sd-btn"><span class="network-name">{{value}}</span></a>
-                </div>
+            {% for footer_button_list in footer_buttons %}
+            <div class="row footer-button-row">
+                {% for footer_button in footer_button_list %}
+                    <div class="col-lg-3 col-lg-offset-2">
+                        <a href="{{footer_button.link}}" class="btn btn-bootflat sd-btn"><span class="network-name">{{footer_button.name}}</span></a>
+                    </div>
+                {% endfor %}
+            </div>
             {% endfor %}
         </div>
     </div>

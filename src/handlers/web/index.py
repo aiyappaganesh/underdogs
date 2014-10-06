@@ -4,10 +4,10 @@ from handlers.web import WebRequestHandler
 class LandingPage(WebRequestHandler):
     def get(self):
         path = 'landing.html'
-        footer_buttons = {'/startups/registration':'Add Your Startup',
-        '/startups/search/criteria':'Find Startups',
-        '/projects/registration':'Register a project',
-        '/':'Find projects'}
+        footer_buttons = [[{'link':'/startups/registration','name':'Add Your Startup'},
+                          {'link':'/projects/registration','name':'Register a project'}],
+                          [{'link':'/startups/search/criteria','name':'Find Startups'},
+                          {'link':'/','name':'Find projects'}]]
         template_values = {'footer_buttons' : footer_buttons}
 
         template_values['startup_icons'] = {}

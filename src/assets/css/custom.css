@@ -150,3 +150,7 @@ a small {
 .center-align {
     text-align: center;
 }
+
+.footer-button-row {
+    margin: 30px;
+}
