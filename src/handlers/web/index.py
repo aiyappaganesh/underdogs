@@ -33,7 +33,7 @@ class LandingPage(WebRequestHandler):
         template_values['enterprise_icons']['title'] = 'Enterprises'
         template_values['enterprise_icons']['description'] = 'Enterprises often give projects to outsourcing companies and freelancers, both of who lack the dev and design talent of startups.'
         template_values['enterprise_icons']['icons_first'] = False
-        
+
         self.write(self.get_rendered_html(path, template_values), 200)
 
 app = webapp2.WSGIApplication(

@@ -1,0 +1,8 @@
+<div class="form-group">
+    <div class="input-group input-container">
+        <select class="form-control" name="{{name}}" id="{{id}}" {{other}}>
+            <option value="">{{default}}</option>
+            {% for option in options %}<option value="{{option.value}}">{{option.name}}</option>{% endfor %}
+        </select>
+    </div>
+</div>
