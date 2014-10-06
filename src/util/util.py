@@ -26,7 +26,7 @@ def get_user_parents(parent_type):
 	parents = []
 	for member_obj in member_objs:
 		parent = member_obj.parent()
-		if type(parent) is Project:
+		if type(parent) is parent_type:
 			parents.append(parent)
 	return parents
 

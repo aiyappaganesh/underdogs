@@ -10,7 +10,7 @@ from handlers.web.auth import GithubAuth, LinkedinAuth, AngellistAuth
 from util.util import isAdminAccess
 from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
-from util.util import registration_breadcrumbs
+from util.util import registration_breadcrumbs, get_user_companies
 
 class ExposeThirdPartyPage(WebRequestHandler):
     @web_login_required
@@ -36,11 +36,10 @@ class ExposeThirdPartyPage(WebRequestHandler):
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class ListMemberPage(WebRequestHandler):
-    def get_access_type(self, company):
-        session = get_current_session()
-        if not session['me_id']:
+    def get_access_type(self, company, user_id):
+        if not user_id:
             return 'public'
-        user = User.get_by_key_name(session['me_id'], parent=company)
+        user = User.get_by_key_name(user_id, parent=company)
         if user.isAdmin:
             return 'admin'
         else:
@@ -50,8 +49,10 @@ class ListMemberPage(WebRequestHandler):
     def get(self):
         path = 'list_member.html'
         company_id = self['company_id']
+        session = get_current_session()
         c = Company.get_by_id(int(company_id))
-        access_type = self.get_access_type(c)
+        user_id = session['me_id']
+        access_type = self.get_access_type(c, user_id)
         q = User.all().ancestor(c)
         template_values = { 'company_id' : company_id,
                             'name' : c.name,
@@ -59,7 +60,7 @@ class ListMemberPage(WebRequestHandler):
                             'expertise': c.expertise_avg if c.expertise_avg else [],
                             'users' : q.fetch(1000),
                             'access_type' : access_type,
-                            'admin_id' : self['user_id']}
+                            'admin_id' : user_id}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberLoginPageHandler(WebRequestHandler):
@@ -88,14 +89,8 @@ class MemberDashboardHandler(WebRequestHandler):
     def get(self):
         session = get_current_session()
         path = 'member_dashboard.html'
-        name = ''
-        member_objs = User.all().filter('login_id =',session['me_id']).fetch(100)
-        info_list = []
-        if member_objs:
-            for member in member_objs:
-                name = member.name
-                company = member.parent()
-                info_list.append({'company':company,'member':member})
+        name = session['me_name']
+        info_list = get_user_companies()
         template_values = {'info_list':info_list,'name':name}
         self.write(self.get_rendered_html(path, template_values), 200)
 
