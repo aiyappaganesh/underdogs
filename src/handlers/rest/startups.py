@@ -5,6 +5,7 @@ from handlers import RequestHandler
 from google.appengine.ext.webapp import blobstore_handlers
 from model.company import Company
 from model.user import User
+from gaesessions import get_current_session
 
 class AddCompanyPage(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
     def read_image(self):
@@ -22,7 +23,13 @@ class AddCompanyPage(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
         return c
 
     def create_company_admin(self, c):
-        admin = User.get_or_insert(key_name=self['user_id'], parent=c, name=self['name'], isAdmin=True, login_id=self['user_id'])
+        session = get_current_session()
+        admin = User.get_or_insert(key_name=session['me_id'], 
+                                   parent=c, 
+                                   name=session['me_name'], 
+                                   isAdmin=True, 
+                                   login_id=session['me_id'])
+        admin.put()
         return admin
 
     def post(self):
