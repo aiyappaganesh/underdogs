@@ -32,7 +32,8 @@
                         {% if hide_navbar_join != 'true' %}<li><a href="/startups/registration">Add Startup</a></li>{% endif %}  
                         {% if hide_navbar_login != 'true' %}
                             {% if false|is_user_logged_in %}
-                                <li><a href="/member/dashboard">My Startups</a></li>
+                                <li><a href="/member/companies/dashboard">My Startups</a></li>
+                                <li><a href="/member/projects/dashboard">My Projects</a></li>
                                 <li><a href="/member/logout">Log Out</a></li>
                             {% else %}
                                 <li><a href="/member/login?redirect_url=/">Log In</a></li>

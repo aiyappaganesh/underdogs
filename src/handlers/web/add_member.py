@@ -84,15 +84,21 @@ class MemberMissingHandler(WebRequestHandler):
         template_values = {'redirect_url' : self['redirect_url']}
         self.write(self.get_rendered_html(path, template_values), 200)
 
-class MemberDashboardHandler(WebRequestHandler):
+class CompaniesDashboardHandler(WebRequestHandler):
     @web_login_required
     def get(self):
         session = get_current_session()
-        path = 'member_dashboard.html'
+        path = 'companies_dashboard.html'
         name = session['me_name']
         info_list = get_user_companies()
         template_values = {'info_list':info_list,'name':name}
         self.write(self.get_rendered_html(path, template_values), 200)
+
+class ProjectsDashboardHandler(WebRequestHandler):
+    @web_login_required
+    def get(self):
+        path = 'projects_dashboard.html'
+        self.write(self.get_rendered_html(path, {}), 200)
 
 class MemberInvitePage(WebRequestHandler):
     @web_login_required
@@ -115,7 +121,8 @@ app = webapp2.WSGIApplication(
         ('/member/list', ListMemberPage),
         ('/member/login', MemberLoginPageHandler),
         ('/member/logout', MemberLogoutPageHandler),
-        ('/member/dashboard', MemberDashboardHandler),
+        ('/member/companies/dashboard', CompaniesDashboardHandler),
+        ('/member/projects/dashboard', ProjectsDashboardHandler),
         ('/member/missing', MemberMissingHandler),
         ('/member/invite', MemberInvitePage),
         ('/member/finish_invite', MemberFinishInvitePage)
