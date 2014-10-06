@@ -30,11 +30,11 @@
                                         <script>
                                             var doughnutData = [
                                                     {
-                                                        value: {{startup.0.influence_avg}}*100,
+                                                        value: parseInt({{startup.0.influence_avg}}*100),
                                                         color:"#68dff0"
                                                     },
                                                     {
-                                                        value: 100-{{startup.0.influence_avg}}*100,
+                                                        value: 100-parseInt({{startup.0.influence_avg}}*100),
                                                         color:"#bdfdfd"
                                                     }
                                                 ];
@@ -48,11 +48,11 @@
                                         <script>
                                                 var doughnutData = [
                                                     {
-                                                        value: {{ startup.1 }}*100,
+                                                        value: parseInt({{ startup.1 }}*100),
                                                         color:"#68dff0"
                                                     },
                                                     {
-                                                        value: 100-{{ startup.1 }}*100,
+                                                        value: 100-parseInt({{ startup.1 }}*100),
                                                         color:"#bdfdfd"
                                                     }
                                                 ];
