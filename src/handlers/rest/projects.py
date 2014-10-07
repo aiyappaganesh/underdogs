@@ -14,7 +14,7 @@ class AddProjectHandler(RequestHandler):
         p.title = self['project_title']
         p.description = self['description']
         p.skills = self.get_all('skills')
-        p.end_time = date(2014, 12, 25)
+        p.end_date = date(2014, 12, 25)
         p.put()
         return p
 
