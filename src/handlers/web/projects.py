@@ -26,7 +26,7 @@ class ProjectsRegistrationPage(WebRequestHandler):
         template_values['skills'] = skill_options
         self.write(self.get_rendered_html(path, template_values), 200)
 
-class ProjectDetailsPage(WebRequestHandler):
+class ProjectStartupsMatchingPage(WebRequestHandler):
     def get(self):
         path = 'startups_search_results.html'
         project_id = long(self['project_id'])
@@ -50,6 +50,6 @@ class ProjectDetailsPage(WebRequestHandler):
 app = webapp2.WSGIApplication(
     [
         ('/projects/registration', ProjectsRegistrationPage),
-        ('/projects/project_details', ProjectDetailsPage)
+        ('/projects/fitting_startups', ProjectStartupsMatchingPage)
     ]
 )
