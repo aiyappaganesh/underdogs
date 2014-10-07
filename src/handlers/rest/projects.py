@@ -8,28 +8,28 @@ from model.project import Project
 from model.user import User
 
 class AddProjectHandler(RequestHandler):
-	def create_project(self):
-		p = Project()
-		p.title = self['project_title']
-		p.description = self['description']
-		p.put()
-		return p
+    def create_project(self):
+        p = Project()
+        p.title = self['project_title']
+        p.description = self['description']
+        p.skills = self.get_all('skills')
+        p.put()
+        return p
 
-	def create_project_admin(self, project):
-		session = get_current_session()
-		admin = User.get_or_insert(key_name=session['me_id'], 
-								   parent=project, 
-								   name=session['me_name'], 
-								   isAdmin=True, 
-								   login_id=session['me_id'])
-		admin.put()
-		return admin
+    def create_project_admin(self, project):
+        session = get_current_session()
+        admin = User.get_or_insert(key_name=session['me_id'], 
+                                   parent=project, 
+                                   name=session['me_name'], 
+                                   isAdmin=True, 
+                                   login_id=session['me_id'])
+        return admin
 
-	@web_login_required
-	def post(self):
-		p = self.create_project()
-		a = self.create_project_admin(p)
-		self.redirect('/startups/search/criteria')
+    @web_login_required
+    def post(self):
+        p = self.create_project()
+        a = self.create_project_admin(p)
+        self.redirect('/startups/search/criteria')
 
 app = RestApplication([
     ('/api/projects/add_project', AddProjectHandler)

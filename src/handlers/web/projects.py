@@ -12,7 +12,7 @@ class ProjectsRegistrationPage(WebRequestHandler):
                                                {'name':'3 to 6 months','value':'6'},
                                                {'name':'More than 6 months','value':'12'}]
         q = Skill.all()
-        skills = q.fetch(50)
+        skills = q.fetch(100)
         skill_options = []
         for skill in skills:
             skill_option = {}
