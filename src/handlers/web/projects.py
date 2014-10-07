@@ -38,14 +38,27 @@ class ProjectStartupsMatchingPage(WebRequestHandler):
         for c in q.fetch(50):
             expertise_dict = convert_string_list_to_dict(c.expertise_avg)
             score = 0.0
+            matched_skills = 0.0
+            fit = 0.0
+            sorted_companies[c] = {}
+            sorted_companies[c]['skills'] = []
             if skills:
                 for skill in skills:
+                    skill = str(skill)
                     if skill in expertise_dict:
+                        skill_dict = { 'name':skill,'value':float(expertise_dict[skill]) }
                         score += float(expertise_dict[skill])
+                        matched_skills += 1
+                    else:
+                        skill_dict = { 'name':skill,'value':0.0 }
+                    sorted_companies[c]['skills'].append(skill_dict)
                 score = float(score / len(skills))
-            sorted_companies[c] = score
+                fit = float(matched_skills / len(skills)) if matched_skills > 0.0 else 0.0
+            sorted_companies[c]['combined']=score
+            sorted_companies[c]['fit']=fit
+        donuts = (len(skills) if skills else 0) + 3
         sorted_companies = sorted(sorted_companies.iteritems(), key=operator.itemgetter(1), reverse = True)
-        template_values = {'startups' : sorted_companies}
+        template_values = {'startups' : sorted_companies, 'skills' : skills, 'donuts' : donuts}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class ProjectListPage(WebRequestHandler):

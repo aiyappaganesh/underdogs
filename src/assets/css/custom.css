@@ -102,9 +102,7 @@ body a {
     background-color: #3bafda;
 }
 
-.donut-canvas {
-    width: 30px; 
-    height: 30px;
+.donut_canvas {
 }
 
 table td {
