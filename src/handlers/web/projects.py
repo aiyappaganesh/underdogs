@@ -1,3 +1,4 @@
+import logging
 import webapp2
 from model.skill import Skill
 from handlers.web import WebRequestHandler
@@ -47,9 +48,27 @@ class ProjectStartupsMatchingPage(WebRequestHandler):
         template_values = {'startups' : sorted_companies}
         self.write(self.get_rendered_html(path, template_values), 200)
 
+class ProjectListPage(WebRequestHandler):
+    def get_all_projects(self, sort):
+        q = Project.all()
+        if sort == 'desc':
+            q.order('-end_time')
+        elif sort == 'asc':
+            q.order('end_time')
+        return q.fetch(100)
+
+    def get(self):
+        sort = self['sort']
+        path = 'list_projects.html'
+        projects = self.get_all_projects(sort)
+        template_values = {'projects': projects, 'sort': sort}
+        self.write(self.get_rendered_html(path, template_values), 200)
+
+
 app = webapp2.WSGIApplication(
     [
         ('/projects/registration', ProjectsRegistrationPage),
+        ('/projects/list', ProjectListPage),
         ('/projects/fitting_startups', ProjectStartupsMatchingPage)
     ]
 )

@@ -7,7 +7,7 @@ class LandingPage(WebRequestHandler):
         footer_buttons = [[{'link':'/startups/registration','name':'Add Your Startup'},
                           {'link':'/projects/registration','name':'Register a project'}],
                           [{'link':'/startups/search/criteria','name':'Find Startups'},
-                          {'link':'/','name':'Find projects'}]]
+                          {'link':'/projects/list','name':'Find projects'}]]
         template_values = {'footer_buttons' : footer_buttons}
 
         template_values['startup_icons'] = {}

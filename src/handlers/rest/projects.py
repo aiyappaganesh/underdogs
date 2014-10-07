@@ -6,6 +6,7 @@ from handlers.web.auth import web_login_required
 from gaesessions import get_current_session
 from model.project import Project
 from model.user import User
+from datetime import date
 
 class AddProjectHandler(RequestHandler):
     def create_project(self):
@@ -13,6 +14,7 @@ class AddProjectHandler(RequestHandler):
         p.title = self['project_title']
         p.description = self['description']
         p.skills = self.get_all('skills')
+        p.end_time = date(2014, 12, 25)
         p.put()
         return p
 

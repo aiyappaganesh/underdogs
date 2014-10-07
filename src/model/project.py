@@ -3,5 +3,5 @@ from google.appengine.ext import db
 class Project(db.Model):
     title = db.StringProperty(indexed=False)
     description = db.StringProperty(indexed=False)
-    end_time = db.TimeProperty(indexed=False)
+    end_time = db.DateProperty()
     skills = db.StringListProperty(indexed=False)
