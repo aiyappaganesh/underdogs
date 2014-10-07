@@ -40,6 +40,8 @@ class ListMemberPage(WebRequestHandler):
         if not user_id:
             return 'public'
         user = User.get_by_key_name(user_id, parent=company)
+        if not user:
+            return 'public'
         if user.isAdmin:
             return 'admin'
         else:
