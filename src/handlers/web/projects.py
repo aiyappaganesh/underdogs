@@ -49,19 +49,20 @@ class ProjectStartupsMatchingPage(WebRequestHandler):
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class ProjectListPage(WebRequestHandler):
-    def get_all_projects(self, sort):
+    def get_all_projects(self, order, column):
         q = Project.all()
-        if sort == 'desc':
-            q.order('-end_time')
-        elif sort == 'asc':
-            q.order('end_time')
+        if order == 'desc':
+            q.order('-' + column)
+        elif order == 'asc':
+            q.order(column)
         return q.fetch(100)
 
     def get(self):
-        sort = self['sort']
+        order = self['order']
+        column = self['column']
         path = 'list_projects.html'
-        projects = self.get_all_projects(sort)
-        template_values = {'projects': projects, 'sort': sort}
+        projects = self.get_all_projects(order, column)
+        template_values = {'projects': projects, 'order': order}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 
