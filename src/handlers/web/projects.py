@@ -58,8 +58,8 @@ class ProjectListPage(WebRequestHandler):
         return q.fetch(100)
 
     def get(self):
-        order = self['order']
-        column = self['column']
+        order = self['order'] if self['order'] else 'desc'
+        column = self['column'] if self['column'] else 'end_date'
         path = 'list_projects.html'
         projects = self.get_all_projects(order, column)
         template_values = {'projects': projects, 'order': order}
