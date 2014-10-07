@@ -17,8 +17,20 @@
         <form role="form" action="/projects/project_details" method="GET">
             <div class="col-lg-12">
                 {% include "components/form_select.html" with id="project-id" name="project_id" options=projects default="Select Project" %}
-                <input type="submit" name="submit" id="submit" value="Show Startups" class="btn btn-bootflat pull-right">
+                <input type="submit" name="submit" id="submit" value="Show Startups" class="btn btn-bootflat pull-right" onclick="validateInput(event)">
             </div>
         </form>
     </div>
+{% endblock %}
+
+{% block Scripts %}
+    <script>
+        function validateInput(event) {
+            if($('#project-id').val() == '') {
+                $('#project-id').focus();
+                event.preventDefault();
+                return false;
+            }
+        }
+    </script>
 {% endblock %}
