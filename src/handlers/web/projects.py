@@ -75,7 +75,7 @@ class ProjectListPage(WebRequestHandler):
         column = self['column'] if self['column'] else 'end_date'
         path = 'list_projects.html'
         projects = self.get_all_projects(order, column)
-        template_values = {'projects': projects, 'order': order}
+        template_values = {'projects': projects, 'order': order, 'column': column}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 
