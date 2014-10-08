@@ -16,34 +16,36 @@
     </head>
 
     <body>
-        <div class="navbar navbar-fixed-top">
-        {% block Navbar %}
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/"><img src="/assets/img/logo.png"></a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        {% if hide_navbar_join != 'true' %}<li><a href="/startups/registration">Add Startup</a></li>{% endif %}  
-                        {% if hide_navbar_login != 'true' %}
-                            {% if false|is_user_logged_in %}
-                                <li><a href="/member/companies/dashboard">My Startups</a></li>
-                                <li><a href="/member/projects/dashboard">My Projects</a></li>
-                                <li><a href="/member/logout">Log Out</a></li>
-                            {% else %}
-                                <li><a href="/member/login?redirect_url=/">Log In</a></li>
+        <header class="header">
+            <div>
+            {% block Navbar %}
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/"><img src="/assets/img/logo.png"></a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            {% if hide_navbar_join != 'true' %}<li><a href="/startups/registration">Add Startup</a></li>{% endif %}
+                            {% if hide_navbar_login != 'true' %}
+                                {% if false|is_user_logged_in %}
+                                    <li><a href="/member/companies/dashboard">My Startups</a></li>
+                                    <li><a href="/member/projects/dashboard">My Projects</a></li>
+                                    <li><a href="/member/logout">Log Out</a></li>
+                                {% else %}
+                                    <li><a href="/member/login?redirect_url=/">Log In</a></li>
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
+            {% endblock %}
             </div>
-        {% endblock %}
-        </div>
+        </header>
         <div class="content nav-offset">
             <div class="container">
                 <div class="row">
@@ -54,6 +56,20 @@
         </div>
         <script src="/assets/js/jquery.js"></script>
         <script src="/assets/js/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $(window).scroll(function(){
+                    var top = $('body').scrollTop();
+                    if(top == 0) {
+                        $('body').removeClass('scrolled');
+                    } else {
+                        if(!$('body').hasClass('scrolled')){
+                            $('body').addClass('scrolled');
+                        }
+                    }
+                });
+            });
+        </script>
         {% block Scripts %}{% endblock %}
     </body>
 
