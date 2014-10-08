@@ -19,7 +19,8 @@
                 {% include "components/form_input.html" with id="project-title" name="project_title" placeholder="Project Title" %}
                 {% include "components/form_select.html" with id="skills" name="skills" other="multiple" options=skills default="- Select Skills -" %}
                 {% include "components/form_textarea.html" with id="description" name="description" placeholder="Description" rows="10"%}
-                {% include "components/form_select.html" with id="duration" name="duration" options=duration_options default="Select Duration" %}
+                {% include "components/form_input.html" with id="project-bid" name="project_bid" placeholder="Bid" %}
+                {% include "components/form_input.html" with type="date" id="project-end-date" name="project_end_date" placeholder="End Date" %}
                 <input type="submit" name="submit" id="submit" value="Create Project" class="btn btn-bootflat pull-right">
             </div>
     	</form>
