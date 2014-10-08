@@ -60,7 +60,7 @@
             $(document).ready(function(){
                 $(window).scroll(function(){
                     var top = $('body').scrollTop();
-                    if(top == 0) {
+                    if(top < 50) {
                         $('body').removeClass('scrolled');
                     } else {
                         if(!$('body').hasClass('scrolled')){
