@@ -25,35 +25,18 @@
                                 <tr>
                                     <td>{{forloop.counter}}</td>
                                     <td><a href="/member/list?company_id={{startup.0.key.id}}">{{startup.0.name}}</td>
-                                    <td>
-                                        {% include "components/donut_chart.html" with loop_counter=forloop.counter canvas_id="expertisedonut" text_id="expertisedonuttext" donut_score=startup.1.combined donuts=donuts full_color="#F8761E" empty_color="#F7D9C5" %}
+                                    <td class="donut_td">
+                                        {% include "components/donut_chart.html" with donut_score=startup.1.combined donut_size=donut_size tooltip_font_size=tooltip_font_size full_color="#F8761E" empty_color="#F7D9C5" %}
                                     </td>
-                                    <td>
-                                        {% include "components/donut_chart.html" with loop_counter=forloop.counter canvas_id="expertisedonut-fit" text_id="expertisedonuttext-fit" donut_score=startup.1.fit donuts=donuts full_color="#32F5BE" empty_color="#CBF6EA" %}
+                                    <td class="donut_td">
+                                        {% include "components/donut_chart.html" with donut_score=startup.1.fit donut_size=donut_size tooltip_font_size=tooltip_font_size full_color="#32F5BE" empty_color="#CBF6EA" %}
                                     </td>
-                                    <td>
-                                        {% include "components/donut_chart.html" with loop_counter=forloop.counter canvas_id="influencedonut" text_id="influencedonuttext" donut_score=startup.0.influence_avg donuts=donuts full_color="#7A29F5" empty_color="#D2BCF3" %}
+                                    <td class="donut_td">
+                                        {% include "components/donut_chart.html" with donut_score=startup.0.influence_avg donut_size=donut_size tooltip_font_size=tooltip_font_size full_color="#7A29F5" empty_color="#D2BCF3" %}
                                     </td>
                                     {% for score in startup.1.skills %}
-                                        <td>
-                                            <canvas id="expertisedonut-{{forloop.parentloop.counter}}-{{score.name}}" class="donut_canvas"></canvas>
-                                            <span class="score-text" id="expertisedonuttext-{{forloop.parentloop.counter}}-{{score.name}}"></span>
-                                            <script>
-                                                    var doughnutData = [
-                                                        {
-                                                            value: parseInt({{ score.value }}*100),
-                                                            color:"#68dff0"
-                                                        },
-                                                        {
-                                                            value: 100-parseInt({{ score.value }}*100),
-                                                            color:"#bdfdfd"
-                                                        }
-                                                    ];
-                                                    document.getElementById("expertisedonut-{{forloop.parentloop.counter}}-{{score.name}}").height = 80-(5*{{donuts}});
-                                                    document.getElementById("expertisedonut-{{forloop.parentloop.counter}}-{{score.name}}").width = 80-(5*{{donuts}});
-                                                    var expertiseDonut = new Chart(document.getElementById("expertisedonut-{{forloop.parentloop.counter}}-{{score.name}}").getContext("2d")).Doughnut(doughnutData);
-                                                    document.getElementById("expertisedonuttext-{{forloop.parentloop.counter}}-{{score.name}}").innerHTML = parseInt({{score.value}}*100)+'%';
-                                            </script>
+                                        <td class="donut_td">
+                                            {% include "components/donut_chart.html" with donut_score=score.value donut_size=donut_size tooltip_font_size=tooltip_font_size %}
                                         </td>
                                     {% endfor %}
                                 </tr>
@@ -70,8 +53,25 @@
 {% block Scripts %}
     <script>
         $(document).ready(function(){
-            $('.score-text').css('font-size',(40-(3*{{donuts}}))+'px');
+            $('.donut_td').each(function(){
+                var score = this.getElementsByClassName("score_value")[0].value;
+                this.getElementsByClassName("score_text")[0].innerHTML = parseInt(score*100)+'%';
+                var full_color = this.getElementsByClassName("full_color")[0].value;
+                var empty_color = this.getElementsByClassName("empty_color")[0].value;
+                var doughnutData = [
+                    {
+                        value: parseInt(score*100),
+                        color: full_color
+                    },
+                    {
+                        value: 100-parseInt(score*100),
+                        color: empty_color
+                    }
+                ];
+                var scoreDonut = new Chart(this.getElementsByClassName("donut_canvas")[0].getContext("2d")).Doughnut(doughnutData, {tooltipFontSize:{{tooltip_font_size}},tooltipCaretSize: 2,tooltipXOffset: 0});
+            });
+
+            $('.score_text').css('font-size',{{score_font_size}}+'px');
         });
     </script>
 {% endblock %}
-

@@ -1,19 +1,5 @@
-<canvas id="{{canvas_id}}{{loop_counter}}" class="donut_canvas"></canvas>
-<span class="score-text" id="{{text_id}}{{loop_counter}}"></span>
-<script>
-    var score = {% if donut_score %}{{donut_score}}{% else %}0.0{% endif %};
-    var doughnutData = [
-            {
-                value: parseInt(score*100),
-                color:"{{full_color|default:'#68dff0'}}"
-            },
-            {
-                value: 100-parseInt(score*100),
-                color:"{{empty_color|default:'#bdfdfd'}}"
-            }
-        ];
-    document.getElementById("{{canvas_id}}{{loop_counter}}").height = 80-(5*{{donuts}});
-    document.getElementById("{{canvas_id}}{{loop_counter}}").width = 80-(5*{{donuts}});
-    var scoreDonut = new Chart(document.getElementById("{{canvas_id}}{{loop_counter}}").getContext("2d")).Doughnut(doughnutData, {tooltipFontSize:14-(1*{{donuts}}),tooltipCaretSize: 2,tooltipXOffset: 0});
-    document.getElementById("{{text_id}}{{loop_counter}}").innerHTML = parseInt(score*100)+'%';
-</script>
+<canvas class="donut_canvas" height="{{donut_size}}" width="{{donut_size}}"></canvas>
+<span class="score_text"></span>
+<input class="score_value" type="hidden" value="{% if donut_score %}{{donut_score}}{% else %}0.0{% endif %}">
+<input class="full_color" type="hidden" value="{% if full_color %}{{full_color}}{% else %}#68dff0{% endif %}">
+<input class="empty_color" type="hidden" value="{% if empty_color %}{{empty_color}}{% else %}#bdfdfd{% endif %}">
