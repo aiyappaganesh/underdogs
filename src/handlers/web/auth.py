@@ -65,7 +65,7 @@ class Auth(object):
         access_token = self.get_access_token(response)
         company_id, user_id = req_handler[self.company_param].split(self.separator)
         self.save_user(access_token, company_id, user_id)
-        return '/member/expose_third_party?company_id=' + company_id + '&user_id=' + user_id
+        return '/member/expose_third_party?company_id=' + company_id
 
     def get_thirdparty_access_token_url(self, code):
         params = {'code': code, 'client_id': self.client_id, 'client_secret': self.client_secret}
@@ -134,7 +134,7 @@ class LinkedinAuth(Auth):
         access_token = self.get_access_token(response)
         company_id, user_id = req_handler[self.company_param].split(self.separator)
         self.save_user(access_token, company_id, user_id)
-        return '/member/expose_third_party?company_id=' + company_id + '&user_id=' + user_id
+        return '/member/expose_third_party?company_id=' + company_id
 
     def get_auth_url(self, **kwargs):
         auth_url = super(LinkedinAuth, self).get_auth_url()
