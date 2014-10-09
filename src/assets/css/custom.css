@@ -1,15 +1,16 @@
 body{
-    font: 400 150%/1.65 "Gotham", "Helvetica Neue", Helvetica, sans-serif;
-    color: #677277;
+    font-size: 150%;
+    font-weight: 400;
+    line-height: 1.65;
 }
 
 body a {
     text-decoration: none;
-    color: #51b9db;
+    color: #4FC1E9;
 }
 
 .navbar-toggle .icon-bar {
-    background-color: lightblue;
+    background-color: #4FC1E9;
 }
 
 .content {
@@ -18,17 +19,16 @@ body a {
 
 .landing-selection {
     text-align: center;
-    font-family: Raleway;
 }
 
 .landing-big-font {
-    color: #434a54;
-    font-size: 40px;
+    color: #434A54;
+    font-size: 35px;
     font-weight: 700;
 }
 
 .landing-small-font {
-    color: #656d78;
+    color: #E6E9ED;
     font-size: 15px;
     font-weight: 500;
 }
@@ -153,11 +153,6 @@ a small {
     vertical-align: middle;
 }
 
-.form-control {
-    border-radius: 3px !important;
-    -webkit-border-radius: 3px !important;
-}
-
 .center-align {
     text-align: center;
 }
@@ -200,4 +195,8 @@ a small {
 
 .bottom-margin-lg {
     margin-bottom: 100px;
+}
+
+.row [class*=col-] {
+margin-bottom: 10px;
 }
