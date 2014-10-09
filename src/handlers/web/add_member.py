@@ -93,7 +93,12 @@ class CompaniesDashboardHandler(WebRequestHandler):
         path = 'companies_dashboard.html'
         name = session['me_name']
         info_list = get_user_companies()
-        template_values = {'info_list':info_list,'name':name}
+        donuts = 2
+        donuts = donuts - 1
+        donut_size = 80-(5*donuts)
+        score_font_size = 40-(3*donuts)
+        tooltip_font_size = 14-donuts
+        template_values = {'info_list':info_list,'name':name, 'donut_size': donut_size, 'score_font_size' : score_font_size, 'tooltip_font_size' : tooltip_font_size}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class ProjectsDashboardHandler(WebRequestHandler):

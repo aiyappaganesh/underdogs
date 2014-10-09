@@ -49,29 +49,3 @@
         </div>
     </div>
 {% endblock %}
-
-{% block Scripts %}
-    <script>
-        $(document).ready(function(){
-            $('.donut_td').each(function(){
-                var score = this.getElementsByClassName("score_value")[0].value;
-                this.getElementsByClassName("score_text")[0].innerHTML = parseInt(score*100)+'%';
-                var full_color = this.getElementsByClassName("full_color")[0].value;
-                var empty_color = this.getElementsByClassName("empty_color")[0].value;
-                var doughnutData = [
-                    {
-                        value: parseInt(score*100),
-                        color: full_color
-                    },
-                    {
-                        value: 100-parseInt(score*100),
-                        color: empty_color
-                    }
-                ];
-                var scoreDonut = new Chart(this.getElementsByClassName("donut_canvas")[0].getContext("2d")).Doughnut(doughnutData, {tooltipFontSize:{{tooltip_font_size}},tooltipCaretSize: 2,tooltipXOffset: 0});
-            });
-
-            $('.score_text').css('font-size',{{score_font_size}}+'px');
-        });
-    </script>
-{% endblock %}

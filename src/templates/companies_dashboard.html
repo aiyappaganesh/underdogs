@@ -24,27 +24,10 @@
                                 <tr>
                                     <td>{{forloop.counter}}</td>
                                     <td><a href="/member/list?company_id={{info.parent.key.id}}">{{info.parent.name}}</a></td>
-                                    <td>
-                                        <canvas id="influencedonut{{forloop.counter}}" height="80" width="80" class="donut_canvas"></canvas>
-                                        <span class="score-text" id="influencedonuttext{{forloop.counter}}"></span>
-                                        {% if info.member.influence %}
-                                        <script>
-                                            var doughnutData = [
-                                                    {
-                                                        value: parseInt({{info.member.influence}}*100),
-                                                        color:"#68dff0"
-                                                    },
-                                                    {
-                                                        value: 100-parseInt({{info.member.influence}}*100),
-                                                        color:"#bdfdfd"
-                                                    }
-                                                ];
-                                            var influenceDonut = new Chart(document.getElementById("influencedonut{{forloop.counter}}").getContext("2d")).Doughnut(doughnutData);
-                                            document.getElementById("influencedonuttext{{forloop.counter}}").innerHTML = parseInt({{info.member.influence}}*100)+'%';
-                                        </script>
-                                        {% endif %}
+                                    <td class="donut_td">
+                                        {% include "components/donut_chart.html" with donut_score=info.member.influence donut_size=donut_size tooltip_font_size=tooltip_font_size %}
                                     </td>
-                                    <td>
+                                    <td class="donut_td">
                                         <select id="expertise-select{{forloop.counter}}">
                                         <option id="item{{forloop.parentloop.counter}}0" value="">Select Expertise</option>
                                         {% for item in info.member.expertise %}
@@ -53,26 +36,15 @@
                                             var str = '{{item}}';
                                             var arr = str.split(' : ');
                                             document.getElementById("item{{forloop.parentloop.counter}}{{forloop.counter}}").innerHTML = arr[0];
-                                            document.getElementById("item{{forloop.parentloop.counter}}{{forloop.counter}}").setAttribute('value', parseFloat(arr[1])*100);
+                                            document.getElementById("item{{forloop.parentloop.counter}}{{forloop.counter}}").setAttribute('value', arr[1]);
                                         </script>
                                         {% endfor %}
                                         </select>
-                                        <canvas id="expertisedonut{{forloop.counter}}" height="80" width="80" class="donut_canvas"></canvas>
-                                        <span class="score-text" id="expertisedonuttext{{forloop.counter}}"></span>
+                                        {% include "components/donut_chart.html" with donut_score="no_load" donut_size=donut_size tooltip_font_size=tooltip_font_size %}
                                         <script>
                                             document.getElementById("expertise-select{{forloop.counter}}").onchange = function() {
-                                                var doughnutData = [
-                                                    {
-                                                        value: parseInt(this.value),
-                                                        color:"#68dff0"
-                                                    },
-                                                    {
-                                                        value: 100-parseInt(this.value),
-                                                        color:"#bdfdfd"
-                                                    }
-                                                ];
-                                                var expertiseDonut = new Chart(document.getElementById("expertisedonut{{forloop.counter}}").getContext("2d")).Doughnut(doughnutData);
-                                                document.getElementById("expertisedonuttext{{forloop.counter}}").innerHTML = parseInt(this.value)+'%';
+                                                $(this).parent()[0].getElementsByClassName("score_value")[0].value = this.value;
+                                                drawDonutChart($(this).parent()[0]);
                                             }
                                         </script>
                                     </td>
