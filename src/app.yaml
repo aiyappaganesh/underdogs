@@ -40,7 +40,14 @@ handlers:
 - url: /assets/scss
   static_dir: assets/scss
 
+- url: /assets
+  static_dir: assets
+
 ######################### WEB ENDPOINTS #########################
+- url: /temp.*
+  script: handlers.web.temp.app
+  secure: always
+
 - url: /member/.*
   script: handlers.web.add_member.app
   secure: always
