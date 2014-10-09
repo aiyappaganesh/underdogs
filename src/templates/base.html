@@ -67,7 +67,7 @@
                 );
                 $(window).scroll(function(){
                     var top = $('body').scrollTop();
-                    if(top < 50) {
+                    if(top <= 0) {
                         $('body').removeClass('scrolled');
                     } else {
                         if(!$('body').hasClass('scrolled')){
