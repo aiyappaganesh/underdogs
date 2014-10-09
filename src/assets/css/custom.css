@@ -35,7 +35,15 @@ body a {
 
 .landing-section {
     min-height: 350px;
-    padding-top: 200px !important;
+    padding-top: 120px !important;
+    padding-bottom: 80px !important;
+    position: absolute;
+    background-color: #ffffff;
+}
+
+.page-content {
+    position: relative;
+    min-height: 1100px;
 }
 
 .nav-offset {

@@ -4,12 +4,7 @@ from handlers.web import WebRequestHandler
 class LandingPage(WebRequestHandler):
     def get(self):
         path = 'landing.html'
-        footer_buttons = [[{'link':'/startups/registration','name':'Add Your Startup'},
-                          {'link':'/projects/registration','name':'Register a project'}],
-                          [{'link':'/startups/search/criteria','name':'Find Startups'},
-                          {'link':'/projects/list','name':'Find projects'}]]
-        template_values = {'footer_buttons' : footer_buttons}
-
+        template_values = {}
         template_values['startup_icons'] = {}
         template_values['startup_icons']['icon_sets'] = \
             [
@@ -21,6 +16,8 @@ class LandingPage(WebRequestHandler):
         template_values['startup_icons']['title'] = 'Startups'
         template_values['startup_icons']['description'] = 'Startups have very good developers and designers but are constantly looking for working capital.'
         template_values['startup_icons']['icons_first'] = True
+        template_values['startup_icons']['buttons'] = [{'link':'/startups/registration','name':'Add Your Startup'},
+                                                       {'link':'/projects/list','name':'Find projects'}]
 
         template_values['enterprise_icons'] = {}
         template_values['enterprise_icons']['icon_sets'] = \
@@ -33,6 +30,8 @@ class LandingPage(WebRequestHandler):
         template_values['enterprise_icons']['title'] = 'Enterprises'
         template_values['enterprise_icons']['description'] = 'Enterprises often give projects to outsourcing companies and freelancers, both of who lack the dev and design talent of startups.'
         template_values['enterprise_icons']['icons_first'] = False
+        template_values['enterprise_icons']['buttons'] = [{'link':'/projects/registration','name':'Register a project'},
+                                                          {'link':'/startups/search/criteria','name':'Find Startups'}]
 
         self.write(self.get_rendered_html(path, template_values), 200)
 

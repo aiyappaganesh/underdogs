@@ -56,8 +56,15 @@
         </div>
         <script src="/assets/js/jquery.js"></script>
         <script src="/assets/js/bootstrap.min.js"></script>
+        <script src="/assets/js/jquery.stellar.min.js"></script>
         <script>
             $(document).ready(function(){
+                $(window).stellar(
+                    {
+                        horizontalOffset: 0,
+                        verticalOffset: 0
+                    }
+                );
                 $(window).scroll(function(){
                     var top = $('body').scrollTop();
                     if(top < 50) {

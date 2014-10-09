@@ -1,29 +1,14 @@
 {% extends "base.html" %}
 
 {% block Content %}
-    <div class="container">
-        <div class="row top-padded landing-section">
+    <div class="container page-content">
+        <div class="row top-padded landing-section" data-stellar-ratio="0.5" data-stellar-background-ratio="0.9" style="top:50px;left:80px;background:url('/assets/img/landing/machine.png') center no-repeat;background-attachment: fixed;">
             <div class="col-lg-12">
                 <p class="landing-selection landing-big-font">All big things are accomplished by small teams</p>
+                <p class="landing-selection landing-big-font">Pirates is a platform for enterprises to connect with the best startups to build products for them</p>
             </div>
         </div>
-        {% include "components/icons.html" with icons=startup_icons %}
-        {% include "components/icons.html" with icons=enterprise_icons %}
-        <div class="row landing-section">
-            <div class="col-lg-12">
-                <p class="landing-selection landing-big-font">A platform for enterprises to connect with the best startups to build products for them</p>
-            </div>
-        </div>
-        <div class="row top-padded bottom-padded">
-            {% for footer_button_list in footer_buttons %}
-            <div class="row footer-button-row">
-                {% for footer_button in footer_button_list %}
-                    <div class="col-lg-3 col-lg-offset-2">
-                        <a href="{{footer_button.link}}" class="btn btn-bootflat sd-btn"><span class="network-name">{{footer_button.name}}</span></a>
-                    </div>
-                {% endfor %}
-            </div>
-            {% endfor %}
-        </div>
+        {% include "components/icons.html" with icons=startup_icons speed="1" top="400" left="0" %}
+        {% include "components/icons.html" with icons=enterprise_icons speed="1" top="750" left="0" %}
     </div>
 {% endblock %}
