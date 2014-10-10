@@ -11,7 +11,7 @@ from user_data import github, linkedin, angellist
 from util.util import isAdminAccess
 from handlers.web import WebRequestHandler
 from google.appengine.api import mail
-from handlers.web.auth import web_login_required
+from handlers.web.auth import web_login_required, web_auth_required
 from model.third_party_login_data import ThirdPartyLoginData
 from gaesessions import get_current_session
 
@@ -94,12 +94,17 @@ class MemberSignupHandler(WebRequestHandler):
         tpld.parent_id = email
         tpld.put()
 
-    @web_login_required
+    def modify_session(self):
+        session = get_current_session()
+        session.pop('auth_only')
+
+    @web_auth_required
     def post(self):
         email = self['email']
         if not self.user_exists():
             self.create_user(email)
             self.create_tpld(email)
+            self.modify_session()
             self.redirect('/')
         else:
             self.write("Internal error", 500)

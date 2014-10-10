@@ -7,6 +7,8 @@ register =  template.create_template_register()
 @register.filter
 def is_user_logged_in(dummy):
 	session = get_current_session()
-	if session.is_active() and 'me_id' in session:
+	if session.is_active() and \
+	   'me_id' in session and \
+	   'auth_only' not in session:
 		return True
 	return False

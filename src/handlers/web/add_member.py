@@ -10,6 +10,7 @@ from handlers.web.auth import GithubAuth, LinkedinAuth, AngellistAuth
 from util.util import isAdminAccess
 from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
+from handlers.web.auth import web_auth_required
 from util.util import registration_breadcrumbs, get_user_companies, get_user_projects
 
 class ExposeThirdPartyPage(WebRequestHandler):
@@ -127,6 +128,7 @@ class MemberFinishInvitePage(WebRequestHandler):
         self.redirect('/member/login?redirect_url=/member/expose_third_party?company_id=' + self['company_id'])
 
 class MemberSignupPage(WebRequestHandler):
+    @web_auth_required
     def get(self):
         path = 'member_signup.html'
         template_values = {'network' : self['network']}

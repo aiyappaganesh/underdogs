@@ -31,6 +31,19 @@ networks = {
 def _user_logged_in(handler):
     session = get_current_session()
     if session.is_active() and 'me_id' in session:
+        if 'auth_only' in session:
+            session.terminate()
+            return False
+        else:
+            return True
+    return False
+
+def _user_authenticated(handler):
+    session = get_current_session()
+    if session.is_active() and \
+        'me_id' in session and \
+        'auth_only' in session and \
+        session['auth_only'] is True:
         return True
     return False
 
@@ -41,6 +54,14 @@ def web_login_required(fn):
         else:
             self.redirect('/member/missing?redirect_url=' + self.request.path + ('?' + self.request.query_string if self.request.query_string else ''))
     return check_login
+
+def web_auth_required(fn):
+    def check_auth(self, *args):
+        if _user_authenticated(self):
+            fn(self, *args)
+        else:
+            self.redirect('/member/not_authenticated?redirect_url=' + self.request.path + ('?' + self.request.query_string if self.request.query_string else ''))
+    return check_auth
 
 class Auth(object):
     def __init__(self, network):
@@ -200,21 +221,28 @@ class AngellistAuth(Auth):
         ThirdPartyUser(key_name=ANGELLIST, parent=user, access_token=access_token).put()
 
 def set_session(req_handler):
+    logging.info('In set session')
     curr_session = get_current_session()
     if curr_session.is_active():
+        logging.info('In terminate')
         curr_session.terminate()
     curr_session['me_id'] = req_handler['id']
     curr_session['me_access_token'] = req_handler['access_token']
     curr_session['me_name'] = req_handler['name']
+    return curr_session
 
 class ThirdPartyRequestHandler(RequestHandler):
+    def authenticate_user(self):
+        session = set_session(self)
+        session['auth_only'] = True
+
     def get(self):
         handler = Auth.get_handler_obj(self)
         if handler.is_user_created(self):
             redirect_uri = handler.fetch_and_save_user(self)
             self.redirect(redirect_uri)
         else:
-            set_session(self)
+            self.authenticate_user()
             self.redirect('/member/signup?network=' + self['network'])
 
 app = webapp2.WSGIApplication([ ('/users/github/callback', ThirdPartyRequestHandler),
