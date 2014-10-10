@@ -117,3 +117,11 @@ th, td {
 .btn-image-select {
     padding-top: 10px;
 }
+
+.startup-registration-form {
+    height: 680px;
+}
+
+.invite-member-form {
+    height: 160px;
+}

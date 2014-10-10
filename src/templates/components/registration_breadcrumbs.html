@@ -1,16 +1,12 @@
-<div class="row top-padded">
-    <div class="breadcrumb-row">
-        {% for breadcrumb in breadcrumbs %}
-            {% if forloop.counter == breadcrumb_idx %}
-                <div class="data-input-tab">
-            {% else %}
-                <div class="data-input-tab data-input-tab-inactive">
-            {% endif %}
+<ul class="nav nav-tabs nav-justified">
+    {% for breadcrumb in breadcrumbs %}
+        <li {% if forloop.counter == breadcrumb_idx %}class="active"{% endif %}>
+            <a>
                 <div>
                     <h4>{{breadcrumb.0}}</h4>
                     <p>{{breadcrumb.1}}</p>
                 </div>
-            </div>
-        {% endfor %}
-    </div>
-</div>
+            </a>
+        </li>
+    {% endfor %}
+</ul>

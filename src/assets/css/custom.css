@@ -201,6 +201,22 @@ a small {
     margin-bottom: 100px;
 }
 
+.top-padding-sm {
+    padding-top: 30px;
+}
+
+.top-padding-md {
+    padding-top: 60px;
+}
+
+.top-padding-lg {
+    padding-top: 100px;
+}
+
 .row [class*=col-] {
 margin-bottom: 10px;
+}
+
+.nav-tabs>li>a:hover {
+    background-color: #e6e9ed;
 }

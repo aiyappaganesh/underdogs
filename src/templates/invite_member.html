@@ -5,6 +5,38 @@
 {% endblock %}
 
 {% block Content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h3 class="center-align">Enter member details and we will send him a mail</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                {% include "components/registration_breadcrumbs.html" with idx="1" %}
+                <div class="tab-content">
+                    <div class="tab-pane fade active in">
+                        <div class="top-padding-sm invite-member-form">
+                            {% include "components/form_input.html" with id="new_member_email" name="email" placeholder="Email" %}
+                            <div class="row">
+                                <div class="col-md-3">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="button" id="done" value="Done inviting!" onclick="return done_inviting();" class="btn btn-bootflat pull-right" style="margin-left:10px;">
+                                    <input type="button" id="invite" value="Invite" onclick="return invite_by_email();" class="btn btn-bootflat pull-right">
+                                </div>
+                                <div class="col-md-3">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block Scripts %}
     <script type="text/javascript">
         function invite_by_email(){
             email = $('#new_member_email').val();
@@ -20,20 +52,4 @@
             return false;
         }
     </script>
-
-	<div class="container">
-        {% include "components/registration_breadcrumbs.html" %}
-        <div class="row">
-            <div class="col-lg-12">
-                <h3 class="center-align">Enter member details and we will send him a mail</h3>
-            </div>
-        </div>
-        <div class="row registration-form">
-            <div class="col-lg-12">
-                {% include "components/form_input.html" with id="new_member_email" name="email" placeholder="Email" %}
-                <input type="button" id="invite" value="Invite" onclick="return invite_by_email();" class="btn btn-bootflat pull-right" style="margin-left:10px;">
-                <input type="button" id="done" value="Done inviting!" onclick="return done_inviting();" class="btn btn-bootflat pull-right">
-            </div>
-        </div>
-    </div>
 {% endblock %}
