@@ -96,7 +96,7 @@
                             color: empty_color
                         }
                     ];
-                    var scoreDonut = new Chart(e.getElementsByClassName("donut_canvas")[0].getContext("2d")).Doughnut(doughnutData, {tooltipFontSize:{{tooltip_font_size}},tooltipCaretSize: 2,tooltipXOffset: 0});
+                    var scoreDonut = new Chart(e.getElementsByClassName("donut_canvas")[0].getContext("2d")).Doughnut(doughnutData, { tooltipCaretSize: 2,tooltipXOffset: 0{% if tooltip_font_size%},tooltipFontSize:{{tooltip_font_size}}{% endif %} });
                 }
             }
 
