@@ -10,6 +10,7 @@ from google.appengine.ext import deferred
 from google.appengine.api import users
 
 from model.company import Company
+from model.third_party_login_data import ThirdPartyLoginData
 import github_config as github
 import angellist_config as angellist
 import linkedin_config as linkedin
@@ -59,6 +60,13 @@ class Auth(object):
                     'scope': self.scope
         }
         return "%s?%s"%(self._auth_url, urllib.urlencode(params))
+
+    def is_user_created(self, req_handler):
+        tp_id = req_handler['id']
+        tpld = ThirdPartyLoginData.get_by_id(int(tp_id))
+        if tpld:
+            return True
+        return False
 
     def fetch_and_save_user(self, req_handler):
         response = urlfetch.fetch(self.get_thirdparty_access_token_url(req_handler['code'])).content
@@ -110,16 +118,8 @@ class FacebookAuth(Auth):
     def __init__(self):
         Auth.__init__(self, FACEBOOK)
 
-    def set_session(self, req_handler):
-        curr_session = get_current_session()
-        if curr_session.is_active():
-            curr_session.terminate()
-        curr_session['me_id'] = req_handler['id']
-        curr_session['me_access_token'] = req_handler['access_token']
-        curr_session['me_name'] = req_handler['name']
-
     def fetch_and_save_user(self, req_handler):
-        self.set_session(req_handler)
+        set_session(req_handler)
         redirect_url = req_handler['redirect_url']
         return redirect_url
 
@@ -198,11 +198,23 @@ class AngellistAuth(Auth):
         user = User.get_by_key_name(user_id, parent=company)
         ThirdPartyUser(key_name=ANGELLIST, parent=user, access_token=access_token).put()
 
+def set_session(req_handler):
+    curr_session = get_current_session()
+    if curr_session.is_active():
+        curr_session.terminate()
+    curr_session['me_id'] = req_handler['id']
+    curr_session['me_access_token'] = req_handler['access_token']
+    curr_session['me_name'] = req_handler['name']
+
 class ThirdPartyRequestHandler(RequestHandler):
     def get(self):
         handler = Auth.get_handler_obj(self)
-        redirect_uri = handler.fetch_and_save_user(self)
-        self.redirect(redirect_uri)
+        if handler.is_user_created(self):
+            redirect_uri = handler.fetch_and_save_user(self)
+            self.redirect(redirect_uri)
+        else:
+            set_session(self)
+            self.redirect('/member/signup')
 
 app = webapp2.WSGIApplication([ ('/users/github/callback', ThirdPartyRequestHandler),
                                 ('/users/facebook/callback', ThirdPartyRequestHandler),
