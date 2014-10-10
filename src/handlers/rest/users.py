@@ -13,6 +13,7 @@ from handlers.web import WebRequestHandler
 from google.appengine.api import mail
 from handlers.web.auth import web_login_required
 from model.third_party_login_data import ThirdPartyLoginData
+from gaesessions import get_current_session
 
 networks = {
 	GITHUB: github,
@@ -82,16 +83,23 @@ class MemberSignupHandler(WebRequestHandler):
             return True
         return False
 
+    def create_user(self, email):
+        user = User(key_name = email)
+        user.put()
+
+    def create_tpld(self, email):
+        session = get_current_session()
+        tpld = ThirdPartyLoginData(key_name = session['me_id'])
+        tpld.network_name = self['network']
+        tpld.parent_id = email
+        tpld.put()
+
     @web_login_required
     def post(self):
         email = self['email']
         if not self.user_exists():
-            user = User(key_name = email)
-            tpld = ThirdPartyLoginData()
-            tpld.network_name = self['network']
-            tpld.parent_id = email
-            user.put()
-            tpld.put()
+            self.create_user(email)
+            self.create_tpld(email)
             self.redirect('/')
         else:
             self.write("Internal error", 500)

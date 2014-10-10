@@ -63,7 +63,8 @@ class Auth(object):
 
     def is_user_created(self, req_handler):
         tp_id = req_handler['id']
-        tpld = ThirdPartyLoginData.get_by_id(int(tp_id))
+        tpld = ThirdPartyLoginData.get_by_key_name(tp_id)
+        logging.info(tp_id)
         if tpld:
             return True
         return False
