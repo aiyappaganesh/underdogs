@@ -12,6 +12,7 @@ from util.util import isAdminAccess
 from handlers.web import WebRequestHandler
 from google.appengine.api import mail
 from handlers.web.auth import web_login_required
+from model.third_party_login_data import ThirdPartyLoginData
 
 networks = {
 	GITHUB: github,
@@ -73,5 +74,28 @@ https://minyattra.appspot.com/member/finish_invite?company_id={0}
 Thanks!
 """.format(self['company_id']))
 
+class MemberSignupHandler(WebRequestHandler):
+    def user_exists(self):
+        email = self['email']
+        user = User.get_by_key_name(email)
+        if user:
+            return True
+        return False
+
+    @web_login_required
+    def post(self):
+        email = self['email']
+        if not self.user_exists():
+            user = User(key_name = email)
+            tpld = ThirdPartyLoginData()
+            tpld.network_name = self['network']
+            tpld.parent_id = email
+            user.put()
+            tpld.put()
+            self.redirect('/')
+        else:
+            self.write("Internal error", 500)
+
 app = webapp2.WSGIApplication([	('/api/members/pull_data', MemberDataPullHandler),
-                                ('/api/members/invite', MemberInviteHandler)])
+                                ('/api/members/invite', MemberInviteHandler),
+                                ('/api/members/finish_signup', MemberSignupHandler)])

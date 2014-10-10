@@ -93,7 +93,7 @@ class Auth(object):
     def get_handler_obj(req_handler):
         company_id = req_handler['company_id']
         network = req_handler['network']
-        if network and network == 'facebook':
+        if network and network == FACEBOOK:
             return FacebookAuth()
         elif req_handler[AngellistAuth().company_param] and ANGELLIST in req_handler[AngellistAuth().company_param]:
             return AngellistAuth()
@@ -214,7 +214,7 @@ class ThirdPartyRequestHandler(RequestHandler):
             self.redirect(redirect_uri)
         else:
             set_session(self)
-            self.redirect('/member/signup')
+            self.redirect('/member/signup?network=' + self['network'])
 
 app = webapp2.WSGIApplication([ ('/users/github/callback', ThirdPartyRequestHandler),
                                 ('/users/facebook/callback', ThirdPartyRequestHandler),
