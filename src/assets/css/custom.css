@@ -153,6 +153,10 @@ a small {
     vertical-align: middle;
 }
 
+.company-img {
+    max-height: 150px;
+}
+
 .center-align {
     text-align: center;
 }

@@ -24,6 +24,10 @@ handlers:
   script: handlers.rest.projects.app
   secure: always
 
+- url: /api/common/.*
+  script: handlers.rest.common.app
+  secure: always
+
 ######################### STATIC ENDPOINTS #########################
 - url: /assets/css
   static_dir: assets/css
