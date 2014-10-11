@@ -11,11 +11,10 @@ registration_breadcrumbs = [('Get started', 'Tell us about your startup!'),
 
 def isAdminAccess(req_handler):
     session = get_current_session()
-    admin_id = session['me_id']
+    admin_id = session['me_email']
     company_id = req_handler['company_id']
     c = Company.get_by_id(int(company_id))
-    a = User.get_by_key_name(admin_id, parent=c)
-    if a and a.isAdmin:
+    if c and c.admin_id == admin_id:
         return True
     return False
 

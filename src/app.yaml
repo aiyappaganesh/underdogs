@@ -56,6 +56,10 @@ handlers:
   script: handlers.web.add_member.app
   secure: always
 
+- url: /users/.*/login_callback
+  script: handlers.web.login_auth.app
+  secure: always
+
 - url: /users/.*
   script: handlers.web.auth.app
   secure: always

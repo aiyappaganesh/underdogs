@@ -12,6 +12,7 @@ from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
 from handlers.web.auth import web_auth_required
 from util.util import registration_breadcrumbs, get_user_companies, get_user_projects
+from networks import LINKEDIN, FACEBOOK, TWITTER
 
 class ExposeThirdPartyPage(WebRequestHandler):
     @web_login_required
@@ -67,12 +68,22 @@ class ListMemberPage(WebRequestHandler):
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberLoginPageHandler(WebRequestHandler):
+    def get_networks_map(self):
+        tp_networks = []
+        for tp_network in [FACEBOOK, TWITTER, LINKEDIN]:
+            curr_dict = {'name' : tp_network,
+                         'url' : '/users/' + tp_network + '/login_callback',
+                         'display_name' : tp_network.capitalize()}
+            tp_networks.append(curr_dict)
+        return tp_networks
+
     def get(self):
         redirect_url = self['redirect_url']
         path = 'member_login.html'
         template_values = {'redirect_url': redirect_url,
                            'create_user': self['create_user'],
-                           'company_id':self['company_id']}
+                           'company_id':self['company_id'],
+                           'networks':self.get_networks_map()}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberLogoutPageHandler(WebRequestHandler):

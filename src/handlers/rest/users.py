@@ -94,8 +94,9 @@ class MemberSignupHandler(WebRequestHandler):
         tpld.parent_id = email
         tpld.put()
 
-    def modify_session(self):
+    def modify_session(self, email):
         session = get_current_session()
+        session['me_email'] = email
         session.pop('auth_only')
 
     @web_auth_required
@@ -104,7 +105,7 @@ class MemberSignupHandler(WebRequestHandler):
         if not self.user_exists():
             self.create_user(email)
             self.create_tpld(email)
-            self.modify_session()
+            self.modify_session(email)
             self.redirect('/')
         else:
             self.write("Internal error", 500)

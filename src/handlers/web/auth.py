@@ -246,6 +246,5 @@ class ThirdPartyRequestHandler(RequestHandler):
             self.redirect('/member/signup?network=' + self['network'])
 
 app = webapp2.WSGIApplication([ ('/users/github/callback', ThirdPartyRequestHandler),
-                                ('/users/facebook/callback', ThirdPartyRequestHandler),
                                 ('/users/angellist/callback', ThirdPartyRequestHandler),
                                 ('/users/handle_linkedin_auth', ThirdPartyRequestHandler)])

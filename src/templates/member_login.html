@@ -66,15 +66,14 @@
                         <h2>Sign In</h2>
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
-                            <li>
-                                <a class="btn btn-bootflat sd-btn" onclick=facebookLogin()><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Use Facebook</span></a>
-                            </li>
-                            <li>
-                                <a href="{{twitter_login_url}}" class="btn btn-bootflat sd-btn"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Use Twitter</span></a>
-                            </li>
-                            <li>
-                                <a href="{{linkedin_login_url}}" class="btn btn-bootflat sd-btn"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Use LinkedIn</span></a>
-                            </li>
+                            {% for network in  networks %}
+                                <li>
+                                    <a class="btn btn-bootflat sd-btn" href='{{network.url}}'>
+                                        <i class="fa fa-{{network.name}} fa-fw"></i> 
+                                        <span class="network-name">Use {{network.display_name}}</span>
+                                    </a>
+                                </li>
+                            {% endfor %}
                         </ul>
                         <hr class="intro-divider">
                         <h2>Sign In With Email</h2>
