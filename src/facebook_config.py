@@ -4,5 +4,7 @@ config = {
 	'auth_url': 'https://www.facebook.com/dialog/oauth',
 	'token_url': '',
 	'redirect_url': 'http://minyattra.appspot.com',
-	'scope': 'email'
+	'scope': 'email',
+	'login_auth_dialog': 'https://www.facebook.com/dialog/oauth?client_id=%s&redirect_uri=%s',
+	'accesstoken_url': 'https://graph.facebook.com/oauth/access_token?client_id=%s&redirect_uri=%s&client_secret=%s&code=%s'
 }

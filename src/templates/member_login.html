@@ -12,52 +12,6 @@
 {% endblock %}
 
 {% block Content %}
-    <script type="text/javascript">
-        window.fbAsyncInit = function() {
-          FB.init({
-            appId      : '329949690519073',
-            xfbml      : false,
-            version    : 'v2.1',
-            status     : false
-          });
-        };
-
-        (function(d, s, id){
-           var js, fjs = d.getElementsByTagName(s)[0];
-           if (d.getElementById(id)) {return;}
-           js = d.createElement(s); js.id = id;
-           js.src = "//connect.facebook.net/en_US/sdk/debug.js";
-           fjs.parentNode.insertBefore(js, fjs);
-         }(document, 'script', 'facebook-jssdk'));
-
-        function facebookLogin(){
-            FB.getLoginStatus(function(response) {
-                statusChangeCallback(response);
-            });
-
-            function statusChangeCallback(response){
-                if(response.status === "not_authorized" || response.status === "unknown"){
-                    FB.login(function(response){    
-                        if(response.status === "connected")
-                            handleLoggedInUser(response);
-                    });
-                }
-                else if(response.status === "connected"){
-                    handleLoggedInUser(response);
-                }
-            }
-
-            function handleLoggedInUser(response){
-                var accessToken = response.authResponse.accessToken;
-                var userID = response.authResponse.userID;
-                FB.api('/me', function(response) {
-                    var name = JSON.stringify(response.name);
-                    var redirect_url = "/users/facebook/callback?name=" + name + "&company_id={{company_id}}&access_token=" + accessToken + "&create_user={{create_user}}" + "&id=" + userID + "&network=facebook" {% if redirect_url %} + "&redirect_url=" + "{{ redirect_url }}" {% endif %};
-                    window.location = redirect_url;
-                });
-            }
-        }
-    </script>
     <div style="text-align:center;background-size:cover;">
         <div class="container">
             <div class="row">

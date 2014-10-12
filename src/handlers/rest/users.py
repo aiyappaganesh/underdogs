@@ -83,8 +83,8 @@ class MemberSignupHandler(WebRequestHandler):
             return True
         return False
 
-    def create_user(self, email):
-        user = User(key_name = email)
+    def create_user(self, email, name):
+        user = User(key_name = email, name = name)
         user.put()
 
     def create_tpld(self, email):
@@ -103,7 +103,7 @@ class MemberSignupHandler(WebRequestHandler):
     def post(self):
         email = self['email']
         if not self.user_exists():
-            self.create_user(email)
+            self.create_user(email, self['name'])
             self.create_tpld(email)
             self.modify_session(email)
             self.redirect('/')
