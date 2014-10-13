@@ -11,7 +11,7 @@ from util.util import isAdminAccess
 from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
 from handlers.web.auth import web_auth_required
-from util.util import registration_breadcrumbs, get_user_companies, get_user_projects
+from util.util import registration_breadcrumbs, get_user_companies, get_user_projects, get_user
 from networks import LINKEDIN, FACEBOOK, TWITTER
 from model.third_party_login_data import ThirdPartyLoginData
 
@@ -175,73 +175,75 @@ class MemberProfilePage(WebRequestHandler):
         path = 'member_profile.html'
         member = {}
         session = get_current_session()
-        name = session['me_name']
-        member['name'] = name
+        email = session['me_email']
+        user = get_user(email)
+        if user:
+            member['name'] = user.name
 
-        experiences = []
-        experience = {}
-        experience['company'] = {}
-        experience['company']['name'] = 'Haggle'
-        experience['company']['description'] = 'Personalized pricing for everyone, everywhere'
-        experience['role'] = 'Employee'
-        experiences.append(experience)
-        experience = {}
-        experience['company'] = {}
-        experience['company']['name'] = 'Haggle'
-        experience['company']['description'] = 'Personalized pricing for everyone, everywhere'
-        experience['role'] = 'Employee'
-        experiences.append(experience)
-        experience = {}
-        experience['company'] = {}
-        experience['company']['name'] = 'Haggle'
-        experience['company']['description'] = 'Personalized pricing for everyone, everywhere'
-        experience['role'] = 'Employee'
-        experiences.append(experience)
-        experience = {}
-        experience['company'] = {}
-        experience['company']['name'] = 'Haggle'
-        experience['company']['description'] = 'Personalized pricing for everyone, everywhere'
-        experience['role'] = 'Employee'
-        experiences.append(experience)
-        member['experiences'] = experiences
+            experiences = []
+            experience = {}
+            experience['company'] = {}
+            experience['company']['name'] = 'Haggle'
+            experience['company']['description'] = 'Personalized pricing for everyone, everywhere'
+            experience['role'] = 'Employee'
+            experiences.append(experience)
+            experience = {}
+            experience['company'] = {}
+            experience['company']['name'] = 'Haggle'
+            experience['company']['description'] = 'Personalized pricing for everyone, everywhere'
+            experience['role'] = 'Employee'
+            experiences.append(experience)
+            experience = {}
+            experience['company'] = {}
+            experience['company']['name'] = 'Haggle'
+            experience['company']['description'] = 'Personalized pricing for everyone, everywhere'
+            experience['role'] = 'Employee'
+            experiences.append(experience)
+            experience = {}
+            experience['company'] = {}
+            experience['company']['name'] = 'Haggle'
+            experience['company']['description'] = 'Personalized pricing for everyone, everywhere'
+            experience['role'] = 'Employee'
+            experiences.append(experience)
+            member['experiences'] = experiences
 
-        education_list = []
-        education = {}
-        education['name'] = 'Carnegi Mellon University'
-        education['grad_year'] = '2009'
-        education['degree'] = 'Masters Computer Science'
-        education_list.append(education)
-        education = {}
-        education['name'] = 'Carnegi Mellon University'
-        education['grad_year'] = '2009'
-        education['degree'] = 'Masters Computer Science'
-        education_list.append(education)
-        education = {}
-        education['name'] = 'Carnegi Mellon University'
-        education['grad_year'] = '2009'
-        education['degree'] = 'Masters Computer Science'
-        education_list.append(education)
-        education = {}
-        education['name'] = 'Carnegi Mellon University'
-        education['grad_year'] = '2009'
-        education['degree'] = 'Masters Computer Science'
-        education_list.append(education)
-        member['education'] = education_list
+            education_list = []
+            education = {}
+            education['name'] = 'Carnegi Mellon University'
+            education['grad_year'] = '2009'
+            education['degree'] = 'Masters Computer Science'
+            education_list.append(education)
+            education = {}
+            education['name'] = 'Carnegi Mellon University'
+            education['grad_year'] = '2009'
+            education['degree'] = 'Masters Computer Science'
+            education_list.append(education)
+            education = {}
+            education['name'] = 'Carnegi Mellon University'
+            education['grad_year'] = '2009'
+            education['degree'] = 'Masters Computer Science'
+            education_list.append(education)
+            education = {}
+            education['name'] = 'Carnegi Mellon University'
+            education['grad_year'] = '2009'
+            education['degree'] = 'Masters Computer Science'
+            education_list.append(education)
+            member['education'] = education_list
 
-        skills = []
-        skill = {}
-        skill['name'] = 'Objective C'
-        skill['score'] = '90%'
-        skills.append(skill)
-        skill = {}
-        skill['name'] = 'Java'
-        skill['score'] = '80%'
-        skills.append(skill)
-        skill = {}
-        skill['name'] = 'css'
-        skill['score'] = '85%'
-        skills.append(skill)
-        member['skills'] = skills
+            skills = []
+            skill = {}
+            skill['name'] = 'Objective C'
+            skill['score'] = '90%'
+            skills.append(skill)
+            skill = {}
+            skill['name'] = 'Java'
+            skill['score'] = '80%'
+            skills.append(skill)
+            skill = {}
+            skill['name'] = 'css'
+            skill['score'] = '85%'
+            skills.append(skill)
+            member['skills'] = skills
 
         template_values = {'member':member}
         self.write(self.get_rendered_html(path, template_values), 200)

@@ -41,3 +41,6 @@ def convert_string_list_to_dict(str_list):
         key, value = param.split(' : ')
         ret_val[key] = value
     return ret_val
+
+def get_user(email):
+    return User.get_by_key_name(email)
