@@ -5,8 +5,10 @@ import json
 from handlers.web import WebRequestHandler
 from networks import LINKEDIN, FACEBOOK, TWITTER
 from facebook_config import config as fb_config
+from twitter_config import config as tw_config
 from google.appengine.api import urlfetch
 from gaesessions import get_current_session
+from twitter import Twitter
 
 class LoginAuth():
     def __init__(self):
@@ -16,6 +18,8 @@ class LoginAuth():
     def get_handler_obj(network):
         if network == FACEBOOK:
             return FacebookAuth()
+        elif network == TWITTER:
+            return TwitterAuth()
         return None
 
     def get_login_dialog_redirect_url(self):
@@ -50,6 +54,36 @@ class FacebookAuth(LoginAuth):
         response = json.loads(urlfetch.fetch(debug_url%(at, app_at)).content)
         return response['data']['user_id']
 
+class TwitterAuth(LoginAuth):
+    def __init__(self):
+        LoginAuth.__init__(self)
+        self.config = tw_config
+
+    def get_login_dialog_redirect_url(self):
+        tw = Twitter(self.config['consumer_key'],
+                     self.config['consumer_secret'],
+                     'http://minyattra.appspot.com/users/login_success?network=' + TWITTER)
+        return tw.log_user_in()
+
+    def exchange_accesstoken(self, req_handler):
+        tw = Twitter(self.config['consumer_key'],
+                     self.config['consumer_secret'],
+                     'http://minyattra.appspot.com/users/login_success?network=' + TWITTER)
+        at, ts = tw.fetch_access_token(req_handler['oauth_verifier'])
+        get_current_session()['__tmp_twitter_tokens__'] = (at, ts)
+        return at
+
+    def verify_at(self, at):
+        temp_at, ts = get_current_session()['__tmp_twitter_tokens__']
+        tw = Twitter(self.config['consumer_key'],
+                     self.config['consumer_secret'],
+                     '',
+                     access_token = at,
+                     token_secret = ts)
+        response = tw.fetch_json('https://api.twitter.com/1.1/account/verify_credentials.json',
+                  {'include_entities': 'false'})
+        return response['id']
+
 class ThirdPartyLoginHandler(WebRequestHandler):
     def get_network_name(self):
         return self.request.path.split('/')[2]
@@ -59,6 +93,7 @@ class ThirdPartyLoginHandler(WebRequestHandler):
         handler = LoginAuth.get_handler_obj(network)
         logging.info(handler.get_login_dialog_redirect_url())
         self.redirect(handler.get_login_dialog_redirect_url())
+
 
 class ThirdPartyLoginSuccessHandler(WebRequestHandler):
     def authenticate_user(self, user_id):
@@ -76,7 +111,7 @@ class ThirdPartyLoginSuccessHandler(WebRequestHandler):
         self.redirect('/member/signup?network=' + self['network'])
 
 handlers = []
-for network in [FACEBOOK, LINKEDIN, TWITTER]:
+for network in [FACEBOOK, TWITTER, LINKEDIN]:
     handlers.append(('/users/' + network + '/login_callback', ThirdPartyLoginHandler))
 handlers.append(('/users/login_success', ThirdPartyLoginSuccessHandler))
 
