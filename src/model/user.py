@@ -3,6 +3,7 @@ import logging
 
 class User(db.Model):
     name = db.StringProperty(indexed=False)
+    password = db.StringProperty(indexed=False)
     influence = db.FloatProperty(indexed=False)
     expertise = db.StringListProperty(indexed=False)
     isAdmin = db.BooleanProperty()

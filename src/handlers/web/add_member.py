@@ -154,14 +154,19 @@ class MemberAlreadyExistsHandler(WebRequestHandler):
         networks = set()
         for tpld in q.fetch(100):
             networks.add(tpld.network_name)
-        disp_str = 'You have already logged in one before using: '
+        disp_str = 'You have already logged in once before using: '
         for network in networks:
             disp_str += network + ' '
         path = 'member_already_exists.html'
         template_values = {'disp_str' : disp_str,
                            'network' : self['network'],
                            'email' : user_id}
-        logging.info(template_values)
+        self.write(self.get_rendered_html(path, template_values), 200)
+
+class MemberVerificationFailed(WebRequestHandler):
+    def get(self):
+        path = 'invalid_cred.html'
+        template_values = {}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 app = webapp2.WSGIApplication(
@@ -176,6 +181,7 @@ app = webapp2.WSGIApplication(
         ('/member/already_exists', MemberAlreadyExistsHandler),
         ('/member/invite', MemberInvitePage),
         ('/member/finish_invite', MemberFinishInvitePage),
-        ('/member/signup', MemberSignupPage)
+        ('/member/signup', MemberSignupPage),
+        ('/member/verification_failed', MemberVerificationFailed)
     ]
 )

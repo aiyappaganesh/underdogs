@@ -75,6 +75,18 @@ https://minyattra.appspot.com/member/finish_invite?company_id={0}
 Thanks!
 """.format(self['company_id']))
 
+def create_tpld(email, network):
+    session = get_current_session()
+    tpld = ThirdPartyLoginData(key_name = str(session['me_id']))
+    tpld.network_name = network
+    tpld.parent_id = email
+    tpld.put()
+
+def modify_session(email):
+    session = get_current_session()
+    session['me_email'] = email
+    session.pop('auth_only')
+
 class MemberSignupHandler(WebRequestHandler):
     def user_exists(self):
         email = self['email']
@@ -83,36 +95,33 @@ class MemberSignupHandler(WebRequestHandler):
             return True
         return False
 
-    def create_user(self, email, name):
-        user = User(key_name = email, name = name)
+    def create_user(self, req_handler):
+        user = User(key_name = req_handler['email'], name = req_handler['name'], password = req_handler['password'])
         user.put()
-
-    def create_tpld(self, email):
-        session = get_current_session()
-        tpld = ThirdPartyLoginData(key_name = session['me_id'])
-        tpld.network_name = self['network']
-        tpld.parent_id = email
-        tpld.put()
-
-    def modify_session(self, email):
-        session = get_current_session()
-        session['me_email'] = email
-        session.pop('auth_only')
 
     @web_auth_required
     def post(self):
         email = self['email']
         if not self.user_exists():
-            self.create_user(email, self['name'])
-            self.create_tpld(email)
-            self.modify_session(email)
+            self.create_user(self)
+            create_tpld(email, self['network'])
+            modify_session(email)
             self.redirect('/')
         else:
             self.redirect('/member/already_exists?email=' + email + '&network=' + self['network'])
 
-class MemberVerificationHandler(WebRequestHandler):    
+class MemberVerificationHandler(WebRequestHandler):   
+    @web_auth_required 
     def post(self):
-        
+        user = User.get_by_key_name(self['email'])
+        if user.password == self['password']:
+            create_tpld(self['email'], self['network'])
+            modify_session(self['email'])
+            self.redirect('/')
+        else:
+            session = get_current_session()
+            session.terminate()
+            self.redirect('/member/verification_failed')
 
 app = webapp2.WSGIApplication([	('/api/members/pull_data', MemberDataPullHandler),
                                 ('/api/members/invite', MemberInviteHandler),
