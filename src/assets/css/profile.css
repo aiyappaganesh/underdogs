@@ -1,0 +1,14 @@
+.experience-company-image {
+    max-width: 64px;
+    max-height: 64px;
+}
+
+.profile-right-panel {
+    font-weight: 300;
+    font-size: 13px;
+}
+
+.profile-right-panel-heading {
+    text-transform: uppercase;
+    color: #999;
+}

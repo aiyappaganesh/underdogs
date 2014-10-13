@@ -169,6 +169,83 @@ class MemberVerificationFailed(WebRequestHandler):
         template_values = {}
         self.write(self.get_rendered_html(path, template_values), 200)
 
+class MemberProfilePage(WebRequestHandler):
+    @web_login_required
+    def get(self):
+        path = 'member_profile.html'
+        member = {}
+        session = get_current_session()
+        name = session['me_name']
+        member['name'] = name
+
+        experiences = []
+        experience = {}
+        experience['company'] = {}
+        experience['company']['name'] = 'Haggle'
+        experience['company']['description'] = 'Personalized pricing for everyone, everywhere'
+        experience['role'] = 'Employee'
+        experiences.append(experience)
+        experience = {}
+        experience['company'] = {}
+        experience['company']['name'] = 'Haggle'
+        experience['company']['description'] = 'Personalized pricing for everyone, everywhere'
+        experience['role'] = 'Employee'
+        experiences.append(experience)
+        experience = {}
+        experience['company'] = {}
+        experience['company']['name'] = 'Haggle'
+        experience['company']['description'] = 'Personalized pricing for everyone, everywhere'
+        experience['role'] = 'Employee'
+        experiences.append(experience)
+        experience = {}
+        experience['company'] = {}
+        experience['company']['name'] = 'Haggle'
+        experience['company']['description'] = 'Personalized pricing for everyone, everywhere'
+        experience['role'] = 'Employee'
+        experiences.append(experience)
+        member['experiences'] = experiences
+
+        education_list = []
+        education = {}
+        education['name'] = 'Carnegi Mellon University'
+        education['grad_year'] = '2009'
+        education['degree'] = 'Masters Computer Science'
+        education_list.append(education)
+        education = {}
+        education['name'] = 'Carnegi Mellon University'
+        education['grad_year'] = '2009'
+        education['degree'] = 'Masters Computer Science'
+        education_list.append(education)
+        education = {}
+        education['name'] = 'Carnegi Mellon University'
+        education['grad_year'] = '2009'
+        education['degree'] = 'Masters Computer Science'
+        education_list.append(education)
+        education = {}
+        education['name'] = 'Carnegi Mellon University'
+        education['grad_year'] = '2009'
+        education['degree'] = 'Masters Computer Science'
+        education_list.append(education)
+        member['education'] = education_list
+
+        skills = []
+        skill = {}
+        skill['name'] = 'Objective C'
+        skill['score'] = '90%'
+        skills.append(skill)
+        skill = {}
+        skill['name'] = 'Java'
+        skill['score'] = '80%'
+        skills.append(skill)
+        skill = {}
+        skill['name'] = 'css'
+        skill['score'] = '85%'
+        skills.append(skill)
+        member['skills'] = skills
+
+        template_values = {'member':member}
+        self.write(self.get_rendered_html(path, template_values), 200)
+
 app = webapp2.WSGIApplication(
     [
         ('/member/expose_third_party', ExposeThirdPartyPage),
@@ -182,6 +259,7 @@ app = webapp2.WSGIApplication(
         ('/member/invite', MemberInvitePage),
         ('/member/finish_invite', MemberFinishInvitePage),
         ('/member/signup', MemberSignupPage),
-        ('/member/verification_failed', MemberVerificationFailed)
+        ('/member/verification_failed', MemberVerificationFailed),
+        ('/member/profile', MemberProfilePage)
     ]
 )

@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block Styles %}
+    <link href="/assets/css/profile.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block Content %}
+    <div class="top-padded">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <img class="img-rounded" src="/assets/img/member/default_member.png">
+                    </div>
+                    <div class="col-lg-9">
+                        <h4>{{member.name}}</h4>
+                        <div class="">
+                            <span>Worked at {{member.experiences.0.company.name}}.</span><span> Studied at {{member.education.0.name}}.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <h4>EXPERIENCE</h4>
+                <div class="list-group">
+                {% for experience in member.experiences %}
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="pull-left">
+                                    <img class="experience-company-image img-rounded" src="/assets/img/company/company.ico">
+                                </div>
+                            </div>
+                            <div class="col-lg-10">
+                                <h5 class="list-group-item-heading">{{experience.company.name}}</h5>
+                                <p class="list-group-item-text">{{experience.company.description}}</p>
+                                <h6 class="list-group-item-heading">{{experience.role}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-4 profile-right-panel">
+                <h4>VITALS</h4>
+
+                <h6>EDUCATION</h6>
+                <div class="list-group">
+                {% for education in member.education %}
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <p class="profile-right-panel-heading">NAME</p>
+                            </div>
+                            <div class="col-lg-6">
+                                <p class="">{{education.name}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <p class="profile-right-panel-heading">YEAR</p>
+                            </div>
+                            <div class="col-lg-6">
+                                <p class="">{{education.grad_year}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <p class="profile-right-panel-heading">DEGREE</p>
+                            </div>
+                            <div class="col-lg-6">
+                                <p class="">{{education.degree}}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+
+                <h6>SKILLS</h6>
+                <div class="list-group">
+                {% for skill in member.skills %}
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <p class="list-group-item-heading">{{skill.name}}</p>
+                            </div>
+                            <div class="col-lg-6">
+                                <p class="list-group-item-text">{{skill.score}}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
