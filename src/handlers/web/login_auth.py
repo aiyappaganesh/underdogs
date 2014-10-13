@@ -9,6 +9,8 @@ from twitter_config import config as tw_config
 from google.appengine.api import urlfetch
 from gaesessions import get_current_session
 from twitter import Twitter
+from model.third_party_login_data import ThirdPartyLoginData
+from model.user import User
 
 class LoginAuth():
     def __init__(self):
@@ -103,12 +105,32 @@ class ThirdPartyLoginSuccessHandler(WebRequestHandler):
         curr_session['me_id'] = user_id
         curr_session['auth_only'] = True
 
+    def login_user(self, user_id):
+        curr_session = get_current_session()
+        if curr_session.is_active():
+            curr_session.terminate()
+        tpld = ThirdPartyLoginData.get_by_key_name(str(user_id))
+        user = User.get_by_key_name(tpld.parent_id)
+        curr_session['me_id'] = user_id
+        curr_session['me_email'] = tpld.parent_id
+        curr_session['me_name'] = user.name
+
+    def is_user_created(self, user_id):
+        tpld = ThirdPartyLoginData.get_by_key_name(str(user_id))
+        if tpld:
+            return True
+        return False
+
     def get(self):
         handler = LoginAuth.get_handler_obj(self['network'])
         at = handler.exchange_accesstoken(self)
         user_id = handler.verify_at(at)
-        self.authenticate_user(user_id)
-        self.redirect('/member/signup?network=' + self['network'])
+        if self.is_user_created(user_id):
+            self.login_user(user_id)
+            self.redirect('/')
+        else:
+            self.authenticate_user(user_id)
+            self.redirect('/member/signup?network=' + self['network'])
 
 handlers = []
 for network in [FACEBOOK, TWITTER, LINKEDIN]:
