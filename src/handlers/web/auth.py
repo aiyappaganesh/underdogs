@@ -3,6 +3,7 @@ import webapp2
 import urllib2
 import urllib
 import json
+import sys
 
 from google.appengine.ext.webapp import template
 from google.appengine.api import urlfetch
@@ -209,7 +210,7 @@ class AngellistAuth(Auth):
             json_data = json.loads(response.read())
             access_token = json_data['access_token']
         except:
-            logging.info("Unexpected error:" + sys.exc_info()[0])
+            logging.info(sys.exc_info())
             access_token = ''
         network, company_id, user_id = req_handler[self.company_param].split(self.separator)
         self.save_user(access_token, company_id, user_id)
@@ -236,14 +237,11 @@ class ThirdPartyRequestHandler(RequestHandler):
         session = set_session(self)
         session['auth_only'] = True
 
+    @web_login_required
     def get(self):
         handler = Auth.get_handler_obj(self)
-        if handler.is_user_created(self):
-            redirect_uri = handler.fetch_and_save_user(self)
-            self.redirect(redirect_uri)
-        else:
-            self.authenticate_user()
-            self.redirect('/member/signup?network=' + self['network'])
+        redirect_uri = handler.fetch_and_save_user(self)
+        self.redirect(redirect_uri)
 
 app = webapp2.WSGIApplication([ ('/users/github/callback', ThirdPartyRequestHandler),
                                 ('/users/angellist/callback', ThirdPartyRequestHandler),

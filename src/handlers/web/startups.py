@@ -20,13 +20,9 @@ class StartupsPage(WebRequestHandler):
 class StartupsRegistrationPage(WebRequestHandler):
     @web_login_required
     def get(self):
-        session = get_current_session()
         path = 'startup_registration.html'
         form_url = blobstore.create_upload_url('/api/startups/add_company')
         template_values = {'form_url': form_url, 
-                           'user_id': session['me_id'], 
-                           'name':session['me_name'], 
-                           'access_token':session['me_access_token'],
                            'breadcrumb_idx':1,
                            'breadcrumbs':registration_breadcrumbs}
         self.write(self.get_rendered_html(path, template_values), 200)
