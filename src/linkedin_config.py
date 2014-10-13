@@ -12,8 +12,8 @@ PROFILE_URL = 'https://api.linkedin.com/v1/people/~:(%s)?format=json&oauth2_acce
 
 
 config  = {
-'client_id': '75roiql0j3mfv4',
-'client_secret': 'LeW9ypga1UdUo5Ix',
+'client_id': '750e8n3ri1ji6s',
+'client_secret': 'TVFJEIv1GEXFL5Na',
 'auth_url': 'https://www.linkedin.com/uas/oauth2/authorization',
 'token_url': 'https://www.linkedin.com/uas/oauth2/accessToken',
 'scope': 'r_fullprofile',

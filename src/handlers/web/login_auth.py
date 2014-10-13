@@ -6,6 +6,7 @@ from handlers.web import WebRequestHandler
 from networks import LINKEDIN, FACEBOOK, TWITTER
 from facebook_config import config as fb_config
 from twitter_config import config as tw_config
+from linkedin_config import config as li_config
 from google.appengine.api import urlfetch
 from gaesessions import get_current_session
 from twitter import Twitter
@@ -22,6 +23,8 @@ class LoginAuth():
             return FacebookAuth()
         elif network == TWITTER:
             return TwitterAuth()
+        elif network == LINKEDIN:
+            return LinkedinAuth()
         return None
 
     def get_login_dialog_redirect_url(self):
@@ -86,6 +89,26 @@ class TwitterAuth(LoginAuth):
                   {'include_entities': 'false'})
         return response['id']
 
+class LinkedinAuth(LoginAuth):
+    def __init__(self):
+        LoginAuth.__init__(self)
+        self.config = li_config
+
+    def get_login_dialog_redirect_url(self):
+        url = 'https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=%s&state=STATE&redirect_uri=%s'
+        return url%(self.config['client_id'], 'http://minyattra.appspot.com/users/login_success?network='+ LINKEDIN)
+
+    def exchange_accesstoken(self, req_handler):
+        url = 'https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code&code=%s&redirect_uri=%s&client_id=%s&client_secret=%s'
+        url = url%(req_handler['code'], 'http://minyattra.appspot.com/users/login_success?network='+ LINKEDIN, self.config['client_id'], self.config['client_secret'])
+        response = json.loads(urlfetch.fetch(url, method=urlfetch.POST).content)
+        return response['access_token']
+
+    def verify_at(self, at):
+        url = 'https://api.linkedin.com/v1/people/~:(id)?scope=r_basicprofile&format=json&oauth2_access_token=' + at
+        response = json.loads(urlfetch.fetch(url).content)
+        return response['id']
+
 class ThirdPartyLoginHandler(WebRequestHandler):
     def get_network_name(self):
         return self.request.path.split('/')[2]
@@ -93,9 +116,7 @@ class ThirdPartyLoginHandler(WebRequestHandler):
     def get(self):
         network = self.get_network_name()
         handler = LoginAuth.get_handler_obj(network)
-        logging.info(handler.get_login_dialog_redirect_url())
         self.redirect(handler.get_login_dialog_redirect_url())
-
 
 class ThirdPartyLoginSuccessHandler(WebRequestHandler):
     def authenticate_user(self, user_id):
