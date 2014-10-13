@@ -108,8 +108,13 @@ class MemberSignupHandler(WebRequestHandler):
             self.modify_session(email)
             self.redirect('/')
         else:
-            self.write("Internal error", 500)
+            self.redirect('/member/already_exists?email=' + email + '&network=' + self['network'])
+
+class MemberVerificationHandler(WebRequestHandler):    
+    def post(self):
+        
 
 app = webapp2.WSGIApplication([	('/api/members/pull_data', MemberDataPullHandler),
                                 ('/api/members/invite', MemberInviteHandler),
-                                ('/api/members/finish_signup', MemberSignupHandler)])
+                                ('/api/members/finish_signup', MemberSignupHandler),
+                                ('/api/members/verify_cred', MemberVerificationHandler)])

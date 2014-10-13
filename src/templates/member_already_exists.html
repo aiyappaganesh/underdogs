@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block Scripts %}
+{% endblock %}
+
+{% block Content %}
+	<div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h4 class="page-header">Oops..</h4>
+                <p>This email already exists</p>
+                <p>{{disp_str}}</p>
+                <p>You can click on "Log In" again and log back in using your previous networks</p>
+            </div>
+        </div>
+        <div class="row">
+        	<div class="col-log-12">
+        		<p>OR</p>
+        		<p>You can verify your email and password again and login using this network</p>
+        	</div>
+        </div>
+        <div class="row">
+                <div class="col-lg-12">
+                    <form role="form" action="/api/members/verify_cred" method="POST">
+                        <div class="col-lg-12">
+                            {% include "components/form_input.html" with id="email" name="email" placeholder=email %}
+                            {% include "components/form_input.html" with type="password" id="password" name="password" placeholder="Password" %}
+                            <input type="hidden" name="network" value="{{network}}">
+                            <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-bootflat">
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </div>
+{% endblock %}

@@ -13,6 +13,7 @@ from handlers.web.auth import web_login_required
 from handlers.web.auth import web_auth_required
 from util.util import registration_breadcrumbs, get_user_companies, get_user_projects
 from networks import LINKEDIN, FACEBOOK, TWITTER
+from model.third_party_login_data import ThirdPartyLoginData
 
 class ExposeThirdPartyPage(WebRequestHandler):
     @web_login_required
@@ -145,6 +146,24 @@ class MemberSignupPage(WebRequestHandler):
         template_values = {'network' : self['network']}
         self.write(self.get_rendered_html(path, template_values), 200)
 
+class MemberAlreadyExistsHandler(WebRequestHandler):
+    @web_auth_required
+    def get(self):
+        user_id = self['email']
+        q = ThirdPartyLoginData.all().filter('parent_id =', user_id)
+        networks = set()
+        for tpld in q.fetch(100):
+            networks.add(tpld.network_name)
+        disp_str = 'You have already logged in one before using: '
+        for network in networks:
+            disp_str += network + ' '
+        path = 'member_already_exists.html'
+        template_values = {'disp_str' : disp_str,
+                           'network' : self['network'],
+                           'email' : user_id}
+        logging.info(template_values)
+        self.write(self.get_rendered_html(path, template_values), 200)
+
 app = webapp2.WSGIApplication(
     [
         ('/member/expose_third_party', ExposeThirdPartyPage),
@@ -154,6 +173,7 @@ app = webapp2.WSGIApplication(
         ('/member/companies/dashboard', CompaniesDashboardHandler),
         ('/member/projects/dashboard', ProjectsDashboardHandler),
         ('/member/missing', MemberMissingHandler),
+        ('/member/already_exists', MemberAlreadyExistsHandler),
         ('/member/invite', MemberInvitePage),
         ('/member/finish_invite', MemberFinishInvitePage),
         ('/member/signup', MemberSignupPage)
