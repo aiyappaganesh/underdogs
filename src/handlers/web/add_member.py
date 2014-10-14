@@ -155,7 +155,9 @@ class MemberAlreadyExistsHandler(WebRequestHandler):
             networks.add(tpld.network_name)
         disp_str = ''
         for network in networks:
-            disp_str += network + ' '
+            if disp_str != '':
+                disp_str += ' & '
+            disp_str += network
         path = 'member_already_exists.html'
         verify_str = 'Verify using ' + self['network']
         template_values = {'disp_str' : disp_str,
