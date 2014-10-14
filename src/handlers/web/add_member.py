@@ -12,7 +12,7 @@ from util.util import isAdminAccess
 from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
 from handlers.web.auth import web_auth_required
-from util.util import registration_breadcrumbs, get_user_companies, get_user_projects, get_user
+from util.util import registration_breadcrumbs, get_user_companies, get_user_projects, get_user, get_user_tp_ids
 from networks import LINKEDIN, FACEBOOK, TWITTER
 from model.third_party_login_data import ThirdPartyLoginData
 
@@ -185,6 +185,8 @@ class MemberProfilePage(WebRequestHandler):
         session = get_current_session()
         email = session['me_email']
         user = get_user(email)
+        tpids = get_user_tp_ids(email)
+        member['tpids'] = tpids
         if user:
             member['name'] = user.name
 

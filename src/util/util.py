@@ -6,6 +6,7 @@ from model.project_members import ProjectMember
 from model.project import Project
 from model.user import User
 from gaesessions import get_current_session
+from model.third_party_login_data import ThirdPartyLoginData
 
 registration_breadcrumbs = [('Get started', 'Tell us about your startup!'),
                             ('Invite team members', 'Build your team'),
@@ -48,3 +49,15 @@ def convert_string_list_to_dict(str_list):
 
 def get_user(email):
     return User.get_by_key_name(email)
+
+def get_user_tp_ids(email):
+    tp_ids = {}
+    tplds = ThirdPartyLoginData.all().filter('parent_id =',email).fetch(10)
+    for tpld in tplds:
+        if tpld.network_name == 'facebook':
+            tp_ids['FB'] = tpld.key().name()
+        elif tpld.network_name == 'linkedin':
+            tp_ids['LI'] = tpld.key().name()
+        elif tpld.network_name == 'twitter':
+            tp_ids['TW'] = tpld.key().name()
+    return tp_ids

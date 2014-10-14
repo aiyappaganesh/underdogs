@@ -10,7 +10,7 @@
             <div class="col-lg-9">
                 <div class="row">
                     <div class="col-lg-3">
-                        <img class="img-rounded" src="/assets/img/member/default_member.png">
+                        <img class="img-rounded" src="{% if 'FB' in member.tpids %}http://graph.facebook.com/{{member.tpids.FB}}/picture?height=100&width=100{% else %}/assets/img/member/default_member.png{% endif %}">
                     </div>
                     <div class="col-lg-9">
                         <h4>{{member.name}}</h4>
