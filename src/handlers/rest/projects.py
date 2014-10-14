@@ -5,6 +5,7 @@ from handlers import RequestHandler
 from handlers.web.auth import web_login_required
 from gaesessions import get_current_session
 from model.project import Project
+from model.project_members import ProjectMember
 from model.user import User
 from datetime import date, datetime
 
@@ -17,11 +18,16 @@ class AddProjectHandler(RequestHandler):
         p.end_date = datetime.strptime(str(self['project_end_date']), "%Y-%m-%d").date()
         p.bid = float(self['project_bid'])
         p.put()
-        return p    
+        return p
+
+    def create_project_admin(self, p):
+        session = get_current_session()
+        ProjectMember(parent=p, user_id = session['me_email'], is_admin=True).put()
 
     @web_login_required
     def post(self):
         p = self.create_project()
+        self.create_project_admin(p)
         self.redirect('/startups/search/criteria')
 
 app = RestApplication([

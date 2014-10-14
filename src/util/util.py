@@ -2,6 +2,7 @@ import logging
 
 from model.company import Company
 from model.company_members import CompanyMember
+from model.project_members import ProjectMember
 from model.project import Project
 from model.user import User
 from gaesessions import get_current_session
@@ -21,10 +22,10 @@ def isAdminAccess(req_handler):
         return True
     return False
 
-def get_user_parents(parent_type):
+def get_user_parents(member_type, parent_type):
     session = get_current_session()
-    user_id = session['me_id']
-    member_objs = User.all().filter('login_id =',user_id).fetch(100)
+    user_id = session['me_email']
+    member_objs = member_type.all().filter('user_id =',user_id).fetch(100)
     user_parents = []
     for member_obj in member_objs:
         parent = member_obj.parent()
@@ -33,18 +34,10 @@ def get_user_parents(parent_type):
     return user_parents
 
 def get_user_projects():
-    return get_user_parents(Project)
+    return get_user_parents(ProjectMember, Project)
 
 def get_user_companies():
-    session = get_current_session()
-    user_id = session['me_email']
-    member_objs = CompanyMember.all().filter('user_id =',user_id).fetch(100)
-    user_parents = []
-    for member_obj in member_objs:
-        parent = member_obj.parent()
-        if type(parent) is Company:
-            user_parents.append({'parent':parent,'member':member_obj})
-    return user_parents
+    return get_user_parents(CompanyMember, Company)
 
 def convert_string_list_to_dict(str_list):
     ret_val = {}
