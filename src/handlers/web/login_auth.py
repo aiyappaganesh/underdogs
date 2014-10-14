@@ -46,7 +46,8 @@ class FacebookAuth(LoginAuth):
     def exchange_accesstoken(self, req_handler):
         at = None
         if not req_handler['error']:
-            at_url = self.config['accesstoken_url']%(self.config['client_id'], req_handler.request.url, self.config['client_secret'], req_handler['code'])
+            redirect_url = 'http://minyattra.appspot.com/users/login_success?network=' + FACEBOOK
+            at_url = self.config['accesstoken_url']%(self.config['client_id'], redirect_url, self.config['client_secret'], req_handler['code'])
             response = urlfetch.fetch(at_url).content
             at = self.parse_at(response)
         return at
