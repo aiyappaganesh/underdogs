@@ -123,9 +123,8 @@ class ProjectsDashboardHandler(WebRequestHandler):
     def get(self):
         path = 'projects_dashboard.html'
         session = get_current_session()
-        name = session['me_name']
         info_list = get_user_projects()
-        template_values = {'info_list':info_list,'name':name}
+        template_values = {'info_list':info_list}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberInvitePage(WebRequestHandler):
