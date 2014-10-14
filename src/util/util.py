@@ -1,6 +1,7 @@
 import logging
 
 from model.company import Company
+from model.company_members import CompanyMember
 from model.project import Project
 from model.user import User
 from gaesessions import get_current_session
@@ -35,7 +36,15 @@ def get_user_projects():
     return get_user_parents(Project)
 
 def get_user_companies():
-    return get_user_parents(Company)
+    session = get_current_session()
+    user_id = session['me_email']
+    member_objs = CompanyMember.all().filter('user_id =',user_id).fetch(100)
+    user_parents = []
+    for member_obj in member_objs:
+        parent = member_obj.parent()
+        if type(parent) is Company:
+            user_parents.append({'parent':parent,'member':member_obj})
+    return user_parents
 
 def convert_string_list_to_dict(str_list):
     ret_val = {}

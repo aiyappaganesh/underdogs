@@ -5,6 +5,7 @@ import logging
 
 from handlers.web.auth import web_login_required
 from model.user import User
+from model.company_members import CompanyMember
 from model.company import Company
 from handlers.web.auth import GithubAuth, LinkedinAuth, AngellistAuth
 from util.util import isAdminAccess
@@ -101,16 +102,17 @@ class MemberMissingHandler(WebRequestHandler):
 class CompaniesDashboardHandler(WebRequestHandler):
     @web_login_required
     def get(self):
-        session = get_current_session()
         path = 'companies_dashboard.html'
-        name = User.get_by_key_name(session['me_email']).name
         info_list = get_user_companies()
         donuts = 2
         donuts = donuts - 1
         donut_size = 80-(5*donuts)
         score_font_size = 40-(3*donuts)
         tooltip_font_size = 14-donuts
-        template_values = {'info_list':info_list,'name':name, 'donut_size': donut_size, 'score_font_size' : score_font_size, 'tooltip_font_size' : tooltip_font_size}
+        template_values = {'info_list':info_list,
+                           'donut_size': donut_size, 
+                           'score_font_size' : score_font_size, 
+                           'tooltip_font_size' : tooltip_font_size}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class ProjectsDashboardHandler(WebRequestHandler):
