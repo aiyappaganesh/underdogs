@@ -105,8 +105,9 @@ class LinkedinAuth(LoginAuth):
         return response['access_token']
 
     def verify_at(self, at):
-        url = 'https://api.linkedin.com/v1/people/~:(id)?scope=r_basicprofile&format=json&oauth2_access_token=' + at
-        response = json.loads(urlfetch.fetch(url).content)
+        url = 'https://api.linkedin.com/v1/people/~:(id,picture-url)?scope=r_basicprofile&format=json&oauth2_access_token=' + at
+        content = urlfetch.fetch(url).content
+        response = json.loads(content)
         return response['id']
 
 class ThirdPartyLoginHandler(WebRequestHandler):
