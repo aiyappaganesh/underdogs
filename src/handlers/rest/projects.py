@@ -17,21 +17,11 @@ class AddProjectHandler(RequestHandler):
         p.end_date = datetime.strptime(str(self['project_end_date']), "%Y-%m-%d").date()
         p.bid = float(self['project_bid'])
         p.put()
-        return p
-
-    def create_project_admin(self, project):
-        session = get_current_session()
-        admin = User.get_or_insert(key_name=session['me_id'], 
-                                   parent=project, 
-                                   name=session['me_name'], 
-                                   isAdmin=True, 
-                                   login_id=session['me_id'])
-        return admin
+        return p    
 
     @web_login_required
     def post(self):
         p = self.create_project()
-        a = self.create_project_admin(p)
         self.redirect('/startups/search/criteria')
 
 app = RestApplication([

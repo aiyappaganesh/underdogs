@@ -103,7 +103,7 @@ class CompaniesDashboardHandler(WebRequestHandler):
     def get(self):
         session = get_current_session()
         path = 'companies_dashboard.html'
-        name = session['me_name']
+        name = User.get_by_key_name(session['me_email']).name
         info_list = get_user_companies()
         donuts = 2
         donuts = donuts - 1
