@@ -153,13 +153,15 @@ class MemberAlreadyExistsHandler(WebRequestHandler):
         networks = set()
         for tpld in q.fetch(100):
             networks.add(tpld.network_name)
-        disp_str = 'You have already logged in once before using: '
+        disp_str = ''
         for network in networks:
             disp_str += network + ' '
         path = 'member_already_exists.html'
+        verify_str = 'Verify using ' + self['network']
         template_values = {'disp_str' : disp_str,
                            'network' : self['network'],
-                           'email' : user_id}
+                           'email' : user_id,
+                           'verify_str' : verify_str}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberVerificationFailed(WebRequestHandler):

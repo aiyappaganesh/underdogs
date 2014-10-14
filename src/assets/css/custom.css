@@ -161,6 +161,10 @@ a small {
     text-align: center;
 }
 
+.justified-align {
+    text-align: justify;
+}
+
 .footer-button-row {
     margin: 30px;
 }
