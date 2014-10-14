@@ -13,7 +13,9 @@ from handlers.web import WebRequestHandler
 from google.appengine.api import mail
 from handlers.web.auth import web_login_required, web_auth_required
 from model.third_party_login_data import ThirdPartyLoginData
+from model.company_members import CompanyMember
 from gaesessions import get_current_session
+from util.util import separator
 
 networks = {
 	GITHUB: github,
@@ -21,33 +23,51 @@ networks = {
     ANGELLIST: angellist
 }
 
-def pull_company_data(company):
-    users = User.all().ancestor(company)
+def fetch_users_for(company):
+    members = CompanyMember.all().ancestor(company)
+    return [m for m in members.fetch(200)]
+
+def init_company(company):
     company.influence_avg = None
     company.expertise_avg = []
     company.put()
+
+def init_member(member):
+    member.influence = None
+    member.expertise = []
+    member.put()
+
+def pull_data_for(member):
+    for network, handler in networks.iteritems():
+        key_name = network + separator + str(member.parent().key().id()) + separator + str(member.user_id)
+        third_party_user = ThirdPartyUser.get_by_key_name(key_name)
+        if third_party_user:
+            handler.pull_data(member, third_party_user)
+
+def update_averages(member, influence_total, expertise_total):
+    if not member.influence or not member.expertise:
+        return (influence_total, expertise_total)
+    influence_total += member.influence
+    for expertise in member.expertise:
+        skill, score = expertise.split(' : ')
+        if skill not in expertise_total:
+            expertise_total[skill] = 0.0
+        expertise_total[skill] += float(score)
+    return (influence_total, expertise_total)
+
+def pull_company_data(company):
+    members = fetch_users_for(company)
+    init_company(company)
     influence_total = 0.0
     expertise_total = {}
-    for user in users:
-        user.influence = None
-        user.expertise = []
-        user.put()
-        for network, user_data in networks.iteritems():
-            third_party_user = ThirdPartyUser.get_by_key_name(network, parent=user)
-            if third_party_user:
-            	user_data.pull_data(user, third_party_user)
-        if not user.influence or not user.expertise:
-        	continue
-        influence_total += user.influence
-        for expertise in user.expertise:
-        	skill, score = expertise.split(' : ')
-        	if skill not in expertise_total:
-        		expertise_total[skill] = 0.0
-        	expertise_total[skill] += float(score)
-    company.influence_avg = (influence_total) / float(users.count())
+    for member in members:
+        init_member(member)
+        pull_data_for(member)
+        (influence_total, expertise_total) = update_averages(member, influence_total, expertise_total)
+    company.influence_avg = (influence_total) / float(len(members))
     company.expertise_avg = []
     for skill, score in expertise_total.iteritems():
-    	company.expertise_avg.append(skill + ' : ' + str(score / float(users.count())))
+    	company.expertise_avg.append(skill + ' : ' + str(score / float(len(members))))
     company.put()
 
 class MemberDataPullHandler(webapp2.RequestHandler):

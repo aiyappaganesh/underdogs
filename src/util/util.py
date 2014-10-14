@@ -9,6 +9,8 @@ registration_breadcrumbs = [('Get started', 'Tell us about your startup!'),
                             ('Invite team members', 'Build your team'),
                             ('Give us access to your data', 'Help us learn more about you')]
 
+separator = '::'
+
 def isAdminAccess(req_handler):
     session = get_current_session()
     admin_id = session['me_email']

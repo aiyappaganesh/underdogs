@@ -21,6 +21,7 @@ from model.user import User
 from networks import GITHUB, ANGELLIST, LINKEDIN, FACEBOOK
 from handlers import RequestHandler
 from gaesessions import get_current_session
+from util.util import separator
 
 networks = {
     GITHUB: github,
@@ -107,7 +108,7 @@ class Auth(object):
         return response.split('&')[0].split('=')[1]
 
     def save_user(self, access_token, company_id, user_id):
-        key_name = self.network + '::' + str(company_id) + '::' + str(user_id)
+        key_name = self.network + separator + str(company_id) + separator + str(user_id)
         tp_user = ThirdPartyUser(key_name=key_name, access_token=access_token)
         tp_user.put()
         return tp_user
@@ -128,7 +129,6 @@ class Auth(object):
             return GithubAuth()
         else:
             return LinkedinAuth()
-
 
 class GithubAuth(Auth):
     def __init__(self):

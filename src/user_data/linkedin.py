@@ -10,7 +10,7 @@ from model.skill import Skill
 
 import linkedin_config as linkedin
 
-def pull_data(user, third_party_user):
+def pull_data(member, third_party_user):
     response = json.loads(urlfetch.fetch(linkedin.PROFILE_URL%('num-connections,num-recommenders,publications,patents,skills,positions,educations,certifications', third_party_user.access_token)).content)
     connections = response['numConnections'] if 'numConnections' in response else 0
     recommenders = response['numRecommenders'] if 'numRecommenders' in response else 0
@@ -27,6 +27,6 @@ def pull_data(user, third_party_user):
         Skill.get_or_insert(key_name=key, name=key)
     
     influence_score = influence if influence < 1.0 else 1.0
-    user.update_score(influence_score)
-    user.update_expertise_score(expertise)
+    member.update_score(influence_score)
+    member.update_expertise_score(expertise)
 

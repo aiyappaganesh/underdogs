@@ -8,7 +8,7 @@ from model.skill import Skill
 
 import github_config as github
 
-def pull_data(user, third_party_user):
+def pull_data(member, third_party_user):
     profile = json.loads(urlfetch.fetch(github.USER_URL%third_party_user.access_token).content)
     repos = json.loads(urlfetch.fetch(profile['repos_url'] + '?access_token=' + third_party_user.access_token).content)
     gists = json.loads(urlfetch.fetch(profile['gists_url'].replace('{/gist_id}','') + '?access_token=' + third_party_user.access_token).content)
@@ -28,7 +28,7 @@ def pull_data(user, third_party_user):
     influence_raw = (followers * 4) + (forks * 2) + (stars + 2) + (contributors * 1.5) + (comments * 0.5)
     influence = math.log(influence_raw)/10.0
     influence_score = influence if influence < 1.0 else 1.0
-    user.update_score(influence_score)
+    member.update_score(influence_score)
 
     expertise = {}
     repos = json.loads(urlfetch.fetch(github.REPOS_URL%third_party_user.access_token).content)
@@ -49,4 +49,4 @@ def pull_data(user, third_party_user):
     for language, raw_score in expertise.iteritems():
         norm_score = math.log(raw_score, 2)/10.0
         expertise[language] = norm_score if norm_score < 1.0 else 1.0
-    user.update_expertise_score(expertise)
+    member.update_expertise_score(expertise)
