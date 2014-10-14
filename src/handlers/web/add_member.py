@@ -12,7 +12,7 @@ from util.util import isAdminAccess
 from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
 from handlers.web.auth import web_auth_required
-from util.util import registration_breadcrumbs, get_user_companies, get_user_projects, get_user, get_user_tp_ids
+from util.util import registration_breadcrumbs, get_user_companies, get_user_projects, get_user, get_user_tp_ids, convert_string_list_to_dict
 from networks import LINKEDIN, FACEBOOK, TWITTER
 from model.third_party_login_data import ThirdPartyLoginData
 
@@ -240,19 +240,25 @@ class MemberProfilePage(WebRequestHandler):
             education_list.append(education)
             member['education'] = education_list
 
+            company_members = get_user_companies()
+            member_expertise = {}
+            for company_member in company_members:
+                expertise_list = company_member['member'].expertise
+                expertise_dict = convert_string_list_to_dict(expertise_list)
+                for k in expertise_dict:
+                    if not k in member_expertise:
+                        member_expertise[k] = {}
+                        member_expertise[k]['val'] = 0.0
+                        member_expertise[k]['count'] = 0
+                    member_expertise[k]['val'] += float(expertise_dict[k])
+                    member_expertise[k]['count'] += 1
+
             skills = []
-            skill = {}
-            skill['name'] = 'Objective C'
-            skill['score'] = '90%'
-            skills.append(skill)
-            skill = {}
-            skill['name'] = 'Java'
-            skill['score'] = '80%'
-            skills.append(skill)
-            skill = {}
-            skill['name'] = 'css'
-            skill['score'] = '85%'
-            skills.append(skill)
+            for k in member_expertise:
+                skill = {}
+                skill['name'] = str(k)
+                skill['score'] = str((member_expertise[k]['val']/member_expertise[k]['count'])*100)+'%'
+                skills.append(skill)
             member['skills'] = skills
 
         template_values = {'member':member}
