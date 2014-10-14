@@ -40,15 +40,18 @@ class ExposeThirdPartyPage(WebRequestHandler):
 
 class ListMemberPage(WebRequestHandler):
     def get_access_type(self, company, user_id):
+        access_type = 'public'
         if not user_id:
-            return 'public'
-        user = User.get_by_key_name(user_id, parent=company)
-        if not user:
-            return 'public'
-        if user.isAdmin:
-            return 'admin'
-        else:
-            return 'member'
+            access_type = 'public'
+        member_objs = CompanyMember.all().ancestor(company)
+        for member in member_objs.fetch(500):
+            if member.user_id == user_id and member.is_admin:
+                access_type = 'admin'
+                break
+            elif member.user_id == user_id:
+                access_type = 'member'
+                break
+        return access_type
 
     @web_login_required
     def get(self):
@@ -56,9 +59,9 @@ class ListMemberPage(WebRequestHandler):
         company_id = self['company_id']
         session = get_current_session()
         c = Company.get_by_id(int(company_id))
-        user_id = session['me_id']
+        user_id = session['me_email']
         access_type = self.get_access_type(c, user_id)
-        q = User.all().ancestor(c)
+        q = CompanyMember.all().ancestor(c)
         template_values = { 'company_id' : company_id,
                             'name' : c.name,
                             'influence': c.influence_avg if c.influence_avg else 0.0,
