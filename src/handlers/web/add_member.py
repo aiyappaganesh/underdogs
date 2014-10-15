@@ -1,3 +1,4 @@
+from google.appengine.api.blobstore import blobstore
 import webapp2
 from handlers.web import WebRequestHandler
 from google.appengine.api import users
@@ -12,7 +13,7 @@ from util.util import isAdminAccess
 from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
 from handlers.web.auth import web_auth_required
-from util.util import registration_breadcrumbs, get_user_companies, get_user_projects, get_user, get_user_tp_ids, convert_string_list_to_dict
+from util.util import registration_breadcrumbs, get_user_companies, get_user_projects, get_user, convert_string_list_to_dict
 from networks import LINKEDIN, FACEBOOK, TWITTER
 from model.third_party_login_data import ThirdPartyLoginData
 
@@ -147,7 +148,8 @@ class MemberSignupPage(WebRequestHandler):
     @web_auth_required
     def get(self):
         path = 'member_signup.html'
-        template_values = {'network' : self['network']}
+        form_url = blobstore.create_upload_url("/api/members/finish_signup")
+        template_values = {'network' : self['network'], 'image' : self['image'], 'form_url' : form_url}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberAlreadyExistsHandler(WebRequestHandler):
@@ -185,10 +187,9 @@ class MemberProfilePage(WebRequestHandler):
         session = get_current_session()
         email = session['me_email']
         user = get_user(email)
-        tpids = get_user_tp_ids(email)
-        member['tpids'] = tpids
         if user:
             member['name'] = user.name
+            member['image'] = user.photo
 
             experiences = []
             experience = {}

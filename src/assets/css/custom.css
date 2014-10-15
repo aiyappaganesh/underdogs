@@ -224,3 +224,8 @@ margin-bottom: 10px;
 .nav-tabs>li>a:hover {
     background-color: #e6e9ed;
 }
+
+.photo {
+    max-width: 250px;
+    max-height: 250px;
+}

@@ -17,12 +17,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <form role="form" action="/api/members/finish_signup" method="POST">
+                    <form role="form" action="{{form_url}}" method="POST" enctype="multipart/form-data">
                         <div class="col-lg-12">
+                            {% include "components/form_image.html" with name="uploaded_photo" button_text="Change" %}
                             {% include "components/form_input.html" with id="email" name="email" placeholder="Email" %}
                             {% include "components/form_input.html" with id="name" name="name" placeholder="Name" %}
                             {% include "components/form_input.html" with type="password" id="password" name="password" placeholder="Password" %}
                             <input type="hidden" name="network" value="{{network}}">
+                            <input type="hidden" id="image" name="image" value="{{image}}">
                             <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-bootflat">
                         </div>
                     </form>
@@ -30,4 +32,8 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block Scripts %}
+    <script src="/assets/js/fileinput.js"></script>
 {% endblock %}

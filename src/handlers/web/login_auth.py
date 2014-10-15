@@ -58,7 +58,7 @@ class FacebookAuth(LoginAuth):
         app_at = response.split('=')[1]
         debug_url = 'https://graph.facebook.com/debug_token?input_token=%s&access_token=%s'
         response = json.loads(urlfetch.fetch(debug_url%(at, app_at)).content)
-        return response['data']['user_id']
+        return response['data']['user_id'], 'http://graph.facebook.com/'+response['data']['user_id']+'/picture?height=100&width=100'
 
 class TwitterAuth(LoginAuth):
     def __init__(self):
@@ -88,7 +88,7 @@ class TwitterAuth(LoginAuth):
                      token_secret = ts)
         response = tw.fetch_json('https://api.twitter.com/1.1/account/verify_credentials.json',
                   {'include_entities': 'false'})
-        return response['id']
+        return response['id'], response['profile_image_url']
 
 class LinkedinAuth(LoginAuth):
     def __init__(self):
@@ -109,7 +109,7 @@ class LinkedinAuth(LoginAuth):
         url = 'https://api.linkedin.com/v1/people/~:(id,picture-url)?scope=r_basicprofile&format=json&oauth2_access_token=' + at
         content = urlfetch.fetch(url).content
         response = json.loads(content)
-        return response['id']
+        return response['id'], response['pictureUrl'] if 'pictureUrl' in response else ''
 
 class ThirdPartyLoginHandler(WebRequestHandler):
     def get_network_name(self):
@@ -147,13 +147,13 @@ class ThirdPartyLoginSuccessHandler(WebRequestHandler):
     def get(self):
         handler = LoginAuth.get_handler_obj(self['network'])
         at = handler.exchange_accesstoken(self)
-        user_id = handler.verify_at(at)
+        user_id, profile_image_url = handler.verify_at(at)
         if self.is_user_created(user_id):
             self.login_user(user_id)
             self.redirect('/')
         else:
             self.authenticate_user(user_id)
-            self.redirect('/member/signup?network=' + self['network'])
+            self.redirect('/member/signup?network=' + self['network'] + '&image=' + profile_image_url)
 
 handlers = []
 for network in [FACEBOOK, TWITTER, LINKEDIN]:
