@@ -62,11 +62,12 @@ class ListMemberPage(WebRequestHandler):
         user_id = session['me_email']
         access_type = self.get_access_type(c, user_id)
         q = CompanyMember.all().ancestor(c)
+        users = [{'name': User.get_by_key_name(company_member.user_id).name, 'influence': company_member.influence, 'expertise': company_member.expertise} for company_member in q]
         template_values = { 'company_id' : company_id,
                             'name' : c.name,
                             'influence': c.influence_avg if c.influence_avg else 0.0,
                             'expertise': c.expertise_avg if c.expertise_avg else [],
-                            'users' : q.fetch(1000),
+                            'users' : users,
                             'access_type' : access_type,
                             'admin_id' : user_id}
         self.write(self.get_rendered_html(path, template_values), 200)
