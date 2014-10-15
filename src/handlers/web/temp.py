@@ -6,7 +6,7 @@ import json
 from handlers.web import WebRequestHandler
 from model.skill import Skill
 from model.company import Company
-from model.user import User
+from model.company_members import CompanyMember
 
 class TempPage(WebRequestHandler):
     def load_skills(self):
@@ -36,7 +36,7 @@ class CompanyData(WebRequestHandler):
         return 0.0
 
     def get_size_for(self, c):
-        q = User.all().ancestor(c)
+        q = CompanyMember.all().ancestor(c)
         return q.count()
 
     def get(self):
@@ -47,7 +47,8 @@ class CompanyData(WebRequestHandler):
             curr_c = {}
             curr_c['name'] = c.name
             curr_c['influence'] = c.influence_avg
-            curr_c['expertise'] = self.get_expertise_val_for(c)
+            curr_c['expertise'] = float(self.get_expertise_val_for(c))
+            curr_c['id'] = c.key().id()
             curr_c['size'] = self.get_size_for(c)
             logging.info(sel_skill)
             ret_val.append(curr_c)
