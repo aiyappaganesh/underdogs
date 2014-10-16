@@ -208,11 +208,6 @@ class AngellistAuth(Auth):
         self.save_user(access_token, company_id, user_id)
         return '/member/expose_third_party?company_id=' + company_id + '&user_id=' + user_id
 
-    def save_user(self, access_token, company_id, user_id):
-        company = Company.get_by_id(int(company_id))
-        user = User.get_by_key_name(user_id, parent=company)
-        ThirdPartyUser(key_name=ANGELLIST, parent=user, access_token=access_token).put()
-
 def set_session(req_handler):
     logging.info('In set session')
     curr_session = get_current_session()
