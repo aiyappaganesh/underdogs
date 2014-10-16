@@ -15,17 +15,12 @@ class AddCompanyPage(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
         image_key = str(image[0].key()) if image else None
         return image_key
 
-    def get_admin_id(self):
-        session = get_current_session()
-        return session['me_email']
-
     def create_company(self, image_key):
         c = Company()
         c.name = self['company_name']
         c.email = self['InputEmail']
         c.details = self['InputMessage']
         c.image = image_key
-        c.admin_id = self.get_admin_id()
         c.put()
         return c
 

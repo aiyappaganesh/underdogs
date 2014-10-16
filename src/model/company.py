@@ -7,4 +7,3 @@ class Company(db.Model):
     image = db.StringProperty(indexed=False)
     influence_avg = db.FloatProperty(indexed=False)
     expertise_avg = db.StringListProperty(indexed=False)
-    admin_id = db.StringProperty(indexed=True)

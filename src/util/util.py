@@ -19,8 +19,12 @@ def isAdminAccess(req_handler):
     admin_id = session['me_email']
     company_id = req_handler['company_id']
     c = Company.get_by_id(int(company_id))
-    if c and c.admin_id == admin_id:
-        return True
+    cms = CompanyMember.all().ancestor(c)
+    for cm in cms.fetch(1000):
+        if cm.user_id == admin_id and cm.is_admin:
+            return True
+        elif cm.user_id == admin_id:
+            return False
     return False
 
 def get_user_parents(member_type, parent_type):
