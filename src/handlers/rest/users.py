@@ -14,6 +14,7 @@ from handlers.web import WebRequestHandler
 from google.appengine.api import mail
 from handlers.web.auth import web_login_required, web_auth_required
 from model.third_party_login_data import ThirdPartyLoginData
+from model.invited_member import InvitedMember
 from model.company_members import CompanyMember
 from gaesessions import get_current_session
 from util.util import separator, get_user
@@ -78,11 +79,15 @@ class MemberDataPullHandler(webapp2.RequestHandler):
         deferred.defer(pull_company_data, company)
 
 class MemberInviteHandler(WebRequestHandler):
+    def create_invited_member(self, email, company_id):
+        InvitedMember(key_name=email, company_id=company_id).put()
+
     @web_login_required
     def post(self):
         if not isAdminAccess(self):
             return
         company = Company.get_by_id(int(self['company_id']))
+        self.create_invited_member(self['email'], int(self['company_id']))
         mail.send_mail(sender="Underdog Admin <ranju@b-eagles.com>",
                        to=self['email'],
                        subject="Invitation to join " + company.name,
@@ -116,12 +121,20 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
             return True
         return False
 
+    def create_company_member(self, req_handler):
+        invited_member = InvitedMember.get_by_key_name(req_handler['email'])
+        if invited_member:
+            company_id = invited_member.company_id
+            company = Company.get_by_id(company_id)
+            CompanyMember(parent=company, is_admin=False, user_id=req_handler['email']).put()
+
     def create_user(self, req_handler):
         photos = self.get_uploads("uploaded_photo")
         photo = self['image']
         if photos:
             photo_blob_key = photos[0].key()
             photo = '/api/common/download_image/'+str(photo_blob_key)
+        self.create_company_member(req_handler)
         user = User(key_name = req_handler['email'], name = req_handler['name'], password = req_handler['password'], photo = photo)
         user.put()
 
