@@ -238,3 +238,7 @@ margin-bottom: 10px;
 .selecter .selecter-options {
     max-height: 111px;
 }
+
+.btn-bootflat-top-padded {
+    padding-top: 10px;
+}

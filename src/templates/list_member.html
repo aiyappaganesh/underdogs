@@ -54,7 +54,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h3>{{name}}</h3>
+                <h3 class="page-header">{{name}}</h3>
                 <div class="row page-header">
                     <div class="col-lg-4">
                         <div class="donut_td">
@@ -87,88 +87,78 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        {% ifequal access_type "admin" %}
-            <div class="row">
-                <div class="col-lg-12">
-                    <h4 class="page-header">Add myself
-                        <a href="" onclick="return add_myself();"><small>Click here</small></a>
-                    </h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <h4 class="page-header">Invite team member
-                        <a href="/member/invite?admin_id={{admin_id}}&amp;company_id={{company_id}}"><small>Click here</small></a>
-                    </h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <h4 class="page-header">Acquire data
-                        <a href="" onclick="return triggerDataPull();"><small>Click here</small></a>
-                    </h4>
-                </div>
-            </div>
-        {% endifequal %}
-        {% if access_type == "admin" or access_type == "member"%}
-            <div class="row">
-                <div class="col-lg-12">
-                    <h4 class="page-header">Team members</h4>
-                    <div class="container">
-                        <div class="row">
-                            <table class="table table-hover scores-table">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Member</th>
-                                        <th>Influence</th>
-                                        <th>Expertise</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for member in users %}
-                                    <tr>
-                                        <td>{{forloop.counter}}</td>
-                                        <td>{{member.name}}</td>
-                                        <td>
-                                            <div class="donut_td">
-                                                {% include "components/donut_chart.html" with donut_score=member.influence donut_size=donut_size tooltip_font_size=tooltip_font_size %}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="row expertise_td">
-                                                <div class="col-lg-6">
-                                                    <select class="expertise-select" id="expertise-select{{forloop.counter}}">
-                                                    <option id="item{{forloop.parentloop.counter}}0" value="">Select Expertise</option>
-                                                    {% for item in member.expertise %}
-                                                    <option id="item{{forloop.parentloop.counter}}{{forloop.counter}}" value=""></option>
-                                                    <script>
-                                                        var str = '{{item}}';
-                                                        var arr = str.split(' : ');
-                                                        document.getElementById("item{{forloop.parentloop.counter}}{{forloop.counter}}").innerHTML = arr[0];
-                                                        document.getElementById("item{{forloop.parentloop.counter}}{{forloop.counter}}").setAttribute('value', parseFloat(arr[1]));
-                                                    </script>
-                                                    {% endfor %}
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="donut_td">
-                                                        {% include "components/donut_chart.html" with donut_score="no_load" donut_size=donut_size tooltip_font_size=tooltip_font_size %}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
+                {% ifequal access_type "admin" %}
+                    <div class="row page-header center-align">
+                        <div class="col-lg-4">
+                            <a class="btn btn-bootflat btn-bootflat-top-padded" href="" onclick="return add_myself();">Add myself</a>
+                        </div>
+                        <div class="col-lg-4">
+                            <a class="btn btn-bootflat btn-bootflat-top-padded" href="/member/invite?admin_id={{admin_id}}&amp;company_id={{company_id}}">Invite team member</a>
+                        </div>
+                        <div class="col-lg-4">
+                            <a class="btn btn-bootflat btn-bootflat-top-padded" href="" onclick="return triggerDataPull();">Acquire data</a>
                         </div>
                     </div>
-                </div>
+                {% endifequal %}
+                {% if access_type == "admin" or access_type == "member"%}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h4 class="page-header">Team members</h4>
+                            <div class="container">
+                                <div class="row">
+                                    <table class="table table-hover scores-table">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Member</th>
+                                                <th>Influence</th>
+                                                <th>Expertise</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for member in users %}
+                                            <tr>
+                                                <td>{{forloop.counter}}</td>
+                                                <td>{{member.name}}</td>
+                                                <td>
+                                                    <div class="donut_td">
+                                                        {% include "components/donut_chart.html" with donut_score=member.influence donut_size=donut_size tooltip_font_size=tooltip_font_size %}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row expertise_td">
+                                                        <div class="col-lg-6">
+                                                            <select class="expertise-select" id="expertise-select{{forloop.counter}}">
+                                                            <option id="item{{forloop.parentloop.counter}}0" value="">Select Expertise</option>
+                                                            {% for item in member.expertise %}
+                                                            <option id="item{{forloop.parentloop.counter}}{{forloop.counter}}" value=""></option>
+                                                            <script>
+                                                                var str = '{{item}}';
+                                                                var arr = str.split(' : ');
+                                                                document.getElementById("item{{forloop.parentloop.counter}}{{forloop.counter}}").innerHTML = arr[0];
+                                                                document.getElementById("item{{forloop.parentloop.counter}}{{forloop.counter}}").setAttribute('value', parseFloat(arr[1]));
+                                                            </script>
+                                                            {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="donut_td">
+                                                                {% include "components/donut_chart.html" with donut_score="no_load" donut_size=donut_size tooltip_font_size=tooltip_font_size %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
-        {% endif %}
+        </div>
     </div>
 {% endblock %}
 
