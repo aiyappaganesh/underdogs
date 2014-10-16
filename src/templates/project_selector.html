@@ -16,7 +16,7 @@
     <div class="row">
         <form role="form" action="/projects/fitting_startups" method="GET" class="top-padding-sm">
             <div class="col-lg-12">
-                {% include "components/form_select.html" with id="project-id" name="project_id" options=projects default="Select Project" %}
+                {% include "components/form_select.html" with id="project-id" name="project_id" options=projects title="Select Project" %}
                 <input type="submit" name="submit" id="submit" value="Show Startups" class="btn btn-bootflat pull-right" onclick="validateInput(event)">
             </div>
         </form>
@@ -24,6 +24,8 @@
 {% endblock %}
 
 {% block Scripts %}
+    <script src="/assets/js/jquery.fs.selecter.min.js"></script>
+    <script src="/assets/js/add_selecter.js"></script>
     <script>
         function validateInput(event) {
             if($('#project-id').val() == '') {

@@ -234,3 +234,7 @@ margin-bottom: 10px;
     display: none;
     color: red;
 }
+
+.selecter .selecter-options {
+    max-height: 111px;
+}

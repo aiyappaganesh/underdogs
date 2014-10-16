@@ -2,8 +2,8 @@
     <div class="col-md-3">
     </div>
     <div class="col-md-6">
+        <p>{{title}}</p>
         <select class="form-control" name="{{name}}" id="{{id}}" {{other}}>
-            <option value="">{{default}}</option>
             {% for option in options %}<option value="{{option.value}}">{{option.name}}</option>{% endfor %}
         </select>
     </div>
