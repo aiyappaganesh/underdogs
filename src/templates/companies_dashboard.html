@@ -1,8 +1,5 @@
 {% extends "base.html" %}
 
-{% block Scripts %}
-{% endblock %}
-
 {% block Content %}
     <div class="container">
         <div class="row">
@@ -28,4 +25,8 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block Scripts %}
+    {% include "components/donut_chart_script.html" %}
 {% endblock %}

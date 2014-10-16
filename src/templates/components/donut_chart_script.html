@@ -1,0 +1,29 @@
+<script>
+function drawDonutChart(e) {
+    var score = e.getElementsByClassName("score_value")[0].value;
+    if(score != 'no_load') {
+        e.getElementsByClassName("score_text")[0].innerHTML = parseInt(score*100)+'%';
+        var full_color = e.getElementsByClassName("full_color")[0].value;
+        var empty_color = e.getElementsByClassName("empty_color")[0].value;
+        var doughnutData = [
+            {
+                value: parseInt(score*100),
+                color: full_color
+            },
+            {
+                value: 100-parseInt(score*100),
+                color: empty_color
+            }
+        ];
+        var scoreDonut = new Chart(e.getElementsByClassName("donut_canvas")[0].getContext("2d")).Doughnut(doughnutData, { tooltipCaretSize: 2,tooltipXOffset: 0{% if tooltip_font_size%},tooltipFontSize:{{tooltip_font_size}}{% endif %} });
+    }
+}
+
+$(document).ready(function(){
+    $('.donut_td').each(function(){
+        drawDonutChart(this);
+    });
+
+    $('.score_text').css('font-size',{{score_font_size}}+'px');
+});
+</script>
