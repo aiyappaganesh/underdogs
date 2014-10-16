@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block Styles %}
+    <link href="/assets/css/jasny-bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="/assets/css/registration.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block Content %}
+    <h3 class="center-align">Edit Profile</h3>
+    <div class="row">
+        <div class="col-lg-12">
+            <form role="form" action="{{form_url}}" method="POST" onsubmit="return validate()" enctype="multipart/form-data">
+                {% include "components/form_input.html" with id="name" name="name" placeholder="Name" value=member.name %}
+                {% include "components/form_image.html" with name="uploaded_photo" button_text="Change" image=member.image %}
+                {% include "components/form_input.html" with type="password" id="password" name="password" placeholder="New Password" %}
+                {% include "components/form_input.html" with type="password" id="confirm-password" name="confirm_password" placeholder="Confirm New Password" %}
+                <input type="hidden" id="image" name="image" value="{{member.image}}">
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6">
+                        <p class="error-message"></p>
+                    </div>
+                    <div class="col-lg-3"></div>
+                </div>
+                {% include "components/form_submit.html" with value="Update" %}
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block Scripts %}
+    <script>
+        function validate() {
+            if($('#password').val() && $('#password').val() != $('#confirm-password').val()) {
+                $('.error-message').show();
+                $('.error-message').html("Passwords don't match");
+                $('#password').focus();
+                return false;
+            } else {
+                $('.error-message').html("");
+                $('.error-message').hide();
+            }
+        }
+    </script>
+    <script src="/assets/js/fileinput.js"></script>
+{% endblock %}

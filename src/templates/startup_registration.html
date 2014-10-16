@@ -33,15 +33,7 @@
                                 {% include "components/form_input.html" with id="geo-location" name="geo_location" placeholder="Enter your address" other="onFocus='geolocate()' onfocusout='needMap()'" %}
                                 <div id="company-map" class="company-map input-container"></div>
                                 {% include "components/form_input.html" with id="tags" name="tags" placeholder="Tags" %}
-                                <div class="row">
-                                    <div class="col-md-3">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="submit" name="submit" id="submit" value="Create Company" class="btn btn-bootflat pull-right">
-                                    </div>
-                                    <div class="col-md-3">
-                                    </div>
-                                </div>
+                                {% include "components/form_submit.html" with value="Create Company" %}
                             </div>
                         </form>
                     </div>

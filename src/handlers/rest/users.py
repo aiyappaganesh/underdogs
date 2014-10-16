@@ -16,7 +16,7 @@ from handlers.web.auth import web_login_required, web_auth_required
 from model.third_party_login_data import ThirdPartyLoginData
 from model.company_members import CompanyMember
 from gaesessions import get_current_session
-from util.util import separator
+from util.util import separator, get_user
 
 networks = {
 GITHUB: github,
@@ -136,6 +136,21 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
         else:
             self.redirect('/member/already_exists?email=' + email + '&network=' + self['network'])
 
+class MemberProfileUpdateHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
+    @web_login_required
+    def post(self):
+        session = get_current_session()
+        email = session['me_email']
+        name = self['name']
+        password = self['password']
+        photos = self.get_uploads("uploaded_photo")
+        photo = self['image']
+        if photos:
+            photo_blob_key = photos[0].key()
+            photo = '/api/common/download_image/'+str(photo_blob_key)
+        User.update(email=email,name=name,password=password,photo=photo)
+        self.redirect('/member/profile')
+
 class MemberVerificationHandler(WebRequestHandler):
     @web_auth_required
     def post(self):
@@ -149,7 +164,10 @@ class MemberVerificationHandler(WebRequestHandler):
             session.terminate()
             self.redirect('/member/verification_failed')
 
-app = webapp2.WSGIApplication([	('/api/members/pull_data', MemberDataPullHandler),
-                                   ('/api/members/invite', MemberInviteHandler),
-                                   ('/api/members/finish_signup', MemberSignupHandler),
-                                   ('/api/members/verify_cred', MemberVerificationHandler)])
+app = webapp2.WSGIApplication([
+                                ('/api/members/pull_data', MemberDataPullHandler),
+                                ('/api/members/invite', MemberInviteHandler),
+                                ('/api/members/finish_signup', MemberSignupHandler),
+                                ('/api/members/verify_cred', MemberVerificationHandler),
+                                ('/api/members/update_profile', MemberProfileUpdateHandler)
+                            ])

@@ -192,53 +192,22 @@ class MemberProfilePage(WebRequestHandler):
             member['image'] = user.photo
 
             experiences = []
-            experience = {}
-            experience['company'] = {}
-            experience['company']['name'] = 'Haggle'
-            experience['company']['description'] = 'Personalized pricing for everyone, everywhere'
-            experience['role'] = 'Employee'
-            experiences.append(experience)
-            experience = {}
-            experience['company'] = {}
-            experience['company']['name'] = 'Haggle'
-            experience['company']['description'] = 'Personalized pricing for everyone, everywhere'
-            experience['role'] = 'Employee'
-            experiences.append(experience)
-            experience = {}
-            experience['company'] = {}
-            experience['company']['name'] = 'Haggle'
-            experience['company']['description'] = 'Personalized pricing for everyone, everywhere'
-            experience['role'] = 'Employee'
-            experiences.append(experience)
-            experience = {}
-            experience['company'] = {}
-            experience['company']['name'] = 'Haggle'
-            experience['company']['description'] = 'Personalized pricing for everyone, everywhere'
-            experience['role'] = 'Employee'
-            experiences.append(experience)
+            for x in range(0, 5):
+                experience = {}
+                experience['company'] = {}
+                experience['company']['name'] = 'Haggle'
+                experience['company']['description'] = 'Personalized pricing for everyone, everywhere'
+                experience['role'] = 'Employee'
+                experiences.append(experience)
             member['experiences'] = experiences
 
             education_list = []
-            education = {}
-            education['name'] = 'Carnegi Mellon University'
-            education['grad_year'] = '2009'
-            education['degree'] = 'Masters Computer Science'
-            education_list.append(education)
-            education = {}
-            education['name'] = 'Carnegi Mellon University'
-            education['grad_year'] = '2009'
-            education['degree'] = 'Masters Computer Science'
-            education_list.append(education)
-            education = {}
-            education['name'] = 'Carnegi Mellon University'
-            education['grad_year'] = '2009'
-            education['degree'] = 'Masters Computer Science'
-            education_list.append(education)
-            education = {}
-            education['name'] = 'Carnegi Mellon University'
-            education['grad_year'] = '2009'
-            education['degree'] = 'Masters Computer Science'
-            education_list.append(education)
+            for x in range(0, 5):
+                education = {}
+                education['name'] = 'Carnegie Mellon University'
+                education['grad_year'] = '2009'
+                education['degree'] = 'Masters Computer Science'
+                education_list.append(education)
             member['education'] = education_list
 
             company_members = get_user_companies()
@@ -265,6 +234,21 @@ class MemberProfilePage(WebRequestHandler):
         template_values = {'member':member}
         self.write(self.get_rendered_html(path, template_values), 200)
 
+class MemberProfileEditPage(WebRequestHandler):
+    @web_login_required
+    def get(self):
+        path = 'member_profile_edit.html'
+        form_url = blobstore.create_upload_url('/api/members/update_profile')
+        member = {}
+        session = get_current_session()
+        email = session['me_email']
+        user = get_user(email)
+        if user:
+            member['name'] = user.name
+            member['image'] = user.photo
+        template_values = {'form_url':form_url,'member':member}
+        self.write(self.get_rendered_html(path, template_values), 200)
+
 app = webapp2.WSGIApplication(
     [
         ('/member/expose_third_party', ExposeThirdPartyPage),
@@ -279,6 +263,7 @@ app = webapp2.WSGIApplication(
         ('/member/finish_invite', MemberFinishInvitePage),
         ('/member/signup', MemberSignupPage),
         ('/member/verification_failed', MemberVerificationFailed),
-        ('/member/profile', MemberProfilePage)
+        ('/member/profile', MemberProfilePage),
+        ('/member/profile/edit', MemberProfileEditPage)
     ]
 )
