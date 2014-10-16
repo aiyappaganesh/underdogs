@@ -1,6 +1,10 @@
 <script>
 function drawDonutChart(e) {
     var score = e.getElementsByClassName("score_value")[0].value;
+    drawDonutChartForScore(e, score);
+}
+
+function drawDonutChartForScore(e, score) {
     if(score != 'no_load') {
         e.getElementsByClassName("score_text")[0].innerHTML = parseInt(score*100)+'%';
         var full_color = e.getElementsByClassName("full_color")[0].value;
@@ -22,6 +26,12 @@ function drawDonutChart(e) {
 $(document).ready(function(){
     $('.donut_td').each(function(){
         drawDonutChart(this);
+    });
+
+    $('.expertise-select').change(function() {
+        var score = this.value;
+        var e = $($(this).parents('.expertise_td')[0]).find('.donut_td')[0];
+        drawDonutChartForScore(e, score);
     });
 
     $('.score_text').css('font-size',{{score_font_size}}+'px');
