@@ -33,7 +33,7 @@
                     var userID = response.authResponse.userID;
                     FB.api('/me', function(response) {
                         var name = JSON.stringify(response.name);
-                        var redirect_url = "/users/facebook/callback?name=" + name + "&company_id={{company_id}}&access_token=" + accessToken + "&create_user=true" + "&id=" + userID + "&network=facebook" + "&redirect_url=/member/expose_third_party?company_id={{company_id}}";
+                        var redirect_url = "/member/expose_third_party?company_id=" + {{ company_id }};
                         window.location = redirect_url;
                     });
                 }

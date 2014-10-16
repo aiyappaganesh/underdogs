@@ -149,8 +149,12 @@ class ThirdPartyLoginSuccessHandler(WebRequestHandler):
         at = handler.exchange_accesstoken(self)
         user_id, profile_image_url = handler.verify_at(at)
         if self.is_user_created(user_id):
+            session = get_current_session()
+            logging.info('... here')
+            logging.info(session)
+            redirect_url = session['redirect_url']
             self.login_user(user_id)
-            self.redirect('/')
+            self.redirect(redirect_url if redirect_url else '/')
         else:
             self.authenticate_user(user_id)
             self.redirect('/member/signup?network=' + self['network'] + '&image=' + profile_image_url)
