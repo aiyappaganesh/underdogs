@@ -1,186 +1,45 @@
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html class="ocks-org do-not-copy">
-<meta charset="utf-8">
-<title>Project selector</title>
-<style>
+{% block Styles %}
+    <link href="/assets/css/startup_selector.css" type="text/css" rel="stylesheet">
+{% endblock %}
 
-#chart {
-  margin-left: -40px;
-  height: 506px;
-}
+{% block Content %}
+  <div class="row">
+      <div class="col-lg-12">
+          <p id="chart"></p>
+          <select class="form-control" id="skill_selector" onchange="reload()">
+              {% for skill in skills %}
+                <option value="{{skill}}">{{skill}}</option>
+              {% endfor %}
+          </select>
+      </div>
+  </div>
+  <div class="row" id="axis_selectors">
+    {% for key, values in chart_desc.items %}
+      <div class="col-lg-4">
+        <label for="{{key.1}}">{{key.1}}</label>
+        <select class="form-control" id="{{key.0}}" name="{{key.1}}" onchange="">
+          {% for val in values %}
+            <option value="{{val}}" {% if forloop.counter == forloop.parentloop.counter %}selected{% endif %}>
+              {{val}}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <input type="button" class="btn btn-bootflat" value="Re-Render" onclick="re_render()">
+    </div>
+  </div>
+{% endblock %}
 
-text {
-  font: 10px sans-serif;
-}
-
-.dot {
-  stroke: #000;
-}
-
-.axis path, .axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.label {
-  fill: #777;
-}
-
-.skill.label {
-  font: 300 196px "Helvetica Neue";
-  fill: #ddd;
-}
-
-.year.label.active {
-  fill: #aaa;
-}
-
-.overlay {
-  fill: none;
-  pointer-events: all;
-  cursor: ew-resize;
-}
-
-</style>
-
-<body onload="render()">
-  <p id="chart"></p>
-  <select class="form-control" id="skill_selector" onchange="reload()">
-      {% for skill in skills %}
-        <option value="{{skill}}">{{skill}}</option>
-      {% endfor %}
-  </select>
-</body>
-
-<script type="text/javascript">
-  function reload(){
-    $.get( "/temp/company_data?skill=" + $('#skill_selector').val(), function(data) {
-        update_chart( JSON.parse(data) );
-      })
-      .fail(function() {
-        alert( "error" );
-      });
-  }
-
-  function render(){
-    render_chart($('#skill_selector').val());
-  }
-</script>
-
-<script src="/assets/js/d3.v3.min.js"></script>
-<script src="/assets/js/jquery.js"></script>
-<script>
-function update_chart(company_data){
-  var company_map = {};
-  for (var i = 0; i < company_data.length; i++) {
-    company_map[company_data[i].id] = [xScale(x(company_data[i])), yScale(y(company_data[i]))];
-  }
-
-  d3.selectAll('circle')
-    .transition()
-    .duration(500)
-    .attr("cx", function(d) {
-      return company_map[d.id][0];
-    })
-    .attr("cy", function(d) {
-      return company_map[d.id][1];
-    });
-}
-
-function x(d) { return d.influence; }
-function y(d) { return d.expertise; }
-function radius(d) { return d.size; }
-function color(d) { return d.name; }
-function key(d) { return d.name; }
-
-var margin = {top: 19.5, right: 19.5, bottom: 19.5, left: 39.5},
-      width = 960 - margin.right,
-      height = 500 - margin.top - margin.bottom;
-
-var xScale = d3.scale.linear().domain([0, 1]).range([0, width]),
-    yScale = d3.scale.linear().domain([0, 1]).range([height, 0]),
-    radiusScale = d3.scale.sqrt().domain([0, 5]).range([0, 20]),
-    colorScale = d3.scale.category10();
-
-function render_chart(sel_skill){
-  var xAxis = d3.svg.axis().orient("bottom").scale(xScale).ticks(12, d3.format(",d")),
-      yAxis = d3.svg.axis().scale(yScale).orient("left");
-
-  var svg = d3.select("#chart").append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-  svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
-
-  svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis);
-
-  svg.append("text")
-      .attr("class", "x label")
-      .attr("text-anchor", "end")
-      .attr("x", width)
-      .attr("y", height - 6)
-      .text("Company influence");
-
-  svg.append("text")
-      .attr("class", "y label")
-      .attr("text-anchor", "end")
-      .attr("y", 6)
-      .attr("dy", ".75em")
-      .attr("transform", "rotate(-90)")
-      .text("Company expertise");
-
-  var label = svg.append("text")
-      .attr("class", "skill label")
-      .attr("text-anchor", "end")
-      .attr("y", height - 24)
-      .attr("x", width)
-      .text(sel_skill);
-
-  d3.json("/temp/company_data?skill=" + sel_skill, function(error, startups) {
-    if(error) return console.warn(error);
-    var bisect = d3.bisector(function(d) { return d[0]; });
-
-    var dot = svg.append("g")
-        .attr("class", "dots")
-      .selectAll(".dot")
-        .data(startups)
-      .enter().append("circle")
-        .attr("class", "dot")
-        .attr("id", function(d){return d.id})
-        .style("fill", function(d) { return colorScale(color(d)); })
-        .call(position)
-        .sort(order);
-
-    dot.append("title")
-        .text(function(d) { return d.name; });
-
-    var box = label.node().getBBox();
-
-    var overlay = svg.append("rect")
-          .attr("class", "overlay")
-          .attr("x", box.x)
-          .attr("y", box.y)
-          .attr("width", box.width)
-          .attr("height", box.height);
-
-    function position(dot) {
-      dot .attr("cx", function(d) { return xScale(x(d)); })
-          .attr("cy", function(d) { return yScale(y(d)); })
-          .attr("r", function(d) { return radiusScale(radius(d)); });
-    }
-
-    function order(a, b) {
-      return radius(b) - radius(a);
-    }
-  });
-}
-</script>
+{% block Scripts %}
+  <script src="/assets/js/d3.v3.min.js"></script>
+  <script src="/assets/js/startup_selector.js"></script>
+  <script type="text/javascript">
+    render();
+  </script>
+{% endblock %}

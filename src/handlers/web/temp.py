@@ -22,8 +22,18 @@ class TempPage(WebRequestHandler):
     def get(self):
         skills = self.load_skills()
         path = 'temp.html'
+        chart_axes = [('x_axis', 'X Axis'),
+                      ('y_axis', 'Y Axis'),
+                      ('radius', 'Radius')]
+        axes_vals = ['Expertise', 'Influence', 'Size']
+        axis_ids = [chart_axis[0] for chart_axis in chart_axes]
+        chart_desc = {}
+        for chart_axis in chart_axes:
+            chart_desc[chart_axis] = axes_vals
         template_values = {'skills':skills,
-                           'query_param':urllib.urlencode({'skill':skills[0]})}
+                           'query_param':urllib.urlencode({'skill':skills[0]}),
+                           'chart_desc':chart_desc,
+                           'axes_vals':axes_vals}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class CompanyData(WebRequestHandler):
@@ -42,7 +52,10 @@ class CompanyData(WebRequestHandler):
     def get(self):
         sel_skill = self['skill']
         q = Company.all()
-        ret_val = []
+        companies = []
+        domain = {'influence' : [0, 1],
+                  'expertise' : [0, 1],
+                  'size' : [0, 5]}
         for c in q.fetch(100):
             curr_c = {}
             curr_c['name'] = c.name
@@ -50,9 +63,9 @@ class CompanyData(WebRequestHandler):
             curr_c['expertise'] = float(self.get_expertise_val_for(c))
             curr_c['id'] = c.key().id()
             curr_c['size'] = self.get_size_for(c)
-            logging.info(sel_skill)
-            ret_val.append(curr_c)
-        logging.info(ret_val)
+            companies.append(curr_c)
+        ret_val = {'companies' : companies,
+                   'domain' : domain}
         self.write(json.dumps(ret_val))
 
 app = webapp2.WSGIApplication(
