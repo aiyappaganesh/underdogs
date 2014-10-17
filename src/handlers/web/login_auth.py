@@ -12,6 +12,7 @@ from gaesessions import get_current_session
 from twitter import Twitter
 from model.third_party_login_data import ThirdPartyLoginData
 from model.user import User
+from util.util import get_redirect_url_from_session
 
 class LoginAuth():
     def __init__(self):
@@ -123,9 +124,11 @@ class ThirdPartyLoginHandler(WebRequestHandler):
 class ThirdPartyLoginSuccessHandler(WebRequestHandler):
     def authenticate_user(self, user_id):
         curr_session = get_current_session()
+        redirect_url = curr_session['redirect_url']
         if curr_session.is_active():
             curr_session.terminate()
         curr_session['me_id'] = user_id
+        curr_session['redirect_url'] = redirect_url
         curr_session['auth_only'] = True
 
     def login_user(self, user_id):
@@ -148,13 +151,10 @@ class ThirdPartyLoginSuccessHandler(WebRequestHandler):
         handler = LoginAuth.get_handler_obj(self['network'])
         at = handler.exchange_accesstoken(self)
         user_id, profile_image_url = handler.verify_at(at)
+        redirect_url = get_redirect_url_from_session()
         if self.is_user_created(user_id):
-            session = get_current_session()
-            logging.info('... here')
-            logging.info(session)
-            redirect_url = session['redirect_url']
             self.login_user(user_id)
-            self.redirect(redirect_url if redirect_url else '/')
+            self.redirect(redirect_url)
         else:
             self.authenticate_user(user_id)
             self.redirect('/member/signup?network=' + self['network'] + '&image=' + profile_image_url)

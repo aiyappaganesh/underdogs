@@ -9,7 +9,7 @@ from model.user import User
 from model.company import Company
 from networks import GITHUB, LINKEDIN, ANGELLIST
 from user_data import github, linkedin, angellist
-from util.util import isAdminAccess
+from util.util import isAdminAccess, get_redirect_url_from_session
 from handlers.web import WebRequestHandler
 from google.appengine.api import mail
 from handlers.web.auth import web_login_required, web_auth_required
@@ -113,6 +113,7 @@ def modify_session(email):
     session['me_email'] = email
     session.pop('auth_only')
 
+
 class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
     def user_exists(self):
         email = self['email']
@@ -145,7 +146,8 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
             self.create_user(self)
             create_tpld(email, self['network'])
             modify_session(email)
-            self.redirect('/')
+            redirect_url = get_redirect_url_from_session()
+            self.redirect(redirect_url)
         else:
             self.redirect('/member/already_exists?email=' + email + '&network=' + self['network'])
 
@@ -167,11 +169,12 @@ class MemberProfileUpdateHandler(blobstore_handlers.BlobstoreUploadHandler, Requ
 class MemberVerificationHandler(WebRequestHandler):
     @web_auth_required
     def post(self):
+        redirect_url = get_redirect_url_from_session()
         user = User.get_by_key_name(self['email'])
         if user.password == self['password']:
             create_tpld(self['email'], self['network'])
             modify_session(self['email'])
-            self.redirect('/')
+            self.redirect(redirect_url)
         else:
             session = get_current_session()
             session.terminate()

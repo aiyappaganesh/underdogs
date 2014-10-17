@@ -65,3 +65,7 @@ def get_user_tp_ids(email):
         elif tpld.network_name == 'twitter':
             tp_ids['TW'] = tpld.key().name()
     return tp_ids
+
+def get_redirect_url_from_session():
+    session = get_current_session()
+    return session['redirect_url'] if 'redirect_url' in session else '/'
