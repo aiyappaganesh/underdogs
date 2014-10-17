@@ -80,7 +80,7 @@ class StartupsListingPage(WebRequestHandler):
         q = Company.all()
         sorted_companies = {}
         for c in q.fetch(50):
-            score = float(c.influence_avg)
+            score = float(c.influence_avg) if c.influence_avg else 0.0
             sorted_companies[c] = score
         sorted_companies = sorted(sorted_companies.iteritems(), key=operator.itemgetter(1), reverse = True)
         donuts = 1

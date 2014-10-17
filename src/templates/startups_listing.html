@@ -21,7 +21,7 @@
                                     <h3>{{startups.0.0.name}}</h3>
                                     {% if startups.0.0.hello %}<p>{{startups.0.0.hello}}</p>{% endif %}
                                     <div class="donut_td">
-                                        {% include "components/donut_chart.html" with donut_score=startups.0.0.influence_avg donut_size=donut_size tooltip_font_size=tooltip_font_size %}
+                                        {% include "components/donut_chart.html" with donut_score=startups.0.1 donut_size=donut_size tooltip_font_size=tooltip_font_size %}
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                             </div>
                         </td>
                         <td class="donut_td">
-                            {% include "components/donut_chart.html" with donut_score=startup.0.influence_avg donut_size=donut_size tooltip_font_size=tooltip_font_size full_color="#D2BCF3" empty_color="#bdfdfd" %}
+                            {% include "components/donut_chart.html" with donut_score=startup.1 donut_size=donut_size tooltip_font_size=tooltip_font_size full_color="#D2BCF3" empty_color="#bdfdfd" %}
                         </td>
                     </tr>
                     {% endfor %}
