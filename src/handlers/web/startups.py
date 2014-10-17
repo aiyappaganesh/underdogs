@@ -74,11 +74,29 @@ class StartupsSearchResultsPage(WebRequestHandler):
         template_values = {'startups' : sorted_companies}
         self.write(self.get_rendered_html(path, template_values), 200)
 
+class StartupsListingPage(WebRequestHandler):
+    def get(self):
+        path = 'startups_listing.html'
+        q = Company.all()
+        sorted_companies = {}
+        for c in q.fetch(50):
+            score = float(c.influence_avg)
+            sorted_companies[c] = score
+        sorted_companies = sorted(sorted_companies.iteritems(), key=operator.itemgetter(1), reverse = True)
+        donuts = 1
+        donuts = donuts - 1
+        donut_size = 80-(5*donuts)
+        score_font_size = 40-(3*donuts)
+        tooltip_font_size = 14-donuts
+        template_values = {'startups' : sorted_companies, 'donut_size' : donut_size, 'score_font_size' : score_font_size, 'tooltip_font_size' : tooltip_font_size}
+        self.write(self.get_rendered_html(path, template_values), 200)
+
 app = webapp2.WSGIApplication(
     [
         ('/startups/registration', StartupsRegistrationPage),
         ('/startups/search/criteria', StartupsCriteriaPage),
         ('/startups/search', StartupsSearchResultsPage),
+        ('/startups/listing', StartupsListingPage),
         ('/startups', StartupsPage)
     ]
 )

@@ -20,6 +20,7 @@ class AddCompanyPage(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
         c.name = self['company_name']
         c.email = self['InputEmail']
         c.details = self['InputMessage']
+        c.hello = self['hello']
         c.image = image_key
         c.put()
         return c

@@ -1,4 +1,4 @@
-<canvas class="donut_canvas" height="{{donut_size}}" width="{{donut_size}}"></canvas>
+<canvas class="donut_canvas" height="{{donut_size|default:'80'}}" width="{{donut_size|default:'80'}}"></canvas>
 <span class="score_text"></span>
 <input class="score_value" type="hidden" value="{% if donut_score %}{{donut_score}}{% else %}0.0{% endif %}">
 <input class="full_color" type="hidden" value="{% if full_color %}{{full_color}}{% else %}#68dff0{% endif %}">

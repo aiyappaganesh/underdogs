@@ -31,7 +31,7 @@ class LandingPage(WebRequestHandler):
         template_values['enterprise_icons']['description'] = 'Enterprises often give projects to outsourcing companies and freelancers, both of who lack the dev and design talent of startups.'
         template_values['enterprise_icons']['icons_first'] = False
         template_values['enterprise_icons']['buttons'] = [{'link':'/projects/registration','name':'Register a project'},
-                                                          {'link':'/startups/search/criteria','name':'Find Startups'}]
+                                                          {'link':'/startups/search/criteria','name':'Fitting Startups'}]
 
         self.write(self.get_rendered_html(path, template_values), 200)
 
