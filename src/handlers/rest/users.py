@@ -26,8 +26,7 @@ ANGELLIST: angellist
 }
 
 def fetch_users_for(company):
-    members = CompanyMember.all().ancestor(company)
-    return [m for m in members.fetch(200)]
+    return CompanyMember.all().ancestor(company)
 
 def init_company(company):
     company.influence_avg = None
@@ -62,14 +61,15 @@ def pull_company_data(company):
     init_company(company)
     influence_total = 0.0
     expertise_total = {}
+    members_count = float(members.count())
     for member in members:
         init_member(member)
         pull_data_for(member)
         (influence_total, expertise_total) = update_averages(member, influence_total, expertise_total)
-    company.influence_avg = (influence_total) / float(len(members))
+    company.influence_avg = (influence_total) / members_count
     company.expertise_avg = []
     for skill, score in expertise_total.iteritems():
-        company.expertise_avg.append(skill + ' : ' + str(score / float(len(members))))
+        company.expertise_avg.append(skill + ' : ' + str(score / members_count))
     company.put()
 
 class MemberDataPullHandler(webapp2.RequestHandler):
@@ -142,6 +142,8 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
     @web_auth_required
     def post(self):
         email = self['email']
+        logging.info('... here')
+        logging.info(email)
         if not self.user_exists():
             self.create_user(self)
             create_tpld(email, self['network'])
