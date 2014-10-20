@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block Styles %}
+    <link href="/assets/css/jquery.fs.scroller.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
 {% block Content %}
     <script type="text/javascript">
         window.fbAsyncInit = function() {
@@ -164,6 +168,7 @@
 
 {% block Scripts %}
     <script src="/assets/js/jquery.fs.selecter.min.js"></script>
+    <script src="/assets/js/jquery.fs.scroller.min.js"></script>
     <script src="/assets/js/add_selecter.js"></script>
     {% include "components/donut_chart_script.html" %}
 {% endblock %}

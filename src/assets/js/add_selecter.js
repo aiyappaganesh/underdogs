@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    $("select").selecter({
-        cover: true
-    });
+    $("select").selecter();
+    $("select").scroller();
 });

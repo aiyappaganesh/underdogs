@@ -29,7 +29,7 @@ $(document).ready(function(){
     });
 
     $('.expertise-select').change(function() {
-        var score = this.value;
+        var score = $($($(this).parents('.expertise_td')[0]).find('.selected')[0]).attr('data-value');
         var e = $($(this).parents('.expertise_td')[0]).find('.donut_td')[0];
         drawDonutChartForScore(e, score);
     });

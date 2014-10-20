@@ -155,6 +155,7 @@ a small {
 
 .company-img {
     max-height: 150px;
+    min-height: 150px;
 }
 
 .center-align {
@@ -233,10 +234,6 @@ margin-bottom: 10px;
 .error-message {
     display: none;
     color: red;
-}
-
-.selecter .selecter-options {
-    max-height: 111px;
 }
 
 .btn-bootflat-top-padded {
