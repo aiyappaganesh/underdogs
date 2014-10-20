@@ -7,6 +7,10 @@ from google.appengine.api import urlfetch
 from google.appengine.ext import deferred
 
 from model.skill import Skill
+from model.experience import Experience
+from model.education import Education
+from model.user import User
+from datetime import date
 
 import linkedin_config as linkedin
 
@@ -17,6 +21,47 @@ def pull_data(member, third_party_user):
     patents = response['patents']['_total'] if 'patents' in response else 0
     publications = response['publications']['_total'] if 'publications' in response else 0
     skills = [skill['skill']['name'] for skill in response['skills']['values']] if 'skills' in response and response['skills']['_total'] > 0 else None
+    user = User.get_by_key_name(member.user_id)
+
+    if 'positions' in response and response['positions']['_total'] > 0:
+        for position in response['positions']['values']:
+            title = position['title'] if 'title' in position else ''
+            summary = position['summary'] if 'summary' in position else ''
+            startDate = None
+            if 'startDate' in position:
+                startDate = date(position['startDate']['year'], position['startDate']['month'], 1)
+            endDate = None
+            if 'endDate' in position:
+                endDate = date(position['endDate']['year'], position['endDate']['month'], 1)
+            company = position['company']['name'] if 'company' in position and 'name' in position['company'] else ''
+            key_name = str(company)+str(startDate)
+            experience = Experience.get_or_insert(key_name=key_name, parent=user)
+            experience.company = company
+            experience.title = title
+            experience.summary = summary
+            experience.start = startDate
+            experience.end = endDate
+            experience.put()
+
+    if 'educations' in response and response['educations']['_total'] > 0:
+        for education in response['educations']['values']:
+            school = education['schoolName'] if 'schoolName' in education else ''
+            field = education['fieldOfStudy'] if 'fieldOfStudy' in education else ''
+            degree = education['degree'] if 'degree' in education else ''
+            start = None
+            if 'startDate' in education:
+                start = date(education['startDate']['year'], 1, 1)
+            end = None
+            if 'endDate' in education:
+                end = date(education['endDate']['year'], 1, 1)
+            key_name = str(school)+str(start)
+            edu = Education.get_or_insert(key_name=key_name, parent=user)
+            edu.school = school
+            edu.field = field
+            edu.degree = degree
+            edu.start = start
+            edu.end = end
+            edu.put()
 
     influence_raw = (4 * connections) + (4 * recommenders) + (1 * patents) + (1 * publications)
     influence = math.log(influence_raw)/10.0

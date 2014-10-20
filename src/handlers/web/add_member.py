@@ -8,6 +8,8 @@ from handlers.web.auth import web_login_required
 from model.user import User
 from model.company_members import CompanyMember
 from model.company import Company
+from model.experience import fetch_experiences_for
+from model.education import fetch_educations_for
 from handlers.web.auth import GithubAuth, LinkedinAuth, AngellistAuth
 from util.util import isAdminAccess
 from gaesessions import get_current_session
@@ -204,23 +206,10 @@ class MemberProfilePage(WebRequestHandler):
             member['name'] = user.name
             member['image'] = user.photo
 
-            experiences = []
-            for x in range(0, 5):
-                experience = {}
-                experience['company'] = {}
-                experience['company']['name'] = 'Haggle'
-                experience['company']['description'] = 'Personalized pricing for everyone, everywhere'
-                experience['role'] = 'Employee'
-                experiences.append(experience)
+            experiences = fetch_experiences_for(user)
             member['experiences'] = experiences
 
-            education_list = []
-            for x in range(0, 5):
-                education = {}
-                education['name'] = 'Carnegie Mellon University'
-                education['grad_year'] = '2009'
-                education['degree'] = 'Masters Computer Science'
-                education_list.append(education)
+            education_list = fetch_educations_for(user)
             member['education'] = education_list
 
             company_members = get_user_companies()

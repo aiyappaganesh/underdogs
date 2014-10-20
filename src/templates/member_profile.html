@@ -15,7 +15,7 @@
                     <div class="col-lg-9">
                         <h4>{{member.name}}</h4>
                         <div class="">
-                            <span>Worked at {{member.experiences.0.company.name}}.</span><span> Studied at {{member.education.0.name}}.</span>
+                            {% if member.experiences.0.company %}<span>Worked at {{member.experiences.0.company}}. </span>{% endif %}{% if member.education.0.school %}<span>Studied at {{member.education.0.school}}.</span>{% endif %}
                         </div>
                     </div>
                 </div>
@@ -28,22 +28,33 @@
             <div class="col-lg-8">
                 <h4>EXPERIENCE</h4>
                 <div class="list-group">
-                {% for experience in member.experiences %}
-                    <div class="list-group-item">
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <div class="pull-left">
-                                    <img class="experience-company-image img-rounded" src="/assets/img/company/company.ico">
+                {% if member.experiences %}
+                    {% for experience in member.experiences %}
+                        <div class="list-group-item">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="pull-left">
+                                        <img class="experience-company-image img-rounded" src="/assets/img/company/company.ico">
+                                    </div>
+                                </div>
+                                <div class="col-lg-10">
+                                    <h5 class="list-group-item-heading">{{experience.company}}</h5>
+                                    <h6 class="list-group-item-heading">{{experience.title}}</h6>
+                                    <h6 class="list-group-item-heading">{{experience.start|date:"M Y"}}{% if experience.end %} - {{experience.end|date:"M Y"}}{% endif %}</h6>
+                                    <p class="list-group-item-text">{{experience.summary}}</p>
                                 </div>
                             </div>
-                            <div class="col-lg-10">
-                                <h5 class="list-group-item-heading">{{experience.company.name}}</h5>
-                                <p class="list-group-item-text">{{experience.company.description}}</p>
-                                <h6 class="list-group-item-heading">{{experience.role}}</h6>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="list-group-item-text">Data not available. Please expose one or more social network data to view experiences.</p>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
+                {% endif %}
                 </div>
                 <div class="list-group">
                     <div class="list-group-item">
@@ -61,34 +72,52 @@
 
                 <h6>EDUCATION</h6>
                 <div class="list-group">
-                {% for education in member.education %}
+                {% if member.education %}
+                    {% for education in member.education %}
+                        <div class="list-group-item">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <p class="profile-right-panel-heading">NAME</p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p class="">{{education.school}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <p class="profile-right-panel-heading">FIELD</p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p class="">{{education.field}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <p class="profile-right-panel-heading">DEGREE</p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p class="">{{education.degree}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <p class="profile-right-panel-heading">YEAR</p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p class="">{{education.end|date:"Y"}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
                     <div class="list-group-item">
                         <div class="row">
-                            <div class="col-lg-6">
-                                <p class="profile-right-panel-heading">NAME</p>
-                            </div>
-                            <div class="col-lg-6">
-                                <p class="">{{education.name}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <p class="profile-right-panel-heading">YEAR</p>
-                            </div>
-                            <div class="col-lg-6">
-                                <p class="">{{education.grad_year}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <p class="profile-right-panel-heading">DEGREE</p>
-                            </div>
-                            <div class="col-lg-6">
-                                <p class="">{{education.degree}}</p>
+                            <div class="col-lg-12">
+                                <p class="profile-right-panel-heading">Data not available. Please expose one or more social network data to view education.</p>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
+                {% endif %}
                 </div>
 
                 <h6>SKILLS</h6>
