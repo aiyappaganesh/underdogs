@@ -240,7 +240,7 @@ class MemberProfilePage(WebRequestHandler):
             for k in member_expertise:
                 skill = {}
                 skill['name'] = str(k)
-                skill['score'] = str((member_expertise[k]['val']/member_expertise[k]['count'])*100)+'%'
+                skill['score'] = str(int((member_expertise[k]['val']/member_expertise[k]['count'])*100))+'%'
                 skills.append(skill)
             member['skills'] = skills
 
