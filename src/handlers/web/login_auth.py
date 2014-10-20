@@ -124,12 +124,16 @@ class ThirdPartyLoginHandler(WebRequestHandler):
 class ThirdPartyLoginSuccessHandler(WebRequestHandler):
     def authenticate_user(self, user_id):
         curr_session = get_current_session()
-        redirect_url = curr_session['redirect_url']
+        redirect_url = curr_session['redirect_url'] if 'redirect_url' in curr_session else None
+        invite_email = curr_session['invite_email'] if 'invite_email' in curr_session else None
         if curr_session.is_active():
             curr_session.terminate()
         curr_session['me_id'] = user_id
-        curr_session['redirect_url'] = redirect_url
         curr_session['auth_only'] = True
+        if invite_email:
+            curr_session['invite_email'] = invite_email
+        if redirect_url:
+            curr_session['redirect_url'] = redirect_url
 
     def login_user(self, user_id):
         curr_session = get_current_session()

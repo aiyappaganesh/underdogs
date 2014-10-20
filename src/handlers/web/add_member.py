@@ -151,14 +151,18 @@ class MemberInvitePage(WebRequestHandler):
 
 class MemberFinishInvitePage(WebRequestHandler):
     def get(self):
+        session = get_current_session()
+        session['invite_email'] = self['invite_email']
         self.redirect('/member/login?redirect_url=/member/expose_third_party?company_id=' + self['company_id'])
 
 class MemberSignupPage(WebRequestHandler):
     @web_auth_required
     def get(self):
         path = 'member_signup.html'
+        session = get_current_session()
+        invite_email = session['invite_email'] if 'invite_email' in session else None
         form_url = blobstore.create_upload_url("/api/members/finish_signup")
-        template_values = {'network' : self['network'], 'image' : self['image'], 'form_url' : form_url}
+        template_values = {'network' : self['network'], 'image' : self['image'], 'form_url' : form_url, 'invite_email': invite_email}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberAlreadyExistsHandler(WebRequestHandler):
