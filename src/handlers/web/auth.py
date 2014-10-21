@@ -143,8 +143,8 @@ class Auth(object):
             return GithubAuth(redirect_url=redirect_url)
 
 class GithubAuth(Auth):
-    def __init__(self):
-        Auth.__init__(self, GITHUB)
+    def __init__(self, redirect_url=None):
+        Auth.__init__(self, GITHUB, redirect_url)
 
     def save_user(self, access_token, company_id, user_id):
         tp_user = Auth.save_user(self, access_token, company_id, user_id)
@@ -201,8 +201,8 @@ class LinkedinAuth(Auth):
         return '/member/profile'
 
 class AngellistAuth(Auth):
-    def __init__(self):
-        Auth.__init__(self, ANGELLIST)
+    def __init__(self, redirect_url=None):
+        Auth.__init__(self, ANGELLIST, redirect_url)
         self.company_param = 'state'
 
     def get_auth_url(self, **kwargs):
