@@ -50,7 +50,7 @@
                     <div class="list-group-item">
                         <div class="row">
                             <div class="col-lg-12">
-                                <p class="list-group-item-text">Data not available. Please expose one or more social network data to view experiences.</p>
+                                <p class="list-group-item-text">Data not available. Please expose social network data <a href="#expose-profile-data" onclick="$('#expose-profile-data').addClass('nav-offset-padding')">below</a> to view experience.</p>
                             </div>
                         </div>
                     </div>
@@ -64,6 +64,21 @@
                 <div class="list-group">
                     <div class="list-group-item">
                         <h4><a href="/member/projects/dashboard">MY PROJECTS</a></h4>
+                    </div>
+                </div>
+                <div id="expose-profile-data" class="list-group">
+                    <div class="list-group-item">
+                        <h4>EXPOSE PROFILE DATA</h4>
+                        <div class="row">
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    <div class="col-lg-6"><a href="{{linkedin_auth_url}}" class="btn btn-bootflat sd-btn"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a></div>
+                                    <div class="col-lg-6"><a href="{{angellist_auth_url}}" class="btn btn-bootflat sd-btn"><i class="fa fa-angellist fa-fw"></i> <span class="network-name">Angellist</span></a></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -113,7 +128,7 @@
                     <div class="list-group-item">
                         <div class="row">
                             <div class="col-lg-12">
-                                <p class="profile-right-panel-heading">Data not available. Please expose one or more social network data to view education.</p>
+                                <p class="profile-right-panel-heading">Data not available. Please expose social network data <a href="#expose-profile-data" onclick="$('#expose-profile-data').addClass('nav-offset-padding')">below</a> to view education.</p>
                             </div>
                         </div>
                     </div>
