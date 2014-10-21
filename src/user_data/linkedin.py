@@ -33,10 +33,6 @@ def pull_data(member, third_party_user):
     member.update_score(influence_score)
     member.update_expertise_score(expertise)
 
-def pull_profile_data_for(member, network):
-    third_party_profile_data = ThirdPartyProfileData.get_by_key_name(network, parent=member)
-    pull_profile_data(third_party_profile_data)
-
 def pull_profile_data(third_party_profile_data):
     response = json.loads(urlfetch.fetch(linkedin.PROFILE_URL%('positions,educations', third_party_profile_data.access_token)).content)
     if 'positions' in response and response['positions']['_total'] > 0:

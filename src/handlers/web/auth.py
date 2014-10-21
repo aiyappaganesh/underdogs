@@ -23,7 +23,8 @@ from networks import GITHUB, ANGELLIST, LINKEDIN, FACEBOOK
 from handlers import RequestHandler
 from gaesessions import get_current_session
 from util.util import separator
-from user_data.linkedin import pull_profile_data_for
+from user_data.linkedin import pull_profile_data as linkedin_profile_data_pull
+from user_data.angellist import pull_profile_data as angellist_profile_data_pull
 
 networks = {
     GITHUB: github,
@@ -258,12 +259,20 @@ class ThirdPartyProfileHandler(RequestHandler):
         self.redirect(handler.get_auth_url())
 
 class ThirdPartyProfileSuccessHandler(RequestHandler):
+    def get_profile_data_pull_handler(self, network):
+        if network == LINKEDIN:
+            return linkedin_profile_data_pull
+        elif network == ANGELLIST:
+            return angellist_profile_data_pull
+
     def get(self, network):
         handler = Auth.get_handler(network, redirect_url='http://minyattra.appspot.com/users/profile/' + network + '/update_success')
         redirect_url = handler.fetch_and_save_profile(self)
         session = get_current_session()
         user = User.get_by_key_name(session['me_email'])
-        pull_profile_data_for(user, LINKEDIN)
+        data_pull_handler = self.get_profile_data_pull_handler(network)
+        third_party_profile_data = ThirdPartyProfileData.get_by_key_name(network, parent=user)
+        data_pull_handler(third_party_profile_data)
         self.redirect(redirect_url)
 
 app = webapp2.WSGIApplication([ ('/users/github/callback', ThirdPartyRequestHandler),
