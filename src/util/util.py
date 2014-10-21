@@ -1,7 +1,5 @@
 import logging
 
-from model.company import Company
-from model.company_members import CompanyMember
 from model.project_members import ProjectMember
 from model.project import Project
 from model.user import User
@@ -18,8 +16,8 @@ def isAdminAccess(req_handler):
     session = get_current_session()
     admin_id = session['me_email']
     company_id = req_handler['company_id']
-    c = Company.get_by_id(int(company_id))
-    cms = CompanyMember.all().ancestor(c)
+    c =  model.company.Company.get_by_id(int(company_id))
+    cms = model.company_members.CompanyMember.all().ancestor(c)
     for cm in cms.fetch(1000):
         if cm.user_id == admin_id and cm.is_admin:
             return True
@@ -42,12 +40,12 @@ def get_user_projects():
     return get_user_parents(ProjectMember, Project)
 
 def get_user_companies():
-    return get_user_parents(CompanyMember, Company)
+    return get_user_parents(model.company_members.CompanyMember, model.company.Company)
 
-def convert_string_list_to_dict(str_list):
+def convert_string_list_to_dict(str_list, separator = ' : '):
     ret_val = {}
     for param in str_list:
-        key, value = param.split(' : ')
+        key, value = param.split(separator)
         ret_val[key] = value
     return ret_val
 

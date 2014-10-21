@@ -8,3 +8,6 @@ class Company(db.Model):
     image = db.StringProperty(indexed=False)
     influence_avg = db.FloatProperty(indexed=False)
     expertise_avg = db.StringListProperty(indexed=False)
+
+    def get_expertise_avg(self):
+    	return convert_string_list_to_dict(self.expertise_avg)

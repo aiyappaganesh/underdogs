@@ -1,4 +1,5 @@
 from google.appengine.ext import db
+from util.util import convert_string_list_to_dict
 import logging
 
 class CompanyMember(db.Model):
@@ -32,10 +33,8 @@ class CompanyMember(db.Model):
             all_keys = saved_keys.union(new_keys)
             for key in all_keys:
                 if key in collisions:
-                    logging.info('>>>> Collision for: ' + key)
                     saved_score = float(saved_expertise[key])
                     new_score = float(expertise_score[key])
-                    logging.info(str(saved_score) + " .... " + str(new_score))
                     norm_score = (0.5 * saved_score) + (0.5 * new_score)
                     updated_expertise[key] = norm_score
                 elif key in saved_keys:
@@ -46,3 +45,6 @@ class CompanyMember(db.Model):
             for skill, score in updated_expertise.iteritems():
                 self.expertise.append(skill + " : " + str(score))
         self.put()
+
+    def get_expertise(self):
+        return convert_string_list_to_dict(self.expertise)

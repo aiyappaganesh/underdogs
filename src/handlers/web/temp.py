@@ -70,9 +70,16 @@ class CompanyData(WebRequestHandler):
         self.write(json.dumps(ret_val))
 
 class SkillsVisualiser(WebRequestHandler):
+    def get_companies(self):
+        q = Company.all()
+        companies = []
+        for company in q.fetch(100):
+            companies.append({'value' : company.key().id(), 'name' : company.name})
+        return companies
+
     def get(self):
         path = 'skills_visualise.html'
-        self.write(self.get_rendered_html(path, {}), 200)
+        self.write(self.get_rendered_html(path, {'companies' : self.get_companies()}), 200)
 
 class SkillsData(WebRequestHandler):
     def get(self):
