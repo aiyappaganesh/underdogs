@@ -7,6 +7,7 @@ from handlers.web import WebRequestHandler
 from model.skill import Skill
 from model.company import Company
 from model.company_members import CompanyMember
+from model.skills.defn import get_skills_json
 
 class TempPage(WebRequestHandler):
     def load_skills(self):
@@ -68,9 +69,20 @@ class CompanyData(WebRequestHandler):
                    'domain' : domain}
         self.write(json.dumps(ret_val))
 
+class SkillsVisualiser(WebRequestHandler):
+    def get(self):
+        path = 'skills_visualise.html'
+        self.write(self.get_rendered_html(path, {}), 200)
+
+class SkillsData(WebRequestHandler):
+    def get(self):
+        self.write(json.dumps(get_skills_json()))
+
 app = webapp2.WSGIApplication(
     [
         ('/temp', TempPage),
-        ('/temp/company_data', CompanyData)
+        ('/temp/company_data', CompanyData),
+        ('/temp/visualise_skills', SkillsVisualiser),
+        ('/temp/skills_data', SkillsData)
     ]
 )
