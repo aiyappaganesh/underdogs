@@ -7,7 +7,7 @@ from handlers.web import WebRequestHandler
 from model.skill import Skill
 from model.company import Company
 from model.company_members import CompanyMember
-from model.skills.defn import get_skills_json
+from model.skills.defn import get_skills_json, get_skills_parents_map, level2_skills, level1_skills
 
 class TempPage(WebRequestHandler):
     def load_skills(self):
@@ -82,8 +82,14 @@ class SkillsVisualiser(WebRequestHandler):
         self.write(self.get_rendered_html(path, {'companies' : self.get_companies()}), 200)
 
 class SkillsData(WebRequestHandler):
+    def get_skills_json_for(self, company_id):
+        skills_heirarchy = get_skills_json()
+        parents_map = get_skills_parents_map()
+
     def get(self):
-        self.write(json.dumps(get_skills_json()))
+        company = Company.get_by_id(int(self['company_id']))
+        expertise = company.get_expertise_avg()
+        self.write(json.dumps(get_skills_json(expertise)))
 
 app = webapp2.WSGIApplication(
     [

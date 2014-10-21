@@ -1,4 +1,5 @@
 import logging
+import model
 
 from model.project_members import ProjectMember
 from model.project import Project

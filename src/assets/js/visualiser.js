@@ -28,8 +28,7 @@ function render(company_id){
         toggle(d);
       }
     }
-    root.children.forEach(toggleAll);
-    toggle(root.children[2]);
+    //root.children.forEach(toggleAll);
     update(root, root);
   });
 }
@@ -51,7 +50,7 @@ function update(root, source) {
       .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
       .attr("dy", ".35em")
       .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
-      .text(function(d) { var name = d.name; if(d.weight){name = name + " : " + d.weight}; return name; })
+      .text(function(d) { var name = d.name; if(d.score){name = name + " : " + d.score}; return name; })
       .style("fill-opacity", 1e-6);
   var nodeUpdate = node.transition()
       .duration(duration)

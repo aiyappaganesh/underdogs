@@ -1,4 +1,5 @@
 from google.appengine.ext import db
+from util.util import convert_string_list_to_dict
 
 class Company(db.Model):
     name = db.StringProperty(indexed=False)
