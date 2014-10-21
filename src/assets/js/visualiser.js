@@ -10,25 +10,35 @@ var tree = d3.layout.tree()
 var diagonal = d3.svg.diagonal()
     .projection(function(d) { return [d.y, d.x]; });
 
-var vis = d3.select("#body").append("svg:svg")
+var vis = null;
+
+function addGraph(){
+  vis = d3.select("#body").append("svg:svg")
     .attr("width", w + m[1] + m[3])
     .attr("height", h + m[0] + m[2])
-  .append("svg:g")
+    .append("svg:g")
     .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+}
+
+function toggleAll(d) {
+  if (d.children) {
+    d.children.forEach(toggleAll);
+    toggle(d);
+  }
+}
+
+function reload(){
+  d3.select("svg").remove();
+  render($('#companies').val());
+}
 
 function render(company_id){
+  addGraph();
   d3.json("/temp/skills_data?company_id=" + company_id, function(error, root) {
     if (error) return console.warn(error);
     root.x0 = h / 2;
     root.y0 = 0;
-
-    function toggleAll(d) {
-      if (d.children) {
-        d.children.forEach(toggleAll);
-        toggle(d);
-      }
-    }
-    //root.children.forEach(toggleAll);
+    toggleAll(root);
     update(root, root);
   });
 }

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block Content %}
-  	{% include "components/form_select.html" with id="companies" name="companies" options=companies title="Select Company" %}
+  	{% include "components/form_select.html" with id="companies" name="companies" options=companies title="Select Company" other="onchange='reload()'"%}
 	<div id="body">
 	</div>
 {% endblock %}

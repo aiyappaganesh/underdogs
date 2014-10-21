@@ -1,4 +1,4 @@
-level1_skills = {'skills' : [('wd', 'Web Development'), ('gp', 'General Programming'), ('md', 'Mobile Development')]}
+level1_skills = {'skills' : [('wd', 'Web Development'), ('gp', 'Programming'), ('md', 'Mobile Development')]}
 level2_skills = {'md' : [('ios', 'iOS Programming'), ('and', 'Android Programming')],
 				 'wd' : [('gen-wd', 'general')],
 				 'gp' : [('gen-gp', 'general')]}
