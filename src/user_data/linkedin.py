@@ -9,6 +9,7 @@ from google.appengine.ext import deferred
 from model.skill import Skill
 from model.experience import Experience
 from model.education import Education
+from model.third_party_profile_data import ThirdPartyProfileData
 from datetime import date
 
 import linkedin_config as linkedin
@@ -32,6 +33,9 @@ def pull_data(member, third_party_user):
     member.update_score(influence_score)
     member.update_expertise_score(expertise)
 
+def pull_profile_data_for(member, network):
+    third_party_profile_data = ThirdPartyProfileData.get_by_key_name(network, parent=member)
+    pull_profile_data(third_party_profile_data)
 
 def pull_profile_data(third_party_profile_data):
     response = json.loads(urlfetch.fetch(linkedin.PROFILE_URL%('positions,educations', third_party_profile_data.access_token)).content)

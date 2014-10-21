@@ -233,12 +233,9 @@ class MemberProfilePage(WebRequestHandler):
                 skills.append(skill)
             member['skills'] = skills
 
-        linkedin_auth_url = ''
-        angellist_auth_url = ''
-
         template_values = {'member':member,
-                           'linkedin_auth_url': linkedin_auth_url,
-                           'angellist_auth_url': angellist_auth_url}
+                           'linkedin_auth_url': '/users/profile/linkedin/update',
+                           'angellist_auth_url': '/users/profile/angellist/update'}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberProfileEditPage(WebRequestHandler):

@@ -2,7 +2,7 @@ import webapp2
 import logging
 
 from google.appengine.ext import deferred
-from handlers import RequestHandler
+from handlers.request_handler import RequestHandler
 from google.appengine.ext.webapp import blobstore_handlers
 from model.third_party_user import ThirdPartyUser
 from model.user import User
@@ -10,7 +10,7 @@ from model.company import Company
 from networks import GITHUB, LINKEDIN, ANGELLIST
 from user_data import github, linkedin, angellist
 from util.util import isAdminAccess, get_redirect_url_from_session
-from handlers.web import WebRequestHandler
+from handlers.web.web_request_handler import WebRequestHandler
 from google.appengine.api import mail
 from handlers.web.auth import web_login_required, web_auth_required
 from model.third_party_login_data import ThirdPartyLoginData

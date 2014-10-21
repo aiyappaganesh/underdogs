@@ -12,6 +12,7 @@ from google.appengine.api import users
 
 from model.company import Company
 from model.third_party_login_data import ThirdPartyLoginData
+from model.third_party_profile_data import ThirdPartyProfileData
 import github_config as github
 import angellist_config as angellist
 import linkedin_config as linkedin
@@ -22,6 +23,7 @@ from networks import GITHUB, ANGELLIST, LINKEDIN, FACEBOOK
 from handlers import RequestHandler
 from gaesessions import get_current_session
 from util.util import separator
+from user_data.linkedin import pull_profile_data_for
 
 networks = {
     GITHUB: github,
@@ -66,14 +68,14 @@ def web_auth_required(fn):
     return check_auth
 
 class Auth(object):
-    def __init__(self, network):
+    def __init__(self, network, redirect_url):
         self.network = network
         self.config = networks[network].config
         self._auth_url = self.config['auth_url']
         self.token_url = self.config['token_url']
         self.client_id = self.config['client_id']
         self.client_secret = self.config['client_secret']
-        self.redirect_url = self.config['redirect_url']
+        self.redirect_url = redirect_url if redirect_url else self.config['redirect_url']
         self.scope = self.config['scope'] if 'scope' in self.config else ''
         self.company_param = 'company_id'
         self.separator = ' : '
@@ -130,6 +132,15 @@ class Auth(object):
         else:
             return LinkedinAuth()
 
+    @staticmethod
+    def get_handler(network, redirect_url=None):
+        if network == LINKEDIN:
+            return LinkedinAuth(redirect_url=redirect_url)
+        elif network == ANGELLIST:
+            return AngellistAuth(redirect_url=redirect_url)
+        elif network == GITHUB:
+            return GithubAuth(redirect_url=redirect_url)
+
 class GithubAuth(Auth):
     def __init__(self):
         Auth.__init__(self, GITHUB)
@@ -143,8 +154,8 @@ class GithubAuth(Auth):
         tp_user.put()
 
 class LinkedinAuth(Auth):
-    def __init__(self):
-        Auth.__init__(self, LINKEDIN)
+    def __init__(self, redirect_url=None):
+        Auth.__init__(self, LINKEDIN, redirect_url)
         self.response_type = self.config['response_type']
         self.company_param = 'state'
 
@@ -158,8 +169,8 @@ class LinkedinAuth(Auth):
 
     def get_auth_url(self, **kwargs):
         auth_url = super(LinkedinAuth, self).get_auth_url()
-        company_id = kwargs['company_id']
-        user_id = kwargs['user_id']
+        company_id = kwargs.get('company_id', None)
+        user_id = kwargs.get('user_id', None)
         params = {
             'state': company_id,
             'response_type': self.response_type
@@ -176,6 +187,17 @@ class LinkedinAuth(Auth):
 
     def get_access_token(self, response):
         return json.loads(response)['access_token']
+
+    def save_third_party_profile_date(self, access_token, email):
+        user = User.get_by_key_name(email)
+        ThirdPartyProfileData(key_name=self.network, parent=user, access_token=access_token).put()
+
+    def fetch_and_save_profile(self, req_handler):
+        response = urlfetch.fetch(self.get_thirdparty_access_token_url(req_handler['code']), method=urlfetch.POST).content
+        access_token = self.get_access_token(response)
+        session = get_current_session()
+        self.save_third_party_profile_date(access_token, session['me_email'])
+        return '/member/profile'
 
 class AngellistAuth(Auth):
     def __init__(self):
@@ -230,6 +252,22 @@ class ThirdPartyRequestHandler(RequestHandler):
         redirect_uri = handler.fetch_and_save_user(self)
         self.redirect(redirect_uri)
 
+class ThirdPartyProfileHandler(RequestHandler):
+    def get(self, network):
+        handler = Auth.get_handler(network, redirect_url='http://minyattra.appspot.com/users/profile/' + network + '/update_success')
+        self.redirect(handler.get_auth_url())
+
+class ThirdPartyProfileSuccessHandler(RequestHandler):
+    def get(self, network):
+        handler = Auth.get_handler(network, redirect_url='http://minyattra.appspot.com/users/profile/' + network + '/update_success')
+        redirect_url = handler.fetch_and_save_profile(self)
+        session = get_current_session()
+        user = User.get_by_key_name(session['me_email'])
+        pull_profile_data_for(user, LINKEDIN)
+        self.redirect(redirect_url)
+
 app = webapp2.WSGIApplication([ ('/users/github/callback', ThirdPartyRequestHandler),
                                 ('/users/angellist/callback', ThirdPartyRequestHandler),
+                                ('/users/profile/([^/]+)/update', ThirdPartyProfileHandler),
+                                ('/users/profile/([^/]+)/update_success', ThirdPartyProfileSuccessHandler),
                                 ('/users/handle_linkedin_auth', ThirdPartyRequestHandler)])
