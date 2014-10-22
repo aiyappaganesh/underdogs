@@ -131,7 +131,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="row expertise_td">
-                                                        <div class="col-lg-6">
+                                                        <div class="col-lg-6 expertise-td-select">
                                                             <select class="expertise-select" id="expertise-select{{forloop.counter}}">
                                                             <option id="item{{forloop.parentloop.counter}}0" value="">Select Expertise</option>
                                                             {% for item in member.expertise %}
@@ -145,7 +145,7 @@
                                                             {% endfor %}
                                                             </select>
                                                         </div>
-                                                        <div class="col-lg-6">
+                                                        <div class="col-lg-6 expertise-td-donut">
                                                             <div class="donut_td">
                                                                 {% include "components/donut_chart.html" with donut_score="no_load" donut_size=donut_size tooltip_font_size=tooltip_font_size %}
                                                             </div>

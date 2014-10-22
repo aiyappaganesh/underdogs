@@ -247,3 +247,12 @@ margin-bottom: 10px;
 .wrapped {
     word-wrap: break-word;
 }
+
+.expertise-td-select {
+    padding-top: 27px;
+}
+
+.expertise-td-donut {
+    padding-top: 6px;
+    margin-bottom: 0px !important;
+}
