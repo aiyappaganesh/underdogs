@@ -144,8 +144,7 @@ function get_expertise_sel(){
 
 function find_matching_child(key, children){
   for(var i = 0; i < children.length; i++){
-    console.log('comparing ' + key + ' and ' + children[i]['id']);
-    if(children[i]['id'] == key)
+    if(children[i]['key'] == key)
       return children[i];
   }
 }

@@ -16,12 +16,12 @@ def get_children_for(level_num, key, expertise):
 			score = 0.0
 			if key in expertise:
 				score = round(float(expertise[key]) * float(weight), 2)
-			children.append({'name' : curr_skill_name, 'score' : score, 'id' : curr_skill_name})
+			children.append({'name' : curr_skill_name, 'score' : score, 'key' : curr_skill_name})
 	else:
 		for (curr_skill_key, curr_skill_name) in skills_heirarchy[level_num][key]:
 			curr_json = {}
 			curr_json['name'] = curr_skill_name
-			curr_json['id'] = curr_skill_key
+			curr_json['key'] = curr_skill_key
 			curr_json['children'] = get_children_for(level_num + 1, curr_skill_key, expertise)
 			score = 0.0
 			for child in curr_json['children']:
