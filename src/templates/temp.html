@@ -27,9 +27,8 @@
   <div class="row" id="skill_selector">
     {% for i in skills_depth %}
       <div class="col-lg-4" style="display:none" id="skill_depth_{{forloop.counter}}">
-        <p>Skill depth {{forloop.counter}}</p>
+        <p>Expertise depth {{forloop.counter}}</p>
         <select class="form-control" name={{forloop.counter}} onchange="update_skills_selector(this)">
-            <!--{% for option in options %}<option value="{{option.value}}">{{option.name}}</option>{% endfor %}-->
         </select>
       </div>
     {% endfor %}

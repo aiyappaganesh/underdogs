@@ -12,7 +12,7 @@ function pull_skills_heirarchy(){
       skills_heirarchy = JSON.parse(data);
       render_skills_selector();
       init_axis_map();
-      //render_chart($('#skill_selector').val());
+      render_chart($('#skill_selector').val());
     })
     .fail(function() {
       alert( "error" );
@@ -117,9 +117,52 @@ function update_chart(startups){
     init_skill_label();
 }
 
-function x(d) { return d[axis_map['x_axis']]; }
-function y(d) { return d[axis_map['y_axis']]; }
-function radius(d) { return d[axis_map['radius']]; }
+function get_expertise_sel(){
+  var max_depth = 3;
+  var skills_sel = [];
+  for(var i = 1; i <= max_depth; i++){
+    if($('#skill_depth_' + i).css('display') != "none"){
+      var val = $('#skill_depth_' + i + ' select').val();
+      if(val != "")
+        skills_sel.push(val);
+    }
+  }
+  return skills_sel;
+}
+
+function find_matching_child(key, children){
+  for(var i = 0; i < children.length; i++){
+    console.log('comparing ' + key + ' and ' + children[i]['id']);
+    if(children[i]['id'] == key)
+      return children[i];
+  }
+}
+
+function get_expertise_val_for(d){
+  var skills_sel = get_expertise_sel();
+  console.log(d);
+  curr_map = d['expertise'];
+  curr_score = 0.0;
+  for(var i = 0; i < skills_sel.length; i++){
+    curr_children = curr_map['children'];
+    child = find_matching_child(skills_sel[i], curr_children);
+    curr_score = child['score'];
+    curr_map = child;
+  }
+  return curr_score;
+}
+
+function get_float_val(d, key){
+  data_lookup_key = axis_map[key];
+  if(data_lookup_key == 'expertise')
+    return get_expertise_val_for(d);
+  else
+    return d[data_lookup_key];
+}
+
+function x(d) { return get_float_val(d, 'x_axis'); }
+function y(d) { return get_float_val(d, 'y_axis'); }
+function radius(d) { return get_float_val(d, 'radius'); }
 function color(d) { return d.name; }
 function key(d) { return d.name; }
 
@@ -162,7 +205,6 @@ function render_chart(sel_skill){
 
   d3.json("/temp/company_data?skill=" + sel_skill, function(error, startups) {
     if(error) return console.warn(error);
-    console.log(startups);
     var bisect = d3.bisector(function(d) { return d[0]; });
     domain_map = startups['domain'];
     initialize();
