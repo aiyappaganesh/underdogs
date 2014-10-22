@@ -1,16 +1,92 @@
 var axis_map = [];
 var domain_map = [];
+var skills_heirarchy = [];
 var xScale, yScale, radiusScale, colorScale;
 
 function render(){
-  init_axis_map();
-  render_chart($('#skill_selector').val());
+  pull_skills_heirarchy();
+}
+
+function pull_skills_heirarchy(){
+  $.get( "/temp/skills_heirarchy", function(data) {
+      skills_heirarchy = JSON.parse(data);
+      render_skills_selector();
+      init_axis_map();
+      //render_chart($('#skill_selector').val());
+    })
+    .fail(function() {
+      alert( "error" );
+    });
+}
+
+function add_skills_to(select, depth, key){
+  depth_skills = skills_heirarchy[depth][key];
+  if(depth > 0)
+    select.append(new Option("--Optional--", ""));
+  for (var i = 0; i < depth_skills.length; i++){
+    if(depth < 2)
+      select.append(new Option(depth_skills[i][1], depth_skills[i][0]));
+    else
+      select.append(new Option(depth_skills[i][0], depth_skills[i][0]));
+  }
+}
+
+function render_skills_selector(){
+  $('#skill_depth_1').show();
+  add_skills_to($('#skill_depth_1 select'), 0, 'skills');
+}
+
+function update_skills_selector(sel){
+  var skill_depth = parseInt(sel.name);
+  if (skill_depth < 3) {
+    var curr_sel = $('#skill_depth_' + skill_depth + ' select');
+    curr_sel.attr('disabled', 'disabled');
+    var childSelector = '#skill_depth_' + (skill_depth + 1);
+    $(childSelector).show();
+    add_skills_to($(childSelector + ' select'), skill_depth, curr_sel.val());
+  };
 }
 
 function init_axis_map(){
   $("#axis_selectors select").each(function(index){
     axis_map[$(this).attr("id")] = $(this).val().toLowerCase();
   });
+}
+
+function init_axes(){
+  var xAxis = d3.svg.axis().orient("bottom").scale(xScale).ticks(12, d3.format(",d")),
+      yAxis = d3.svg.axis().scale(yScale).orient("left");
+  d3.select(".x.axis").call(xAxis);
+  d3.select(".y.axis").call(yAxis);
+}
+
+function init_axis_labels(){
+  d3.select(".x.label").text(axis_map['x_axis']);
+  d3.select(".y.label").text(axis_map['y_axis']);
+}
+
+function init_skill_label(){
+  d3.select(".skill.label").text($('#skill_selector').val());
+}
+
+function init_scales(){
+  xScale = d3.scale.linear().domain(domain_map[axis_map['x_axis']]).range([0, width]);
+  yScale = d3.scale.linear().domain(domain_map[axis_map['y_axis']]).range([height, 0]);
+  radiusScale = d3.scale.sqrt().domain(domain_map[axis_map['radius']]).range([0, 20]);
+  colorScale = d3.scale.category10();
+}
+
+function initialize(){
+  init_scales();
+  init_axes();
+  init_axis_labels();
+  init_skill_label();
+}
+
+function re_render(){
+  init_axis_map();
+  initialize();
+  reload();
 }
 
 function reload(){
@@ -20,15 +96,6 @@ function reload(){
     .fail(function() {
       alert( "error" );
     });
-}
-
-function re_render(){
-  init_axis_map();
-  init_scales();
-  init_axes();
-  init_axis_labels();
-  init_skill_label();
-  reload();
 }
 
 function update_chart(startups){
@@ -59,29 +126,6 @@ function key(d) { return d.name; }
 var margin = {top: 19.5, right: 19.5, bottom: 19.5, left: 39.5},
       width = 960 - margin.right,
       height = 400 - margin.top - margin.bottom;
-
-function init_scales(){
-  xScale = d3.scale.linear().domain(domain_map[axis_map['x_axis']]).range([0, width]);
-  yScale = d3.scale.linear().domain(domain_map[axis_map['y_axis']]).range([height, 0]);
-  radiusScale = d3.scale.sqrt().domain(domain_map[axis_map['radius']]).range([0, 20]);
-  colorScale = d3.scale.category10();
-}
-
-function init_axes(){
-  var xAxis = d3.svg.axis().orient("bottom").scale(xScale).ticks(12, d3.format(",d")),
-      yAxis = d3.svg.axis().scale(yScale).orient("left");
-  d3.select(".x.axis").call(xAxis);
-  d3.select(".y.axis").call(yAxis);
-}
-
-function init_axis_labels(){
-  d3.select(".x.label").text(axis_map['x_axis']);
-  d3.select(".y.label").text(axis_map['y_axis']);
-}
-
-function init_skill_label(){
-  d3.select(".skill.label").text($('#skill_selector').val());
-}
 
 function render_chart(sel_skill){
   var svg = d3.select("#chart").append("svg")
@@ -118,12 +162,10 @@ function render_chart(sel_skill){
 
   d3.json("/temp/company_data?skill=" + sel_skill, function(error, startups) {
     if(error) return console.warn(error);
+    console.log(startups);
     var bisect = d3.bisector(function(d) { return d[0]; });
     domain_map = startups['domain'];
-    init_scales();
-    init_axes();
-    init_axis_labels();
-    init_skill_label();
+    initialize();
 
     var dot = svg.append("g")
         .attr("class", "dots")

@@ -5,7 +5,7 @@ level2_skills = {'md' : [('ios', 'iOS Programming'), ('and', 'Android Programmin
 level3_skills = {'gen-wd' : [('c#', 0.25), ('java', 0.25), ('php', 1), ('javascript', 1), ('python', 1), ('scala', 1), ('css', 1), ('web development', 0.5)],
 				 'gen-gp' : [('c#', 1), ('java', 1), ('python', 1), ('scala', 1), ('php', 1), ('software development', 0.5), ('software engineering', 0.5), ('javascript', 1), ('objective-c', 1)],
 				 'ios' : [('objective-c', 1)],
-				 'and' : [('java', 1)]}
+				 'and' : [('java', 0.25)]}
 skills_heirarchy = [level1_skills, level2_skills, level3_skills]
 
 def get_children_for(level_num, key, expertise):

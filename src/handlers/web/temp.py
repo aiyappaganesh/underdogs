@@ -7,21 +7,10 @@ from handlers.web import WebRequestHandler
 from model.skill import Skill
 from model.company import Company
 from model.company_members import CompanyMember
-from model.skills.defn import get_skills_json, get_skills_parents_map, level2_skills, level1_skills
+from model.skills.defn import get_skills_json, get_skills_parents_map, skills_heirarchy
 
 class TempPage(WebRequestHandler):
-    def load_skills(self):
-        q = Skill.all()
-        skills = q.fetch(100)
-        ret_val = [s.name for s in skills]
-        selected_skill = self['sel_skill']
-        if selected_skill:
-            ret_val.remove(selected_skill)
-            ret_val.insert(0, selected_skill)
-        return ret_val
-
     def get(self):
-        skills = self.load_skills()
         path = 'temp.html'
         chart_axes = [('x_axis', 'X Axis'),
                       ('y_axis', 'Y Axis'),
@@ -31,10 +20,9 @@ class TempPage(WebRequestHandler):
         chart_desc = {}
         for chart_axis in chart_axes:
             chart_desc[chart_axis] = axes_vals
-        template_values = {'skills':skills,
-                           'query_param':urllib.urlencode({'skill':skills[0]}),
-                           'chart_desc':chart_desc,
-                           'axes_vals':axes_vals}
+        template_values = {'chart_desc':chart_desc,
+                           'axes_vals':axes_vals,
+                           'skills_depth':range(len(skills_heirarchy))}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class CompanyData(WebRequestHandler):
@@ -61,7 +49,7 @@ class CompanyData(WebRequestHandler):
             curr_c = {}
             curr_c['name'] = c.name
             curr_c['influence'] = c.influence_avg
-            curr_c['expertise'] = float(self.get_expertise_val_for(c))
+            curr_c['expertise'] = get_skills_json(c.get_expertise_avg())
             curr_c['id'] = c.key().id()
             curr_c['size'] = self.get_size_for(c)
             companies.append(curr_c)
@@ -91,11 +79,16 @@ class SkillsData(WebRequestHandler):
         expertise = company.get_expertise_avg()
         self.write(json.dumps(get_skills_json(expertise)))
 
+class SkillsHeirarchy(WebRequestHandler):
+    def get(self):
+        self.write(json.dumps(skills_heirarchy))
+
 app = webapp2.WSGIApplication(
     [
         ('/temp', TempPage),
         ('/temp/company_data', CompanyData),
         ('/temp/visualise_skills', SkillsVisualiser),
-        ('/temp/skills_data', SkillsData)
+        ('/temp/skills_data', SkillsData),
+        ('/temp/skills_heirarchy', SkillsHeirarchy)
     ]
 )
