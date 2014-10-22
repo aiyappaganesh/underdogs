@@ -2,8 +2,8 @@ level1_skills = {'skills' : [('wd', 'Web Development'), ('gp', 'Programming'), (
 level2_skills = {'md' : [('ios', 'iOS Programming'), ('and', 'Android Programming')],
 				 'wd' : [('gen-wd', 'general')],
 				 'gp' : [('gen-gp', 'general')]}
-level3_skills = {'gen-wd' : [('c#', 0.25), ('java', 0.25), ('php', 1), ('javascript', 1), ('python', 1), ('scala', 1), ('css', 1), ('web development', 0.5)],
-				 'gen-gp' : [('c#', 1), ('java', 1), ('python', 1), ('scala', 1), ('php', 1), ('software development', 0.5), ('software engineering', 0.5), ('javascript', 1), ('objective-c', 1)],
+level3_skills = {'gen-wd' : [('jquery', 1), ('c#', 0.25), ('java', 0.25), ('php', 1), ('javascript', 1), ('python', 1), ('scala', 1), ('css', 1), ('web development', 0.5)],
+				 'gen-gp' : [('programming', 0.25), ('c#', 1), ('c++', 1), ('c', 1), ('java', 1), ('python', 1), ('scala', 1), ('php', 1), ('software development', 0.5), ('software engineering', 0.5), ('javascript', 1), ('objective-c', 1)],
 				 'ios' : [('objective-c', 1)],
 				 'and' : [('java', 0.25)]}
 skills_heirarchy = [level1_skills, level2_skills, level3_skills]
