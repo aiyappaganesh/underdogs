@@ -33,7 +33,9 @@ function add_skills_to(select, depth, key){
 
 function render_skills_selector(){
   $('#skill_depth_1').show();
-  add_skills_to($('#skill_depth_1 select'), 0, 'skills');
+  var first_sel = $('#skill_depth_1 select');
+  add_skills_to(first_sel, 0, 'skills');
+  update_skills_selector(first_sel[0]);
 }
 
 function empty_selector(selector){
