@@ -36,14 +36,26 @@ function render_skills_selector(){
   add_skills_to($('#skill_depth_1 select'), 0, 'skills');
 }
 
+function empty_selector(selector){
+  selector.find('option').remove();
+}
+
+function hide_all_selectors_after(depth){
+  for(var i = depth + 1; i <= 3; i++){
+    empty_selector($('#skill_depth_' + i + ' select'));
+    $('#skill_depth_' + i).css("display", "none");
+  }
+}
+
 function update_skills_selector(sel){
   var skill_depth = parseInt(sel.name);
   if (skill_depth < 3) {
     var curr_sel = $('#skill_depth_' + skill_depth + ' select');
-    curr_sel.attr('disabled', 'disabled');
     var childSelector = '#skill_depth_' + (skill_depth + 1);
     $(childSelector).show();
+    empty_selector($(childSelector + ' select'));
     add_skills_to($(childSelector + ' select'), skill_depth, curr_sel.val());
+    hide_all_selectors_after(skill_depth + 1);
   };
 }
 
