@@ -99,8 +99,9 @@ class Auth(object):
     def fetch_and_save_user(self, req_handler):
         response = urlfetch.fetch(self.get_thirdparty_access_token_url(req_handler['code'])).content
         access_token = self.get_access_token(response)
-        company_id, user_id = req_handler[self.company_param].split(self.separator)
-        self.save_user(access_token, company_id, user_id)
+        company_id = req_handler[self.company_param]
+        session = get_current_session()
+        self.save_user(access_token, company_id, session['me_email'])
         return '/member/expose_third_party?company_id=' + company_id
 
     def get_thirdparty_access_token_url(self, code):
@@ -119,19 +120,6 @@ class Auth(object):
     def set_session(self, req_handler, login_id):
         logging.info('Setting the login_id')
         req_handler.session['login_id'] = login_id
-
-    @staticmethod
-    def get_handler_obj(req_handler):
-        company_id = req_handler['company_id']
-        network = req_handler['network']
-        if network and network == FACEBOOK:
-            return FacebookAuth()
-        elif req_handler[AngellistAuth().company_param] and ANGELLIST in req_handler[AngellistAuth().company_param]:
-            return AngellistAuth()
-        elif company_id and len(company_id) > 0:
-            return GithubAuth()
-        else:
-            return LinkedinAuth()
 
     @staticmethod
     def get_handler(network, redirect_url=None):
@@ -206,8 +194,8 @@ class AngellistAuth(Auth):
         self.company_param = 'state'
 
     def get_auth_url(self, **kwargs):
-        company_id = kwargs['company_id']
-        user_id = kwargs['user_id']
+        company_id = kwargs.get('company_id', None)
+        user_id = kwargs.get('user_id', None)
         params = {
             'client_id' : self.config['client_id'],
             'state': ANGELLIST + self.separator + company_id + self.separator + user_id,
@@ -242,17 +230,6 @@ def set_session(req_handler):
     curr_session['me_name'] = req_handler['name']
     return curr_session
 
-class ThirdPartyRequestHandler(RequestHandler):
-    def authenticate_user(self):
-        session = set_session(self)
-        session['auth_only'] = True
-
-    @web_login_required
-    def get(self):
-        handler = Auth.get_handler_obj(self)
-        redirect_uri = handler.fetch_and_save_user(self)
-        self.redirect(redirect_uri)
-
 class ThirdPartyProfileHandler(RequestHandler):
     def get(self, network):
         handler = Auth.get_handler(network, redirect_url='http://minyattra.appspot.com/users/profile/' + network + '/update_success')
@@ -275,8 +252,26 @@ class ThirdPartyProfileSuccessHandler(RequestHandler):
         data_pull_handler(third_party_profile_data)
         self.redirect(redirect_url)
 
-app = webapp2.WSGIApplication([ ('/users/github/callback', ThirdPartyRequestHandler),
-                                ('/users/angellist/callback', ThirdPartyRequestHandler),
+class ThirdPartyDataHandler(RequestHandler):
+    def get(self, network):
+        company_id = self['company_id']
+        user_id = self['user_id']
+        handler = Auth.get_handler(network, redirect_url='http://minyattra.appspot.com/users/data/' + network + '/update_success')
+        self.redirect(handler.get_auth_url(company_id=company_id, user_id=user_id))
+
+class ThirdPartyDataSuccessHandler(RequestHandler):
+    def authenticate_user(self):
+        session = set_session(self)
+        session['auth_only'] = True
+
+    @web_login_required
+    def get(self, network):
+        handler = Auth.get_handler(network, redirect_url='http://minyattra.appspot.com/users/data/' + network + '/update_success')
+        redirect_uri = handler.fetch_and_save_user(self)
+        self.redirect(redirect_uri)
+
+app = webapp2.WSGIApplication([ ('/users/data/([^/]+)/update', ThirdPartyDataHandler),
+                                ('/users/data/([^/]+)/update_success', ThirdPartyDataSuccessHandler),
                                 ('/users/profile/([^/]+)/update', ThirdPartyProfileHandler),
-                                ('/users/profile/([^/]+)/update_success', ThirdPartyProfileSuccessHandler),
-                                ('/users/handle_linkedin_auth', ThirdPartyRequestHandler)])
+                                ('/users/profile/([^/]+)/update_success', ThirdPartyProfileSuccessHandler)
+                                ])

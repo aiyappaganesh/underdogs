@@ -24,19 +24,17 @@ class ExposeThirdPartyPage(WebRequestHandler):
     def get(self):
         session = get_current_session()
         company_id = self['company_id']
+        logging.info('... here')
+        logging.info(company_id)
         user_id = session['me_email']
         c = Company.get_by_id(int(company_id))
         path = 'expose_social_data.html'
         user = User.get_by_key_name(str(user_id))
-        githubAuth = GithubAuth()
-        github_auth_url = githubAuth.get_auth_url(company_id=company_id + githubAuth.separator + user_id)
-        linkedin_auth_url = LinkedinAuth().get_auth_url(company_id=company_id, user_id=user_id)
-        angellist_auth_url = AngellistAuth().get_auth_url(company_id=company_id, user_id=user_id)
         template_values = {'name':user.name,
                            'company_id': company_id,
-                           'github_auth_url': github_auth_url,
-                           'angellist_auth_url': angellist_auth_url,
-                           'linkedin_auth_url': linkedin_auth_url,
+                           'github_auth_url': '/users/data/github/update?company_id=' + company_id + '&user_id=' + user_id,
+                           'angellist_auth_url': '/users/data/angellist/update?company_id=' + company_id + '&user_id=' + user_id,
+                           'linkedin_auth_url': '/users/data/linkedin/update?company_id=' + company_id + '&user_id=' + user_id,
                            'breadcrumbs' : registration_breadcrumbs,
                            'breadcrumb_idx':3}
         self.write(self.get_rendered_html(path, template_values), 200)
