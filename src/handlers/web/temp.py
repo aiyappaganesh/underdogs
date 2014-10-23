@@ -4,6 +4,7 @@ import urllib
 import json
 
 from handlers.web import WebRequestHandler
+from model.user import User
 from model.skill import Skill
 from model.company import Company
 from model.company_members import CompanyMember
@@ -57,6 +58,16 @@ class CompanyData(WebRequestHandler):
                    'domain' : domain}
         self.write(json.dumps(ret_val))
 
+class CompanyMembers(WebRequestHandler):
+    def get(self):
+        company = Company.get_by_id(int(self['company_id']))
+        members = CompanyMember.all().ancestor(company)
+        ret_val = []
+        for member in members.fetch(1000):
+            user = User.get_by_key_name(member.user_id)
+            ret_val.append({'name' : user.name, 'id' : member.key().id()})
+        self.write(json.dumps(ret_val))
+
 class SkillsVisualiser(WebRequestHandler):
     def get_companies(self):
         q = Company.all()
@@ -75,8 +86,13 @@ class SkillsData(WebRequestHandler):
         parents_map = get_skills_parents_map()
 
     def get(self):
+        expertise = None
         company = Company.get_by_id(int(self['company_id']))
-        expertise = company.get_expertise_avg()
+        if self['member_id']:
+            member = CompanyMember.get_by_id(int(self['member_id']), parent=company)
+            expertise = member.get_expertise()
+        else:
+            expertise = company.get_expertise_avg()
         self.write(json.dumps(get_skills_json(expertise)))
 
 class SkillsHeirarchy(WebRequestHandler):
@@ -87,6 +103,7 @@ app = webapp2.WSGIApplication(
     [
         ('/temp', TempPage),
         ('/temp/company_data', CompanyData),
+        ('/temp/company_members', CompanyMembers),
         ('/temp/visualise_skills', SkillsVisualiser),
         ('/temp/skills_data', SkillsData),
         ('/temp/skills_heirarchy', SkillsHeirarchy)

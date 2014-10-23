@@ -5,7 +5,21 @@
 {% endblock %}
 
 {% block Content %}
-  	{% include "components/form_select.html" with id="companies" name="companies" options=companies title="Select Company" other="onchange='reload()'"%}
+  	<div class="col-lg-6" id="companies">
+		<p>Select company</p>
+		<select class="form-control" onchange="reload()">
+			{% for company in companies %}
+				<option value="{{company.value}}">
+					{{company.name}}
+				</option>
+			{% endfor %}
+		</select>
+	</div>
+	<div class="col-lg-6" id="members">
+		<p>Select members</p>
+		<select class="form-control" onchange="loadMemberData()">
+		</select>
+	</div>
 	<div id="body">
 	</div>
 {% endblock %}
@@ -14,6 +28,7 @@
   <script src="/assets/js/d3.v3.min.js"></script>
   <script src="/assets/js/visualiser.js"></script>
   <script type="text/javascript">
-    render($('#companies').val());
+  	populateMembers($('#companies select').val());
+    render("company_id=" + $('#companies select').val());
   </script>
 {% endblock %}

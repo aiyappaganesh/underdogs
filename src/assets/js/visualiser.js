@@ -29,12 +29,36 @@ function toggleAll(d) {
 
 function reload(){
   d3.select("svg").remove();
-  render($('#companies').val());
+  var company_id = $('#companies select').val();
+  populateMembers(company_id);
+  render('company_id=' + company_id);
 }
 
-function render(company_id){
+function populateMembers(company_id){
+  $.get( "/temp/company_members?company_id=" + company_id, function(data) {
+    members = JSON.parse(data);
+    var select = $('#members select');
+    select.find('option').remove();
+    select.append(new Option('--Optional--', ''));
+    for(var i = 0; i < members.length; i++){
+      select.append(new Option(members[i].name, members[i].id));
+    }
+  })
+  .fail(function() {
+    alert( "error" );
+  });
+}
+
+function loadMemberData(){
+  d3.select("svg").remove();
+  var member_id = $('#members select').val();
+  var company_id = $('#companies select').val();
+  render('member_id=' + member_id + '&company_id=' + company_id);
+}
+
+function render(query){
   addGraph();
-  d3.json("/temp/skills_data?company_id=" + company_id, function(error, root) {
+  d3.json("/temp/skills_data?" + query, function(error, root) {
     if (error) return console.warn(error);
     root.x0 = h / 2;
     root.y0 = 0;
