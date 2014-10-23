@@ -1,11 +1,18 @@
-level1_skills = {'skills' : [('wd', 'Web Development'), ('gp', 'Programming'), ('md', 'Mobile Development')]}
+level1_skills = {'skills' : [('wd', 'Web Development'), ('gp', 'Programming'), ('md', 'Mobile Development'), ('mg', 'Management')]}
 level2_skills = {'md' : [('ios', 'iOS Programming'), ('and', 'Android Programming')],
-				 'wd' : [('gen-wd', 'general')],
-				 'gp' : [('gen-gp', 'general')]}
-level3_skills = {'gen-wd' : [('jquery', 1), ('c#', 0.25), ('java', 0.25), ('php', 1), ('javascript', 1), ('python', 1), ('scala', 1), ('css', 1), ('web development', 0.5)],
-				 'gen-gp' : [('programming', 0.25), ('c#', 1), ('c++', 1), ('c', 1), ('java', 1), ('python', 1), ('scala', 1), ('php', 1), ('software development', 0.5), ('software engineering', 0.5), ('javascript', 1), ('objective-c', 1)],
+				 'wd' : [('gen-wd', 'general'), ('java-wd', 'java'), ('ms-wd', 'microsoft')],
+				 'mg' : [('gen-mg', 'general')],
+				 'gp' : [('gen-gp', 'general'), ('db-gp', 'database'), ('tools-gp', 'tools'), ('cloud-gp', 'cloud')]}
+level3_skills = {'gen-wd' : [('html', 1), ('web services', 1), ('xml', 1), ('perl', 1), ('php', 1), ('javascript', 1), ('python', 1), ('css', 1), ('web development', 0.25)],
+				 'gen-gp' : [('c#', 1), ('java', 1), ('python', 1), ('scala', 1), ('php', 1), ('software development', 0.25), ('software engineering', 0.25), ('javascript', 1), ('objective-c', 1)],
 				 'ios' : [('objective-c', 1)],
-				 'and' : [('java', 0.25)]}
+				 'and' : [('java', 0.25)],
+				 'java-wd': [('java enterprise edition', 1), ('jsp', 1), ('java', 1), ('scala', 1)],
+				 'ms-wd': [('c#', 1)],
+				 'db-gp': [('sql', 1), ('mysql', 1)],
+				 'tools-gp': [('eclipse', 1), ('subversion', 1)],
+				 'cloud-gp': [('google appengine', 1)],
+				 'gen-mg': [('soa', 1), ('agile methodologies', 1), ('software project management', 1), ('program management', 1), ('requirements analysis', 1)]}
 skills_heirarchy = [level1_skills, level2_skills, level3_skills]
 
 def get_children_for(level_num, key, expertise):
