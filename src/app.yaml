@@ -47,6 +47,11 @@ handlers:
 - url: /assets
   static_dir: assets
 
+- url: /favicon\.ico
+  mime_type: image/png
+  static_files: assets/img/favicon.png
+  upload: assets/img/favicon\.png
+
 ######################### WEB ENDPOINTS #########################
 - url: /temp.*
   script: handlers.web.temp.app
