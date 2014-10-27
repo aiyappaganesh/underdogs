@@ -35,7 +35,7 @@ networks = {
 
 def _user_logged_in(handler):
     session = get_current_session()
-    if session.is_active() and 'me_id' in session:
+    if session.is_active() and 'me_email' in session:
         if 'auth_only' in session:
             session.terminate()
             return False
@@ -46,7 +46,6 @@ def _user_logged_in(handler):
 def _user_authenticated(handler):
     session = get_current_session()
     if session.is_active() and \
-        'me_id' in session and \
         'auth_only' in session and \
         session['auth_only'] is True:
         return True

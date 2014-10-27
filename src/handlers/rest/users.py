@@ -142,11 +142,10 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
     @web_auth_required
     def post(self):
         email = self['email']
-        logging.info('... here')
-        logging.info(email)
         if not self.user_exists():
             self.create_user(self)
-            create_tpld(email, self['network'])
+            if self['network'] != 'custom':
+                create_tpld(email, self['network'])
             modify_session(email)
             redirect_url = get_redirect_url_from_session()
             self.redirect(redirect_url)

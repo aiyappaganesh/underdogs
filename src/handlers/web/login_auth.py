@@ -2,6 +2,7 @@ import webapp2
 import logging
 import json
 
+from google.appengine.api.blobstore import blobstore
 from handlers.web import WebRequestHandler
 from networks import LINKEDIN, FACEBOOK, TWITTER
 from facebook_config import config as fb_config
@@ -188,8 +189,21 @@ Thanks!
             self.send_subscription_email()
 
 class EmailConfirmationHandler(WebRequestHandler):
+    def authenticate_user(self):
+        curr_session = get_current_session()
+        if curr_session.is_active():
+            curr_session.terminate()
+        curr_session['auth_only'] = True
+
     def get(self):
-        logging.info('here..')
+        self.authenticate_user()
+        path = 'member_signup.html'
+        form_url = blobstore.create_upload_url("/api/members/finish_signup")
+        template_values = {'network' : 'custom', 
+                           'image' : self['image'], 
+                           'form_url' : form_url, 
+                           'invite_email': self['email']}
+        self.write(self.get_rendered_html(path, template_values), 200)
 
 handlers = []
 for network in [FACEBOOK, TWITTER, LINKEDIN]:
