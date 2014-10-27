@@ -3,7 +3,9 @@ import logging
 import urllib
 import json
 
+from handlers.web.auth import web_login_required
 from handlers.web import WebRequestHandler
+from gaesessions import get_current_session
 from model.user import User
 from model.skill import Skill
 from model.company import Company
@@ -80,6 +82,22 @@ class SkillsVisualiser(WebRequestHandler):
         path = 'skills_visualise.html'
         self.write(self.get_rendered_html(path, {'companies' : self.get_companies()}), 200)
 
+class ProfileSkillsVisualiser(WebRequestHandler):
+    def get_companies_for(self, email):
+        members = CompanyMember.all().filter('user_id =', email)
+        companies = []
+        for company_member in members.fetch(100):
+            user = User.get_by_key_name(company_member.user_id)
+            companies.append({'value' : company_member.parent().key().id(), 'name' : company_member.parent().name, 'member_name' : user.name, 'member_id' : company_member.key().id()})
+        return companies
+
+    @web_login_required
+    def get(self):
+        path = 'skills_visualise.html'
+        session = get_current_session()
+        email = session['me_email']
+        self.write(self.get_rendered_html(path, {'companies' : self.get_companies_for(email), 'for_profile' : True}), 200)
+
 class SkillsData(WebRequestHandler):
     def get_skills_json_for(self, company_id):
         skills_heirarchy = get_skills_json()
@@ -105,6 +123,7 @@ app = webapp2.WSGIApplication(
         ('/temp/company_data', CompanyData),
         ('/temp/company_members', CompanyMembers),
         ('/temp/visualise_skills', SkillsVisualiser),
+        ('/temp/visualise_profile_skills', ProfileSkillsVisualiser),
         ('/temp/skills_data', SkillsData),
         ('/temp/skills_heirarchy', SkillsHeirarchy)
     ]

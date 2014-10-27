@@ -6,10 +6,11 @@
 
 {% block Content %}
   	<div class="col-lg-6" id="companies">
+
 		<p>Select company</p>
-		<select class="form-control" onchange="reload()">
+		<select class="form-control" onchange="{% if for_profile %}updateMember(){% else %}reload(){% endif %}">
 			{% for company in companies %}
-				<option value="{{company.value}}">
+				<option value="{{company.value}}"{% if for_profile %} id="{{company.member_id}}" name="{{company.member_name|escape}}"{% endif %}>
 					{{company.name}}
 				</option>
 			{% endfor %}
@@ -17,7 +18,7 @@
 	</div>
 	<div class="col-lg-6" id="members">
 		<p>Select members</p>
-		<select class="form-control" onchange="loadMemberData()">
+		<select {% if for_profile %}disabled{% endif %} class="form-control" {% if for_profile %}{% else %}onchange="loadMemberData()"{% endif %}>
 		</select>
 	</div>
 	<div id="body">
@@ -28,7 +29,11 @@
   <script src="/assets/js/d3.v3.min.js"></script>
   <script src="/assets/js/visualiser.js"></script>
   <script type="text/javascript">
-  	populateMembers($('#companies select').val());
-    render("company_id=" + $('#companies select').val());
+    {% if for_profile %}
+        updateMember();
+    {% else %}
+        populateMembers($('#companies select').val());
+        render("company_id=" + $('#companies select').val());
+    {% endif %}
   </script>
 {% endblock %}

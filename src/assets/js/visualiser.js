@@ -138,3 +138,12 @@ function toggle(d) {
     d._children = null;
   }
 }
+
+function updateMember() {
+    var select = $('#members select');
+    select.empty();
+    name = $('#companies select option:selected').attr('name');
+    id = $('#companies select option:selected').attr('id');
+    select.append(new Option(name, id));
+    loadMemberData();
+}
