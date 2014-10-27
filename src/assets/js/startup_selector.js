@@ -3,6 +3,12 @@ var domain_map = [];
 var skills_heirarchy = [];
 var xScale, yScale, radiusScale, colorScale;
 
+$(document).ready(function(){
+    $('.parameter').change(function(){
+        re_render();
+    });
+});
+
 function render(){
   pull_skills_heirarchy();
 }
@@ -53,8 +59,10 @@ function update_skills_selector(sel){
   var skill_depth = parseInt(sel.name);
   if (skill_depth < 3) {
     var curr_sel = $('#skill_depth_' + skill_depth + ' select');
+    var currentSelector = '#skill_depth_' + skill_depth + ' select';
     var childSelector = '#skill_depth_' + (skill_depth + 1);
     $(childSelector).show();
+    $($(childSelector+' p')[0]).html($($(currentSelector+' option:selected')[0]).text()+' specialization');
     empty_selector($(childSelector + ' select'));
     add_skills_to($(childSelector + ' select'), skill_depth, curr_sel.val());
     hide_all_selectors_after(skill_depth + 1);
