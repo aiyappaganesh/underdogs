@@ -166,7 +166,7 @@ class ThirdPartyLoginSuccessHandler(WebRequestHandler):
             self.redirect('/member/signup?network=' + self['network'] + '&image=' + profile_image_url)
 
 class CustomLoginHandler(WebRequestHandler):
-    def is_user_created(self):
+    def fetch_user(self):
         user = User.get_by_key_name(self['email'])
         return user
 
@@ -184,9 +184,29 @@ https://minyattra.appspot.com/users/confirm_email?email={0}
 Thanks!
 """.format(self['email']))
 
+    def login_user(self):
+        curr_session = get_current_session()
+        if curr_session.is_active():
+            curr_session.terminate()
+        curr_session['me_email'] = self['email']
+        curr_session['me_name'] = User.get_by_key_name(self['email']).name
+
     def post(self):
-        if not self.is_user_created():
+        user = self.fetch_user()
+        logging.info(user)
+        if not user:
             self.send_subscription_email()
+        else:
+            redirect_url = get_redirect_url_from_session()
+            user = User.get_by_key_name(self['email'])
+            if user.password == self['password']:
+                self.login_user()
+                self.redirect(redirect_url)
+            else:
+                session = get_current_session()
+                session.terminate()
+                self.redirect('/member/verification_failed')
+
 
 class EmailConfirmationHandler(WebRequestHandler):
     def authenticate_user(self):
