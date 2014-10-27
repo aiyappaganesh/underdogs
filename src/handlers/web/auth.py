@@ -14,9 +14,8 @@ from model.company import Company
 from model.third_party_login_data import ThirdPartyLoginData
 from model.third_party_profile_data import ThirdPartyProfileData
 import github_config as github
-import angellist_config as angellist
 import linkedin_config as linkedin
-import facebook_config as facebook
+import angellist_config as angellist
 from model.third_party_user import ThirdPartyUser
 from model.user import User
 from networks import GITHUB, ANGELLIST, LINKEDIN, FACEBOOK
@@ -26,11 +25,18 @@ from util.util import separator
 from user_data.linkedin import pull_profile_data as linkedin_profile_data_pull
 from user_data.angellist import pull_profile_data as angellist_profile_data_pull
 
-networks = {
-    GITHUB: github,
-    LINKEDIN: linkedin,
-    FACEBOOK: facebook,
-    ANGELLIST: angellist
+configs = {
+    GITHUB: {
+        'data': github.config
+    },
+    LINKEDIN: {
+        'data': linkedin.config,
+        'profile': linkedin.config,
+    },
+    ANGELLIST: {
+        'data': angellist.config,
+        'profile': angellist.profile_config
+    }
 }
 
 def _user_logged_in(handler):
@@ -68,14 +74,14 @@ def web_auth_required(fn):
     return check_auth
 
 class Auth(object):
-    def __init__(self, network, redirect_url):
+    def __init__(self, network, config, redirect_url):
         self.network = network
-        self.config = networks[network].config
+        self.config = config
+        self.redirect_url = redirect_url if redirect_url else self.config['redirect_url']
         self._auth_url = self.config['auth_url']
         self.token_url = self.config['token_url']
         self.client_id = self.config['client_id']
         self.client_secret = self.config['client_secret']
-        self.redirect_url = redirect_url if redirect_url else self.config['redirect_url']
         self.scope = self.config['scope'] if 'scope' in self.config else ''
         self.company_param = 'company_id'
         self.separator = ' : '
@@ -121,17 +127,17 @@ class Auth(object):
         req_handler.session['login_id'] = login_id
 
     @staticmethod
-    def get_handler(network, redirect_url=None):
+    def get_handler(network, config, redirect_url=None):
         if network == LINKEDIN:
-            return LinkedinAuth(redirect_url=redirect_url)
+            return LinkedinAuth(config, redirect_url=redirect_url)
         elif network == ANGELLIST:
-            return AngellistAuth(redirect_url=redirect_url)
+            return AngellistAuth(config, redirect_url=redirect_url)
         elif network == GITHUB:
-            return GithubAuth(redirect_url=redirect_url)
+            return GithubAuth(config, redirect_url=redirect_url)
 
 class GithubAuth(Auth):
-    def __init__(self, redirect_url=None):
-        Auth.__init__(self, GITHUB, redirect_url)
+    def __init__(self, config, redirect_url=None):
+        Auth.__init__(self, GITHUB, config, redirect_url)
 
     def save_user(self, access_token, company_id, user_id):
         tp_user = Auth.save_user(self, access_token, company_id, user_id)
@@ -142,8 +148,8 @@ class GithubAuth(Auth):
         tp_user.put()
 
 class LinkedinAuth(Auth):
-    def __init__(self, redirect_url=None):
-        Auth.__init__(self, LINKEDIN, redirect_url)
+    def __init__(self, config, redirect_url=None):
+        Auth.__init__(self, LINKEDIN, config, redirect_url)
         self.response_type = self.config['response_type']
         self.company_param = 'state'
 
@@ -188,13 +194,13 @@ class LinkedinAuth(Auth):
         return '/member/profile'
 
 class AngellistAuth(Auth):
-    def __init__(self, redirect_url=None):
-        Auth.__init__(self, ANGELLIST, redirect_url)
+    def __init__(self, config, redirect_url=None):
+        Auth.__init__(self, ANGELLIST, config, redirect_url)
         self.company_param = 'state'
 
     def get_auth_url(self, **kwargs):
-        company_id = kwargs.get('company_id', None)
-        user_id = kwargs.get('user_id', None)
+        company_id = kwargs.get('company_id', '')
+        user_id = kwargs.get('user_id', '')
         params = {
             'client_id' : self.config['client_id'],
             'state': ANGELLIST + self.separator + company_id + self.separator + user_id,
@@ -231,7 +237,8 @@ def set_session(req_handler):
 
 class ThirdPartyProfileHandler(RequestHandler):
     def get(self, network):
-        handler = Auth.get_handler(network, redirect_url='http://minyattra.appspot.com/users/profile/' + network + '/update_success')
+        config = configs[network]['profile']
+        handler = Auth.get_handler(network, config)
         self.redirect(handler.get_auth_url())
 
 class ThirdPartyProfileSuccessHandler(RequestHandler):
@@ -242,7 +249,8 @@ class ThirdPartyProfileSuccessHandler(RequestHandler):
             return angellist_profile_data_pull
 
     def get(self, network):
-        handler = Auth.get_handler(network, redirect_url='http://minyattra.appspot.com/users/profile/' + network + '/update_success')
+        config = configs[network]['profile']
+        handler = Auth.get_handler(network, config)
         redirect_url = handler.fetch_and_save_profile(self)
         session = get_current_session()
         user = User.get_by_key_name(session['me_email'])
@@ -255,7 +263,8 @@ class ThirdPartyDataHandler(RequestHandler):
     def get(self, network):
         company_id = self['company_id']
         user_id = self['user_id']
-        handler = Auth.get_handler(network, redirect_url='http://minyattra.appspot.com/users/data/' + network + '/update_success')
+        config = configs[network]['data']
+        handler = Auth.get_handler(network, config)
         self.redirect(handler.get_auth_url(company_id=company_id, user_id=user_id))
 
 class ThirdPartyDataSuccessHandler(RequestHandler):
@@ -265,7 +274,8 @@ class ThirdPartyDataSuccessHandler(RequestHandler):
 
     @web_login_required
     def get(self, network):
-        handler = Auth.get_handler(network, redirect_url='http://minyattra.appspot.com/users/data/' + network + '/update_success')
+        config = configs[network]['data']
+        handler = Auth.get_handler(network, config)
         redirect_uri = handler.fetch_and_save_user(self)
         self.redirect(redirect_uri)
 

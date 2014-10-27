@@ -17,6 +17,9 @@ config  = {
 'auth_url': 'https://www.linkedin.com/uas/oauth2/authorization',
 'token_url': 'https://www.linkedin.com/uas/oauth2/accessToken',
 'scope': 'r_fullprofile',
-'redirect_url': 'http://minyattra.appspot.com/users/handle_linkedin_auth',
+'redirect_url': 'http://minyattra.appspot.com/users/data/linkedin/update_success',
 'response_type': 'code'
 }
+
+profile_config  = config
+profile_config['redirect_url'] = 'http://minyattra.appspot.com/users/profile/linkedin/update_success'

@@ -17,5 +17,5 @@ config  = {
 'auth_url': 'https://github.com/login/oauth/authorize',
 'token_url': 'https://github.com/login/oauth/access_token',
 'scope': 'repo,user:email',
-'redirect_url': 'https://minyattra.appspot.com/users/github/callback'
+'redirect_url': 'https://minyattra.appspot.com/users/data/github/update_success'
 }
