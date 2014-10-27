@@ -135,6 +135,11 @@ class Auth(object):
         elif network == GITHUB:
             return GithubAuth(config, redirect_url=redirect_url)
 
+    def save_third_party_profile_date(self, access_token, email):
+        user = User.get_by_key_name(email)
+        ThirdPartyProfileData(key_name=self.network, parent=user, access_token=access_token).put()
+
+
 class GithubAuth(Auth):
     def __init__(self, config, redirect_url=None):
         Auth.__init__(self, GITHUB, config, redirect_url)
@@ -182,10 +187,6 @@ class LinkedinAuth(Auth):
     def get_access_token(self, response):
         return json.loads(response)['access_token']
 
-    def save_third_party_profile_date(self, access_token, email):
-        user = User.get_by_key_name(email)
-        ThirdPartyProfileData(key_name=self.network, parent=user, access_token=access_token).put()
-
     def fetch_and_save_profile(self, req_handler):
         response = urlfetch.fetch(self.get_thirdparty_access_token_url(req_handler['code']), method=urlfetch.POST).content
         access_token = self.get_access_token(response)
@@ -223,6 +224,21 @@ class AngellistAuth(Auth):
         network, company_id, user_id = req_handler[self.company_param].split(self.separator)
         self.save_user(access_token, company_id, user_id)
         return '/member/expose_third_party?company_id=' + company_id + '&user_id=' + user_id
+
+    def fetch_and_save_profile(self, req_handler):
+        params = {
+            'client_id': self.client_id,
+            'client_secret': self.client_secret,
+            'code': req_handler['code'],
+            'grant_type': 'authorization_code'
+        }
+        response = urlfetch.fetch(self.token_url, urllib.urlencode(params), method=urlfetch.POST).content
+        logging.info(response)
+        json_data = json.loads(response)
+        access_token = json_data['access_token']
+        session = get_current_session()
+        self.save_third_party_profile_date(access_token, session['me_email'])
+        return '/member/profile'
 
 def set_session(req_handler):
     logging.info('In set session')
