@@ -251,6 +251,11 @@ class MemberProfileEditPage(WebRequestHandler):
         template_values = {'form_url':form_url,'member':member}
         self.write(self.get_rendered_html(path, template_values), 200)
 
+class CheckEmailPage(WebRequestHandler):
+    def get(self):
+        path = 'check_email.html'
+        self.write(self.get_rendered_html(path, {}), 200)        
+
 app = webapp2.WSGIApplication(
     [
         ('/member/expose_third_party', ExposeThirdPartyPage),
@@ -266,6 +271,7 @@ app = webapp2.WSGIApplication(
         ('/member/signup', MemberSignupPage),
         ('/member/verification_failed', MemberVerificationFailed),
         ('/member/profile', MemberProfilePage),
-        ('/member/profile/edit', MemberProfileEditPage)
+        ('/member/profile/edit', MemberProfileEditPage),
+        ('/member/check_email', CheckEmailPage)
     ]
 )
