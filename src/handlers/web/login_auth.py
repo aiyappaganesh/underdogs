@@ -11,6 +11,7 @@ from google.appengine.api import urlfetch
 from gaesessions import get_current_session
 from twitter import Twitter
 from model.third_party_login_data import ThirdPartyLoginData
+from google.appengine.api import mail
 from model.user import User
 from util.util import get_redirect_url_from_session
 
@@ -163,9 +164,38 @@ class ThirdPartyLoginSuccessHandler(WebRequestHandler):
             self.authenticate_user(user_id)
             self.redirect('/member/signup?network=' + self['network'] + '&image=' + profile_image_url)
 
+class CustomLoginHandler(WebRequestHandler):
+    def is_user_created(self):
+        user = User.get_by_key_name(self['email'])
+        return user
+
+    def send_subscription_email(self):
+        mail.send_mail(sender="Pirates Admin <ranju@b-eagles.com>",
+                       to=self['email'],
+                       subject="Confirming your email address for Pirates",
+                       body="""
+Hello!
+
+Please follow this link to confirm your email id:
+
+https://minyattra.appspot.com/users/confirm_email?email={0}
+
+Thanks!
+""".format(self['email']))
+
+    def post(self):
+        if not self.is_user_created():
+            self.send_subscription_email()
+
+class EmailConfirmationHandler(WebRequestHandler):
+    def get(self):
+        logging.info('here..')
+
 handlers = []
 for network in [FACEBOOK, TWITTER, LINKEDIN]:
     handlers.append(('/users/' + network + '/login_callback', ThirdPartyLoginHandler))
 handlers.append(('/users/login_success', ThirdPartyLoginSuccessHandler))
+handlers.append(('/users/handle_custom_login', CustomLoginHandler))
+handlers.append(('/users/confirm_email', EmailConfirmationHandler))
 
 app = webapp2.WSGIApplication(handlers)

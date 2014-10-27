@@ -64,6 +64,14 @@ handlers:
   script: handlers.web.login_auth.app
   secure: always
 
+- url: /users/handle_custom_login
+  script: handlers.web.login_auth.app
+  secure: always
+
+- url: /users/confirm_email
+  script: handlers.web.login_auth.app
+  secure: always
+
 - url: /users/.*
   script: handlers.web.auth.app
   secure: always

@@ -31,7 +31,7 @@
                         </ul>
                         <hr class="intro-divider">
                         <h2>Sign In With Email</h2>
-                        <form role="form" action="{{login_form_url}}">
+                        <form role="form" action="{{login_form_url}}" method="POST">
                             <div class="col-lg-12">
                                 {% include "components/form_input.html" with id="email" name="email" placeholder="Email" %}
                                 {% include "components/form_input.html" with type="password" id="password" name="password" placeholder="Password" %}

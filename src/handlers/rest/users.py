@@ -88,7 +88,7 @@ class MemberInviteHandler(WebRequestHandler):
             return
         company = Company.get_by_id(int(self['company_id']))
         self.create_invited_member(self['email'], int(self['company_id']))
-        mail.send_mail(sender="Underdog Admin <ranju@b-eagles.com>",
+        mail.send_mail(sender="Pirates Admin <ranju@b-eagles.com>",
                        to=self['email'],
                        subject="Invitation to join " + company.name,
                        body="""

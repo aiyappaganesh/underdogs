@@ -83,7 +83,6 @@ class ListMemberPage(WebRequestHandler):
 
 class MemberLoginPageHandler(WebRequestHandler):
     def get_networks_map(self):
-
         tp_networks = []
         for tp_network in [FACEBOOK, TWITTER, LINKEDIN]:
             curr_dict = {'name' : tp_network,
@@ -98,7 +97,8 @@ class MemberLoginPageHandler(WebRequestHandler):
         path = 'member_login.html'
         template_values = {'create_user': self['create_user'],
                            'company_id':self['company_id'],
-                           'networks':self.get_networks_map()}
+                           'networks':self.get_networks_map(),
+                           'login_form_url':'/users/handle_custom_login'}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberLogoutPageHandler(WebRequestHandler):
