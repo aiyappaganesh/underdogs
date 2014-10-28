@@ -50,9 +50,14 @@ class StartupsListingPage(WebRequestHandler):
         q = Company.all()
         sorted_companies = {}
         for c in q.fetch(50):
+            id = c.key().id()
+            sorted_companies[id] = {}
             score = float(c.influence_avg) if c.influence_avg else 0.0
-            sorted_companies[c] = score
-        sorted_companies = sorted(sorted_companies.iteritems(), key=operator.itemgetter(1), reverse = True)
+            sorted_companies[id]['score'] = score
+            sorted_companies[id]['image'] = c.image
+            sorted_companies[id]['name'] = c.name
+            sorted_companies[id]['hello'] = c.hello
+        sorted_companies = sorted(sorted_companies.iteritems(), key=lambda (k,v): v['score'], reverse = True)
         donuts = 1
         donuts = donuts - 1
         donut_size = 80-(5*donuts)
