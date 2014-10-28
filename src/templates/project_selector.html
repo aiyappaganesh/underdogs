@@ -18,7 +18,8 @@
         <form role="form" action="/projects/fitting_startups" method="GET" class="top-padding-sm">
             <div class="row">
                 <div class="col-lg-12">
-                    {% include "components/form_select.html" with id="project-id" name="project_id" options=projects title="Select Project" %}
+                    {% include "components/form_select.html" with id="project-id-select" name="project_id_select" options=projects title="Select Project" other="onchange='updateProjectId()'" %}
+                    <input type="hidden" id="project-id" name="project_id">
                     <input type="submit" name="submit" id="submit" value="Show Startups" class="btn btn-bootflat pull-right" onclick="validateInput(event)">
                 </div>
             </div>
@@ -38,5 +39,11 @@
                 return false;
             }
         }
+        function updateProjectId() {
+            $('#project-id').val($('#project-id-select').parent('.selecter').find('.selected').attr('data-value'))
+        }
+        $(document).ready(function(){
+            updateProjectId();
+        });
     </script>
 {% endblock %}
