@@ -2,6 +2,8 @@ import webapp2
 import logging
 import json
 
+from webapp2_extras.security import generate_password_hash, check_password_hash
+
 from google.appengine.api.blobstore import blobstore
 from handlers.web import WebRequestHandler
 from networks import LINKEDIN, FACEBOOK, TWITTER
@@ -203,7 +205,7 @@ Thanks!
         else:
             redirect_url = get_redirect_url_from_session()
             user = User.get_by_key_name(self['email'])
-            if user.password == self['password']:
+            if check_password_hash(self['password'], user.password):
                 self.login_user()
                 self.redirect(redirect_url)
             else:

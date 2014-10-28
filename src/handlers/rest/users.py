@@ -1,6 +1,8 @@
 import webapp2
 import logging
 
+from webapp2_extras.security import generate_password_hash, check_password_hash
+
 from google.appengine.ext import deferred
 from handlers.request_handler import RequestHandler
 from google.appengine.ext.webapp import blobstore_handlers
@@ -136,7 +138,8 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
             photo_blob_key = photos[0].key()
             photo = '/api/common/download_image/'+str(photo_blob_key)
         self.create_company_member(req_handler)
-        user = User(key_name = req_handler['email'], name = req_handler['name'], password = req_handler['password'], photo = photo)
+        password_hash = generate_password_hash(req_handler['password'])
+        user = User(key_name = req_handler['email'], name = req_handler['name'], password = password_hash, photo = photo)
         user.put()
 
     @web_auth_required
@@ -172,7 +175,7 @@ class MemberVerificationHandler(WebRequestHandler):
     def post(self):
         redirect_url = get_redirect_url_from_session()
         user = User.get_by_key_name(self['email'])
-        if user.password == self['password']:
+        if check_password_hash(self['password'], user.password):
             create_tpld(self['email'], self['network'])
             modify_session(self['email'])
             self.redirect(redirect_url)
