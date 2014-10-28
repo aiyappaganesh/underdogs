@@ -12,22 +12,6 @@ from model.company import Company
 from model.company_members import CompanyMember
 from model.skills.defn import get_skills_json, get_skills_parents_map, skills_heirarchy
 
-class TempPage(WebRequestHandler):
-    def get(self):
-        path = 'temp.html'
-        chart_axes = [('x_axis', 'X Axis'),
-                      ('y_axis', 'Y Axis'),
-                      ('radius', 'Radius')]
-        axes_vals = ['Expertise', 'Influence', 'Size']
-        axis_ids = [chart_axis[0] for chart_axis in chart_axes]
-        chart_desc = {}
-        for chart_axis in chart_axes:
-            chart_desc[chart_axis] = axes_vals
-        template_values = {'chart_desc':chart_desc,
-                           'axes_vals':axes_vals,
-                           'skills_depth':range(len(skills_heirarchy))}
-        self.write(self.get_rendered_html(path, template_values), 200)
-
 class CompanyData(WebRequestHandler):
     def get_expertise_val_for(self, c):
         avg_expertise = c.expertise_avg
@@ -118,7 +102,6 @@ class SkillsHeirarchy(WebRequestHandler):
 
 app = webapp2.WSGIApplication(
     [
-        ('/temp', TempPage),
         ('/temp/company_data', CompanyData),
         ('/temp/company_members', CompanyMembers),
         ('/temp/visualise_skills', SkillsVisualiser),

@@ -22,6 +22,8 @@ function addGraph(){
 
 function toggleAll(d) {
   if (d.children) {
+    console.log('here...');
+    console.log(d);
     d.children.forEach(toggleAll);
     toggle(d);
   }

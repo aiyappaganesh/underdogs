@@ -7,6 +7,7 @@ from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
 from util.util import registration_breadcrumbs
 from util.util import get_user_projects
+from model.skills.defn import skills_heirarchy
 
 import operator
 import logging
@@ -28,28 +29,20 @@ class StartupsRegistrationPage(WebRequestHandler):
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class StartupsCriteriaPage(WebRequestHandler):
-    def render_project_selector(self, projects):
-        path = 'project_selector.html'
-        project_options = []
-        for user_project in projects:
-            option = {}
-            option['name'] = user_project['parent'].title
-            option['value'] = user_project['parent'].key().id
-            project_options.append(option)
-        template_values = {'projects' : project_options}
-        self.write(self.get_rendered_html(path, template_values), 200)
-
-    def render_project_creator(self):
-        path = 'project_creator.html'
-        self.write(self.get_rendered_html(path, None), 200)
-
-    @web_login_required
     def get(self):
-        user_projects = get_user_projects()
-        if user_projects and len(user_projects) > 0:
-            self.render_project_selector(user_projects)
-        else:
-            self.render_project_creator()
+        path = 'startup_selector.html'
+        chart_axes = [('x_axis', 'X Axis'),
+                      ('y_axis', 'Y Axis'),
+                      ('radius', 'Radius')]
+        axes_vals = ['Expertise', 'Influence', 'Size']
+        axis_ids = [chart_axis[0] for chart_axis in chart_axes]
+        chart_desc = {}
+        for chart_axis in chart_axes:
+            chart_desc[chart_axis] = axes_vals
+        template_values = {'chart_desc':chart_desc,
+                           'axes_vals':axes_vals,
+                           'skills_depth':range(len(skills_heirarchy))}
+        self.write(self.get_rendered_html(path, template_values), 200)
 
 class StartupsListingPage(WebRequestHandler):
     def get(self):

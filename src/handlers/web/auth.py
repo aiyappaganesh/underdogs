@@ -226,15 +226,14 @@ class AngellistAuth(Auth):
         return '/member/expose_third_party?company_id=' + company_id + '&user_id=' + user_id
 
     def fetch_and_save_profile(self, req_handler):
-        params = {
-            'client_id': self.client_id,
-            'client_secret': self.client_secret,
-            'code': req_handler['code'],
-            'grant_type': 'authorization_code'
-        }
-        response = urlfetch.fetch(self.token_url, urllib.urlencode(params), method=urlfetch.POST).content
-        logging.info(response)
-        json_data = json.loads(response)
+        logging.info('New way of passing params')
+        url = "%s?client_id=%s&client_secret=%s&code=%s&grant_type=authorization_code" % (self.token_url, self.client_id, self.client_secret, req_handler['code'])
+        logging.info(url)
+        headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/plain"}
+        params = urllib.urlencode({})
+        response = urllib2.urlopen(urllib2.Request(url, params, headers))
+        json_data = json.loads(response.read())
+        logging.info(json_data)
         access_token = json_data['access_token']
         session = get_current_session()
         self.save_third_party_profile_date(access_token, session['me_email'])
