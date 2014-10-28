@@ -132,12 +132,15 @@ class CompaniesDashboardHandler(WebRequestHandler):
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class ProjectsDashboardHandler(WebRequestHandler):
+    def make_json(self, projects):
+        return [{'id': project['parent'].key().id(), 'title': project['parent'].title, 'description': project['parent'].description, 'end_date': project['parent'].end_date} for project in projects]
+
     @web_login_required
     def get(self):
         path = 'projects_dashboard.html'
         session = get_current_session()
-        info_list = get_user_projects()
-        template_values = {'info_list':info_list}
+        projects = self.make_json(get_user_projects())
+        template_values = {'projects': projects}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberInvitePage(WebRequestHandler):

@@ -20,15 +20,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for info in info_list %}
+                                {% for project in projects %}
                                 <tr>
                                     <td>{{forloop.counter}}</td>
-                                    <td><a href="/projects/fitting_startups?project_id={{info.parent.key.id}}">{{info.parent.title}}</a></td>
+                                    <td><a href="/projects/fitting_startups?project_id={{project.id}}">{{project.title}}</a></td>
                                     <td>
-                                        {{info.parent.description}}
+                                        {{project.description}}
                                     </td>
                                     <td>
-                                        {{info.parent.end_date}}
+                                        {{project.end_date}}
                                     </td>
                                 </tr>
                                 {% endfor %}
