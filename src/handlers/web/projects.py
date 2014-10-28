@@ -65,6 +65,9 @@ class ProjectStartupsMatchingPage(WebRequestHandler):
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class ProjectListPage(WebRequestHandler):
+    def make_json(self, projects):
+        return [{'title': project.title, 'description': project.description, 'skills': project.skills, 'bid': project.bid, 'end_date': project.end_date} for project in projects]
+
     def get_all_projects(self, order, column):
         q = Project.all()
         if order == 'desc':
@@ -77,7 +80,7 @@ class ProjectListPage(WebRequestHandler):
         order = self['order'] if self['order'] else 'desc'
         column = self['column'] if self['column'] else 'end_date'
         path = 'list_projects.html'
-        projects = self.get_all_projects(order, column)
+        projects = self.make_json(self.get_all_projects(order, column))
         template_values = {'projects': projects, 'order': order, 'column': column}
         self.write(self.get_rendered_html(path, template_values), 200)
 
