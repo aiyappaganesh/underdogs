@@ -6,15 +6,15 @@
             <div class="col-lg-12">
                 <h4 class="page-header">Companies you have started or are a part of:</h4>
                 <div class="row">
-                    {% for info in info_list %}
+                    {% for company in companies %}
                     <div class="col-sm-6 col-md-3">
-                        <a href="/member/list?company_id={{info.parent.key.id}}">
+                        <a href="/member/list?company_id={{company.id}}">
                             <div class="thumbnail">
-                                <img class="img-rounded company-img" src="{% if info.parent.image %}/api/common/download_image/{{info.parent.image}}{% else %}/assets/img/company/company.ico{% endif %}">
+                                <img class="img-rounded company-img" src="{% if company.image %}/api/common/download_image/{{company.image}}{% else %}/assets/img/company/company.ico{% endif %}">
                                 <div class="caption text-center">
-                                    <h3>{{info.parent.name}}</h3>
+                                    <h3>{{company.name}}</h3>
                                     <div class="donut_td">
-                                        {% include "components/donut_chart.html" with donut_score=info.member.influence donut_size=donut_size tooltip_font_size=tooltip_font_size %}
+                                        {% include "components/donut_chart.html" with donut_score=company.influence donut_size=donut_size tooltip_font_size=tooltip_font_size %}
                                     </div>
                                 </div>
                             </div>

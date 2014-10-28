@@ -3,6 +3,7 @@ import webapp2
 from handlers.web import WebRequestHandler
 from google.appengine.api import users
 import logging
+import json
 
 from handlers.web.auth import web_login_required
 from model.user import User
@@ -24,8 +25,6 @@ class ExposeThirdPartyPage(WebRequestHandler):
     def get(self):
         session = get_current_session()
         company_id = self['company_id']
-        logging.info('... here')
-        logging.info(company_id)
         user_id = session['me_email']
         c = Company.get_by_id(int(company_id))
         path = 'expose_social_data.html'
@@ -114,16 +113,19 @@ class MemberMissingHandler(WebRequestHandler):
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class CompaniesDashboardHandler(WebRequestHandler):
+    def make_json(self, companies):
+        return [{'id': company['parent'].key().id(), 'image': company['parent'].image, 'name': company['parent'].name, 'influence': company['member'].influence} for company in companies]
+
     @web_login_required
     def get(self):
         path = 'companies_dashboard.html'
-        info_list = get_user_companies()
+        companies = self.make_json(get_user_companies())
         donuts = 2
         donuts = donuts - 1
         donut_size = 80-(5*donuts)
         score_font_size = 40-(3*donuts)
         tooltip_font_size = 14-donuts
-        template_values = {'info_list':info_list,
+        template_values = {'companies': companies,
                            'donut_size': donut_size, 
                            'score_font_size' : score_font_size, 
                            'tooltip_font_size' : tooltip_font_size}
