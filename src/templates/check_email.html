@@ -4,9 +4,11 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
+                {% if not signup %}
                 <p>
                 We do not have a user registered with us with that email address.
                 </p>
+                {% endif %}
                 <p>
                 Please check your email and click on the confirmation link to create an account with us.
                 </p>

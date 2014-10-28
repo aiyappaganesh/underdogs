@@ -165,6 +165,14 @@ class MemberSignupPage(WebRequestHandler):
         template_values = {'network' : self['network'], 'image' : self['image'], 'form_url' : form_url, 'invite_email': invite_email}
         self.write(self.get_rendered_html(path, template_values), 200)
 
+class MemberSignupEmailPage(WebRequestHandler):
+    def get(self):
+        session = get_current_session()
+        session['redirect_url'] = self['redirect_url']
+        path = 'member_signup_email.html'
+        template_values = {'login_form_url':'/users/handle_custom_login?signup=true'}
+        self.write(self.get_rendered_html(path, template_values), 200)
+
 class MemberAlreadyExistsHandler(WebRequestHandler):
     @web_auth_required
     def get(self):
@@ -254,7 +262,7 @@ class MemberProfileEditPage(WebRequestHandler):
 class CheckEmailPage(WebRequestHandler):
     def get(self):
         path = 'check_email.html'
-        self.write(self.get_rendered_html(path, {}), 200)        
+        self.write(self.get_rendered_html(path, {'signup': self['signup']}), 200)
 
 app = webapp2.WSGIApplication(
     [
@@ -269,6 +277,7 @@ app = webapp2.WSGIApplication(
         ('/member/invite', MemberInvitePage),
         ('/member/finish_invite', MemberFinishInvitePage),
         ('/member/signup', MemberSignupPage),
+        ('/member/signup_email', MemberSignupEmailPage),
         ('/member/verification_failed', MemberVerificationFailed),
         ('/member/profile', MemberProfilePage),
         ('/member/profile/edit', MemberProfileEditPage),

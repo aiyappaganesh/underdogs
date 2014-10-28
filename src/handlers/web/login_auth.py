@@ -196,7 +196,10 @@ Thanks!
         logging.info(user)
         if not user:
             self.send_subscription_email()
-            self.redirect('/member/check_email')
+            rd_url = '/member/check_email'
+            if self['signup']:
+                rd_url = rd_url + '?signup=' + self['signup']
+            self.redirect(rd_url)
         else:
             redirect_url = get_redirect_url_from_session()
             user = User.get_by_key_name(self['email'])
