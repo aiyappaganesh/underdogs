@@ -60,7 +60,7 @@ class ProjectStartupsMatchingPage(WebRequestHandler):
             sorted_companies[id]['combined']=score
             sorted_companies[id]['fit']=fit
         donuts = (len(skills) if skills else 0) + 3
-        sorted_companies = sorted(sorted_companies.iteritems(), key=operator.itemgetter(1), reverse = True)
+        sorted_companies = sorted(sorted_companies.iteritems(), key=lambda (k,v): v['combined'], reverse = True)
         donut_size = 80-(5*donuts)
         score_font_size = 40-(3*donuts)
         tooltip_font_size = 14-donuts
