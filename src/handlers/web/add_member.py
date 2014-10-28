@@ -114,7 +114,7 @@ class MemberMissingHandler(WebRequestHandler):
 
 class CompaniesDashboardHandler(WebRequestHandler):
     def make_json(self, companies):
-        return [{'id': company['parent'].key().id(), 'image': company['parent'].image, 'name': company['parent'].name, 'influence': company['member'].influence} for company in companies]
+        return [{'id': company['parent'].key().id(), 'image': company['parent'].image, 'name': company['parent'].name, 'influence': company['member'].influence, 'admin': company['member'].is_admin} for company in companies]
 
     @web_login_required
     def get(self):
