@@ -14,7 +14,7 @@
     {% for key, values in chart_desc.items %}
       <div class="col-lg-4">
         <label for="{{key.1}}">{{key.1}}</label>
-        <select class="form-control parameter" id="{{key.0}}" name="{{key.1}}" onchange="">
+        <select class="form-control axis-parameter" id="{{key.0}}" name="{{key.1}}" onchange="">
           {% for val in values %}
             <option value="{{val}}" {% if forloop.counter == forloop.parentloop.counter %}selected{% endif %}>
               {{val}}
@@ -28,7 +28,7 @@
     {% for i in skills_depth %}
       <div class="col-lg-4" style="display:none" id="skill_depth_{{forloop.counter}}">
         <p>{% if forloop.first %}Expertise{% else %}Specialization{% endif %}</p>
-        <select class="form-control parameter" name={{forloop.counter}} onchange="update_skills_selector(this)">
+        <select class="form-control expertise-parameter" name={{forloop.counter}} onchange="update_skills_selector(this)">
         </select>
       </div>
     {% endfor %}

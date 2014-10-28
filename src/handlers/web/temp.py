@@ -42,7 +42,6 @@ class CompanyData(WebRequestHandler):
         return q.count()
 
     def get(self):
-        sel_skill = self['skill']
         q = Company.all()
         companies = []
         domain = {'influence' : [0, 1],

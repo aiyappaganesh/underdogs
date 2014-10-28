@@ -1,11 +1,17 @@
 var axis_map = [];
 var domain_map = [];
 var skills_heirarchy = [];
+var global_startups = null;
 var xScale, yScale, radiusScale, colorScale;
 
 $(document).ready(function(){
-    $('.parameter').change(function(){
-        re_render();
+    $('.axis-parameter').change(function(){
+        init_axis_map();
+        initialize();
+        update_chart();
+    });
+    $('.expertise-parameter').change(function(){
+        update_chart();
     });
 });
 
@@ -108,20 +114,23 @@ function initialize(){
 function re_render(){
   init_axis_map();
   initialize();
-  reload();
+  update_chart();
 }
 
-function reload(){
-  $.get( "/temp/company_data?skill=" + $('#skill_selector').val(), function(data) {
-      update_chart( JSON.parse(data) );
-    })
-    .fail(function() {
-      alert( "error" );
-    });
+function loadData() {
+    if(!global_startups) {
+        $.get( "/temp/company_data", function(data) {
+            global_startups = JSON.parse(data);
+        })
+        .fail(function() {
+            alert( "error" );
+        });
+    }
 }
 
-function update_chart(startups){
-  company_data = startups['companies'];
+function update_chart(){
+  loadData();
+  company_data = global_startups['companies'];
   var company_map = {};
   for (var i = 0; i < company_data.length; i++) {
     company_map[company_data[i].id] = [xScale(x(company_data[i])), yScale(y(company_data[i]))];
@@ -161,7 +170,6 @@ function find_matching_child(key, children){
 
 function get_expertise_val_for(d){
   var skills_sel = get_expertise_sel();
-  console.log(d);
   curr_map = d['expertise'];
   curr_score = 0.0;
   for(var i = 0; i < skills_sel.length; i++){
@@ -192,75 +200,80 @@ var margin = {top: 19.5, right: 19.5, bottom: 19.5, left: 39.5},
       height = 400 - margin.top - margin.bottom;
 
 function render_chart(sel_skill){
-  var svg = d3.select("#chart").append("svg")
+    var svg = d3.select("#chart").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  svg.append("g")
+    svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")");
 
-  svg.append("g")
+    svg.append("g")
       .attr("class", "y axis");
 
-  svg.append("text")
+    svg.append("text")
       .attr("class", "x label")
       .attr("text-anchor", "end")
       .attr("x", width)
       .attr("y", height - 6);
 
-  svg.append("text")
+    svg.append("text")
       .attr("class", "y label")
       .attr("text-anchor", "end")
       .attr("y", 6)
       .attr("dy", ".75em")
       .attr("transform", "rotate(-90)");
 
-  var label = svg.append("text")
+    var label = svg.append("text")
       .attr("class", "skill label")
       .attr("text-anchor", "end")
       .attr("y", height - 24)
       .attr("x", width);
 
-  d3.json("/temp/company_data?skill=" + sel_skill, function(error, startups) {
-    if(error) return console.warn(error);
-    var bisect = d3.bisector(function(d) { return d[0]; });
-    domain_map = startups['domain'];
-    initialize();
+    if(!global_startups) {
+        $.get( "/temp/company_data", function(data) {
+            global_startups = JSON.parse(data);
+            var bisect = d3.bisector(function(d) { return d[0]; });
+            domain_map = global_startups['domain'];
+            initialize();
 
-    var dot = svg.append("g")
-        .attr("class", "dots")
-      .selectAll(".dot")
-        .data(startups['companies'])
-      .enter().append("circle")
-        .attr("class", "dot")
-        .attr("id", function(d){return d.id})
-        .style("fill", function(d) { return colorScale(color(d)); })
-        .call(position)
-        .sort(order);
+            var dot = svg.append("g")
+                .attr("class", "dots")
+              .selectAll(".dot")
+                .data(global_startups['companies'])
+              .enter().append("circle")
+                .attr("class", "dot")
+                .attr("id", function(d){return d.id})
+                .style("fill", function(d) { return colorScale(color(d)); })
+                .call(position)
+                .sort(order);
 
-    dot.append("title")
-        .text(function(d) { return d.name; });
+            dot.append("title")
+                .text(function(d) { return d.name; });
 
-    var box = label.node().getBBox();
+            var box = label.node().getBBox();
 
-    var overlay = svg.append("rect")
-          .attr("class", "overlay")
-          .attr("x", box.x)
-          .attr("y", box.y)
-          .attr("width", box.width)
-          .attr("height", box.height);
+            var overlay = svg.append("rect")
+                  .attr("class", "overlay")
+                  .attr("x", box.x)
+                  .attr("y", box.y)
+                  .attr("width", box.width)
+                  .attr("height", box.height);
 
-    function position(dot) {
-      dot .attr("cx", function(d) { return xScale(x(d)); })
-          .attr("cy", function(d) { return yScale(y(d)); })
-          .attr("r", function(d) { return radiusScale(radius(d)); });
+            function position(dot) {
+              dot .attr("cx", function(d) { return xScale(x(d)); })
+                  .attr("cy", function(d) { return yScale(y(d)); })
+                  .attr("r", function(d) { return radiusScale(radius(d)); });
+            }
+
+            function order(a, b) {
+              return radius(b) - radius(a);
+            }
+        })
+        .fail(function() {
+            alert( "error" );
+        });
     }
-
-    function order(a, b) {
-      return radius(b) - radius(a);
-    }
-  });
 }
