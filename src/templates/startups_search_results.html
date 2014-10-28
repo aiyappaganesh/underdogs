@@ -28,7 +28,7 @@
                                 {% for startup in startups %}
                                 <tr>
                                     <td>{{forloop.counter}}</td>
-                                    <td><a href="/member/list?company_id={{startup.0.key.id}}">{{startup.0.name}}</td>
+                                    <td><a href="/member/list?company_id={{startup.0}}">{{startup.1.name}}</td>
                                     <td class="donut_td">
                                         {% include "components/donut_chart.html" with donut_score=startup.1.combined donut_size=donut_size tooltip_font_size=tooltip_font_size full_color="#F8761E" empty_color="#F7D9C5" %}
                                     </td>
@@ -36,7 +36,7 @@
                                         {% include "components/donut_chart.html" with donut_score=startup.1.fit donut_size=donut_size tooltip_font_size=tooltip_font_size full_color="#32F5BE" empty_color="#CBF6EA" %}
                                     </td>
                                     <td class="donut_td">
-                                        {% include "components/donut_chart.html" with donut_score=startup.0.influence_avg donut_size=donut_size tooltip_font_size=tooltip_font_size full_color="#7A29F5" empty_color="#D2BCF3" %}
+                                        {% include "components/donut_chart.html" with donut_score=startup.1.influence donut_size=donut_size tooltip_font_size=tooltip_font_size full_color="#7A29F5" empty_color="#D2BCF3" %}
                                     </td>
                                     {% for score in startup.1.skills %}
                                         <td class="donut_td">

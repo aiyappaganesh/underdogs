@@ -40,8 +40,11 @@ class ProjectStartupsMatchingPage(WebRequestHandler):
             score = 0.0
             matched_skills = 0.0
             fit = 0.0
-            sorted_companies[c] = {}
-            sorted_companies[c]['skills'] = []
+            id = c.key().id()
+            sorted_companies[id] = {}
+            sorted_companies[id]['name'] = c.name
+            sorted_companies[id]['influence'] = c.influence_avg
+            sorted_companies[id]['skills'] = []
             if skills:
                 for skill in skills:
                     skill = str(skill)
@@ -51,11 +54,11 @@ class ProjectStartupsMatchingPage(WebRequestHandler):
                         matched_skills += 1
                     else:
                         skill_dict = { 'name':skill,'value':0.0 }
-                    sorted_companies[c]['skills'].append(skill_dict)
+                    sorted_companies[id]['skills'].append(skill_dict)
                 score = float(score / len(skills))
                 fit = float(matched_skills / len(skills)) if matched_skills > 0.0 else 0.0
-            sorted_companies[c]['combined']=score
-            sorted_companies[c]['fit']=fit
+            sorted_companies[id]['combined']=score
+            sorted_companies[id]['fit']=fit
         donuts = (len(skills) if skills else 0) + 3
         sorted_companies = sorted(sorted_companies.iteritems(), key=operator.itemgetter(1), reverse = True)
         donut_size = 80-(5*donuts)
