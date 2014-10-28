@@ -31,7 +31,7 @@ configs = {
     },
     LINKEDIN: {
         'data': linkedin.config,
-        'profile': linkedin.config,
+        'profile': linkedin.profile_config,
     },
     ANGELLIST: {
         'data': angellist.config,

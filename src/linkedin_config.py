@@ -21,5 +21,12 @@ config  = {
 'response_type': 'code'
 }
 
-profile_config  = config
-profile_config['redirect_url'] = 'http://minyattra.appspot.com/users/profile/linkedin/update_success'
+profile_config = {
+'client_id': '750e8n3ri1ji6s',
+'client_secret': 'TVFJEIv1GEXFL5Na',
+'auth_url': 'https://www.linkedin.com/uas/oauth2/authorization',
+'token_url': 'https://www.linkedin.com/uas/oauth2/accessToken',
+'scope': 'r_fullprofile',
+'redirect_url': 'http://minyattra.appspot.com/users/profile/linkedin/update_success',
+'response_type': 'code'
+}
