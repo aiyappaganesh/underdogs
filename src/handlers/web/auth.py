@@ -204,8 +204,7 @@ class AngellistAuth(Auth):
         user_id = kwargs.get('user_id', '')
         params = {
             'client_id' : self.config['client_id'],
-            'state': ANGELLIST + self.separator + company_id + self.separator + user_id,
-            'network': ANGELLIST,
+            'state': company_id,
             'response_type': 'code'
         }
         return "%s?%s"%(self.config['auth_url'], urllib.urlencode(params))
@@ -221,7 +220,9 @@ class AngellistAuth(Auth):
         except:
             logging.info(sys.exc_info())
             access_token = ''
-        network, company_id, user_id = req_handler[self.company_param].split(self.separator)
+        session = get_current_session()
+        user_id = session['me_email']
+        company_id = req_handler[self.company_param]
         self.save_user(access_token, company_id, user_id)
         return '/member/expose_third_party?company_id=' + company_id + '&user_id=' + user_id
 
