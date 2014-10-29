@@ -62,7 +62,7 @@ class ProjectStartupsMatchingPage(WebRequestHandler):
         donuts = (len(skills) if skills else 0) + 3
         sorted_companies = sorted(sorted_companies.iteritems(), key=lambda (k,v): v['combined'], reverse = True)
         donut_size = 80-(5*donuts)
-        score_font_size = 40-(3*donuts)
+        score_font_size = 40-(2.25*donuts)
         tooltip_font_size = 14-donuts
         template_values = {'startups' : sorted_companies, 'skills' : skills, 'donut_size' : donut_size, 'score_font_size' : score_font_size, 'tooltip_font_size' : tooltip_font_size}
         self.write(self.get_rendered_html(path, template_values), 200)

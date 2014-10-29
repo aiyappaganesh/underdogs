@@ -2,6 +2,13 @@
 
 {% block Styles %}
     <link href="/assets/css/jquery.fs.scroller.css" type="text/css" rel="stylesheet">
+    <style>
+        .skill_headings {
+            max-width:30px;
+            word-wrap:break-word;
+            {% if score_font_size < 15 %}font-size:{{score_font_size}}px;{% endif %}
+        }
+    </style>
 {% endblock %}
 
 {% block Content %}
@@ -20,7 +27,7 @@
                                     <th>Fit</th>
                                     <th>Influence</th>
                                     {% for skill in skills %}
-                                        <th>{{skill}}</th>
+                                        <th class="skill_headings">{{skill}}</th>
                                     {% endfor %}
                                 </tr>
                             </thead>
