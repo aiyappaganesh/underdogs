@@ -6,12 +6,13 @@
             <div class="col-lg-12">
                 {% if not signup %}
                 <p>
-                We do not have a user registered with us with that email address.
+                We do not have a user registered with us with that email address. <a href="/member/signup_email">Click here to Signup</a>.
                 </p>
-                {% endif %}
+                {% else %}
                 <p>
                 Please check your email and click on the confirmation link to create an account with us.
                 </p>
+                {% endif %}
             </div>
         </div>
     </div>

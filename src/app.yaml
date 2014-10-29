@@ -77,6 +77,10 @@ handlers:
   script: handlers.web.login_auth.app
   secure: always
 
+- url: /users/handle_verify_email
+  script: handlers.web.login_auth.app
+  secure: always
+
 - url: /users/.*
   script: handlers.web.auth.app
   secure: always

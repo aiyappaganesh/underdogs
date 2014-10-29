@@ -174,7 +174,7 @@ class MemberSignupPage(WebRequestHandler):
 class MemberSignupEmailPage(WebRequestHandler):
     def get(self):
         path = 'member_signup_email.html'
-        template_values = {'login_form_url':'/users/handle_custom_login?signup=true'}
+        template_values = {'login_form_url':'/users/handle_verify_email?signup=true'}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberAlreadyExistsHandler(WebRequestHandler):
@@ -275,6 +275,11 @@ class CheckEmailPage(WebRequestHandler):
         path = 'check_email.html'
         self.write(self.get_rendered_html(path, {'signup': self['signup']}), 200)
 
+class UserExistsPage(WebRequestHandler):
+    def get(self):
+        path = 'user_exists.html'
+        self.write(self.get_rendered_html(path, {}), 200)
+
 app = webapp2.WSGIApplication(
     [
         ('/member/expose_third_party', ExposeThirdPartyPage),
@@ -292,6 +297,7 @@ app = webapp2.WSGIApplication(
         ('/member/verification_failed', MemberVerificationFailed),
         ('/member/profile', MemberProfilePage),
         ('/member/profile/edit', MemberProfileEditPage),
-        ('/member/check_email', CheckEmailPage)
+        ('/member/check_email', CheckEmailPage),
+        ('/member/user_exists', UserExistsPage)
     ]
 )

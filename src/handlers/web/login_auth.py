@@ -16,7 +16,7 @@ from twitter import Twitter
 from model.third_party_login_data import ThirdPartyLoginData
 from google.appengine.api import mail
 from model.user import User
-from util.util import get_redirect_url_from_session
+from util.util import get_redirect_url_from_session, get_user
 
 class LoginAuth():
     def __init__(self):
@@ -168,24 +168,6 @@ class ThirdPartyLoginSuccessHandler(WebRequestHandler):
             self.redirect('/member/signup?network=' + self['network'] + '&image=' + profile_image_url)
 
 class CustomLoginHandler(WebRequestHandler):
-    def fetch_user(self):
-        user = User.get_by_key_name(self['email'])
-        return user
-
-    def send_subscription_email(self):
-        mail.send_mail(sender="Pirates Admin <ranju@b-eagles.com>",
-                       to=self['email'],
-                       subject="Confirming your email address for Pirates",
-                       body="""
-Hello!
-
-Please follow this link to confirm your email id:
-
-https://minyattra.appspot.com/users/confirm_email?email={0}
-
-Thanks!
-""".format(self['email']))
-
     def login_user(self):
         curr_session = get_current_session()
         if curr_session.is_active():
@@ -194,13 +176,9 @@ Thanks!
         curr_session['me_name'] = User.get_by_key_name(self['email']).name
 
     def post(self):
-        user = self.fetch_user()
-        logging.info(user)
+        user = get_user(self['email'])
         if not user:
-            self.send_subscription_email()
-            rd_url = '/member/check_email'
-            if self['signup']:
-                rd_url = rd_url + '?signup=' + self['signup']
+            rd_url = VerifyEmailHandler.verify_email(for_signup=None, email=self['email'])
             self.redirect(rd_url)
         else:
             redirect_url = get_redirect_url_from_session()
@@ -213,6 +191,37 @@ Thanks!
                 session.terminate()
                 self.redirect('/member/verification_failed')
 
+class VerifyEmailHandler(WebRequestHandler):
+    def post(self):
+        user = get_user(self['email'])
+        if not user:
+            rd_url = VerifyEmailHandler.verify_email(for_signup=self['signup'], email=self['email'])
+            self.redirect(rd_url)
+        else:
+            self.redirect('/member/user_exists')
+
+    @staticmethod
+    def send_subscription_email(email):
+        mail.send_mail(sender="Pirates Admin <ranju@b-eagles.com>",
+                       to=email,
+                       subject="Confirming your email address for Pirates",
+                       body="""
+Hello!
+
+Please follow this link to confirm your email id:
+
+https://minyattra.appspot.com/users/confirm_email?email={0}
+
+Thanks!
+""".format(email))
+
+    @staticmethod
+    def verify_email(for_signup, email):
+        rd_url = '/member/check_email'
+        if for_signup:
+            VerifyEmailHandler.send_subscription_email(email)
+            rd_url = rd_url + '?signup=' + for_signup
+        return rd_url
 
 class EmailConfirmationHandler(WebRequestHandler):
     def authenticate_user(self):
@@ -236,6 +245,7 @@ for network in [FACEBOOK, TWITTER, LINKEDIN]:
     handlers.append(('/users/' + network + '/login_callback', ThirdPartyLoginHandler))
 handlers.append(('/users/login_success', ThirdPartyLoginSuccessHandler))
 handlers.append(('/users/handle_custom_login', CustomLoginHandler))
+handlers.append(('/users/handle_verify_email', VerifyEmailHandler))
 handlers.append(('/users/confirm_email', EmailConfirmationHandler))
 
 app = webapp2.WSGIApplication(handlers)
