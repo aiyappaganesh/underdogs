@@ -93,7 +93,7 @@ class MemberLoginPageHandler(WebRequestHandler):
 
     def get(self):
         session = get_current_session()
-        session['redirect_url'] = self['redirect_url']
+        session['redirect_url'] = self['redirect_url'] if self['redirect_url'] else '/'
         path = 'member_login.html'
         template_values = {'create_user': self['create_user'],
                            'company_id':self['company_id'],
