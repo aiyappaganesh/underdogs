@@ -66,6 +66,7 @@
                         <h4><a href="/member/projects/dashboard">MY PROJECTS</a></h4>
                     </div>
                 </div>
+                {% if not profile_data_provided %}
                 <div id="expose-profile-data" class="list-group">
                     <div class="list-group-item">
                         <h4>EXPOSE PROFILE DATA</h4>
@@ -81,6 +82,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
             </div>
             <div class="col-lg-4 profile-right-panel">
                 <h4>VITALS</h4>

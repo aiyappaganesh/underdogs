@@ -19,6 +19,7 @@ from handlers.web.auth import web_auth_required
 from util.util import registration_breadcrumbs, get_user_companies, get_user_projects, get_user, convert_string_list_to_dict
 from networks import LINKEDIN, FACEBOOK, TWITTER
 from model.third_party_login_data import ThirdPartyLoginData
+from model.third_party_profile_data import ThirdPartyProfileData
 
 class ExposeThirdPartyPage(WebRequestHandler):
     @web_login_required
@@ -244,7 +245,14 @@ class MemberProfilePage(WebRequestHandler):
                 skills.append(skill)
             member['skills'] = skills
 
+            profile_data_available = False
+            q = ThirdPartyProfileData.all().ancestor(user)
+            profile_data = [profile for profile in q]
+            if profile_data:
+                profile_data_available = True
+
         template_values = {'member':member,
+                           'profile_data_provided': profile_data_available,
                            'linkedin_auth_url': '/users/profile/linkedin/update',
                            'angellist_auth_url': '/users/profile/angellist/update'}
         self.write(self.get_rendered_html(path, template_values), 200)
