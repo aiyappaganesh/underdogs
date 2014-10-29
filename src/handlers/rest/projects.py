@@ -14,7 +14,7 @@ class AddProjectHandler(RequestHandler):
         p = Project()
         p.title = self['project_title']
         p.description = self['description']
-        p.skills = self.get_all('skills')
+        p.skills = self['project_skills'].split(',') if self['project_skills'] else []
         p.end_date = datetime.strptime(str(self['project_end_date']), "%Y-%m-%d").date()
         p.bid = float(self['project_bid'])
         p.put()
