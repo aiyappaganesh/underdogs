@@ -173,8 +173,6 @@ class MemberSignupPage(WebRequestHandler):
 
 class MemberSignupEmailPage(WebRequestHandler):
     def get(self):
-        session = get_current_session()
-        session['redirect_url'] = self['redirect_url']
         path = 'member_signup_email.html'
         template_values = {'login_form_url':'/users/handle_custom_login?signup=true'}
         self.write(self.get_rendered_html(path, template_values), 200)
