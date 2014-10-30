@@ -6,6 +6,9 @@ from model.project import Project
 from model.user import User
 from gaesessions import get_current_session
 from model.third_party_login_data import ThirdPartyLoginData
+from recaptcha import RecaptchaClient
+
+recaptcha_client = RecaptchaClient('6LeA6PwSAAAAAB9Wv1qmmnxnsZySbb8nQwdqUvbv', '6LeA6PwSAAAAAOeT-mnBNsppSoKgygqv1xqChz2s', recaptcha_options={'theme':'clean'})
 
 registration_breadcrumbs = [('Get started', 'Tell us about your startup!'),
                             ('Invite team members', 'Build your team'),

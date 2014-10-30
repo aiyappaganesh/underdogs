@@ -18,7 +18,7 @@ from google.appengine.api import mail
 from model.user import User
 from model.company import Company
 from model.company_members import CompanyMember
-from util.util import get_redirect_url_from_session, get_user, is_invited_user, create_company_member
+from util.util import get_redirect_url_from_session, get_user, is_invited_user, create_company_member, recaptcha_client
 
 class LoginAuth():
     def __init__(self):
@@ -198,11 +198,21 @@ class CustomLoginHandler(WebRequestHandler):
 
 class VerifyEmailHandler(WebRequestHandler):
     def post(self):
-        user = get_user(self['email'])
-        rd_url = '/member/user_exists'
-        if not user:
-            rd_url = '/member/check_email?signup=true'
-            self.send_subscription_email(self['email'])
+        challenge = self['recaptcha_challenge_field']
+        solution = self['recaptcha_response_field']
+        remote_ip = self.request.remote_addr
+        is_solution_correct = recaptcha_client.is_solution_correct(solution,challenge,remote_ip)
+        if is_solution_correct:
+            user = get_user(self['email'])
+            rd_url = '/member/user_exists'
+            if not user:
+                rd_url = '/member/check_email?signup=true'
+                self.send_subscription_email(self['email'])
+        else:
+            rd_url = '/member/signup_email'
+            curr_session = get_current_session()
+            curr_session['signup_email'] = self['email']
+            curr_session['signup_captcha_error'] = True
         self.redirect(rd_url)
 
     def send_subscription_email(self, email):

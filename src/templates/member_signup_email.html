@@ -21,7 +21,8 @@
                         <hr class="intro-divider">
                         <form role="form" action="{{login_form_url}}" method="POST">
                             <div class="col-lg-12">
-                                {% include "components/form_input.html" with id="email" name="email" placeholder="Email" other="required" type="email" %}
+                                {% include "components/form_input.html" with id="email" name="email" placeholder="Email" other="required" type="email" value=email %}
+                                {% include "components/form_captcha.html" with captcha=captcha %}
                                 <input type="submit" name="submit" id="submit" value="Verify Email" class="btn btn-bootflat">
                             </div>
                         </form>
@@ -31,4 +32,7 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block Scripts %}
 {% endblock %}
