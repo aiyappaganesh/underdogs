@@ -181,7 +181,7 @@ class MemberSignupEmailPage(WebRequestHandler):
         if session and 'signup_captcha_error' in session:
             was_previous_solution_incorrect=True
             session.pop('signup_captcha_error')
-        captcha_markup = recaptcha_client.get_challenge_markup(was_previous_solution_incorrect=was_previous_solution_incorrect)
+        captcha_markup = recaptcha_client.get_challenge_markup(was_previous_solution_incorrect=was_previous_solution_incorrect, use_ssl=True)
         template_values['captcha'] = captcha_markup
         if session and 'signup_email' in session:
             template_values['email'] = session['signup_email']
