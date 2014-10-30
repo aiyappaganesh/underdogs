@@ -95,8 +95,8 @@ class MemberLoginPageHandler(WebRequestHandler):
         session = get_current_session()
         session['redirect_url'] = self['redirect_url'] if self['redirect_url'] else '/'
         path = 'member_login.html'
-        template_values = {'create_user': self['create_user'],
-                           'company_id':self['company_id'],
+        template_values = {'create_user': self['create_user'], ### remove this
+                           'company_id':self['company_id'], ### remove this
                            'networks':self.get_networks_map(),
                            'login_form_url':'/users/handle_custom_login'}
         self.write(self.get_rendered_html(path, template_values), 200)
@@ -158,7 +158,8 @@ class MemberInvitePage(WebRequestHandler):
 class MemberFinishInvitePage(WebRequestHandler):
     def get(self):
         session = get_current_session()
-        session['invite_email'] = self['invite_email']
+        session['invite_email'] = self['email']
+        session['invite_company_id'] = self['company_id']
         self.redirect('/member/login?redirect_url=/member/expose_third_party?company_id=' + self['company_id'])
 
 class MemberSignupPage(WebRequestHandler):

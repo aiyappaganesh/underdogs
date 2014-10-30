@@ -81,15 +81,15 @@ class MemberDataPullHandler(webapp2.RequestHandler):
         deferred.defer(pull_company_data, company)
 
 class MemberInviteHandler(WebRequestHandler):
-    def create_invited_member(self, email, company_id):
-        InvitedMember(key_name=email, company_id=company_id).put()
+    def create_invited_member(self, email, company):
+        InvitedMember(key_name=email, parent=company).put()
 
     @web_login_required
     def post(self):
         if not isAdminAccess(self):
             return
         company = Company.get_by_id(int(self['company_id']))
-        self.create_invited_member(self['email'], int(self['company_id']))
+        self.create_invited_member(self['email'], company)
         mail.send_mail(sender="Pirates Admin <ranju@b-eagles.com>",
                        to=self['email'],
                        subject="Invitation to join " + company.name,
@@ -98,7 +98,7 @@ Hello!
 
 Please follow this link to add yourself:
 
-https://minyattra.appspot.com/member/finish_invite?company_id={0}&invite_email={1}
+https://minyattra.appspot.com/member/finish_invite?company_id={0}&email={1}
 
 Thanks!
 """.format(self['company_id'], self['email']))
@@ -125,11 +125,13 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
         return False
 
     def create_company_member(self, req_handler):
-        invited_member = InvitedMember.get_by_key_name(req_handler['email'])
-        if invited_member:
-            company_id = invited_member.company_id
-            company = Company.get_by_id(company_id)
-            CompanyMember(parent=company, is_admin=False, user_id=req_handler['email']).put()
+        session = get_current_session()
+        company_id = session['invite_company_id'] if 'invite_company_id' in session else None
+        if company_id:
+            company = Company.get_by_id(int(company_id))
+            invited_member = InvitedMember.get_by_key_name(req_handler['email'], parent=company)
+            if invited_member:
+                CompanyMember(parent=company, is_admin=False, user_id=req_handler['email']).put()
 
     def create_user(self, req_handler):
         photos = self.get_uploads("uploaded_photo")
