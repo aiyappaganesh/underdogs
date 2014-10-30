@@ -16,6 +16,8 @@ from twitter import Twitter
 from model.third_party_login_data import ThirdPartyLoginData
 from google.appengine.api import mail
 from model.user import User
+from model.company import Company
+from model.company_members import CompanyMember
 from util.util import get_redirect_url_from_session, get_user
 
 class LoginAuth():
@@ -158,12 +160,25 @@ class ThirdPartyLoginSuccessHandler(WebRequestHandler):
             return True
         return False
 
+    def is_invited_user(self):
+        session = get_current_session()
+        return True if 'invite_company_id' in session and session['invite_company_id'] != None else False
+
+    def create_company_member(self):
+        session = get_current_session()
+        company_id = session['invite_company_id']
+        company = Company.get_by_id(int(company_id))
+        email = session['invite_email']
+        CompanyMember(parent=company, is_admin=False, user_id=email).put()
+
     def get(self):
         handler = LoginAuth.get_handler_obj(self['network'])
         at = handler.exchange_accesstoken(self)
         user_id, profile_image_url = handler.verify_at(at)
         redirect_url = get_redirect_url_from_session()
         if self.is_user_created(user_id):
+            if self.is_invited_user():
+                self.create_company_member()
             self.login_user(user_id)
             self.redirect(redirect_url)
         else:
