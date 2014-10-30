@@ -185,30 +185,27 @@ class CustomLoginHandler(WebRequestHandler):
     def post(self):
         user = get_user(self['email'])
         if not user:
-            rd_url = VerifyEmailHandler.verify_email(for_signup=None, email=self['email'])
-            self.redirect(rd_url)
+            rd_url = '/member/check_email'
         else:
-            redirect_url = get_redirect_url_from_session()
-            user = User.get_by_key_name(self['email'])
+            rd_url = get_redirect_url_from_session()
             if check_password_hash(self['password'], user.password):
                 self.login_user()
-                self.redirect(redirect_url)
             else:
                 session = get_current_session()
                 session.terminate()
-                self.redirect('/member/verification_failed')
+                rd_url = '/member/verification_failed'
+        self.redirect(rd_url)
 
 class VerifyEmailHandler(WebRequestHandler):
     def post(self):
         user = get_user(self['email'])
+        rd_url = '/member/user_exists'
         if not user:
-            rd_url = VerifyEmailHandler.verify_email(for_signup=self['signup'], email=self['email'])
-            self.redirect(rd_url)
-        else:
-            self.redirect('/member/user_exists')
+            rd_url = '/member/check_email?signup=true'
+            self.send_subscription_email(self['email'])
+        self.redirect(rd_url)
 
-    @staticmethod
-    def send_subscription_email(email):
+    def send_subscription_email(self, email):
         mail.send_mail(sender="Pirates Admin <ranju@b-eagles.com>",
                        to=email,
                        subject="Confirming your email address for Pirates",
@@ -221,14 +218,6 @@ https://minyattra.appspot.com/users/confirm_email?email={0}
 
 Thanks!
 """.format(email))
-
-    @staticmethod
-    def verify_email(for_signup, email):
-        rd_url = '/member/check_email'
-        if for_signup:
-            VerifyEmailHandler.send_subscription_email(email)
-            rd_url = rd_url + '?signup=' + for_signup
-        return rd_url
 
 class EmailConfirmationHandler(WebRequestHandler):
     def authenticate_user(self):
