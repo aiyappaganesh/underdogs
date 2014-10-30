@@ -7,8 +7,6 @@ from google.appengine.ext import deferred
 from handlers.request_handler import RequestHandler
 from google.appengine.ext.webapp import blobstore_handlers
 from model.third_party_user import ThirdPartyUser
-from model.user import User
-from model.company import Company
 from networks import GITHUB, LINKEDIN, ANGELLIST
 from user_data import github, linkedin, angellist
 from util.util import isAdminAccess, get_redirect_url_from_session
@@ -19,7 +17,9 @@ from model.third_party_login_data import ThirdPartyLoginData
 from model.invited_member import InvitedMember
 from model.company_members import CompanyMember
 from gaesessions import get_current_session
-from util.util import separator, get_user
+from util.util import separator, get_user, is_invited_user, create_company_member
+from model.user import User
+from model.company import Company
 
 networks = {
 GITHUB: github,
@@ -114,6 +114,10 @@ def modify_session(email):
     session = get_current_session()
     session['me_email'] = email
     session.pop('auth_only')
+    if 'invite_email' in session:
+        session.pop('invite_email')
+    if 'invite_company_id' in session:
+        session.pop('invite_company_id')
 
 
 class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
@@ -178,6 +182,8 @@ class MemberVerificationHandler(WebRequestHandler):
         redirect_url = get_redirect_url_from_session()
         user = User.get_by_key_name(self['email'])
         if check_password_hash(self['password'], user.password):
+            if is_invited_user():
+                create_company_member()
             create_tpld(self['email'], self['network'])
             modify_session(self['email'])
             self.redirect(redirect_url)

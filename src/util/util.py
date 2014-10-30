@@ -68,3 +68,15 @@ def get_user_tp_ids(email):
 def get_redirect_url_from_session():
     session = get_current_session()
     return session['redirect_url']
+
+def is_invited_user():
+    session = get_current_session()
+    return True if 'invite_company_id' in session and session['invite_company_id'] != None else False
+
+def create_company_member():
+    session = get_current_session()
+    company_id = session['invite_company_id']
+    company = model.company.Company.get_by_id(int(company_id))
+    email = session['invite_email']
+    model.company_members.CompanyMember(parent=company, is_admin=False, user_id=email).put()
+
