@@ -8,6 +8,7 @@ from handlers.web.auth import web_login_required
 from util.util import registration_breadcrumbs
 from util.util import get_user_projects
 from model.skills.defn import skills_heirarchy
+from model.project import Project
 
 import operator
 import logging
@@ -29,6 +30,15 @@ class StartupsRegistrationPage(WebRequestHandler):
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class StartupsCriteriaPage(WebRequestHandler):
+    def prepare_projects(self, projects):
+        project_options = []
+        for project in projects:
+            option = {}
+            option['name'] = project.title
+            option['value'] = project.key().id
+            project_options.append(option)
+        return project_options
+
     def get(self):
         path = 'startup_selector.html'
         chart_axes = [('x_axis', 'X Axis'),
@@ -39,9 +49,23 @@ class StartupsCriteriaPage(WebRequestHandler):
         chart_desc = {}
         for chart_axis in chart_axes:
             chart_desc[chart_axis] = axes_vals
+        session = get_current_session()
+        user_projects = []
+        if 'me_email' in session:
+            user_project_members = get_user_projects()
+            if user_project_members:
+                user_projects = [user_project_member['parent'] for user_project_member in user_project_members]
+        else:
+            user_projects = [project for project in Project.all()]
+
+        projects = []
+        if user_projects and len(user_projects) > 0:
+            projects = self.prepare_projects(user_projects)
+
         template_values = {'chart_desc':chart_desc,
                            'axes_vals':axes_vals,
-                           'skills_depth':range(len(skills_heirarchy))}
+                           'skills_depth':range(len(skills_heirarchy)),
+                           'projects':projects}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class StartupsListingPage(WebRequestHandler):
