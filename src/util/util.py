@@ -70,7 +70,7 @@ def get_user_tp_ids(email):
 
 def get_redirect_url_from_session():
     session = get_current_session()
-    return session['redirect_url']
+    return session['redirect_url'] if 'redirect_url' in session else '/'
 
 def is_invited_user():
     session = get_current_session()

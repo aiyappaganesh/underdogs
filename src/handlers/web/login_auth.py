@@ -241,7 +241,7 @@ class EmailConfirmationHandler(WebRequestHandler):
         path = 'member_signup.html'
         form_url = blobstore.create_upload_url("/api/members/finish_signup")
         template_values = {'network' : 'custom', 
-                           'image' : self['image'], 
+                           'image' : self['image'], ### remove this
                            'form_url' : form_url, 
                            'invite_email': self['email']}
         self.write(self.get_rendered_html(path, template_values), 200)
