@@ -123,5 +123,5 @@ th, td {
 }
 
 .invite-member-form {
-    height: 160px;
+    min-height: 250px;
 }

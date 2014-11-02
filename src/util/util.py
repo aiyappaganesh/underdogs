@@ -8,7 +8,10 @@ from gaesessions import get_current_session
 from model.third_party_login_data import ThirdPartyLoginData
 from recaptcha import RecaptchaClient
 
-recaptcha_client = RecaptchaClient('6LeA6PwSAAAAAB9Wv1qmmnxnsZySbb8nQwdqUvbv', '6LeA6PwSAAAAAOeT-mnBNsppSoKgygqv1xqChz2s', recaptcha_options={'theme':'clean'})
+RECAPTCHA_PUBLIC_KEY = '6LeA6PwSAAAAAOeT-mnBNsppSoKgygqv1xqChz2s'
+RECAPTCHA_PRIVATE_KEY = '6LeA6PwSAAAAAB9Wv1qmmnxnsZySbb8nQwdqUvbv'
+
+recaptcha_client = RecaptchaClient(RECAPTCHA_PRIVATE_KEY, RECAPTCHA_PUBLIC_KEY, recaptcha_options={'theme':'clean'})
 
 registration_breadcrumbs = [('Get started', 'Tell us about your startup!'),
                             ('Invite team members', 'Build your team'),
@@ -83,3 +86,13 @@ def create_company_member():
     email = session['invite_email']
     model.company_members.CompanyMember(parent=company, is_admin=False, user_id=email).put()
 
+def get_captcha_markup():
+    was_previous_solution_incorrect=False
+    session = get_current_session()
+    if session and 'signup_captcha_error' in session:
+        was_previous_solution_incorrect=True
+        session.pop('signup_captcha_error')
+    return recaptcha_client.get_challenge_markup(was_previous_solution_incorrect=was_previous_solution_incorrect, use_ssl=True)
+
+def validate_captcha(solution, challenge, remote_ip):
+    return recaptcha_client.is_solution_correct(solution,challenge,remote_ip)

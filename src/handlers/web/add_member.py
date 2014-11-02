@@ -16,7 +16,7 @@ from util.util import isAdminAccess
 from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
 from handlers.web.auth import web_auth_required
-from util.util import registration_breadcrumbs, get_user_companies, get_user_projects, get_user, convert_string_list_to_dict, recaptcha_client
+from util.util import registration_breadcrumbs, get_user_companies, get_user_projects, get_user, convert_string_list_to_dict, recaptcha_client, get_captcha_markup
 from networks import LINKEDIN, FACEBOOK, TWITTER
 from model.third_party_login_data import ThirdPartyLoginData
 from model.third_party_profile_data import ThirdPartyProfileData
@@ -153,6 +153,7 @@ class MemberInvitePage(WebRequestHandler):
         template_values = {'company_id' : self['company_id'],
                            'breadcrumbs' : registration_breadcrumbs,
                            'breadcrumb_idx':2}
+        template_values['captcha'] = get_captcha_markup()
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberFinishInvitePage(WebRequestHandler):
@@ -176,13 +177,7 @@ class MemberSignupEmailPage(WebRequestHandler):
     def get(self):
         path = 'member_signup_email.html'
         template_values = {'login_form_url':'/users/handle_verify_email?signup=true'}
-        was_previous_solution_incorrect=False
-        session = get_current_session()
-        if session and 'signup_captcha_error' in session:
-            was_previous_solution_incorrect=True
-            session.pop('signup_captcha_error')
-        captcha_markup = recaptcha_client.get_challenge_markup(was_previous_solution_incorrect=was_previous_solution_incorrect, use_ssl=True)
-        template_values['captcha'] = captcha_markup
+        template_values['captcha'] = get_captcha_markup()
         if session and 'signup_email' in session:
             template_values['email'] = session['signup_email']
             session.pop('signup_email')

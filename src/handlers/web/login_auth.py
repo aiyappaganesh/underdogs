@@ -18,7 +18,7 @@ from google.appengine.api import mail
 from model.user import User
 from model.company import Company
 from model.company_members import CompanyMember
-from util.util import get_redirect_url_from_session, get_user, is_invited_user, create_company_member, recaptcha_client
+from util.util import get_redirect_url_from_session, get_user, is_invited_user, create_company_member, recaptcha_client, validate_captcha
 
 class LoginAuth():
     def __init__(self):
@@ -201,7 +201,7 @@ class VerifyEmailHandler(WebRequestHandler):
         challenge = self['recaptcha_challenge_field']
         solution = self['recaptcha_response_field']
         remote_ip = self.request.remote_addr
-        is_solution_correct = recaptcha_client.is_solution_correct(solution,challenge,remote_ip)
+        is_solution_correct = validate_captcha(solution, challenge, remote_ip)
         if is_solution_correct:
             user = get_user(self['email'])
             rd_url = '/member/user_exists'
