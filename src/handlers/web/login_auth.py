@@ -19,7 +19,7 @@ from model.user import User
 from model.company import Company
 from model.company_members import CompanyMember
 from model.invited_member import InvitedMember
-from util.util import get_redirect_url_from_session, get_user, create_company_member, recaptcha_client, validate_captcha, get_company_id_from_session
+from util.util import get_redirect_url_from_session, get_user, recaptcha_client, validate_captcha, get_company_id_from_session
 
 class LoginAuth():
     def __init__(self):
@@ -161,6 +161,10 @@ class ThirdPartyLoginSuccessHandler(WebRequestHandler):
             return True
         return False
 
+    def create_company_member(self, email, company_id):
+        company = Company.get_by_id(int(company_id))
+        CompanyMember(parent=company, is_admin=False, user_id=email).put()
+
     def get(self):
         company_id = get_company_id_from_session()
         handler = LoginAuth.get_handler_obj(self['network'])
@@ -169,7 +173,7 @@ class ThirdPartyLoginSuccessHandler(WebRequestHandler):
         redirect_url = get_redirect_url_from_session()
         if self.is_user_created(user_id):
             if company_id and InvitedMember.is_invited(user_id, company_id):
-                create_company_member()
+                self.create_company_member(user_id, company_id)
             self.login_user(user_id)
             self.redirect(redirect_url)
         else:

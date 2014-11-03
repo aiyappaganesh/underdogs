@@ -77,14 +77,7 @@ def get_redirect_url_from_session():
 
 def get_company_id_from_session():
     session = get_current_session()
-    return int(session['company_id']) if 'company_id' in session else None
-
-def create_company_member():
-    session = get_current_session()
-    company_id = session['invite_company_id']
-    company = model.company.Company.get_by_id(int(company_id))
-    email = session['invite_email']
-    model.company_members.CompanyMember(parent=company, is_admin=False, user_id=email).put()
+    return int(session['invite_company_id']) if 'invite_company_id' in session else None
 
 def get_captcha_markup():
     was_previous_solution_incorrect=False

@@ -17,7 +17,7 @@ from model.third_party_login_data import ThirdPartyLoginData
 from model.invited_member import InvitedMember
 from model.company_members import CompanyMember
 from gaesessions import get_current_session
-from util.util import separator, get_user, create_company_member, get_company_id_from_session
+from util.util import separator, get_user, get_company_id_from_session
 from model.user import User
 from model.company import Company
 
@@ -129,24 +129,22 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
             return True
         return False
 
-    def create_company_member(self, req_handler):
-        session = get_current_session()
-        company_id = int(session['invite_company_id']) if 'invite_company_id' in session else None
-        email = req_handler['email']
-        if company_id:
-            company = Company.get_by_id(company_id)
-            if InvitedMember.is_invited(email, company_id):
-                CompanyMember(parent=company, is_admin=False, user_id=email).put()
+    def create_company_member(self, email, company_id):
+        company = Company.get_by_id(company_id)
+        CompanyMember(parent=company, is_admin=False, user_id=email).put()
 
     def create_user(self, req_handler):
         photos = self.get_uploads("uploaded_photo")
         photo = self['image']
+        email = req_handler['email']
         if photos:
             photo_blob_key = photos[0].key()
             photo = '/api/common/download_image/'+str(photo_blob_key)
-        self.create_company_member(req_handler)
+        company_id = get_company_id_from_session()
+        if company_id and InvitedMember.is_invited(email, company_id):
+            self.create_company_member(email, company_id)
         password_hash = generate_password_hash(req_handler['password'])
-        user = User(key_name = req_handler['email'], name = req_handler['name'], password = password_hash, photo = photo)
+        user = User(key_name = email, name = req_handler['name'], password = password_hash, photo = photo)
         user.put()
 
     @web_auth_required
@@ -178,6 +176,10 @@ class MemberProfileUpdateHandler(blobstore_handlers.BlobstoreUploadHandler, Requ
         self.redirect('/member/profile')
 
 class MemberVerificationHandler(WebRequestHandler):
+    def create_company_member(self, email, company_id):
+        company = Company.get_by_id(company_id)
+        CompanyMember(parent=company, is_admin=False, user_id=email).put()
+
     @web_auth_required
     def post(self):
         redirect_url = get_redirect_url_from_session()
@@ -186,7 +188,7 @@ class MemberVerificationHandler(WebRequestHandler):
         company_id = get_company_id_from_session()
         if check_password_hash(self['password'], user.password):
             if company_id and InvitedMember.is_invited(email, company_id):
-                create_company_member()
+                self.create_company_member(email, company_id)
             create_tpld(email, self['network'])
             modify_session(email)
             self.redirect(redirect_url)
