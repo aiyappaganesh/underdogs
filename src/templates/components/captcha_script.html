@@ -1,1 +1,24 @@
-<script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
+<script type="text/javascript">
+        function validate() {
+            $('.error-message').html("");
+            $('.error-message').hide();
+            if(!$('#recaptcha_response_field').val()) {
+                $('.error-message').show();
+                $('.error-message').html("Please enter captcha response");
+                $('#recaptcha_response_field').focus();
+                return false;
+            }
+            return true;
+        }
+
+        $(document).ready(function(){
+            if("{{error}}") {
+                $('.error-message').show();
+                $('.error-message').html("{{error}}");
+                $('#recaptcha_response_field').focus();
+            }
+            if("{{success}}") {
+                alert("{{success}}");
+            }
+        });
+    </script>
