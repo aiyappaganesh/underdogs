@@ -87,6 +87,8 @@ class MemberInviteHandler(WebRequestHandler):
 
     @web_login_required
     def post(self):
+        email = self['email']
+        company_id = int(self['company_id'])
         if not isAdminAccess(self):
             return
         challenge = self['recaptcha_challenge_field']
@@ -95,11 +97,13 @@ class MemberInviteHandler(WebRequestHandler):
         is_solution_correct = validate_captcha(solution, challenge, remote_ip)
         curr_session = get_current_session()
         if is_solution_correct:
-            company_id = int(self['company_id'])
+            if InvitedMember.is_invited(email, company_id):
+                logging.info('... already invited')
+                return
             company = Company.get_by_id(company_id)
-            self.create_invited_member(self['email'], company_id)
+            self.create_invited_member(email, company_id)
             mail.send_mail(sender="Pirates Admin <ranju@b-eagles.com>",
-                           to=self['email'],
+                           to=email,
                            subject="Invitation to join " + company.name,
                            body="""
     Hello!

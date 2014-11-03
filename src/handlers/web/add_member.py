@@ -11,6 +11,7 @@ from model.company_members import CompanyMember
 from model.company import Company
 from model.experience import fetch_experiences_for
 from model.education import fetch_educations_for
+from model.invited_member import InvitedMember
 from handlers.web.auth import GithubAuth, LinkedinAuth, AngellistAuth
 from util.util import isAdminAccess
 from gaesessions import get_current_session
@@ -170,6 +171,11 @@ class MemberInvitePage(WebRequestHandler):
 class MemberFinishInvitePage(WebRequestHandler):
     def get(self):
         session = get_current_session()
+        email = self['emai']
+        company_id = self['company_id']
+        if not InvitedMember.is_invited(email, company_id):
+            logging.info('... not invited')
+            return
         session['invite_email'] = self['email']
         session['invite_company_id'] = self['company_id']
         self.redirect('/member/login?redirect_url=/member/expose_third_party?company_id=' + self['company_id'])

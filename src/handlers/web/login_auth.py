@@ -205,15 +205,18 @@ class CustomLoginHandler(WebRequestHandler):
 
 class VerifyEmailHandler(WebRequestHandler):
     def post(self):
+        email = self['email']
         challenge = self['recaptcha_challenge_field']
         solution = self['recaptcha_response_field']
         remote_ip = self.request.remote_addr
         is_solution_correct = validate_captcha(solution, challenge, remote_ip)
-        email = self['email']
         if is_solution_correct:
+            if SignedUpMember.is_signedup(email):
+                logging.info('... already signed up')
+                return
             user = get_user(email)
             rd_url = '/member/user_exists'
-            if not user and not SignedUpMember.is_signedup(email):
+            if not user:
                 SignedUpMember.create(email)
                 rd_url = '/member/check_email?signup=true'
                 self.send_subscription_email(self['email'])
