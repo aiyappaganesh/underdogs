@@ -75,9 +75,9 @@ def get_redirect_url_from_session():
     session = get_current_session()
     return session['redirect_url'] if 'redirect_url' in session else '/'
 
-def is_invited_user():
+def get_company_id_from_session():
     session = get_current_session()
-    return True if 'invite_company_id' in session and session['invite_company_id'] != None else False
+    return int(session['company_id']) if 'company_id' in session else None
 
 def create_company_member():
     session = get_current_session()

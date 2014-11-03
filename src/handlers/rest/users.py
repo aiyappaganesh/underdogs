@@ -17,7 +17,7 @@ from model.third_party_login_data import ThirdPartyLoginData
 from model.invited_member import InvitedMember
 from model.company_members import CompanyMember
 from gaesessions import get_current_session
-from util.util import separator, get_user, is_invited_user, create_company_member
+from util.util import separator, get_user, create_company_member, get_company_id_from_session
 from model.user import User
 from model.company import Company
 
@@ -88,8 +88,9 @@ class MemberInviteHandler(WebRequestHandler):
     def post(self):
         if not isAdminAccess(self):
             return
-        company = Company.get_by_id(int(self['company_id']))
-        self.create_invited_member(self['email'], company)
+        company_id = int(self['company_id'])
+        company = Company.get_by_id(company_id)
+        self.create_invited_member(self['email'], company_id)
         mail.send_mail(sender="Pirates Admin <ranju@b-eagles.com>",
                        to=self['email'],
                        subject="Invitation to join " + company.name,
@@ -180,12 +181,14 @@ class MemberVerificationHandler(WebRequestHandler):
     @web_auth_required
     def post(self):
         redirect_url = get_redirect_url_from_session()
-        user = User.get_by_key_name(self['email'])
+        email = self['email']
+        user = User.get_by_key_name(email)
+        company_id = get_company_id_from_session()
         if check_password_hash(self['password'], user.password):
-            if is_invited_user():
+            if company_id and InvitedMember.is_invited(email, company_id):
                 create_company_member()
-            create_tpld(self['email'], self['network'])
-            modify_session(self['email'])
+            create_tpld(email, self['network'])
+            modify_session(email)
             self.redirect(redirect_url)
         else:
             session = get_current_session()

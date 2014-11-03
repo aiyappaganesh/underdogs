@@ -18,7 +18,8 @@ from google.appengine.api import mail
 from model.user import User
 from model.company import Company
 from model.company_members import CompanyMember
-from util.util import get_redirect_url_from_session, get_user, is_invited_user, create_company_member, recaptcha_client, validate_captcha
+from model.invited_member import InvitedMember
+from util.util import get_redirect_url_from_session, get_user, create_company_member, recaptcha_client, validate_captcha, get_company_id_from_session
 
 class LoginAuth():
     def __init__(self):
@@ -161,12 +162,13 @@ class ThirdPartyLoginSuccessHandler(WebRequestHandler):
         return False
 
     def get(self):
+        company_id = get_company_id_from_session()
         handler = LoginAuth.get_handler_obj(self['network'])
         at = handler.exchange_accesstoken(self)
         user_id, profile_image_url = handler.verify_at(at)
         redirect_url = get_redirect_url_from_session()
         if self.is_user_created(user_id):
-            if is_invited_user():
+            if company_id and InvitedMember.is_invited(user_id, company_id):
                 create_company_member()
             self.login_user(user_id)
             self.redirect(redirect_url)
