@@ -19,6 +19,7 @@ from model.company_members import CompanyMember
 from gaesessions import get_current_session
 from util.util import separator, get_user, get_company_id_from_session
 from model.user import User
+from model.signedup_member import SignedUpMember
 from model.company import Company
 
 networks = {
@@ -150,6 +151,9 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
     @web_auth_required
     def post(self):
         email = self['email']
+        if not SignedUpMember.is_signedup(email):
+            logging.info('... not signedup')
+            return
         if not self.user_exists():
             self.create_user(self)
             if self['network'] != 'custom':

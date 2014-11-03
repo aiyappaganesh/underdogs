@@ -246,13 +246,17 @@ class EmailConfirmationHandler(WebRequestHandler):
         curr_session['auth_only'] = True
 
     def get(self):
+        email = self['email']
+        if not SignedUpMember.is_signedup(email):
+            logging.info('... not signedup')
+            return
         self.authenticate_user()
         path = 'member_signup.html'
         form_url = blobstore.create_upload_url("/api/members/finish_signup")
         template_values = {'network' : 'custom', 
                            'image' : self['image'], ### remove this
                            'form_url' : form_url, 
-                           'invite_email': self['email']}
+                           'invite_email': email}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 handlers = []
