@@ -178,6 +178,7 @@ class MemberSignupEmailPage(WebRequestHandler):
         path = 'member_signup_email.html'
         template_values = {'login_form_url':'/users/handle_verify_email?signup=true'}
         template_values['captcha'] = get_captcha_markup()
+        session = get_current_session()
         if session and 'signup_email' in session:
             template_values['email'] = session['signup_email']
             session.pop('signup_email')
