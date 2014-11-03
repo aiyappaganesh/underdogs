@@ -82,7 +82,7 @@ class MemberDataPullHandler(webapp2.RequestHandler):
 
 class MemberInviteHandler(WebRequestHandler):
     def create_invited_member(self, email, company):
-        InvitedMember(key_name=email, parent=company).put()
+        InvitedMember.create_or_update(email, company)
 
     @web_login_required
     def post(self):
@@ -130,12 +130,12 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
 
     def create_company_member(self, req_handler):
         session = get_current_session()
-        company_id = session['invite_company_id'] if 'invite_company_id' in session else None
+        company_id = int(session['invite_company_id']) if 'invite_company_id' in session else None
+        email = req_handler['email']
         if company_id:
-            company = Company.get_by_id(int(company_id))
-            invited_member = InvitedMember.get_by_key_name(req_handler['email'], parent=company)
-            if invited_member:
-                CompanyMember(parent=company, is_admin=False, user_id=req_handler['email']).put()
+            company = Company.get_by_id(company_id)
+            if InvitedMember.is_invited(email, company_id):
+                CompanyMember(parent=company, is_admin=False, user_id=email).put()
 
     def create_user(self, req_handler):
         photos = self.get_uploads("uploaded_photo")
