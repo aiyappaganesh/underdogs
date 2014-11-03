@@ -19,6 +19,7 @@ from model.user import User
 from model.company import Company
 from model.company_members import CompanyMember
 from model.invited_member import InvitedMember
+from model.signedup_member import SignedUpMember
 from util.util import get_redirect_url_from_session, get_user, recaptcha_client, validate_captcha, get_company_id_from_session
 
 class LoginAuth():
@@ -208,10 +209,12 @@ class VerifyEmailHandler(WebRequestHandler):
         solution = self['recaptcha_response_field']
         remote_ip = self.request.remote_addr
         is_solution_correct = validate_captcha(solution, challenge, remote_ip)
+        email = self['email']
         if is_solution_correct:
-            user = get_user(self['email'])
+            user = get_user(email)
             rd_url = '/member/user_exists'
-            if not user:
+            if not user and not SignedUpMember.is_signedup(email):
+                SignedUpMember.create(email)
                 rd_url = '/member/check_email?signup=true'
                 self.send_subscription_email(self['email'])
         else:
