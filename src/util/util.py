@@ -82,9 +82,9 @@ def get_company_id_from_session():
 def get_captcha_markup():
     was_previous_solution_incorrect=False
     session = get_current_session()
-    if session and 'signup_captcha_error' in session:
+    if session and 'captcha_error' in session:
         was_previous_solution_incorrect=True
-        session.pop('signup_captcha_error')
+        session.pop('captcha_error')
     return recaptcha_client.get_challenge_markup(was_previous_solution_incorrect=was_previous_solution_incorrect, use_ssl=True)
 
 def validate_captcha(solution, challenge, remote_ip):

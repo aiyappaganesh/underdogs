@@ -221,7 +221,7 @@ class VerifyEmailHandler(WebRequestHandler):
             rd_url = '/member/signup_email'
             curr_session = get_current_session()
             curr_session['signup_email'] = self['email']
-            curr_session['signup_captcha_error'] = True
+            curr_session['captcha_error'] = True
         self.redirect(rd_url)
 
     def send_subscription_email(self, email):

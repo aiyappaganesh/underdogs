@@ -153,6 +153,17 @@ class MemberInvitePage(WebRequestHandler):
         template_values = {'company_id' : self['company_id'],
                            'breadcrumbs' : registration_breadcrumbs,
                            'breadcrumb_idx':2}
+        session = get_current_session()
+        if session:
+            if 'invite_email' in session:
+                template_values['email'] = session['invite_email']
+                session.pop('invite_email')
+            if 'invite_success' in session:
+                template_values['success'] = 'Successfully sent invite!'
+                session.pop('invite_success')
+            elif 'captcha_error' in session:
+                template_values['error'] = 'Captcha response provided was incorrect. Please try again.'
+        template_values['invite_form_url'] = '/api/members/invite'
         template_values['captcha'] = get_captcha_markup()
         self.write(self.get_rendered_html(path, template_values), 200)
 

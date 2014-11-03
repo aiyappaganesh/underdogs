@@ -16,19 +16,20 @@
                 {% include "components/registration_breadcrumbs.html" with idx="1" %}
                 <div class="tab-content">
                     <div class="tab-pane fade active in">
-                        <div class="top-padding-sm invite-member-form">
-                            {% include "components/form_input.html" with id="new_member_email" name="email" placeholder="Email" %}
+                        <form class="top-padding-sm invite-member-form" role="form" action="{{invite_form_url}}" method="POST" onsubmit="return validate()">
+                            {% include "components/form_input.html" with id="new_member_email" name="email" placeholder="Email" type="email" other="required" value=email %}
                             {% include "components/form_captcha.html" with captcha=captcha %}
                             {% include "components/form_error_message.html" with captcha=captcha %}
-                            <div class="row">
-                                <div class="col-md-3">
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="button" id="done" value="Done inviting!" onclick="return done_inviting();" class="btn btn-bootflat pull-right" style="margin-left:10px;">
-                                    <input type="button" id="invite" value="Invite" onclick="return validate();" class="btn btn-bootflat pull-right">
-                                </div>
-                                <div class="col-md-3">
-                                </div>
+                            {% include "components/form_input.html" with name="company_id" type="hidden" value=company_id id=company_id %}
+                            {% include "components/form_submit.html" with value="Invite" %}
+                        </form>
+                        <div class="row">
+                            <div class="col-md-3">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="button" id="done" value="Done inviting!" onclick="return done_inviting();" class="btn btn-bootflat pull-right" style="margin-left:10px;">
+                            </div>
+                            <div class="col-md-3">
                             </div>
                         </div>
                     </div>
@@ -39,18 +40,7 @@
 {% endblock %}
 
 {% block Scripts %}
-    {% include "components/captcha_script.html" %}
     <script type="text/javascript">
-        function invite_by_email(){
-            email = $('#new_member_email').val();
-            $.post('/api/members/invite?company_id={{company_id}}&amp;email=' + email,
-                   function(data){
-                        alert('Successfully sent invite!');
-                        $('#new_member_email').val('');
-                   });
-            return false;
-        }
-
         function done_inviting(){
             window.location='/member/expose_third_party?company_id=' + {{company_id}};
             return false;
@@ -59,32 +49,24 @@
         function validate() {
             $('.error-message').html("");
             $('.error-message').hide();
-            if(validate_email($('#new_member_email').val())) {
-                validate_captcha();
-            } else {
+            if(!$('#recaptcha_response_field').val()) {
                 $('.error-message').show();
-                $('.error-message').html("Invalid Email");
-                $('#new_member_email').focus();
+                $('.error-message').html("Please enter captcha response");
+                $('#recaptcha_response_field').focus();
+                return false;
             }
+            return true;
         }
 
-        function validate_email(email) {
-            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return re.test(email);
-        }
-
-        function validate_captcha() {
-            $.post('/api/common/validate_captcha',{'recaptcha_challenge_field':Recaptcha.get_challenge(),'recaptcha_response_field':Recaptcha.get_response()})
-            .done(function(data){
-                if(data.solution_correct) {
-                    invite_by_email();
-                } else {
-                    $('.error-message').show();
-                    $('.error-message').html("Incorrect Captcha");
-                    $('#captcha').focus();
-                }
-                Recaptcha.reload();
-            });
-        }
+        $(document).ready(function(){
+            if("{{error}}") {
+                $('.error-message').show();
+                $('.error-message').html("{{error}}");
+                $('#recaptcha_response_field').focus();
+            }
+            if("{{success}}") {
+                alert("{{success}}");
+            }
+        });
     </script>
 {% endblock %}
