@@ -166,9 +166,6 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
     @web_auth_required
     def post(self):
         email = self['email']
-        if not SignedUpMember.is_signedup(email):
-            logging.info('... not signedup')
-            return
         if not self.user_exists():
             self.create_user(self)
             if self['network'] != 'custom':
