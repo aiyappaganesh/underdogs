@@ -12,6 +12,11 @@ from model.company import Company
 from model.company_members import CompanyMember
 from model.skills.defn import get_skills_json, get_skills_parents_map, skills_heirarchy
 
+class TempPage(WebRequestHandler):
+    def get(self):
+        path = 'temp.html'
+        self.write(self.get_rendered_html(path, {}), 200)
+
 class CompanyData(WebRequestHandler):
     def get_expertise_val_for(self, c):
         avg_expertise = c.expertise_avg
@@ -108,6 +113,7 @@ class SkillsHeirarchy(WebRequestHandler):
 
 app = webapp2.WSGIApplication(
     [
+        ('/temp', TempPage),
         ('/temp/company_data', CompanyData),
         ('/temp/company_members', CompanyMembers),
         ('/temp/visualise_skills', SkillsVisualiser),
