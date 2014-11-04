@@ -30,6 +30,24 @@ class AddProjectHandler(RequestHandler):
         self.create_project_admin(p)
         self.redirect('/startups/search/criteria')
 
+class UpdateProjectHandler(RequestHandler):
+    def update_project(self):
+        id = int(str(self['project_id']))
+        if id:
+            p = Project.get_by_id(id)
+            p.title = self['project_title']
+            p.description = self['description']
+            p.skills = self['project_skills'].split(',') if self['project_skills'] else []
+            p.end_date = datetime.strptime(str(self['project_end_date']), "%Y-%m-%d").date()
+            p.bid = float(self['project_bid'])
+            p.put()
+
+    @web_login_required
+    def post(self):
+        p = self.update_project()
+        self.redirect('/member/projects/dashboard')
+
 app = RestApplication([
-    ('/api/projects/add_project', AddProjectHandler)
+    ('/api/projects/add_project', AddProjectHandler),
+    ('/api/projects/update_project', UpdateProjectHandler)
 ])

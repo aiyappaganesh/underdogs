@@ -3,28 +3,43 @@ import webapp2
 from model.skill import Skill
 from handlers.web import WebRequestHandler
 from handlers.web.auth import web_login_required
-from util.util import convert_string_list_to_dict
+from util.util import convert_string_list_to_dict, get_skills_json
 from model.company import Company
 from model.project import Project
+from datetime import datetime
 import operator
+
+DURATION_OPTIONS = [{'name':'Less than 3 months','value':'3'},
+                    {'name':'3 to 6 months','value':'6'},
+                    {'name':'More than 6 months','value':'12'}]
 
 class ProjectsRegistrationPage(WebRequestHandler):
     @web_login_required
     def get(self):
         path = 'project_registration.html'
         template_values = {}
-        template_values['duration_options'] = [{'name':'Less than 3 months','value':'3'},
-                                               {'name':'3 to 6 months','value':'6'},
-                                               {'name':'More than 6 months','value':'12'}]
-        q = Skill.all()
-        skills = q.fetch(100)
-        skill_options = []
-        for skill in skills:
-            skill_option = {}
-            skill_option['name'] = skill.name
-            skill_option['value'] = skill.name
-            skill_options.append(skill_option)
-        template_values['skills'] = skill_options
+        template_values['duration_options'] = DURATION_OPTIONS
+        template_values['skills'] = get_skills_json()
+        self.write(self.get_rendered_html(path, template_values), 200)
+
+class ProjectsEditPage(WebRequestHandler):
+    @web_login_required
+    def get(self):
+        path = 'project_edit.html'
+        template_values = {}
+        template_values['duration_options'] = DURATION_OPTIONS
+        template_values['skills'] = get_skills_json()
+        project = {}
+        id = int(str(self['project_id']))
+        if id:
+            p = Project.get_by_id(id)
+            project['id'] = id
+            project['title'] = p.title
+            project['description'] = p.description
+            project['skills'] = p.skills
+            project['end_date'] = p.end_date.strftime("%Y-%m-%d")
+            project['bid'] = p.bid
+        template_values['project'] = project
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class ProjectStartupsMatchingPage(WebRequestHandler):
@@ -91,6 +106,7 @@ class ProjectListPage(WebRequestHandler):
 app = webapp2.WSGIApplication(
     [
         ('/projects/registration', ProjectsRegistrationPage),
+        ('/projects/edit', ProjectsEditPage),
         ('/projects/list', ProjectListPage),
         ('/projects/fitting_startups', ProjectStartupsMatchingPage)
     ]

@@ -42,20 +42,5 @@
     <script src="/assets/js/jquery.fs.selecter.min.js"></script>
     <script src="/assets/js/jquery.fs.scroller.min.js"></script>
     <script src="/assets/js/add_selecter.js"></script>
-    <script>
-        function updateProjectSkills() {
-            var skills = '';
-            $('#skills-select').parent('.selecter').find('.selected').each(function(){
-                var val = $(this).attr('data-value');
-                if(skills != '') {
-                    skills = skills + ',';
-                }
-                skills = skills + val;
-            });
-            $('#project-skills').val(skills);
-        }
-        $(document).ready(function(){
-            updateProjectSkills();
-        });
-    </script>
+    <script src="/assets/js/projects.js"></script>
 {% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block Styles %}
+    <link href="/assets/css/jasny-bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="/assets/css/registration.css" type="text/css" rel="stylesheet">
+    <link href="/assets/css/jquery.fs.scroller.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block Navbar %}
+  {% with hide_navbar_join='true' %}
+  {{block.super}}
+  {% endwith %}
+{% endblock %}
+
+{% block Content %}
+	<h3 class="center-align">Project Info</h3>
+    <div class="row">
+    	<form role="form" action="/api/projects/update_project" method="POST" enctype="multipart/form-data">
+            <div class="col-lg-12">
+                {% include "components/form_input.html" with id="project-title" name="project_title" placeholder="Project Title" other="required" value=project.title %}
+                {% include "components/form_select.html" with id="skills-select" name="skills_select" other="multiple onchange='updateProjectSkills()'" options=skills title="Select Skills" selected_values=project.skills %}
+                {% include "components/form_textarea.html" with id="description" name="description" placeholder="Description" rows="10" other="required" value=project.description %}
+                {% include "components/form_input.html" with id="project-bid" name="project_bid" placeholder="Bid" other="required" value=project.bid %}
+                {% include "components/form_input.html" with type="date" id="project-end-date" name="project_end_date" placeholder="End Date" other="required" value=project.end_date %}
+                <input type="hidden" id="project-skills" name="project_skills">
+                <input type="hidden" id="project-id" name="project_id" value="{{project.id}}">
+                <div class="row">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="submit" name="submit" id="submit" value="Update Project" class="btn btn-bootflat pull-right">
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                </div>
+            </div>
+    	</form>
+    </div>
+	
+{% endblock %}
+
+{% block Scripts %}
+    <script src="/assets/js/jquery.fs.selecter.min.js"></script>
+    <script src="/assets/js/jquery.fs.scroller.min.js"></script>
+    <script src="/assets/js/add_selecter.js"></script>
+    <script src="/assets/js/projects.js"></script>
+{% endblock %}

@@ -4,6 +4,7 @@ import model
 from model.project_members import ProjectMember
 from model.project import Project
 from model.user import User
+from model.skill import Skill
 from gaesessions import get_current_session
 from model.third_party_login_data import ThirdPartyLoginData
 from recaptcha import RecaptchaClient
@@ -89,3 +90,14 @@ def get_captcha_markup():
 
 def validate_captcha(solution, challenge, remote_ip):
     return recaptcha_client.is_solution_correct(solution,challenge,remote_ip)
+
+def get_skills_json():
+    q = Skill.all()
+    skills = q.fetch(100)
+    skill_options = []
+    for skill in skills:
+        skill_option = {}
+        skill_option['name'] = skill.name
+        skill_option['value'] = skill.name
+        skill_options.append(skill_option)
+    return skill_options
