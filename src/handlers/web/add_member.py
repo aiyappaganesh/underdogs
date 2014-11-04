@@ -42,18 +42,11 @@ class ExposeThirdPartyPage(WebRequestHandler):
 
 class ListMemberPage(WebRequestHandler):
     def get_access_type(self, company, user_id):
-        access_type = 'public'
-        if not user_id:
-            access_type = 'public'
-        member_objs = CompanyMember.all().ancestor(company)
-        for member in member_objs.fetch(500):
-            if member.user_id == user_id and member.is_admin:
-                access_type = 'admin'
-                break
-            elif member.user_id == user_id:
-                access_type = 'member'
-                break
-        return access_type
+        if user_id:
+            company_member = CompanyMember.all().ancestor(company).filter('user_id', user_id).get()
+            if company_member:
+                return 'admin' if company_member.is_admin else 'member'
+        return 'public'
 
     @web_login_required
     def get(self):
