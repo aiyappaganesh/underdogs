@@ -121,11 +121,7 @@ class LinkedinAuth(LoginAuth):
         return response['id'], response['pictureUrl'] if 'pictureUrl' in response else ''
 
 class ThirdPartyLoginHandler(WebRequestHandler):
-    def get_network_name(self):
-        return self.request.path.split('/')[2]
-
-    def get(self):
-        network = self.get_network_name()
+    def get(self, network):
         handler = LoginAuth.get_handler_obj(network)
         self.redirect(handler.get_login_dialog_redirect_url())
 
@@ -264,8 +260,7 @@ class EmailConfirmationHandler(WebRequestHandler):
         self.write(self.get_rendered_html(path, template_values), 200)
 
 handlers = []
-for network in [FACEBOOK, TWITTER, LINKEDIN]:
-    handlers.append(('/users/' + network + '/login_callback', ThirdPartyLoginHandler))
+handlers.append(('/users/([^/]+)/login_callback', ThirdPartyLoginHandler))
 handlers.append(('/users/login_success', ThirdPartyLoginSuccessHandler))
 handlers.append(('/users/handle_custom_login', CustomLoginHandler))
 handlers.append(('/users/handle_verify_email', VerifyEmailHandler))
