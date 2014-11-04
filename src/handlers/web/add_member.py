@@ -171,7 +171,7 @@ class MemberInvitePage(WebRequestHandler):
 class MemberFinishInvitePage(WebRequestHandler):
     def get(self):
         session = get_current_session()
-        email = self['emai']
+        email = self['email']
         company_id = self['company_id']
         if not InvitedMember.is_invited(email, company_id):
             logging.info('... not invited')

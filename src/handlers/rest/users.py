@@ -19,7 +19,6 @@ from model.company_members import CompanyMember
 from gaesessions import get_current_session
 from util.util import separator, get_user, get_company_id_from_session, validate_captcha
 from model.user import User
-from model.signedup_member import SignedUpMember
 from model.company import Company
 
 networks = {
