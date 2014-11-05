@@ -190,6 +190,9 @@ class MemberFinishInvitePage(WebRequestHandler):
         company = Company.get_by_id(int(company_id))
         CompanyMember(parent=company, is_admin=False, user_id=email).put()
 
+    def delete_invited_member(self, email, company_id):
+        InvitedMember.delete(email, company_id)
+
     def get(self):
         email = self['email']
         company_id = self['company_id']
@@ -198,11 +201,13 @@ class MemberFinishInvitePage(WebRequestHandler):
             return
         if self.user_exists(email):
             self.create_company_member(email, company_id)
-            self.redirect('/member/login?redirect_url=/member/expose_third_party?company_id=' + company_id)
+            redirect_url = '/member/login?redirect_url=/member/expose_third_party?company_id=' + company_id
         else:
             self.authenticate_user(email)
             self.save_in_session(email, company_id)
-            self.redirect('/member/signup?company_id=' + company_id + '&network=custom')
+            redirect_url = '/member/signup?company_id=' + company_id + '&network=custom'
+        self.delete_invited_member(email, company_id)
+        self.redirect(redirect_url)
 
 class MemberSignupPage(WebRequestHandler):
     @web_auth_required

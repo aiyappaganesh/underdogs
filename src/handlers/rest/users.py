@@ -159,9 +159,6 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
         if photos:
             photo_blob_key = photos[0].key()
             photo = '/api/common/download_image/'+str(photo_blob_key)
-        company_id = get_company_id_from_session()
-        if company_id and InvitedMember.is_invited(email, company_id):
-            self.create_company_member(email, company_id)
         password_hash = generate_password_hash(req_handler['password'])
         user = User(key_name = email, name = req_handler['name'], password = password_hash, photo = photo)
         user.put()
@@ -169,8 +166,11 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
     @web_auth_required
     def post(self):
         email = self['email']
+        company_id = get_company_id_from_session()
         if not self.user_exists():
             self.create_user(self)
+            if company_id:
+                self.create_company_member(email, company_id)
             if self['network'] != 'custom':
                 create_tpld(email, self['network'])
             modify_session(email)
