@@ -15,7 +15,7 @@ def pull_data(member, third_party_user):
     skills = [skill['name'] for skill in response['skills']] if 'skills' in response and len(response['skills']) > 0 else []
 
     influence_raw = (10 * followers)
-    influence = math.log(influence_raw) / 10.0
+    influence = math.log(influence_raw) / 10.0 if influence_raw > 0 else 0.0
 
     expertise = {}
     for skill in skills:

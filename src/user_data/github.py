@@ -26,7 +26,7 @@ def pull_data(member, third_party_user):
         comments += int(gist['comments'])
 
     influence_raw = (followers * 4) + (forks * 2) + (stars + 2) + (contributors * 1.5) + (comments * 0.5)
-    influence = math.log(influence_raw)/10.0
+    influence = math.log(influence_raw)/10.0 if influence_raw > 0 else 0.0
     influence_score = influence if influence < 1.0 else 1.0
     member.update_score(influence_score)
 
@@ -47,6 +47,6 @@ def pull_data(member, third_party_user):
                 else:
                     expertise[language] = num
     for language, raw_score in expertise.iteritems():
-        norm_score = math.log(raw_score, 2)/10.0
+        norm_score = math.log(raw_score, 2)/10.0 if raw_score > 0 else 0.0
         expertise[language] = norm_score if norm_score < 1.0 else 1.0
     member.update_expertise_score(expertise)
