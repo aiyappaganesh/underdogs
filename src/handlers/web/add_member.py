@@ -166,16 +166,28 @@ class MemberInvitePage(WebRequestHandler):
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberFinishInvitePage(WebRequestHandler):
-    def get(self):
+    def authenticate_user(self, user_id):
+        curr_session = get_current_session()
+        if curr_session.is_active():
+            curr_session.terminate()
+        curr_session['me_id'] = user_id
+        curr_session['auth_only'] = True
+
+    def save_in_session(self, email, company_id):
         session = get_current_session()
+        session['invite_email'] = email
+        session['invite_company_id'] = company_id
+        session['redirect_url'] = '/member/expose_third_party?company_id=' + company_id
+
+    def get(self):
         email = self['email']
         company_id = self['company_id']
+        self.authenticate_user(email)
         if not InvitedMember.is_invited(email, company_id):
             logging.info('... not invited')
             return
-        session['invite_email'] = self['email']
-        session['invite_company_id'] = self['company_id']
-        self.redirect('/member/login?redirect_url=/member/expose_third_party?company_id=' + self['company_id'])
+        self.save_in_session(email, company_id)
+        self.redirect('/member/signup?company_id=' + company_id + '&network=custom')
 
 class MemberSignupPage(WebRequestHandler):
     @web_auth_required
