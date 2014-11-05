@@ -12,13 +12,8 @@
         }
 
         $(document).ready(function(){
-            if("{{error}}") {
-                $('.error-message').show();
-                $('.error-message').html("{{error}}");
+            if("{{captcha_error}}") {
                 $('#recaptcha_response_field').focus();
-            }
-            if("{{success}}") {
-                alert("{{success}}");
             }
         });
     </script>

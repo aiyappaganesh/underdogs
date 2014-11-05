@@ -46,5 +46,14 @@
             window.location='/member/expose_third_party?company_id=' + {{company_id}};
             return false;
         }
+        $(document).ready(function(){
+            if("{{error}}") {
+                $('.error-message').show();
+                $('.error-message').html("{{error}}");
+            }
+            if("{{success}}") {
+                alert("{{success}}");
+            }
+        });
     </script>
 {% endblock %}

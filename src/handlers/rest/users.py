@@ -97,23 +97,23 @@ class MemberInviteHandler(WebRequestHandler):
         curr_session = get_current_session()
         if is_solution_correct:
             if InvitedMember.is_invited(email, company_id):
-                logging.info('... already invited')
-                return
-            company = Company.get_by_id(company_id)
-            self.create_invited_member(email, company_id)
-            mail.send_mail(sender="Pirates Admin <ranju@b-eagles.com>",
-                           to=email,
-                           subject="Invitation to join " + company.name,
-                           body="""
-    Hello!
+                curr_session['invite_error'] = "Invite already sent"
+            else:
+                company = Company.get_by_id(company_id)
+                self.create_invited_member(email, company_id)
+                mail.send_mail(sender="Pirates Admin <ranju@b-eagles.com>",
+                               to=email,
+                               subject="Invitation to join " + company.name,
+                               body="""
+        Hello!
 
-    Please follow this link to add yourself:
+        Please follow this link to add yourself:
 
-    https://minyattra.appspot.com/member/finish_invite?company_id={0}&email={1}
+        https://minyattra.appspot.com/member/finish_invite?company_id={0}&email={1}
 
-    Thanks!
-    """.format(self['company_id'], self['email']))
-            curr_session['invite_success'] = True
+        Thanks!
+        """.format(self['company_id'], self['email']))
+                curr_session['invite_success'] = True
         else:
             curr_session['invite_email'] = self['email']
             curr_session['captcha_error'] = True
