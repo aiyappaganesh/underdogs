@@ -17,7 +17,7 @@
         <div class="col-lg-12">
             <form role="form" action="{{form_url}}" method="POST" onsubmit="return validate()" enctype="multipart/form-data">
                 <div class="col-lg-12">
-                    {% include "components/form_image.html" with name="uploaded_photo" button_text="Change" %}
+                    {% include "components/form_image.html" with name="uploaded_photo" button_text="Change Picture" %}
                     {% include "components/form_input.html" with id="email" name="email" placeholder="Email" other="required" value=invite_email %}
                     {% include "components/form_input.html" with id="name" name="name" placeholder="Name" other="required" %}
                     {% include "components/form_input.html" with type="password" id="password" name="password" placeholder="Password" other="required" %}
