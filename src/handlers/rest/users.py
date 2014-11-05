@@ -137,6 +137,10 @@ def modify_session(email):
 
 
 class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
+    def create_company_member(self, email, company_id):
+        company = Company.get_by_id(company_id)
+        CompanyMember(parent=company, is_admin=False, user_id=email).put()
+
     def user_exists(self):
         email = self['email']
         user = User.get_by_key_name(email)
