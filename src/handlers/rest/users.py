@@ -117,7 +117,9 @@ class MemberInviteHandler(WebRequestHandler):
         else:
             curr_session['invite_email'] = self['email']
             curr_session['captcha_error'] = True
-        self.redirect('/member/invite?company_id='+self['company_id'])
+        rd_url = curr_session['rd_url']
+        curr_session.pop('rd_url')
+        self.redirect(rd_url)
 
 def create_tpld(email, network):
     session = get_current_session()

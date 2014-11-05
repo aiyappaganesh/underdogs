@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel">
-                {% include "components/registration_breadcrumbs.html" with idx="1" %}
+                {% if breadcrumbs %}{% include "components/registration_breadcrumbs.html" with idx="1" %}{% endif %}
                 <div class="tab-content">
                     <div class="tab-pane fade active in">
                         <form class="top-padding-sm invite-member-form" role="form" action="{{invite_form_url}}" method="POST" onsubmit="return validate()">
@@ -43,7 +43,7 @@
     {% include "components/captcha_script.html" %}
     <script type="text/javascript">
         function done_inviting(){
-            window.location='/member/expose_third_party?company_id=' + {{company_id}};
+            window.location='{{done_redirect}}';
             return false;
         }
         $(document).ready(function(){

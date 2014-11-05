@@ -138,31 +138,51 @@ class ProjectsDashboardHandler(WebRequestHandler):
         template_values = {'projects': projects}
         self.write(self.get_rendered_html(path, template_values), 200)
 
+def prepare_template_values_for_invite(rd_url):
+    template_values = {}
+    session = get_current_session()
+    if session:
+        if 'invite_email' in session:
+            template_values['email'] = session['invite_email']
+            session.pop('invite_email')
+        if 'invite_success' in session:
+            template_values['success'] = 'Successfully sent invite!'
+            session.pop('invite_success')
+        elif 'invite_error' in session:
+            template_values['error'] = session['invite_error']
+            session.pop('invite_error')
+        elif 'captcha_error' in session:
+            template_values['error'] = 'Captcha response provided was incorrect. Please try again.'
+            template_values['captcha_error'] = True
+    template_values['invite_form_url'] = '/api/members/invite'
+    template_values['captcha'] = get_captcha_markup()
+    session['rd_url'] = rd_url
+    return template_values
+
 class MemberInvitePage(WebRequestHandler):
     @web_login_required
     def get(self):
         if not isAdminAccess(self):
             return
         path = 'invite_member.html'
-        template_values = {'company_id' : self['company_id'],
-                           'breadcrumbs' : registration_breadcrumbs,
-                           'breadcrumb_idx':2}
-        session = get_current_session()
-        if session:
-            if 'invite_email' in session:
-                template_values['email'] = session['invite_email']
-                session.pop('invite_email')
-            if 'invite_success' in session:
-                template_values['success'] = 'Successfully sent invite!'
-                session.pop('invite_success')
-            elif 'invite_error' in session:
-                template_values['error'] = session['invite_error']
-                session.pop('invite_error')
-            elif 'captcha_error' in session:
-                template_values['error'] = 'Captcha response provided was incorrect. Please try again.'
-                template_values['captcha_error'] = True
-        template_values['invite_form_url'] = '/api/members/invite'
-        template_values['captcha'] = get_captcha_markup()
+        rd_url = '/member/invite?company_id='+self['company_id']
+        template_values = prepare_template_values_for_invite(rd_url)
+        template_values['company_id'] = self['company_id']
+        template_values['breadcrumbs'] = registration_breadcrumbs
+        template_values['breadcrumb_idx'] = 2
+        template_values['done_redirect'] = '/member/expose_third_party?company_id=' + self['company_id']
+        self.write(self.get_rendered_html(path, template_values), 200)
+
+class MemberDashboardInvitePage(WebRequestHandler):
+    @web_login_required
+    def get(self):
+        if not isAdminAccess(self):
+            return
+        path = 'invite_member.html'
+        rd_url = '/member/dashboard_invite?company_id='+self['company_id']
+        template_values = prepare_template_values_for_invite(rd_url)
+        template_values['company_id'] = self['company_id']
+        template_values['done_redirect'] = '/member/list?company_id=' + self['company_id']
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberFinishInvitePage(WebRequestHandler):
@@ -347,6 +367,7 @@ app = webapp2.WSGIApplication(
         ('/member/missing', MemberMissingHandler),
         ('/member/already_exists', MemberAlreadyExistsHandler),
         ('/member/invite', MemberInvitePage),
+        ('/member/dashboard_invite', MemberDashboardInvitePage),
         ('/member/finish_invite', MemberFinishInvitePage),
         ('/member/signup', MemberSignupPage),
         ('/member/signup_email', MemberSignupEmailPage),
