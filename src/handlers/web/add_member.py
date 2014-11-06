@@ -285,6 +285,7 @@ class MemberProfilePage(WebRequestHandler):
     def get(self):
         path = 'member_profile.html'
         member = {}
+        profile_data_available = False
         session = get_current_session()
         email = session['me_email']
         user = get_user(email)
@@ -319,7 +320,6 @@ class MemberProfilePage(WebRequestHandler):
                 skills.append(skill)
             member['skills'] = skills
 
-            profile_data_available = False
             q = ThirdPartyProfileData.all().ancestor(user)
             profile_data = [profile for profile in q]
             if profile_data:
