@@ -247,19 +247,17 @@ class EmailConfirmationHandler(WebRequestHandler):
         if invite_company_id:
             curr_session['invite_company_id'] = invite_company_id
 
+    def delete_signedup_member(self, email):
+        SignedUpMember.delete(email)
+
     def get(self):
         email = self['email']
         if not SignedUpMember.is_signedup(email):
             logging.info('... not signedup')
             return
         self.authenticate_user()
-        path = 'member_signup.html'
-        form_url = blobstore.create_upload_url("/api/members/finish_signup")
-        template_values = {'network' : 'custom', 
-                           'image' : self['image'], ### remove this
-                           'form_url' : form_url, 
-                           'invite_email': email}
-        self.write(self.get_rendered_html(path, template_values), 200)
+        self.delete_signedup_member(email)
+        self.redirect('/member/signup?network=custom')
 
 handlers = []
 handlers.append(('/users/([^/]+)/login_callback', ThirdPartyLoginHandler))
