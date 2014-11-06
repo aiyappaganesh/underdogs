@@ -198,7 +198,6 @@ class MemberVerificationHandler(WebRequestHandler):
         redirect_url = get_redirect_url_from_session()
         email = self['email']
         user = User.get_by_key_name(email)
-        company_id = get_company_id_from_session()
         if check_password_hash(self['password'], user.password):
             create_tpld(email, self['network'])
             modify_session(email)
