@@ -1,0 +1,279 @@
+body{
+    font-size: 150%;
+    font-weight: 400;
+    line-height: 1.65;
+}
+
+body a {
+    text-decoration: none;
+    color: #4FC1E9;
+}
+
+.navbar-toggle .icon-bar {
+    background-color: #4FC1E9;
+}
+
+.content {
+    margin-bottom: 50px;
+}
+
+.landing-selection {
+    text-align: center;
+}
+
+.landing-big-font {
+    color: #434A54;
+    font-size: 35px;
+    font-weight: 700;
+}
+
+.landing-small-font {
+    color: #E6E9ED;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/*.landing-section {
+    min-height: 350px;
+    padding-top: 75px !important;
+    padding-bottom: 80px !important;
+    position: absolute;
+    background-color: #ffffff;
+    text-align: center;
+}*/
+
+.horizontal-center {
+    margin:auto;
+}
+
+.page-content {
+    position: relative;
+    min-height: 1100px;
+}
+
+.nav-offset {
+    margin-top: 100px;
+}
+
+.nav-offset-padding {
+    padding-top: 100px;
+}
+
+@media (min-width: 992px) {
+    .container {
+        width: 960px;
+    }
+}
+
+@media (max-width: 767px) {
+    .landing-selection {
+        font-size: 25px;
+    }
+}
+
+.top-padded {
+    padding-top: 50px;
+}
+
+.bottom-padded {
+    padding-bottom: 150px;
+}
+
+.scores-table {
+}
+
+.scores-table thead {
+    background-color: #f8f9fa;
+}
+
+.scores-table tbody tr {
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+}
+
+.navbar {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.btn-bootflat {
+    color: rgb(59, 175, 218);
+    background-color: transparent;
+    border-color: #3bafda;
+    transition: 0.1s background-color linear;
+    height: 44px;
+    width: 200px;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 3px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.btn-bootflat:hover, .btn-bootflat:active {
+    background-color: #3bafda;
+    color: #ffffff;
+    border-color: #3bafda;
+}
+
+.input-group-addon {
+    background-color: #3bafda;
+}
+
+.donut_canvas {
+}
+
+table td {
+    vertical-align: middle !important;
+}
+
+.score-text {
+    font-size: 40px;
+}
+
+.sd-btn {
+    padding-top: 10px;
+}
+
+small {
+    color: #8d8d8d !important;
+}
+
+a small {
+    color: #51b9db !important;
+}
+
+.input-container {
+    width: 50%;
+    margin: auto;
+}
+
+.startup-icon {
+    max-width: 100%;
+    max-height: 50px;
+    margin: 5px;
+}
+
+.icons {
+    vertical-align: middle;
+}
+
+.company-img {
+    max-height: 150px;
+    min-height: 150px;
+}
+
+.center-align {
+    text-align: center;
+}
+
+.justified-align {
+    text-align: justify;
+}
+
+.footer-button-row {
+    margin: 30px;
+}
+
+.header {
+    //padding-top: 16px;
+    //padding-bottom: 16px;
+    border-bottom: solid 1px #f2f2f2;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+}
+
+@media (min-width: 767px) {
+    .header {
+        border-bottom-color: white;
+    }
+
+    .scrolled .header {
+        border-bottom-color: #f2f2f2;
+        background-color: rgba(255,255,255,0.9);
+    }
+}
+
+.bottom-margin-sm {
+    margin-bottom: 30px;
+}
+
+.bottom-margin-md {
+    margin-bottom: 60px;
+}
+
+.bottom-margin-lg {
+    margin-bottom: 100px;
+}
+
+.top-padding-sm {
+    padding-top: 30px;
+}
+
+.top-padding-md {
+    padding-top: 60px;
+}
+
+.top-padding-lg {
+    padding-top: 100px;
+}
+
+.row [class*=col-] {
+margin-bottom: 10px;
+}
+
+.nav-tabs>li>a:hover {
+    background-color: #e6e9ed;
+}
+
+.photo {
+    max-width: 250px;
+    max-height: 250px;
+}
+
+.error-message {
+    display: none;
+    color: red;
+}
+
+.btn-bootflat-top-padded {
+    padding-top: 10px;
+}
+
+.wrapped {
+    word-wrap: break-word;
+}
+
+.expertise-td-select {
+    padding-top: 27px;
+}
+
+.expertise-td-donut {
+    padding-top: 6px;
+    margin-bottom: 0px !important;
+}
+
+.blue-font {
+    color: #22A7F0;
+}
+
+.white-font {
+    color: #FFFFFF;
+}
+
+.blue-background {
+    background-color: #22A7F0;
+}
+
+.base-nav {
+    height: 83px;
+    padding-top: 13px;
+}
+
+.base-nav .navbar-collapse.collapse, .base-nav .navbar-collapse.collapse ul, .base-nav .navbar-collapse.collapse li {
+    height: 100% !important;
+}

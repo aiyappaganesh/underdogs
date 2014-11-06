@@ -1,0 +1,19 @@
+.landing-pirate-img {
+    margin: 20px;
+}
+
+.no-navbar {
+    display: none;
+}
+
+.landing-section1-copy {
+    margin-top: 200px;
+}
+
+.landing-copy {
+    margin-top: 250px;
+}
+
+.landing-section {
+    min-height: 700px;
+}

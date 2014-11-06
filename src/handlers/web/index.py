@@ -35,8 +35,17 @@ class LandingPage(WebRequestHandler):
 
         self.write(self.get_rendered_html(path, template_values), 200)
 
+class NewLandingPage(WebRequestHandler):
+    def get(self):
+        path = 'landing_new.html'
+        template_values = {}
+        template_values['no_navbar_onload'] = True
+
+        self.write(self.get_rendered_html(path, template_values), 200)
+
 app = webapp2.WSGIApplication(
     [
+        ('/new_home', NewLandingPage),
         ('/', LandingPage)
     ]
 )
