@@ -61,7 +61,10 @@ body a {
 
 @media (min-width: 992px) {
     .container {
-        width: 960px;
+        //width: 960px;
+        margin: 0px;
+        width: 100%;
+        padding: 0px;
     }
 }
 
@@ -280,4 +283,12 @@ margin-bottom: 10px;
 
 .base-nav .navbar-collapse.collapse, .base-nav .navbar-collapse.collapse ul, .base-nav .navbar-collapse.collapse li {
     height: 100% !important;
+}
+
+.row {
+    margin: 0px;
+}
+
+.row [class*=col-] {
+    padding: 0px;
 }

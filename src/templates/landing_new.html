@@ -5,97 +5,99 @@
 {% endblock %}
 
 {% block Content %}
-    <div id="section-1" class="landing-section">
-        <div class="row">
-            <div class="col-lg-12">
-                <img src="/assets/img/pirates.png" class="landing-pirate-img pull-left">
+    <div class="col-lg-12">
+        <div id="section-1" class="landing-section">
+            <div class="row">
+                <div class="col-lg-12">
+                    <img src="/assets/img/pirates.png" class="landing-pirate-img pull-left">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="blue-font lead center-align landing-section1-copy">All great products are built by small teams of pirates</p>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <p class="blue-font lead center-align landing-section1-copy">All great products are built by small teams of pirates</p>
+        <div id="section-2" class="landing-section blue-background">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="white-font lead center-align landing-copy">Pirates are small teams of engineers and designers unburdened by the chains of legacy</p>
+                </div>
             </div>
-        </div>
-    </div>
-    <div id="section-2" class="landing-section blue-background">
-        <div class="row">
-            <div class="col-lg-12">
-                <p class="white-font lead center-align landing-copy">Pirates are small teams of engineers and designers unburdened by the chains of legacy</p>
+            <div class="row section2-icons">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8">
+                    {% with icons=startup_icons %}
+                        {% if icons.icons_first %}
+                            <div class="col-lg-6">
+                                {% for button in icons.buttons %}
+                                    <div class="row footer-button-row">
+                                        <div class="col-lg-12">
+                                            <a href="{{button.link}}" class="btn btn-bootflat sd-btn"><span class="network-name">{{button.name}}</span></a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-lg-6">
+                                <p class="landing-selection landing-big-font">{{icons.title}}</p>
+                                <p class="landing-selection landing-small-font">{{icons.description}}</p>
+                            </div>
+                        {% else %}
+                            <div class="col-lg-6">
+                                <p class="landing-selection landing-big-font">{{icons.title}}</p>
+                                <p class="landing-selection landing-small-font">{{icons.description}}</p>
+                            </div>
+                            <div class="col-lg-6">
+                                {% for button in icons.buttons %}
+                                    <div class="row footer-button-row">
+                                        <div class="col-lg-12">
+                                            <a href="{{button.link}}" class="btn btn-bootflat sd-btn"><span class="network-name">{{button.name}}</span></a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <div class="col-lg-2"></div>
             </div>
-        </div>
-        <div class="row section2-icons">
-            <div class="col-lg-2"></div>
-            <div class="col-lg-8">
-                {% with icons=startup_icons %}
-                    {% if icons.icons_first %}
-                        <div class="col-lg-6">
-                            {% for button in icons.buttons %}
-                                <div class="row footer-button-row">
-                                    <div class="col-lg-12">
-                                        <a href="{{button.link}}" class="btn btn-bootflat sd-btn"><span class="network-name">{{button.name}}</span></a>
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8">
+                    {% with icons=enterprise_icons %}
+                        {% if icons.icons_first %}
+                            <div class="col-lg-6">
+                                {% for button in icons.buttons %}
+                                    <div class="row footer-button-row">
+                                        <div class="col-lg-12">
+                                            <a href="{{button.link}}" class="btn btn-bootflat sd-btn"><span class="network-name">{{button.name}}</span></a>
+                                        </div>
                                     </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                        <div class="col-lg-6">
-                            <p class="landing-selection landing-big-font">{{icons.title}}</p>
-                            <p class="landing-selection landing-small-font">{{icons.description}}</p>
-                        </div>
-                    {% else %}
-                        <div class="col-lg-6">
-                            <p class="landing-selection landing-big-font">{{icons.title}}</p>
-                            <p class="landing-selection landing-small-font">{{icons.description}}</p>
-                        </div>
-                        <div class="col-lg-6">
-                            {% for button in icons.buttons %}
-                                <div class="row footer-button-row">
-                                    <div class="col-lg-12">
-                                        <a href="{{button.link}}" class="btn btn-bootflat sd-btn"><span class="network-name">{{button.name}}</span></a>
+                                {% endfor %}
+                            </div>
+                            <div class="col-lg-6">
+                                <p class="landing-selection landing-big-font">{{icons.title}}</p>
+                                <p class="landing-selection landing-small-font">{{icons.description}}</p>
+                            </div>
+                        {% else %}
+                            <div class="col-lg-6">
+                                <p class="landing-selection landing-big-font">{{icons.title}}</p>
+                                <p class="landing-selection landing-small-font">{{icons.description}}</p>
+                            </div>
+                            <div class="col-lg-6">
+                                {% for button in icons.buttons %}
+                                    <div class="row footer-button-row">
+                                        <div class="col-lg-12">
+                                            <a href="{{button.link}}" class="btn btn-bootflat sd-btn"><span class="network-name">{{button.name}}</span></a>
+                                        </div>
                                     </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                {% endwith %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <div class="col-lg-2"></div>
             </div>
-            <div class="col-lg-2"></div>
-        </div>
-        <div class="row">
-            <div class="col-lg-2"></div>
-            <div class="col-lg-8">
-                {% with icons=enterprise_icons %}
-                    {% if icons.icons_first %}
-                        <div class="col-lg-6">
-                            {% for button in icons.buttons %}
-                                <div class="row footer-button-row">
-                                    <div class="col-lg-12">
-                                        <a href="{{button.link}}" class="btn btn-bootflat sd-btn"><span class="network-name">{{button.name}}</span></a>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                        <div class="col-lg-6">
-                            <p class="landing-selection landing-big-font">{{icons.title}}</p>
-                            <p class="landing-selection landing-small-font">{{icons.description}}</p>
-                        </div>
-                    {% else %}
-                        <div class="col-lg-6">
-                            <p class="landing-selection landing-big-font">{{icons.title}}</p>
-                            <p class="landing-selection landing-small-font">{{icons.description}}</p>
-                        </div>
-                        <div class="col-lg-6">
-                            {% for button in icons.buttons %}
-                                <div class="row footer-button-row">
-                                    <div class="col-lg-12">
-                                        <a href="{{button.link}}" class="btn btn-bootflat sd-btn"><span class="network-name">{{button.name}}</span></a>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                {% endwith %}
-            </div>
-            <div class="col-lg-2"></div>
         </div>
     </div>
 {% endblock %}

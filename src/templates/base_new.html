@@ -20,7 +20,7 @@
         <header class="header {% if no_navbar_onload %}no-navbar{% endif %} white-background">
             <div>
             {% block Navbar %}
-                <div class="{% if not no_navbar_onload %}container{% endif %} base-nav">
+                <div class="container base-nav">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                             <span class="icon-bar"></span>
@@ -51,7 +51,7 @@
             </div>
         </header>
         <div class="content {% if not no_navbar_onload %}nav-offset{% endif %}">
-            <div class="{% if not no_navbar_onload %}container{% endif %}">
+            <div class="container">
                 <div class="row">
                     {% block Content %}{% endblock %}
                 </div>
