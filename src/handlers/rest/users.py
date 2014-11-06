@@ -139,10 +139,6 @@ def modify_session(email):
 
 
 class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
-    def create_company_member(self, email, company_id):
-        company = Company.get_by_id(company_id)
-        CompanyMember(parent=company, is_admin=False, user_id=email).put()
-
     def user_exists(self):
         email = self['email']
         user = User.get_by_key_name(email)
@@ -197,10 +193,6 @@ class MemberProfileUpdateHandler(blobstore_handlers.BlobstoreUploadHandler, Requ
         self.redirect('/member/profile')
 
 class MemberVerificationHandler(WebRequestHandler):
-    def create_company_member(self, email, company_id):
-        company = Company.get_by_id(company_id)
-        CompanyMember(parent=company, is_admin=False, user_id=email).put()
-
     @web_auth_required
     def post(self):
         redirect_url = get_redirect_url_from_session()
@@ -208,8 +200,6 @@ class MemberVerificationHandler(WebRequestHandler):
         user = User.get_by_key_name(email)
         company_id = get_company_id_from_session()
         if check_password_hash(self['password'], user.password):
-            if company_id and InvitedMember.is_invited(email, company_id):
-                self.create_company_member(email, company_id)
             create_tpld(email, self['network'])
             modify_session(email)
             self.redirect(redirect_url)
