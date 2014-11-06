@@ -22,7 +22,7 @@ body a {
 }
 
 .landing-big-font {
-    color: #434A54;
+    color: white;
     font-size: 35px;
     font-weight: 700;
 }
@@ -92,13 +92,13 @@ body a {
 }
 
 .navbar {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 1);
 }
 
 .btn-bootflat {
-    color: rgb(59, 175, 218);
+    color: white;
     background-color: transparent;
-    border-color: #3bafda;
+    border-color: white;
     transition: 0.1s background-color linear;
     height: 44px;
     width: 200px;
@@ -110,9 +110,9 @@ body a {
 }
 
 .btn-bootflat:hover, .btn-bootflat:active {
-    background-color: #3bafda;
-    color: #ffffff;
-    border-color: #3bafda;
+    background-color: white;
+    color: #22A7F0;
+    border-color: white;
 }
 
 .input-group-addon {
@@ -172,12 +172,13 @@ a small {
 
 .footer-button-row {
     margin: 30px;
+    text-align: center;
 }
 
 .header {
     //padding-top: 16px;
     //padding-bottom: 16px;
-    border-bottom: solid 1px #f2f2f2;
+    //border-bottom: solid 1px #f2f2f2;
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
     position: fixed;
@@ -193,8 +194,7 @@ a small {
     }
 
     .scrolled .header {
-        border-bottom-color: #f2f2f2;
-        background-color: rgba(255,255,255,0.9);
+        background-color: rgba(255,255,255,1);
     }
 }
 
@@ -267,6 +267,10 @@ margin-bottom: 10px;
 
 .blue-background {
     background-color: #22A7F0;
+}
+
+.white-background {
+    background-color: #FFFFFF;
 }
 
 .base-nav {

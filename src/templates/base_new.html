@@ -17,7 +17,7 @@
     </head>
 
     <body>
-        <header class="header {% if no_navbar_onload %}no-navbar{% endif %} blue-background">
+        <header class="header {% if no_navbar_onload %}no-navbar{% endif %} white-background">
             <div>
             {% block Navbar %}
                 <div class="{% if not no_navbar_onload %}container{% endif %} base-nav">
@@ -34,14 +34,14 @@
                             {% if hide_navbar_join != 'true' %}
                                 <li id="nav-section-1"><a href="#section-1">HOME</a></li>
                                 <li id="nav-section-2"><a href="#section-2">STARTUPS</a></li>
-                                <!--<li><a href="/startups/registration">Add Your Startup</a></li>-->
+                                <li><a href="/startups/registration">ADD STARTUP</a></li>
                             {% endif %}
                             {% if hide_navbar_login != 'true' %}
                                 {% if false|is_user_logged_in %}
-                                    <!--<li><a href="/member/profile">Profile</a></li>-->
-                                    <!--<li><a href="/member/logout">Log Out</a></li>-->
+                                    <li><a href="/member/profile">PROFILE</a></li>
+                                    <li><a href="/member/logout">LOG OUT</a></li>
                                 {% else %}
-                                    <!--<li><a href="/member/login?redirect_url=/">Log In</a></li>-->
+                                    <li><a href="/member/login?redirect_url=/">LOG IN</a></li>
                                 {% endif %}
                             {% endif %}
                         </ul>

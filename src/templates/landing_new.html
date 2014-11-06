@@ -23,6 +23,80 @@
                 <p class="white-font lead center-align landing-copy">Pirates are small teams of engineers and designers unburdened by the chains of legacy</p>
             </div>
         </div>
+        <div class="row section2-icons">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                {% with icons=startup_icons %}
+                    {% if icons.icons_first %}
+                        <div class="col-lg-6">
+                            {% for button in icons.buttons %}
+                                <div class="row footer-button-row">
+                                    <div class="col-lg-12">
+                                        <a href="{{button.link}}" class="btn btn-bootflat sd-btn"><span class="network-name">{{button.name}}</span></a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-lg-6">
+                            <p class="landing-selection landing-big-font">{{icons.title}}</p>
+                            <p class="landing-selection landing-small-font">{{icons.description}}</p>
+                        </div>
+                    {% else %}
+                        <div class="col-lg-6">
+                            <p class="landing-selection landing-big-font">{{icons.title}}</p>
+                            <p class="landing-selection landing-small-font">{{icons.description}}</p>
+                        </div>
+                        <div class="col-lg-6">
+                            {% for button in icons.buttons %}
+                                <div class="row footer-button-row">
+                                    <div class="col-lg-12">
+                                        <a href="{{button.link}}" class="btn btn-bootflat sd-btn"><span class="network-name">{{button.name}}</span></a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                {% with icons=enterprise_icons %}
+                    {% if icons.icons_first %}
+                        <div class="col-lg-6">
+                            {% for button in icons.buttons %}
+                                <div class="row footer-button-row">
+                                    <div class="col-lg-12">
+                                        <a href="{{button.link}}" class="btn btn-bootflat sd-btn"><span class="network-name">{{button.name}}</span></a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-lg-6">
+                            <p class="landing-selection landing-big-font">{{icons.title}}</p>
+                            <p class="landing-selection landing-small-font">{{icons.description}}</p>
+                        </div>
+                    {% else %}
+                        <div class="col-lg-6">
+                            <p class="landing-selection landing-big-font">{{icons.title}}</p>
+                            <p class="landing-selection landing-small-font">{{icons.description}}</p>
+                        </div>
+                        <div class="col-lg-6">
+                            {% for button in icons.buttons %}
+                                <div class="row footer-button-row">
+                                    <div class="col-lg-12">
+                                        <a href="{{button.link}}" class="btn btn-bootflat sd-btn"><span class="network-name">{{button.name}}</span></a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
     </div>
 {% endblock %}
 

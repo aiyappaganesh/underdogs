@@ -11,9 +11,13 @@
 }
 
 .landing-copy {
-    margin-top: 250px;
+    margin-top: 150px;
 }
 
 .landing-section {
     min-height: 700px;
+}
+
+.section2-icons {
+    padding-top: 30px;
 }
