@@ -21,30 +21,32 @@
             <div>
             {% block Navbar %}
                 <div class="container base-nav">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="/new_home"><img src="/assets/img/logo.png"></a>
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            {% if hide_navbar_join != 'true' %}
-                                <li id="nav-section-1"><a href="#section-1">HOME</a></li>
-                                <li id="nav-section-2"><a href="#section-2">STARTUPS</a></li>
-                                <li><a href="/startups/registration">ADD STARTUP</a></li>
-                            {% endif %}
-                            {% if hide_navbar_login != 'true' %}
-                                {% if false|is_user_logged_in %}
-                                    <li><a href="/member/profile">PROFILE</a></li>
-                                    <li><a href="/member/logout">LOG OUT</a></li>
-                                {% else %}
-                                    <li><a href="/member/login?redirect_url=/">LOG IN</a></li>
+                    <div class="nav-content">
+                        <div class="nav-icon">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a href="/new_home"><img src="/assets/img/pirates_nav.png"></a>
+                        </div>
+                        <div class="nav-menubar">
+                            <ul class="nav navbar-nav">
+                                {% if hide_navbar_join != 'true' %}
+                                    <li id="nav-section-1"><a href="#section-1">HOME</a></li>
+                                    <li id="nav-section-2"><a href="#section-2">STARTUPS</a></li>
+                                    <!--<li><a href="/startups/registration">ADD STARTUP</a></li>-->
                                 {% endif %}
-                            {% endif %}
-                        </ul>
+                                {% if hide_navbar_login != 'true' %}
+                                    {% if false|is_user_logged_in %}
+                                        <!--<li><a href="/member/profile">PROFILE</a></li>-->
+                                        <!--<li><a href="/member/logout">LOG OUT</a></li>-->
+                                    {% else %}
+                                        <!--<li><a href="/member/login?redirect_url=/">LOG IN</a></li>-->
+                                    {% endif %}
+                                {% endif %}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             {% endblock %}

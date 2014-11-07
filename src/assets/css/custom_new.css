@@ -277,8 +277,8 @@ margin-bottom: 10px;
 }
 
 .base-nav {
-    height: 83px;
-    padding-top: 13px;
+    height: 50px;
+    text-align: center;
 }
 
 .base-nav .navbar-collapse.collapse, .base-nav .navbar-collapse.collapse ul, .base-nav .navbar-collapse.collapse li {
@@ -291,4 +291,21 @@ margin-bottom: 10px;
 
 .row [class*=col-] {
     padding: 0px;
+}
+
+.nav-icon {
+    display: inline-block;
+}
+
+.nav-icon a {
+    display: table;
+}
+
+.nav-menubar {
+    display: inline-block;
+}
+
+.nav-content {
+    width: auto;
+    margin: auto;
 }
