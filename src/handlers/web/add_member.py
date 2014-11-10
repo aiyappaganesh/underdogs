@@ -17,7 +17,7 @@ from util.util import isAdminAccess
 from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
 from handlers.web.auth import web_auth_required
-from util.util import registration_breadcrumbs, get_user_companies, get_user_projects, get_user, convert_string_list_to_dict, recaptcha_client, get_captcha_markup
+from util.util import registration_breadcrumbs, get_user_companies, get_user_projects, get_user, convert_string_list_to_dict, recaptcha_client, get_captcha_markup, flush_from_memcache
 from networks import LINKEDIN, FACEBOOK, TWITTER
 from model.third_party_login_data import ThirdPartyLoginData
 from model.third_party_profile_data import ThirdPartyProfileData
@@ -98,6 +98,7 @@ class MemberLoginPageHandler(WebRequestHandler):
 class MemberLogoutPageHandler(WebRequestHandler):
     def get(self):
         session = get_current_session()
+        flush_from_memcache(session['me_email'])
         session.terminate()
         self.redirect('/')
 

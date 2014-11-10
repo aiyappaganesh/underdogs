@@ -28,6 +28,12 @@ def is_user_in_db(email):
         add_user_to_memcache(email)
     return True
 
+def flush_from_memcache(email):
+    users_in_memcache = memcache.get('users')
+    if users_in_memcache and email in users_in_memcache:
+        users_in_memcache.remove(email)
+        memcache.set('users', users_in_memcache)
+
 def is_user_in_memcache(email):
     users_in_memcache = memcache.get('users')
     if not users_in_memcache or not len(users_in_memcache) > 0 or not email in users_in_memcache:
