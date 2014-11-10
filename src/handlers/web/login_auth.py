@@ -19,7 +19,7 @@ from model.user import User
 from model.company import Company
 from model.company_members import CompanyMember
 from model.signedup_member import SignedUpMember
-from util.util import get_redirect_url_from_session, get_user, recaptcha_client, validate_captcha, get_company_id_from_session
+from util import util
 
 class LoginAuth():
     def __init__(self):
@@ -161,13 +161,18 @@ class ThirdPartyLoginSuccessHandler(WebRequestHandler):
         company = Company.get_by_id(int(company_id))
         CompanyMember(parent=company, is_admin=False, user_id=email).put()
 
+    def save_in_memcache(self):
+        session = get_current_session()
+        util.add_user_to_memcache(session['me_email'])
+
     def get(self):
         handler = LoginAuth.get_handler_obj(self['network'])
         at = handler.exchange_accesstoken(self)
         user_id, profile_image_url = handler.verify_at(at)
-        redirect_url = get_redirect_url_from_session()
+        redirect_url = util.get_redirect_url_from_session()
         if self.is_user_created(user_id):
             self.login_user(user_id)
+            self.save_in_memcache()
             self.redirect(redirect_url)
         else:
             self.authenticate_user(user_id)
@@ -182,13 +187,15 @@ class CustomLoginHandler(WebRequestHandler):
         curr_session['me_name'] = User.get_by_key_name(self['email']).name
 
     def post(self):
-        user = get_user(self['email'])
+        email = self['email']
+        user = util.get_user(email)
         if not user:
             rd_url = '/member/check_email'
         else:
-            rd_url = get_redirect_url_from_session()
+            rd_url = util.get_redirect_url_from_session()
             if check_password_hash(self['password'], user.password):
                 self.login_user()
+                util.add_user_to_memcache(email)
             else:
                 session = get_current_session()
                 session.terminate()
@@ -201,12 +208,12 @@ class VerifyEmailHandler(WebRequestHandler):
         challenge = self['recaptcha_challenge_field']
         solution = self['recaptcha_response_field']
         remote_ip = self.request.remote_addr
-        is_solution_correct = validate_captcha(solution, challenge, remote_ip)
+        is_solution_correct = util.validate_captcha(solution, challenge, remote_ip)
         if is_solution_correct:
             if SignedUpMember.is_signedup(email):
                 rd_url = '/member/check_email?signup=true'
             else:
-                user = get_user(email)
+                user = util.get_user(email)
                 if not user:
                     SignedUpMember.create(email)
                     self.send_subscription_email(self['email'])

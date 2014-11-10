@@ -9,7 +9,7 @@ from google.appengine.ext.webapp import blobstore_handlers
 from model.third_party_user import ThirdPartyUser
 from networks import GITHUB, LINKEDIN, ANGELLIST
 from user_data import github, linkedin, angellist
-from util.util import isAdminAccess, get_redirect_url_from_session
+from util import util
 from handlers.web.web_request_handler import WebRequestHandler
 from google.appengine.api import mail
 from handlers.web.auth import web_login_required, web_auth_required
@@ -88,7 +88,7 @@ class MemberInviteHandler(WebRequestHandler):
     def post(self):
         email = self['email']
         company_id = int(self['company_id'])
-        if not isAdminAccess(self):
+        if not util.isAdminAccess(self):
             return
         challenge = self['recaptcha_challenge_field']
         solution = self['recaptcha_response_field']
@@ -172,7 +172,8 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
             if self['network'] != 'custom':
                 create_tpld(email, self['network'])
             modify_session(email)
-            redirect_url = get_redirect_url_from_session()
+            util.add_user_to_memcache(email)
+            redirect_url = util.get_redirect_url_from_session()
             self.redirect(redirect_url)
         else:
             self.redirect('/member/already_exists?email=' + email + '&network=' + self['network'])
@@ -195,7 +196,7 @@ class MemberProfileUpdateHandler(blobstore_handlers.BlobstoreUploadHandler, Requ
 class MemberVerificationHandler(WebRequestHandler):
     @web_auth_required
     def post(self):
-        redirect_url = get_redirect_url_from_session()
+        redirect_url = util.get_redirect_url_from_session()
         email = self['email']
         user = User.get_by_key_name(email)
         if check_password_hash(self['password'], user.password):
