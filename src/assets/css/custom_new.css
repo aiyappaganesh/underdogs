@@ -294,7 +294,12 @@ margin-bottom: 10px;
 }
 
 .nav-icon {
-    display: inline-block;
+    margin: 0px !important;
+}
+
+#nav-icon, #navbar-menu, #nav-icon a {
+    -webkit-transition: all 0.75s ease;
+    transition: all 0.75s ease;
 }
 
 .nav-icon a {
@@ -302,10 +307,27 @@ margin-bottom: 10px;
 }
 
 .nav-menubar {
-    display: inline-block;
+    margin: 0px !important;
 }
 
 .nav-content {
     width: auto;
     margin: auto;
+}
+
+.pull-icon-right {
+    margin-left: 90%;
+}
+
+.pull-navmenu-right {
+    margin-left: 0px !important;
+    opacity: 1 !important;
+}
+
+.navbar-nav {
+    opacity: 0;
+    margin-left: 251px;
+    float: none !important;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
