@@ -21,7 +21,7 @@ from model.user import User
 from networks import GITHUB, ANGELLIST, LINKEDIN, FACEBOOK
 from handlers import RequestHandler
 from gaesessions import get_current_session
-from util.util import separator
+from util import util
 from user_data.linkedin import pull_profile_data as linkedin_profile_data_pull
 from user_data.angellist import pull_profile_data as angellist_profile_data_pull
 
@@ -43,6 +43,9 @@ def _user_logged_in(handler):
     session = get_current_session()
     if session.is_active() and 'me_email' in session:
         if 'auth_only' in session:
+            session.terminate()
+            return False
+        if not util.is_user_in_db(session['me_email']):
             session.terminate()
             return False
         else:
@@ -117,7 +120,7 @@ class Auth(object):
         return response.split('&')[0].split('=')[1]
 
     def save_user(self, access_token, company_id, user_id):
-        key_name = self.network + separator + str(company_id) + separator + str(user_id)
+        key_name = self.network + util.separator + str(company_id) + util.separator + str(user_id)
         tp_user = ThirdPartyUser(key_name=key_name, access_token=access_token)
         tp_user.put()
         return tp_user

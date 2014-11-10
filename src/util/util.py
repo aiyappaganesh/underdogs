@@ -8,6 +8,7 @@ from model.skill import Skill
 from gaesessions import get_current_session
 from model.third_party_login_data import ThirdPartyLoginData
 from recaptcha import RecaptchaClient
+from google.appengine.api import memcache
 
 RECAPTCHA_PUBLIC_KEY = '6LeA6PwSAAAAAOeT-mnBNsppSoKgygqv1xqChz2s'
 RECAPTCHA_PRIVATE_KEY = '6LeA6PwSAAAAAB9Wv1qmmnxnsZySbb8nQwdqUvbv'
@@ -19,6 +20,27 @@ registration_breadcrumbs = [('Get started', 'Tell us about your startup!'),
                             ('Give us access to your data', 'Help us learn more about you')]
 
 separator = '::'
+
+def is_user_in_db(email):
+    if not is_user_in_memcache(email):
+        if not User.get_by_key_name(email):
+            return False
+        add_user_to_memcache(email)
+    return True
+
+def is_user_in_memcache(email):
+    users_in_memcache = memcache.get('users')
+    if not users_in_memcache or not len(users_in_memcache) > 0 or not email in users_in_memcache:
+        return False
+    return True
+
+def add_user_to_memcache(email):
+    users_in_memcache = memcache.get('users')
+    if not users_in_memcache:
+        users_in_memcache = [email]
+    else:
+        users_in_memcache.append(email)
+    memcache.set('users', users_in_memcache)
 
 def isAdminAccess(req_handler):
     session = get_current_session()
