@@ -9,6 +9,7 @@ from model.company_members import CompanyMember
 from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
 
+
 class AddCompanyPage(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
     def read_image(self):
         image = self.get_uploads("company_image")
@@ -33,9 +34,35 @@ class AddCompanyPage(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
     def post(self):
         image_key = self.read_image()
         c = self.create_company(image_key)
-        adming = self.create_company_admin(c)
+        self.create_company_admin(c)
         self.redirect('/member/invite?company_id=' + str(c.key().id()))
 
+
+class UpdateCompanyPage(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
+    def read_image(self):
+        image = self.get_uploads("company_image")
+        image_key = self['image_key']
+        if image:
+            image_key = str(image[0].key())
+        return image_key
+
+    def update_company(self):
+        company_id = int(str(self['company_id']))
+        c = Company.get_by_id(company_id)
+        if c:
+            c.name = self['company_name']
+            c.email = self['InputEmail']
+            c.details = self['InputMessage']
+            c.hello = self['hello']
+            c.image = self.read_image()
+            c.put()
+
+    @web_login_required
+    def post(self):
+        self.update_company()
+        self.redirect('/member/companies/dashboard')
+
 app = RestApplication([
-    ('/api/startups/add_company', AddCompanyPage)
+    ('/api/startups/add_company', AddCompanyPage),
+    ('/api/startups/update_company', UpdateCompanyPage)
 ])

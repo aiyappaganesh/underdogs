@@ -29,6 +29,27 @@ class StartupsRegistrationPage(WebRequestHandler):
                            'breadcrumbs':registration_breadcrumbs}
         self.write(self.get_rendered_html(path, template_values), 200)
 
+class StartupsEditPage(WebRequestHandler):
+    def prepare_company_json(self, id):
+        company = Company.get_by_id(id)
+        company_json = {}
+        company_json['id'] = id
+        company_json['name'] = company.name
+        company_json['image'] = '/api/common/download_image/'+company.image
+        company_json['image_key'] = company.image
+        company_json['hello'] = company.hello
+        company_json['details'] = company.details
+        return company_json
+
+    @web_login_required
+    def get(self):
+        path = 'startup_edit.html'
+        company_id = int(str(self['company_id']))
+        company_json = self.prepare_company_json(company_id)
+        form_url = blobstore.create_upload_url('/api/startups/update_company')
+        template_values = {'form_url': form_url, 'company':company_json}
+        self.write(self.get_rendered_html(path, template_values), 200)
+
 class StartupsCriteriaPage(WebRequestHandler):
     def prepare_projects(self, projects):
         project_options = []
@@ -93,6 +114,7 @@ class StartupsListingPage(WebRequestHandler):
 app = webapp2.WSGIApplication(
     [
         ('/startups/registration', StartupsRegistrationPage),
+        ('/startups/edit', StartupsEditPage),
         ('/startups/search/criteria', StartupsCriteriaPage),
         ('/startups/listing', StartupsListingPage),
         ('/startups', StartupsPage)

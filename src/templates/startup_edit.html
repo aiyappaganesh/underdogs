@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block Styles %}
+    <link href="/assets/css/jasny-bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="/assets/css/registration.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block Navbar %}
+  {% with hide_navbar_join='true' %}
+  {{block.super}}
+  {% endwith %}
+{% endblock %}
+
+{% block Content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h3 class="center-align">Edit Company Info</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="tab-content">
+                    <div class="tab-pane fade active in">
+                        <form role="form" action={{form_url}} method="POST" enctype="multipart/form-data" class="startup-registration-form top-padding-sm">
+                            <div class="col-lg-12">
+                                {% include "components/form_input.html" with id="company-name" name="company_name" placeholder="Company Name" value=company.name %}
+                                {% include "components/form_image.html" with name="company_image" button_text="Select Image" image=company.image %}
+                                {% include "components/form_input.html" with id="hello" name="hello" placeholder="Have them at hello!" value=company.hello %}
+                                {% include "components/form_input.html" with id="website" name="website" placeholder="Website" %}
+                                {% include "components/form_textarea.html" with id="InputMessage" name="InputMessage" placeholder="What makes your company different?" rows="5" label_text="Profile" value=company.details %}
+                                {% include "components/form_input.html" with id="geo-location" name="geo_location" placeholder="Enter your address" other="onFocus='geolocate()' onfocusout='needMap()'" %}
+                                <div id="company-map" class="company-map input-container"></div>
+                                {% include "components/form_input.html" with id="tags" name="tags" placeholder="Tags" %}
+                                <input type="hidden" id="image-key" name="image_key" value="{{company.image_key}}">
+                                <input type="hidden" id="company-id" name="company_id" value="{{company.id}}">
+                                {% include "components/form_submit.html" with value="Update Company" %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block Scripts %}
+    <script src="/assets/js/fileinput.js"></script>
+    <script src="/assets/js/jasny-bootstrap.js"></script>
+    <!--<script src="/assets/js/google-places.js"></script>-->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+    <script type="text/javascript">
+        var placeSearch, autocomplete;
+        var componentForm = {
+          street_number: 'short_name',
+          route: 'long_name',
+          locality: 'long_name',
+          administrative_area_level_1: 'short_name',
+          country: 'long_name',
+          postal_code: 'short_name'
+        };
+
+        function initialize() {
+          // Create the autocomplete object, restricting the search
+          // to geographical location types.
+          autocomplete = new google.maps.places.Autocomplete(
+              (document.getElementById('geo-location')),
+              { types: [] });
+          // When the user selects an address from the dropdown,
+          // populate the address fields in the form.
+          google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            var place = autocomplete.getPlace();
+            initialize_company_map(place);
+            //fillInAddress();
+          });
+        }
+
+        // Bias the autocomplete object to the user's geographical location,
+        // as supplied by the browser's 'navigator.geolocation' object.
+        function geolocate() {
+          if (navigator.geolocation) {
+            initialize();
+            navigator.geolocation.getCurrentPosition(function(position) {
+              var geolocation = new google.maps.LatLng(
+                  position.coords.latitude, position.coords.longitude);
+              autocomplete.setBounds(new google.maps.LatLngBounds(geolocation,
+                  geolocation));
+            });
+          }
+        }
+
+        function needMap() {
+            if($('#geo-location').val() == '') {
+                $('#company-map').hide();
+            }
+        }
+
+        function initialize_company_map(place) {
+            $('#company-map').show();
+            map = new google.maps.Map(document.getElementById("company-map"), {
+                center: place.geometry.location,
+                zoom: 17,
+                zoomControlOptions: {
+                    style: google.maps.ZoomControlStyle.DEFAULT,
+                    position: google.maps.ControlPosition.RIGHT_BOTTOM
+                }
+            });
+            var marker = new google.maps.Marker({
+                map: map
+              });
+            marker.setPosition(place.geometry.location);
+            marker.setVisible(true);
+        }
+    </script>
+{% endblock %}
