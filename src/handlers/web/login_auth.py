@@ -60,13 +60,11 @@ class FacebookAuth(LoginAuth):
             at = self.parse_at(response)
         return at
 
-    def verify_at(self, at):
-        app_at_url = 'https://graph.facebook.com/oauth/access_token?client_id=%s&client_secret=%s&grant_type=client_credentials'
-        response = urlfetch.fetch(app_at_url%(self.config['client_id'], self.config['client_secret'])).content
-        app_at = response.split('=')[1]
-        debug_url = 'https://graph.facebook.com/debug_token?input_token=%s&access_token=%s'
-        response = json.loads(urlfetch.fetch(debug_url%(at, app_at)).content)
-        return response['data']['user_id'], 'http://graph.facebook.com/'+response['data']['user_id']+'/picture?height=100&width=100'
+    def get_id_and_picture(self, at):
+        profile_url = 'https://graph.facebook.com/me?access_token=%s'
+        response = json.loads(urlfetch.fetch(profile_url%at).content)
+        user_id = response['id']
+        return user_id, 'http://graph.facebook.com/' + user_id +'/picture?height=100&width=100'
 
 class TwitterAuth(LoginAuth):
     def __init__(self):
@@ -87,7 +85,7 @@ class TwitterAuth(LoginAuth):
         get_current_session()['__tmp_twitter_tokens__'] = (at, ts)
         return at
 
-    def verify_at(self, at):
+    def get_id_and_picture(self, at):
         temp_at, ts = get_current_session()['__tmp_twitter_tokens__']
         tw = Twitter(self.config['consumer_key'],
                      self.config['consumer_secret'],
@@ -113,7 +111,7 @@ class LinkedinAuth(LoginAuth):
         response = json.loads(urlfetch.fetch(url, method=urlfetch.POST).content)
         return response['access_token']
 
-    def verify_at(self, at):
+    def get_id_and_picture(self, at):
         url = 'https://api.linkedin.com/v1/people/~:(id,picture-url)?scope=r_basicprofile&format=json&oauth2_access_token=' + at
         content = urlfetch.fetch(url).content
         response = json.loads(content)
@@ -168,7 +166,7 @@ class ThirdPartyLoginSuccessHandler(WebRequestHandler):
     def get(self):
         handler = LoginAuth.get_handler_obj(self['network'])
         at = handler.exchange_accesstoken(self)
-        user_id, profile_image_url = handler.verify_at(at)
+        user_id, profile_image_url = handler.get_id_and_picture(at)
         redirect_url = util.get_redirect_url_from_session()
         if self.is_user_created(user_id):
             self.login_user(user_id)
