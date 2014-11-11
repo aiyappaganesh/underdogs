@@ -59,7 +59,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h3>{{name}}</h3>
-                <a href="/startups/edit?company_id={{company_id}}"><h6 class="page-header">EDIT STARTUP</h6></a>
+                {% ifequal access_type "admin" %}<a href="/startups/edit?company_id={{company_id}}"><h6 class="page-header">EDIT STARTUP</h6></a>{% endifequal %}
                 <div class="row page-header">
                     <div class="col-lg-4">
                         <div class="donut_td">

@@ -8,6 +8,7 @@ from model.user import User
 from model.company_members import CompanyMember
 from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
+from util.util import isAdminAccess
 
 
 class AddCompanyPage(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
@@ -54,11 +55,15 @@ class UpdateCompanyPage(blobstore_handlers.BlobstoreUploadHandler, RequestHandle
             c.email = self['InputEmail']
             c.details = self['InputMessage']
             c.hello = self['hello']
-            c.image = self.read_image()
+            image = self.read_image()
+            if image:
+                c.image = image
             c.put()
 
     @web_login_required
     def post(self):
+        if not isAdminAccess(self):
+            return
         self.update_company()
         self.redirect('/member/companies/dashboard')
 

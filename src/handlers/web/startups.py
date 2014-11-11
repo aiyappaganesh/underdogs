@@ -6,7 +6,7 @@ from google.appengine.api.blobstore import blobstore
 from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
 from util.util import registration_breadcrumbs
-from util.util import get_user_projects
+from util.util import get_user_projects, isAdminAccess
 from model.skills.defn import skills_heirarchy
 from model.project import Project
 
@@ -35,14 +35,17 @@ class StartupsEditPage(WebRequestHandler):
         company_json = {}
         company_json['id'] = id
         company_json['name'] = company.name
-        company_json['image'] = '/api/common/download_image/'+company.image
-        company_json['image_key'] = company.image
+        if company.image:
+            company_json['image'] = '/api/common/download_image/'+company.image
+            company_json['image_key'] = company.image
         company_json['hello'] = company.hello
         company_json['details'] = company.details
         return company_json
 
     @web_login_required
     def get(self):
+        if not isAdminAccess(self):
+            return
         path = 'startup_edit.html'
         company_id = int(str(self['company_id']))
         company_json = self.prepare_company_json(company_id)
