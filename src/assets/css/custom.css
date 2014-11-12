@@ -27,8 +27,14 @@ body a {
     font-weight: 700;
 }
 
+.landing-medium-font-dark {
+    color: #434A54;
+    font-size: 20px;
+    font-weight: 500;
+}
+
 .landing-small-font {
-    color: #E6E9ED;
+    color: #AAB2BD;
     font-size: 15px;
     font-weight: 500;
 }
@@ -86,13 +92,17 @@ body a {
     background-color: #f8f9fa;
 }
 
-.scores-table tbody tr {
-    background-color: #fff;
-    border-bottom: 1px solid #eee;
+.scores-table tbody td {
+    margin: 0px !important;
+    padding: 5px !important;
 }
 
 .navbar {
     background-color: rgba(255, 255, 255, 0.9);
+}
+
+.uppercase {
+    text-transform: uppercase;
 }
 
 .btn-bootflat {
@@ -158,8 +168,13 @@ a small {
 }
 
 .company-img {
-    max-height: 150px;
-    min-height: 150px;
+    max-height: 100px !important;
+    min-height: 100px !important;
+}
+
+.company-dashboard-thumbnail>img {
+    max-height: 100px !important;
+    max-width: 100px !important;
 }
 
 .center-align {
@@ -255,4 +270,8 @@ margin-bottom: 10px;
 .expertise-td-donut {
     padding-top: 6px;
     margin-bottom: 0px !important;
+}
+
+.navbar-nav li {
+    font-weight: 100 !important;
 }

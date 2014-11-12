@@ -6,7 +6,7 @@
 
 {% block Content %}
     <div class="col-lg-12">
-        <h3 class="page-header">Startups</h3>
+        <p class="page-header landing-medium-font-dark uppercase">Startups</p>
         <div class="row center-aligned page-header">
             <div class="col-lg-4"></div>
             <div class="col-lg-4">
@@ -33,7 +33,7 @@
             <div class="col-lg-4"></div>
         </div>
         <div class="row">
-            <table class="table table-hover scores-table">
+            <table class="table table-hover scores-table table-striped">
                 <thead>
                     <tr>
                         <th></th>
@@ -43,7 +43,7 @@
                 </thead>
                 <tbody>
                     {% for startup in startups %}
-                    <tr>
+                    <tr class="list-row original-pos">
                         <td>{{forloop.counter}}</td>
                         <td>
                             <div class="row">
@@ -68,4 +68,5 @@
 
 {% block Scripts %}
     {% include "components/donut_chart_script.html" %}
+    <script src="/assets/js/startups_listing.js"></script>
 {% endblock %}
