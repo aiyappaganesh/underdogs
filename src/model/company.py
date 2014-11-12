@@ -3,10 +3,11 @@ from util.util import convert_string_list_to_dict
 
 class Company(db.Model):
     name = db.StringProperty(indexed=False)
-    email = db.StringProperty()
+    website = db.StringProperty(indexed=False)
     hello = db.StringProperty(indexed=False)
-    details = db.StringProperty(indexed=False)
+    profile = db.StringProperty(indexed=False)
     image = db.StringProperty(indexed=False)
+    tags = db.StringProperty(indexed=False)
     influence_avg = db.FloatProperty(indexed=False)
     expertise_avg = db.StringListProperty(indexed=False)
 

@@ -20,9 +20,10 @@ class AddCompanyPage(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
     def create_company(self, image_key):
         c = Company()
         c.name = self['company_name']
-        c.email = self['InputEmail']
-        c.details = self['InputMessage']
+        c.website = self['website']
+        c.profile = self['profile']
         c.hello = self['hello']
+        c.tags = self['tags']
         c.image = image_key
         c.put()
         return c
