@@ -33,7 +33,7 @@
                             </thead>
                             <tbody>
                                 {% for startup in startups %}
-                                <tr>
+                                <tr class="list-row original-pos">
                                     <td>{{forloop.counter}}</td>
                                     <td><a href="/member/list?company_id={{startup.0}}">{{startup.1.name}}</td>
                                     <td class="donut_td">
@@ -66,4 +66,5 @@
     <script src="/assets/js/jquery.fs.selecter.min.js"></script>
     <script src="/assets/js/jquery.fs.scroller.min.js"></script>
     <script src="/assets/js/add_selecter.js"></script>
+    <script src="/assets/js/listing_animation.js"></script>
 {% endblock %}

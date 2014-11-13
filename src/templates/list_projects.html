@@ -13,6 +13,7 @@
             window.location.replace("/projects/list?order=" + order + "&column=" + column);
         };
     </script>
+    <script src="/assets/js/listing_animation.js"></script>
 {% endblock %}
 
 {% block Content %}
@@ -31,7 +32,7 @@
                     </thead>
                     <tbody>
                         {% for project in projects %}
-                            <tr>
+                            <tr class="list-row original-pos">
                                 <td>
                                     {{ project.title }}
                                 </td>

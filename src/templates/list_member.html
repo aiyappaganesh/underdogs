@@ -122,7 +122,7 @@
                                         </thead>
                                         <tbody>
                                             {% for member in users %}
-                                            <tr>
+                                            <tr class="list-row original-pos">
                                                 <td>{{forloop.counter}}</td>
                                                 <td>{{member.name}}</td>
                                                 <td>
@@ -172,4 +172,5 @@
     <script src="/assets/js/jquery.fs.scroller.min.js"></script>
     <script src="/assets/js/add_selecter.js"></script>
     {% include "components/donut_chart_script.html" %}
+    <script src="/assets/js/listing_animation.js"></script>
 {% endblock %}
