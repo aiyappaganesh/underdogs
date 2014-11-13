@@ -177,6 +177,10 @@ a small {
     max-width: 100px !important;
 }
 
+.company-dashboard-thumbnail {
+    max-height: 275px;
+}
+
 .center-align {
     text-align: center;
 }
