@@ -27,11 +27,11 @@
                                 {% include "components/form_input.html" with id="company-name" name="company_name" placeholder="Company Name" value=company.name length="23" %}
                                 {% include "components/form_image.html" with name="company_image" button_text="Select Image" image=company.image %}
                                 {% include "components/form_input.html" with id="hello" name="hello" placeholder="Have them at hello!" value=company.hello %}
-                                {% include "components/form_input.html" with id="website" name="website" placeholder="Website" %}
-                                {% include "components/form_textarea.html" with id="InputMessage" name="InputMessage" placeholder="What makes your company different?" rows="5" label_text="Profile" value=company.details %}
+                                {% include "components/form_input.html" with id="website" name="website" placeholder="Website" value=company.website%}
+                                {% include "components/form_textarea.html" with id="profile" name="profile" placeholder="What makes your company different?" rows="5" label_text="Profile" value=company.profile %}
                                 {% include "components/form_input.html" with id="geo-location" name="geo_location" placeholder="Enter your address" other="onFocus='geolocate()' onfocusout='needMap()'" %}
                                 <div id="company-map" class="company-map input-container"></div>
-                                {% include "components/form_input.html" with id="tags" name="tags" placeholder="Tags" %}
+                                {% include "components/form_input.html" with id="tags" name="tags" placeholder="Tags" value=company.tags%}
                                 <input type="hidden" id="image-key" name="image_key" value="{{company.image_key}}">
                                 <input type="hidden" id="company-id" name="company_id" value="{{company.id}}">
                                 {% include "components/form_submit.html" with value="Update Company" %}

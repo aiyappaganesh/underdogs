@@ -53,9 +53,10 @@ class UpdateCompanyPage(blobstore_handlers.BlobstoreUploadHandler, RequestHandle
         c = Company.get_by_id(company_id)
         if c:
             c.name = self['company_name']
-            c.email = self['InputEmail']
-            c.details = self['InputMessage']
+            c.website = self['website']
+            c.profile = self['profile']
             c.hello = self['hello']
+            c.tags = self['tags']
             image = self.read_image()
             if image:
                 c.image = image

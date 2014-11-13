@@ -39,7 +39,9 @@ class StartupsEditPage(WebRequestHandler):
             company_json['image'] = '/api/common/download_image/'+company.image
             company_json['image_key'] = company.image
         company_json['hello'] = company.hello
-        company_json['details'] = company.details
+        company_json['profile'] = company.profile
+        company_json['website'] = company.website
+        company_json['tags'] = company.tags
         return company_json
 
     @web_login_required
