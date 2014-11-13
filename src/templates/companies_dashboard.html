@@ -7,7 +7,7 @@
                 <h4 class="page-header">Companies you have started or are a part of:</h4>
                 <div class="row">
                     {% for company in companies %}
-                    <div class="col-sm-6 col-md-3">
+                    <div class="col-sm-6 col-md-3 list-row original-pos">
                         <a href="/member/list?company_id={{company.id}}">
                             <div class="thumbnail company-dashboard-thumbnail">
                                 <img class="img-rounded company-img" src="{% if company.image %}/api/common/download_image/{{company.image}}{% else %}/assets/img/company/company.ico{% endif %}">
@@ -30,4 +30,5 @@
 
 {% block Scripts %}
     {% include "components/donut_chart_script.html" %}
+    <script src="/assets/js/listing_animation.js"></script>
 {% endblock %}

@@ -1,8 +1,5 @@
 {% extends "base.html" %}
 
-{% block Scripts %}
-{% endblock %}
-
 {% block Content %}
     <div class="container">
         <div class="row">
@@ -10,18 +7,19 @@
                 <h4 class="page-header">Projects you have registered:</h4>
                 <div class="container">
                     <div class="row">
-                        <table class="table table-hover scores-table">
+                        <table class="table table-hover table-striped scores-table">
                             <thead>
                                 <tr>
                                     <th></th>
                                     <th>Title</th>
                                     <th>Description</th>
                                     <th>End Time</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for project in projects %}
-                                <tr>
+                                <tr class="list-row original-pos">
                                     <td>{{forloop.counter}}</td>
                                     <td><a href="/projects/fitting_startups?project_id={{project.id}}">{{project.title}}</a></td>
                                     <td>
@@ -40,4 +38,8 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block Scripts %}
+    <script src="/assets/js/listing_animation.js"></script>
 {% endblock %}

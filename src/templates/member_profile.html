@@ -30,7 +30,7 @@
                 <div class="list-group">
                 {% if member.experiences %}
                     {% for experience in member.experiences %}
-                        <div class="list-group-item">
+                        <div class="list-group-item list-row original-pos">
                             <div class="row">
                                 <div class="col-lg-2">
                                     <div class="pull-left">
@@ -157,4 +157,8 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block Scripts %}
+    <script src="/assets/js/listing_animation.js"></script>
 {% endblock %}
