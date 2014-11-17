@@ -325,3 +325,7 @@ table {
     border-color: #ffffff !important;
     border-collapse:collapse;
 }
+
+.no-bottom-margin {
+ margin-bottom: 0px !important;
+}
