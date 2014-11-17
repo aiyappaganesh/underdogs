@@ -46,10 +46,13 @@ class StartupsEditPage(WebRequestHandler):
 
     @web_login_required
     def get(self):
+        company_id = int(str(self['company_id']))
+        if not Company.get_by_id(company_id):
+            self.write('no company')
+            return
         if not isAdminAccess(self):
             return
         path = 'startup_edit.html'
-        company_id = int(str(self['company_id']))
         company_json = self.prepare_company_json(company_id)
         form_url = blobstore.create_upload_url('/api/startups/update_company')
         template_values = {'form_url': form_url, 'company':company_json}

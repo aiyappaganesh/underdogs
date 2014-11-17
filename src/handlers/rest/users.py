@@ -88,6 +88,9 @@ class MemberInviteHandler(WebRequestHandler):
     def post(self):
         email = self['email']
         company_id = int(self['company_id'])
+        if not Company.get_by_id(company_id):
+            self.write('no company')
+            return
         if not util.isAdminAccess(self):
             return
         challenge = self['recaptcha_challenge_field']

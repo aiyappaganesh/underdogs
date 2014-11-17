@@ -26,9 +26,12 @@ class ExposeThirdPartyPage(WebRequestHandler):
     @web_login_required
     def get(self):
         session = get_current_session()
-        company_id = self['company_id']
+        company_id = int(self['company_id'])
+        c = Company.get_by_id(company_id)
+        if not c:
+            self.write('no company')
+            return
         user_id = session['me_email']
-        c = Company.get_by_id(int(company_id))
         path = 'expose_social_data.html'
         user = User.get_by_key_name(str(user_id))
         template_values = {'name':user.name,
@@ -52,8 +55,11 @@ class ListMemberPage(WebRequestHandler):
     def get(self):
         path = 'list_member.html'
         company_id = self['company_id']
+        c = Company.get_by_id(company_id)
+        if not c:
+            self.write('no company')
+            return
         session = get_current_session()
-        c = Company.get_by_id(int(company_id))
         user_id = session['me_email']
         access_type = self.get_access_type(c, user_id)
         q = CompanyMember.all().ancestor(c)
@@ -163,9 +169,14 @@ def prepare_template_values_for_invite(rd_url):
 class MemberInvitePage(WebRequestHandler):
     @web_login_required
     def get(self):
+        company_id = self['company_id']
+        if not Company.get_by_id(int(company_id)):
+            self.write('no company')
+            return
         if not isAdminAccess(self):
             return
         path = 'invite_member.html'
+
         rd_url = '/member/invite?company_id='+self['company_id']
         template_values = prepare_template_values_for_invite(rd_url)
         template_values['company_id'] = self['company_id']
@@ -177,10 +188,14 @@ class MemberInvitePage(WebRequestHandler):
 class MemberDashboardInvitePage(WebRequestHandler):
     @web_login_required
     def get(self):
+        company_id = self['company_id']
+        if not Company.get_by_id(int(company_id)):
+            self.write('no company')
+            return
         if not isAdminAccess(self):
             return
         path = 'invite_member.html'
-        rd_url = '/member/dashboard_invite?company_id='+self['company_id']
+        rd_url = '/member/dashboard_invite?company_id='+company_id
         template_values = prepare_template_values_for_invite(rd_url)
         template_values['company_id'] = self['company_id']
         template_values['done_redirect'] = '/member/list?company_id=' + self['company_id']
@@ -217,6 +232,9 @@ class MemberFinishInvitePage(WebRequestHandler):
     def get(self):
         email = self['email']
         company_id = self['company_id']
+        if not Company.get_by_id(int(company_id)):
+            self.write('no company')
+            return
         if not InvitedMember.is_invited(email, company_id):
             logging.info('... not invited')
             return
