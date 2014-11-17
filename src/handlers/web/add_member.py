@@ -26,8 +26,8 @@ class ExposeThirdPartyPage(WebRequestHandler):
     @web_login_required
     def get(self):
         session = get_current_session()
-        company_id = int(str(self['company_id']))
-        c = Company.get_by_id(company_id)
+        company_id = str(self['company_id'])
+        c = Company.get_by_id(int(company_id))
         if not c:
             self.write('no company')
             return
