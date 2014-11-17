@@ -45,7 +45,7 @@ class CompanyData(WebRequestHandler):
 
 class CompanyMembers(WebRequestHandler):
     def get(self):
-        company = Company.get_by_id(int(self['company_id']))
+        company = Company.get_by_id(int(str(self['company_id'])))
         if not company:
             self.write('no company')
             return
@@ -91,12 +91,12 @@ class SkillsData(WebRequestHandler):
 
     def get(self):
         expertise = None
-        company = Company.get_by_id(int(self['company_id']))
+        company = Company.get_by_id(int(str(self['company_id'])))
         if not company:
             self.write('no company')
             return
         if self['member_id']:
-            member = CompanyMember.get_by_id(int(self['member_id']), parent=company)
+            member = CompanyMember.get_by_id(int(str(self['member_id'])), parent=company)
             expertise = member.get_expertise()
         else:
             expertise = company.get_expertise_avg()

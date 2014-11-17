@@ -26,7 +26,7 @@ class ExposeThirdPartyPage(WebRequestHandler):
     @web_login_required
     def get(self):
         session = get_current_session()
-        company_id = int(self['company_id'])
+        company_id = int(str(self['company_id']))
         c = Company.get_by_id(company_id)
         if not c:
             self.write('no company')
@@ -54,7 +54,7 @@ class ListMemberPage(WebRequestHandler):
     @web_login_required
     def get(self):
         path = 'list_member.html'
-        company_id = self['company_id']
+        company_id = int(str(self['company_id']))
         c = Company.get_by_id(company_id)
         if not c:
             self.write('no company')
@@ -169,7 +169,7 @@ def prepare_template_values_for_invite(rd_url):
 class MemberInvitePage(WebRequestHandler):
     @web_login_required
     def get(self):
-        company_id = self['company_id']
+        company_id = str(self['company_id'])
         if not Company.get_by_id(int(company_id)):
             self.write('no company')
             return
@@ -188,7 +188,7 @@ class MemberInvitePage(WebRequestHandler):
 class MemberDashboardInvitePage(WebRequestHandler):
     @web_login_required
     def get(self):
-        company_id = self['company_id']
+        company_id = str(self['company_id'])
         if not Company.get_by_id(int(company_id)):
             self.write('no company')
             return
@@ -231,7 +231,7 @@ class MemberFinishInvitePage(WebRequestHandler):
 
     def get(self):
         email = self['email']
-        company_id = self['company_id']
+        company_id = str(self['company_id'])
         if not Company.get_by_id(int(company_id)):
             self.write('no company')
             return

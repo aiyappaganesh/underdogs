@@ -76,7 +76,7 @@ def pull_company_data(company):
 
 class MemberDataPullHandler(webapp2.RequestHandler):
     def put(self):
-        company_id = int(self.request.get('company_id'))
+        company_id = int(str(self.request.get('company_id')))
         company = Company.get_by_id(company_id)
         deferred.defer(pull_company_data, company)
 
@@ -87,7 +87,7 @@ class MemberInviteHandler(WebRequestHandler):
     @web_login_required
     def post(self):
         email = self['email']
-        company_id = int(self['company_id'])
+        company_id = int(str(self['company_id']))
         if not Company.get_by_id(company_id):
             self.write('no company')
             return
