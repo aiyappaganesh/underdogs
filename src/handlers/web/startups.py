@@ -99,28 +99,6 @@ class StartupsCriteriaPage(WebRequestHandler):
 
 class StartupsListingPage(WebRequestHandler):
     def get(self):
-        path = 'startups_listing.html'
-        q = Company.all()
-        sorted_companies = {}
-        for c in q.fetch(50):
-            id = c.key().id()
-            sorted_companies[id] = {}
-            score = float(c.influence_avg) if c.influence_avg else 0.0
-            sorted_companies[id]['score'] = score
-            sorted_companies[id]['image'] = c.image
-            sorted_companies[id]['name'] = c.name
-            sorted_companies[id]['hello'] = c.hello
-        sorted_companies = sorted(sorted_companies.iteritems(), key=lambda (k,v): v['score'], reverse = True)
-        donuts = 1
-        donuts = donuts - 1
-        donut_size = 80-(5*donuts)
-        score_font_size = 40-(3*donuts)
-        tooltip_font_size = 14-donuts
-        template_values = {'startups' : sorted_companies, 'donut_size' : donut_size, 'score_font_size' : score_font_size, 'tooltip_font_size' : tooltip_font_size}
-        self.write(self.get_rendered_html(path, template_values), 200)
-
-class StartupsListingNewPage(WebRequestHandler):
-    def get(self):
         path = 'startups_listing_new.html'
         q = Company.all()
         sorted_companies = {}
@@ -147,7 +125,6 @@ app = webapp2.WSGIApplication(
         ('/startups/edit', StartupsEditPage),
         ('/startups/search/criteria', StartupsCriteriaPage),
         ('/startups/listing', StartupsListingPage),
-        ('/startups/listing_new', StartupsListingNewPage),
         ('/startups', StartupsPage)
     ]
 )
