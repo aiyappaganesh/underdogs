@@ -15,7 +15,7 @@
                     <div class="col-lg-10 center-align">
                         <h4>FEATURED</h4>
                         <a href="/member/list?company_id={{startups.0.0}}">
-                            <div class="thumbnail company-img" style="background-image:url('{% if startup.1.image %}/api/common/download_image/{{startup.1.image}}{% else %}/assets/img/company/company.png{% endif %}');">
+                            <div class="thumbnail company-img" style="background-image:url('{% if startups.0.1.image %}/api/common/download_image/{{startups.0.1.image}}{% else %}/assets/img/company/company.png{% endif %}');">
                                 <!--<img class="company-img img-rounded" src="{% if startups.0.1.image %}/api/common/download_image/{{startups.0.1.image}}{% else %}/assets/img/company/company.png{% endif %}">-->
                                 <div class="caption text-center wrapped">
                                     <h3>{{startups.0.1.name}}</h3>
