@@ -25,11 +25,11 @@
                     <div class="tab-pane fade active in">
                         <form role="form" action={{form_url}} method="POST" enctype="multipart/form-data" class="startup-registration-form top-padding-sm">
                             <div class="col-lg-12">
-                                {% include "components/form_input.html" with id="company-name" name="company_name" placeholder="Company Name" length="23" %}
+                                {% include "components/form_input.html" with id="company-name" name="company_name" placeholder="Company Name" length="23" other="required" %}
                                 {% include "components/form_image.html" with name="company_image" button_text="Select Image" %}
-                                {% include "components/form_input.html" with id="hello" name="hello" placeholder="Have them at hello!" %}
-                                {% include "components/form_input.html" with id="website" name="website" placeholder="Website" %}
-                                {% include "components/form_textarea.html" with id="profile" name="profile" placeholder="What makes your company different?" rows="5" label_text="Profile"%}
+                                {% include "components/form_input.html" with id="hello" name="hello" placeholder="Have them at hello!" other="required" %}
+                                {% include "components/form_input.html" with id="website" name="website" placeholder="Website" other="required" %}
+                                {% include "components/form_textarea.html" with id="profile" name="profile" placeholder="What makes your company different?" rows="5" label_text="Profile" other="required" %}
                                 {% include "components/form_input.html" with id="geo-location" name="geo_location" placeholder="Enter your address" other="onFocus='geolocate()' onfocusout='needMap()'" %}
                                 <div id="company-map" class="company-map input-container"></div>
                                 {% include "components/form_input.html" with id="tags" name="tags" placeholder="Tags" %}
