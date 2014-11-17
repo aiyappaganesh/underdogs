@@ -19,7 +19,7 @@ function drawDonutChartForScore(e, score) {
                 color: empty_color
             }
         ];
-        var scoreDonut = new Chart(e.getElementsByClassName("donut_canvas")[0].getContext("2d")).Doughnut(doughnutData, { tooltipCaretSize: 2,tooltipXOffset: 0{% if tooltip_font_size%},tooltipFontSize:{{tooltip_font_size}}{% endif %} });
+        var scoreDonut = new Chart(e.getElementsByClassName("donut_canvas")[0].getContext("2d")).Doughnut(doughnutData, {percentageInnerCutout : 80, segmentStrokeWidth : 1, animationEasing : "ease", animationSteps : 50, animateScale : true, tooltipCaretSize: 2,tooltipXOffset: 0{% if tooltip_font_size%},tooltipFontSize:{{tooltip_font_size}}{% endif %} });
     }
 }
 

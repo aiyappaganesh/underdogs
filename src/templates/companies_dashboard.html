@@ -10,7 +10,7 @@
                     <div class="col-sm-6 col-md-3 list-row original-pos">
                         <a href="/member/list?company_id={{company.id}}">
                             <div class="thumbnail company-dashboard-thumbnail">
-                                <img class="img-rounded company-img" src="{% if company.image %}/api/common/download_image/{{company.image}}{% else %}/assets/img/company/company.ico{% endif %}">
+                                <img class="img-rounded company-img" src="{% if company.image %}/api/common/download_image/{{company.image}}{% else %}/assets/img/company/company.png{% endif %}">
                                 <div class="caption text-center">
                                     <h3>{{company.name}}</h3>
                                     <p>{% if company.admin %}Admin{% else %}Team Member{% endif %}</p>
