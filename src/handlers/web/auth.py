@@ -231,7 +231,7 @@ class AngellistAuth(Auth):
         user_id = session['me_email']
         company_id = req_handler[self.company_param]
         self.save_user(access_token, company_id, user_id)
-        return '/member/expose_third_party?company_id=' + company_id + '&user_id=' + user_id
+        return '/member/expose_third_party?company_id=' + company_id
 
     def fetch_and_save_profile(self, req_handler):
         logging.info('New way of passing params')
