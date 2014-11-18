@@ -395,3 +395,9 @@ table {
     background: #f2f2f2;
     box-shadow: 0 7px 15px rgba(0, 0, 0, .35);
 }
+
+.score_text {
+    vertical-align: middle;
+    display: inline-block;
+    height: 115px;
+}
