@@ -6,6 +6,7 @@ $(document).ready(function(){
         }
     );
     $(window).scroll(function(){
+        animateBtnArrow($(window).scrollTop()+$(window).height()*0.6);
         var top = $('body').scrollTop();
         if(top <= 0) {
             $('body').removeClass('scrolled');
@@ -14,7 +15,6 @@ $(document).ready(function(){
                 $('body').addClass('scrolled');
             }
         }
-        animateBtnArrow($(window).scrollTop()+$(window).height()*0.6);
     });
     animateBtnArrow($(window).scrollTop()+$(window).height()*0.6);
     $('.btn-arrow').click(function(){
@@ -26,9 +26,8 @@ $(document).ready(function(){
 });
 
 function animateBtnArrow(scrollTo) {
-    $($('.btn-arrow')[0]).animate({
-      top: scrollTo
-    }, 1, completedBtnArrowAnimate());
+    $($('.btn-arrow')[0]).css('top',scrollTo);
+    completedBtnArrowAnimate();
 }
 
 function completedBtnArrowAnimate() {

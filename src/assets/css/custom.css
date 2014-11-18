@@ -369,7 +369,7 @@ table {
     -o-transition-delay: .75s,0,0,0,0;
     -webkit-transition-delay: .75s,0,0,0,0;
     transition-delay: .75s,0,0,0,0;
-    transition: 0.75s top ease;
+    transition: 0s top ease;
     opacity: 1;
     pointer-events: auto;
 }
