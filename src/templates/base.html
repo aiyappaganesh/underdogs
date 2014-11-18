@@ -49,37 +49,19 @@
             {% endblock %}
             </div>
         </header>
-        <div class="content nav-offset">
-            <div class="container">
+        <div class="content nav-offset" style="position:relative;">
+            <div class="container" style="position:relative;">
                 <div class="row">
                     {% block Content %}{% endblock %}
                 </div>
             </div>
             {% block Footer %}{% endblock %}
+            <div class="btn-arrow active"></div>
         </div>
         <script src="/assets/js/jquery.js"></script>
         <script src="/assets/js/bootstrap.min.js"></script>
         <script src="/assets/js/jquery.stellar.min.js"></script>
-        <script>
-            $(document).ready(function(){
-                $(window).stellar(
-                    {
-                        horizontalOffset: 0,
-                        verticalOffset: 0
-                    }
-                );
-                $(window).scroll(function(){
-                    var top = $('body').scrollTop();
-                    if(top <= 0) {
-                        $('body').removeClass('scrolled');
-                    } else {
-                        if(!$('body').hasClass('scrolled')){
-                            $('body').addClass('scrolled');
-                        }
-                    }
-                });
-            });
-        </script>
+        <script src="/assets/js/base.js"></script>
         {% block Scripts %}{% endblock %}
     </body>
 

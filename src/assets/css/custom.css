@@ -329,3 +329,69 @@ table {
 .no-bottom-margin {
  margin-bottom: 0px !important;
 }
+
+.btn-arrow {
+    position: absolute;
+    right: 0;
+    margin: auto;
+    height: 1.1em;
+    font-size: 2.2em;
+    cursor: pointer;
+    background-color: #fff;
+    box-shadow: 0 3px 6px rgba(0,0,0,.2);
+    border-radius: 50%;
+    color: #404040;
+    height: 1.5em;
+    width: 1.5em;
+    right: 30px;
+    opacity: .00001;
+    -moz-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0);
+    -moz-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+    pointer-events: none;
+    font-family: 'font-icon';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+}
+
+.btn-arrow.active {
+    -moz-transition-delay: .75s,0,0,0,0;
+    -o-transition-delay: .75s,0,0,0,0;
+    -webkit-transition-delay: .75s,0,0,0,0;
+    transition-delay: .75s,0,0,0,0;
+    transition: 0.75s top ease;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.btn-arrow::before {
+    position: absolute;
+    left: 42%;
+    top: 50%;
+    width: 1em;
+    height: 1em;
+    margin-left: -.3em;
+    margin-top: -.1em;
+    display: block;
+    color: #616161;
+    font-size: .5em;
+}
+
+.btn-arrow:before {
+    content: url('/assets/img/nav-down-arrow.png');
+}
+
+.btn-arrow:active {
+    background: #f2f2f2;
+    box-shadow: 0 7px 15px rgba(0, 0, 0, .35);
+}
