@@ -22,7 +22,7 @@ function animate_list() {
     });
     $('.new-pos').each(function(i, v){
         var row_pos = $(this).offset().top;
-        if(bottom_of_window < row_pos+50) {
+        if(bottom_of_window < row_pos+36) {
             $(this).css('transition-duration',((i+1)*0.05)+'s');
             $(this).removeClass('new-pos');
             $(this).addClass('original-pos');
