@@ -16,9 +16,10 @@ from model.third_party_profile_data import ThirdPartyProfileData
 import github_config as github
 import linkedin_config as linkedin
 import angellist_config as angellist
+import dribbble_config as dribbble
 from model.third_party_user import ThirdPartyUser
 from model.user import User
-from networks import GITHUB, ANGELLIST, LINKEDIN, FACEBOOK
+from networks import GITHUB, ANGELLIST, LINKEDIN, FACEBOOK, DRIBBBLE
 from handlers import RequestHandler
 from gaesessions import get_current_session
 from util import util
@@ -36,6 +37,9 @@ configs = {
     ANGELLIST: {
         'data': angellist.config,
         'profile': angellist.profile_config
+    },
+    DRIBBBLE: {
+        'data': dribbble.config
     }
 }
 
@@ -137,6 +141,8 @@ class Auth(object):
             return AngellistAuth(config, redirect_url=redirect_url)
         elif network == GITHUB:
             return GithubAuth(config, redirect_url=redirect_url)
+        elif network == DRIBBBLE:
+            return DribbbleAuth(config, redirect_url=redirect_url)
 
     def save_third_party_profile_date(self, access_token, email):
         user = User.get_by_key_name(email)
@@ -172,7 +178,6 @@ class LinkedinAuth(Auth):
     def get_auth_url(self, **kwargs):
         auth_url = super(LinkedinAuth, self).get_auth_url()
         company_id = kwargs.get('company_id', None)
-        user_id = kwargs.get('user_id', None)
         params = {
             'state': company_id,
             'response_type': self.response_type
@@ -204,7 +209,6 @@ class AngellistAuth(Auth):
 
     def get_auth_url(self, **kwargs):
         company_id = kwargs.get('company_id', '')
-        user_id = kwargs.get('user_id', '')
         params = {
             'client_id' : self.config['client_id'],
             'state': company_id,
@@ -242,6 +246,36 @@ class AngellistAuth(Auth):
         session = get_current_session()
         self.save_third_party_profile_date(access_token, session['me_email'])
         return '/member/profile'
+
+class DribbbleAuth(Auth):
+    def __init__(self, config, redirect_url=None):
+        Auth.__init__(self, DRIBBBLE, config, redirect_url)
+
+    def get_auth_url(self, **kwargs):
+        params = {  'client_id': self.client_id,
+                    'scope': self.scope,
+                    'redirect_uri': "%s?%s"%(self.redirect_url, urllib.urlencode(kwargs.items())) if kwargs else self.redirect_url
+        }
+        return "%s?%s"%(self._auth_url, urllib.urlencode(params))
+
+    def get_thirdparty_access_token_url(self, code, **kwargs):
+        params = {  'code': code,
+                    'client_id': self.client_id,
+                    'client_secret': self.client_secret,
+                    'redirect_uri': "%s?%s"%(self.redirect_url, urllib.urlencode(kwargs.items())) if kwargs else self.redirect_url
+        }
+        return "%s?%s"%(self.token_url, urllib.urlencode(params))
+
+    def get_access_token(self, response):
+        return json.loads(response)['access_token']
+
+    def fetch_and_save_user(self, req_handler):
+        company_id = req_handler[self.company_param]
+        response = urlfetch.fetch(self.get_thirdparty_access_token_url(req_handler['code'], company_id=company_id), method=urlfetch.POST).content
+        access_token = self.get_access_token(response)
+        session = get_current_session()
+        self.save_user(access_token, company_id, session['me_email'])
+        return '/member/expose_third_party?company_id=' + company_id
 
 def set_session(req_handler):
     logging.info('In set session')
@@ -281,10 +315,9 @@ class ThirdPartyProfileSuccessHandler(RequestHandler):
 class ThirdPartyDataHandler(RequestHandler):
     def get(self, network):
         company_id = self['company_id']
-        user_id = self['user_id']
         config = configs[network]['data']
         handler = Auth.get_handler(network, config)
-        self.redirect(handler.get_auth_url(company_id=company_id, user_id=user_id))
+        self.redirect(handler.get_auth_url(company_id=company_id))
 
 class ThirdPartyDataSuccessHandler(RequestHandler):
     def authenticate_user(self):

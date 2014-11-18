@@ -36,9 +36,10 @@ class ExposeThirdPartyPage(WebRequestHandler):
         user = User.get_by_key_name(str(user_id))
         template_values = {'name':user.name,
                            'company_id': company_id,
-                           'github_auth_url': '/users/data/github/update?company_id=' + company_id + '&user_id=' + user_id,
-                           'angellist_auth_url': '/users/data/angellist/update?company_id=' + company_id + '&user_id=' + user_id,
-                           'linkedin_auth_url': '/users/data/linkedin/update?company_id=' + company_id + '&user_id=' + user_id,
+                           'github_auth_url': '/users/data/github/update?company_id=' + company_id,
+                           'angellist_auth_url': '/users/data/angellist/update?company_id=' + company_id,
+                           'linkedin_auth_url': '/users/data/linkedin/update?company_id=' + company_id,
+                           'dribbble_auth_url': '/users/data/dribbble/update?company_id=' + company_id,
                            'breadcrumbs' : registration_breadcrumbs,
                            'breadcrumb_idx':3}
         self.write(self.get_rendered_html(path, template_values), 200)
