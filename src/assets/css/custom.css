@@ -401,3 +401,7 @@ table {
     display: inline-block;
     height: 115px;
 }
+
+.medium-btn {
+    max-width: 175px;
+}
