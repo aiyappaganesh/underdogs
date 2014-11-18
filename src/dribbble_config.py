@@ -5,5 +5,5 @@ config  = {
 'auth_url': 'https://dribbble.com/oauth/authorize',
 'token_url': 'https://dribbble.com/oauth/token',
 'scope': 'public',
-'redirect_url': 'http://minyattra.appspot.com/users/data/dribbble/update_success'
+'redirect_url': 'https://minyattra.appspot.com/users/data/dribbble/update_success'
 }
