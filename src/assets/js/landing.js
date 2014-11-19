@@ -26,7 +26,6 @@ $(document).ready(function(){
 
 function set_page_height() {
     var window_height = $(window).height();
-    console.log(window_height);
     $('.landing-section').height(window_height);
     $('.landing-copy').css('margin-top',window_height/2);
 }
