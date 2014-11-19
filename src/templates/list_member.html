@@ -62,8 +62,8 @@
                 {% ifequal access_type "admin" %}<a href="/startups/edit?company_id={{company_id}}"><h6 class="page-header">EDIT STARTUP</h6></a>{% endifequal %}
                 <div class="row page-header">
                     <div class="col-lg-4">
+                        <small>Influence:</small>
                         <div class="donut_td">
-                            <small>Influence:</small>
                             {% include "components/donut_chart.html" with donut_score=influence donut_size=donut_size tooltip_font_size=tooltip_font_size %}
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                         <div class="row expertise_td">
                             <div class="col-lg-6">
                                 <small>Expertise:</small>
-                                <select class="expertise-select" id="company-expertise-select">
+                                <select class="expertise-select" id="company-expertise-select" style="padding-top:15px;">
                                 <option id="companyitem0" value="">Select Expertise</option>
                                 {% for item in expertise %}
                                 <option id="companyitem{{forloop.counter}}" value=""></option>
@@ -84,7 +84,7 @@
                                 {% endfor %}
                                 </select>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-6" style="padding-top:24px;">
                                 <div class="donut_td">
                                     {% include "components/donut_chart.html" with donut_score="no_load" donut_size=donut_size tooltip_font_size=tooltip_font_size %}
                                 </div>

@@ -24,16 +24,20 @@ function drawDonutChartForScore(e, score) {
 }
 
 $(document).ready(function(){
+    $('.donut_td').height({{donut_size}});
+    $('.donut_td').width({{donut_size}});
     $('.donut_td').each(function(){
         drawDonutChart(this);
     });
+    $('.score_text').width((56/80)*{{donut_size}});
+    $('.score_text').css('top',((25/80)*{{donut_size}})+'%');
+    $('.score_text').css('left',((19/80)*{{donut_size}})+'%');
+    $('.score_text').css('font-size',((23/80)*{{donut_size}})+'px');
 
     $('.expertise-select').change(function() {
         var score = $($($(this).parents('.expertise_td')[0]).find('.selected')[0]).attr('data-value');
         var e = $($(this).parents('.expertise_td')[0]).find('.donut_td')[0];
         drawDonutChartForScore(e, score);
     });
-
-    $('.score_text').css('font-size',{{score_font_size}}+'px');
 });
 </script>

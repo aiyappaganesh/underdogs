@@ -130,6 +130,9 @@ body a {
 }
 
 .donut_canvas {
+    position: absolute;
+    top: 0%;
+    left: 0%;
 }
 
 table td {
@@ -272,7 +275,7 @@ margin-bottom: 10px;
 }
 
 .expertise-td-donut {
-    padding-top: 6px;
+    padding-top: 0px;
     margin-bottom: 0px !important;
 }
 
@@ -397,11 +400,21 @@ table {
 }
 
 .score_text {
-    vertical-align: middle;
-    display: inline-block;
-    height: 130px;
+    position: absolute;
+    top: 25%;
+    left: 19%;
+    font-size: 23px;
+    width: 56px;
+    text-align: center;
 }
 
 .medium-btn {
     max-width: 175px;
+}
+
+.donut_td {
+    position: relative;
+    height: 80px;
+    width: 80px;
+    margin: auto;
 }
