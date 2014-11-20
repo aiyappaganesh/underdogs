@@ -22,7 +22,7 @@
     </script>
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="center-align">Add one or more of the below social data</h3>
+            <h3 class="center-align">Click below to add one or more social data</h3>
         </div>
     </div>
     <div class="row">
@@ -35,22 +35,35 @@
                             <div class="row">
                                 <div class="col-lg-1"></div>
                                 <div class="col-lg-10">
-                                    <div class="row center-align">
-                                        <div class="col-lg-1"></div>
-                                        <div class="col-lg-10 margin-auto">
-                                            <a href="{{dribbble_auth_url}}" class="btn btn-bootflat sd-btn pull-left"><i class="fa fa-dribbble fa-fw"></i> <span class="network-name">Dribbble</span></a>
-                                            <a href="{{odesk_auth_url}}" class="btn btn-bootflat sd-btn pull-right"><i class="fa fa-circle-o fa-fw"></i> <span class="network-name">o-Desk</span></a>
+                                    <div id="menu_icon" class="menu-icon">
+                                        <div class="wcircle-icon">
+                                            <p class="icon-text">OPEN</p>
                                         </div>
-                                        <div class="col-lg-1"></div>
-                                    </div>
-                                    <div class="row center-align">
-                                        <div class="col-lg-1"></div>
-                                        <div class="col-lg-10 margin-auto">
-                                            <a href="{{linkedin_auth_url}}" class="btn btn-bootflat sd-btn pull-left"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
-                                            <a href="{{github_auth_url}}" class="btn btn-bootflat sd-btn"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
-                                            <a href="{{angellist_auth_url}}" class="btn btn-bootflat sd-btn pull-right"><i class="fa fa-angellist fa-fw"></i> <span class="network-name">Angellist</span></a>
+                                        <div class="wcircle-menu" style="display:none;">
+                                            <div class="wcircle-menu-item">
+                                            </div>
+                                            <div class="wcircle-menu-item">
+                                            </div>
+                                            <div class="wcircle-menu-item">
+                                            </div>
+                                            <div class="wcircle-menu-item">
+                                            </div>
+                                            <div class="wcircle-menu-item">
+                                                <a href="{{dribbble_auth_url}}" class="btn btn-bootflat sd-btn round-btn"><i class="fa fa-dribbble fa-fw"></i> <span class="network-name">Dribbble</span></a>
+                                            </div>
+                                            <div class="wcircle-menu-item">
+                                                <a href="{{odesk_auth_url}}" class="btn btn-bootflat sd-btn round-btn"><i class="fa fa-circle-o fa-fw"></i> <span class="network-name">o-Desk</span></a>
+                                            </div>
+                                            <div class="wcircle-menu-item">
+                                                <a href="{{linkedin_auth_url}}" class="btn btn-bootflat sd-btn round-btn"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+                                            </div>
+                                            <div class="wcircle-menu-item">
+                                                <a href="{{github_auth_url}}" class="btn btn-bootflat sd-btn round-btn"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                                            </div>
+                                            <div class="wcircle-menu-item">
+                                                <a href="{{angellist_auth_url}}" class="btn btn-bootflat sd-btn round-btn"><i class="fa fa-angellist fa-fw"></i> <span class="network-name">Angellist</span></a>
+                                            </div>
                                         </div>
-                                        <div class="col-lg-1"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-1"></div>
@@ -72,4 +85,38 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block Scripts %}
+    <script src="/assets/js/jQuery.WCircleMenu-min.js"></script>
+    <script>
+        $('#menu_icon').WCircleMenu({
+            width: '54px',
+            height: '54px',
+            angle_start : 0,//-Math.PI/2,
+            delay: 50,
+            distance: 200,
+            angle_interval: Math.PI/4,
+            easingFuncShow:"easeOutBack",
+            easingFuncHide:"easeInBack",
+            openCallback:changeIcon,
+            closeCallback:changeIcon,
+            step:35,
+            itemRotation:360,
+            iconRotation:0
+        });
+
+        function changeIcon(){
+            console.log('click, '+$($('.wcircle-icon').find('p')[0]).text());
+            if($($('.wcircle-icon').find('p')[0]).text() == 'OPEN') {
+                console.log('plus');
+                $('.wcircle-icon').addClass('active');
+                $($('.wcircle-icon').find('p')[0]).text('CLOSE');
+            } else {
+                console.log('minus');
+                $('.wcircle-icon').removeClass('active');
+                $($('.wcircle-icon').find('p')[0]).text('OPEN');
+            }
+        }
+    </script>
 {% endblock %}
