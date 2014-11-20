@@ -20,7 +20,7 @@
                                     <h3>{{startups.0.1.name}}</h3>
                                     <p>'{% if startups.0.1.hello %}{{startups.0.1.hello}}{% endif %}'</p>
                                     <div class="donut_td">
-                                        {% include "components/donut_chart.html" with donut_score=startups.0.1.score donut_size=donut_size tooltip_font_size=tooltip_font_size %}
+                                        {% include "components/donut_chart.html" with donut_score=startups.0.1.score donut_size=donut_size tooltip_font_size=tooltip_font_size full_color="#7A29F5" empty_color="#D2BCF3" %}
                                     </div>
                                 </div>
                             </div>
@@ -40,7 +40,7 @@
                             <h3>{{startup.1.name}}</h3>
                             <p>'{% if startup.1.hello %}{{startup.1.hello}}{% endif %}'</p>
                             <div class="donut_td">
-                                {% include "components/donut_chart.html" with donut_score=startup.1.score donut_size=donut_size tooltip_font_size=tooltip_font_size %}
+                                {% include "components/donut_chart.html" with donut_score=startup.1.score donut_size=donut_size tooltip_font_size=tooltip_font_size full_color="#7A29F5" empty_color="#D2BCF3" %}
                             </div>
                         </div>
                     </div>

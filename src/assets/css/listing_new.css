@@ -16,12 +16,14 @@
     opacity: 0;
     transition: 0.5s opacity ease;
     background-color: rgba(224,224,224,0.7);
-    color: #003171;
+    color: #4B0082;
+    text-shadow: 1px 1px #ffffff;
+    font-weight: 600;
     //background-color: rgba(79,193,233,0.7);
     //color: #ffffff;
     height: 250px !important;
     width: 250px !important;
     padding: 0px !important;
-    padding-top: 50px !important;
+    padding-top: 54px !important;
     border-radius: 125px;
 }
