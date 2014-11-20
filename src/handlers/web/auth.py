@@ -5,6 +5,7 @@ import urllib
 import json
 import sys
 
+
 from google.appengine.ext.webapp import template
 from google.appengine.api import urlfetch
 from google.appengine.ext import deferred
@@ -17,14 +18,17 @@ import github_config as github
 import linkedin_config as linkedin
 import angellist_config as angellist
 import dribbble_config as dribbble
+import odesk_config as odesk
 from model.third_party_user import ThirdPartyUser
 from model.user import User
-from networks import GITHUB, ANGELLIST, LINKEDIN, FACEBOOK, DRIBBBLE
+from networks import GITHUB, ANGELLIST, LINKEDIN, FACEBOOK, DRIBBBLE, ODESK
 from handlers import RequestHandler
 from gaesessions import get_current_session
 from util import util
 from user_data.linkedin import pull_profile_data as linkedin_profile_data_pull
 from user_data.angellist import pull_profile_data as angellist_profile_data_pull
+
+from odesk import Client
 
 configs = {
     GITHUB: {
@@ -40,6 +44,9 @@ configs = {
     },
     DRIBBBLE: {
         'data': dribbble.config
+    },
+    ODESK: {
+        'data': odesk.config
     }
 }
 
@@ -85,8 +92,8 @@ class Auth(object):
         self.network = network
         self.config = config
         self.redirect_url = redirect_url if redirect_url else self.config['redirect_url']
-        self._auth_url = self.config['auth_url']
-        self.token_url = self.config['token_url']
+        self._auth_url = self.config['auth_url'] if 'auth_url' in self.config else None
+        self.token_url = self.config['token_url'] if 'token_url' in self.config else None
         self.client_id = self.config['client_id']
         self.client_secret = self.config['client_secret']
         self.scope = self.config['scope'] if 'scope' in self.config else ''
@@ -143,6 +150,8 @@ class Auth(object):
             return GithubAuth(config, redirect_url=redirect_url)
         elif network == DRIBBBLE:
             return DribbbleAuth(config, redirect_url=redirect_url)
+        elif network == ODESK:
+            return OdeskAuth(config, redirect_url=redirect_url)
 
     def save_third_party_profile_date(self, access_token, email):
         user = User.get_by_key_name(email)
@@ -276,6 +285,36 @@ class DribbbleAuth(Auth):
         session = get_current_session()
         self.save_user(access_token, company_id, session['me_email'])
         return '/member/expose_third_party?company_id=' + company_id
+
+class OdeskAuth(Auth):
+    def __init__(self, config, redirect_url=None):
+        Auth.__init__(self, ODESK, config, redirect_url)
+
+    def get_auth_url(self, **kwargs):
+        client = Client(self.client_id, self.client_secret)
+        request_token = client.auth.get_request_token()
+        kwargs['request_token_secret'] = request_token[1]
+        redirect_url = "%s?%s"%(self.redirect_url, urllib.urlencode(kwargs.items())) if kwargs else self.redirect_url
+        client.auth.request_token = request_token[0]
+        authorize_url = client.auth.get_authorize_url(callback_url=redirect_url)
+        return authorize_url
+
+    def fetch_and_save_user(self, req_handler):
+        client = Client(self.client_id, self.client_secret)
+        client.auth.request_token = req_handler['oauth_token']
+        client.auth.request_token_secret = req_handler['request_token_secret']
+        access_token = client.auth.get_access_token(req_handler['oauth_verifier'])
+        logging.info(access_token)
+        session = get_current_session()
+        company_id = req_handler['company_id']
+        self.save_user(access_token, company_id, session['me_email'])
+        return '/member/expose_third_party?company_id=' + company_id
+
+    def save_user(self, access_token, company_id, user_id):
+        key_name = self.network + util.separator + str(company_id) + util.separator + str(user_id)
+        tp_user = ThirdPartyUser(key_name=key_name, access_token=access_token[0], access_token_secret=access_token[1])
+        tp_user.put()
+        return tp_user
 
 def set_session(req_handler):
     logging.info('In set session')

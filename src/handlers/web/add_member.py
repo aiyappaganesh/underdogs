@@ -12,7 +12,6 @@ from model.company import Company
 from model.experience import fetch_experiences_for
 from model.education import fetch_educations_for
 from model.invited_member import InvitedMember
-from handlers.web.auth import GithubAuth, LinkedinAuth, AngellistAuth
 from util.util import isAdminAccess
 from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
@@ -40,6 +39,7 @@ class ExposeThirdPartyPage(WebRequestHandler):
                            'angellist_auth_url': '/users/data/angellist/update?company_id=' + company_id,
                            'linkedin_auth_url': '/users/data/linkedin/update?company_id=' + company_id,
                            'dribbble_auth_url': '/users/data/dribbble/update?company_id=' + company_id,
+                           'odesk_auth_url': '/users/data/odesk/update?company_id=' + company_id,
                            'breadcrumbs' : registration_breadcrumbs,
                            'breadcrumb_idx':3}
         self.write(self.get_rendered_html(path, template_values), 200)
