@@ -401,10 +401,10 @@ table {
 
 .score_text {
     position: absolute;
-    top: 25%;
-    left: 19%;
+    top: 30%;
+    left: 0%;
     font-size: 23px;
-    width: 56px;
+    width: 80px;
     text-align: center;
 }
 

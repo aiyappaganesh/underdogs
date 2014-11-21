@@ -29,9 +29,8 @@ $(document).ready(function(){
     $('.donut_td').each(function(){
         drawDonutChart(this);
     });
-    $('.score_text').width((56/80)*{{donut_size}});
-    $('.score_text').css('top',((25/80)*{{donut_size}})+'%');
-    $('.score_text').css('left',((19/80)*{{donut_size}})+'%');
+    $('.score_text').width({{donut_size}});
+    $('.score_text').css('top',((30/80)*{{donut_size}})+'%');
     $('.score_text').css('font-size',((23/80)*{{donut_size}})+'px');
 
     $('.expertise-select').change(function() {
