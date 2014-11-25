@@ -241,12 +241,12 @@ class MemberFinishInvitePage(WebRequestHandler):
             return
         if self.user_exists(email):
             self.create_company_member(email, company_id)
+            self.delete_invited_member(email, company_id)
             redirect_url = '/member/expose_third_party?company_id=' + company_id
         else:
             self.authenticate_user(email)
             self.save_in_session(email, company_id)
-            redirect_url = '/member/signup?company_id=' + company_id + '&network=custom'
-        self.delete_invited_member(email, company_id)
+            redirect_url = '/member/signup?network=custom'
         self.redirect(redirect_url)
 
 class MemberSignupPage(WebRequestHandler):

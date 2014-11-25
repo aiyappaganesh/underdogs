@@ -15,11 +15,12 @@ class InvitedMember(db.Model):
 	@classmethod
 	def delete(cls, email, company_id):
 		invited_member = cls.get_by_key_name(email)
-		if invited_member and len(invited_member.companies) > 1 and int(company_id) in invited_member.companies:
-			invited_member.companies.remove(int(company_id))
-			invited_member.put()
-		else:
-			db.delete(invited_member)
+		if invited_member:
+			if len(invited_member.companies) > 1 and int(company_id) in invited_member.companies:
+				invited_member.companies.remove(int(company_id))
+				invited_member.put()
+			else:
+				db.delete(invited_member)
 
 
 	@classmethod

@@ -164,10 +164,14 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
         user = User(key_name = email, name = req_handler['name'], password = password_hash, photo = photo)
         user.put()
 
+    def delete_invited_member(self, email, company_id):
+        InvitedMember.delete(email, company_id)
+
     @web_auth_required
     def post(self):
         email = self['email']
         company_id = get_company_id_from_session()
+        self.delete_invited_member(email, company_id)
         if not self.user_exists():
             self.create_user(self)
             if company_id:
