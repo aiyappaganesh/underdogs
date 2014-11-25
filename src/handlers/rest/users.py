@@ -15,6 +15,7 @@ from google.appengine.api import mail
 from handlers.web.auth import web_login_required, web_auth_required
 from model.third_party_login_data import ThirdPartyLoginData
 from model.invited_member import InvitedMember
+from model.signedup_member import SignedUpMember
 from model.company_members import CompanyMember
 from gaesessions import get_current_session
 from util.util import separator, get_user, get_company_id_from_session, validate_captcha
@@ -167,11 +168,15 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
     def delete_invited_member(self, email, company_id):
         InvitedMember.delete(email, company_id)
 
+    def delete_signedup_member(self, email):
+        SignedUpMember.delete(email)
+
     @web_auth_required
     def post(self):
         email = self['email']
         company_id = get_company_id_from_session()
         self.delete_invited_member(email, company_id)
+        self.delete_signedup_member(email)
         self.create_user(self)
         if company_id:
             self.create_company_member(email, company_id)

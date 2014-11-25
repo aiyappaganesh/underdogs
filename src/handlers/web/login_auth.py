@@ -252,16 +252,12 @@ class EmailConfirmationHandler(WebRequestHandler):
         if invite_company_id:
             curr_session['invite_company_id'] = invite_company_id
 
-    def delete_signedup_member(self, email):
-        SignedUpMember.delete(email)
-
     def get(self):
         email = self['email']
         if not SignedUpMember.is_signedup(email):
             logging.info('... not signedup')
             return
         self.authenticate_user()
-        self.delete_signedup_member(email)
         self.redirect('/member/signup?network=custom')
 
 handlers = []
