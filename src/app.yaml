@@ -85,6 +85,10 @@ handlers:
   script: handlers.web.auth.app
   secure: always
 
+- url: /surveys/.*
+  script: handlers.web.surveys.app
+  secure: always
+
 - url: /add_company
   script: handlers.web.add_member.app
   secure: always
