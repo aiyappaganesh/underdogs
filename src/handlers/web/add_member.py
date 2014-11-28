@@ -162,7 +162,6 @@ def prepare_template_values_for_invite(rd_url):
         elif 'captcha_error' in session:
             template_values['error'] = 'Captcha response provided was incorrect. Please try again.'
             template_values['captcha_error'] = True
-    template_values['invite_form_url'] = '/api/members/invite'
     template_values['captcha'] = get_captcha_markup()
     session['rd_url'] = rd_url
     return template_values
@@ -180,7 +179,7 @@ class MemberInvitePage(WebRequestHandler):
 
         rd_url = '/member/invite?company_id='+self['company_id']
         template_values = prepare_template_values_for_invite(rd_url)
-        template_values['company_id'] = self['company_id']
+        template_values['invite_form_url'] = '/api/members/invite?company_id=' + company_id
         template_values['breadcrumbs'] = registration_breadcrumbs
         template_values['breadcrumb_idx'] = 2
         template_values['done_redirect'] = '/member/expose_third_party?company_id=' + self['company_id']
@@ -198,7 +197,7 @@ class MemberDashboardInvitePage(WebRequestHandler):
         path = 'invite_member.html'
         rd_url = '/member/dashboard_invite?company_id='+company_id
         template_values = prepare_template_values_for_invite(rd_url)
-        template_values['company_id'] = self['company_id']
+        template_values['invite_form_url'] = '/api/members/invite?company_id=' + company_id
         template_values['done_redirect'] = '/member/list?company_id=' + self['company_id']
         self.write(self.get_rendered_html(path, template_values), 200)
 

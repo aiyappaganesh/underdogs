@@ -20,7 +20,6 @@
                             {% include "components/form_input.html" with id="new_member_email" name="email" placeholder="Email" type="email" other="required" value=email %}
                             {% include "components/form_captcha.html" with captcha=captcha %}
                             {% include "components/form_error_message.html" %}
-                            {% include "components/form_input.html" with name="company_id" type="hidden" value=company_id id=company_id %}
                             {% include "components/form_submit.html" with value="Invite" %}
                         </form>
                         <div class="row">
