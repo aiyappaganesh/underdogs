@@ -226,21 +226,19 @@ class MemberFinishInvitePage(WebRequestHandler):
         company = Company.get_by_id(int(company_id))
         CompanyMember(parent=company, is_admin=False, user_id=email).put()
 
-    def delete_invited_member(self, email, company_id):
-        InvitedMember.delete(email, company_id)
-
     def get(self):
         email = self['email']
         company_id = str(self['company_id'])
+        invited_member = InvitedMember.for_(email, company_id)
         if not Company.get_by_id(int(company_id)):
             self.write('no company')
             return
-        if not InvitedMember.is_invited(email, company_id):
-            logging.info('... not invited')
+        if not invited_member:
+            self.write('... not invited')
             return
         if self.user_exists(email):
             self.create_company_member(email, company_id)
-            self.delete_invited_member(email, company_id)
+            invited_member.delete()
             redirect_url = '/member/expose_third_party?company_id=' + company_id
         else:
             self.authenticate_user(email)

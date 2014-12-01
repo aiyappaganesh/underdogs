@@ -82,9 +82,6 @@ class MemberDataPullHandler(webapp2.RequestHandler):
         deferred.defer(pull_company_data, company)
 
 class MemberInviteHandler(WebRequestHandler):
-    def create_invited_member(self, email, company):
-        InvitedMember.create_or_update(email, company)
-
     @web_login_required
     def post(self):
         email = self['email']
@@ -100,11 +97,11 @@ class MemberInviteHandler(WebRequestHandler):
         is_solution_correct = validate_captcha(solution, challenge, remote_ip)
         curr_session = get_current_session()
         if is_solution_correct:
-            if InvitedMember.is_invited(email, company_id):
+            if InvitedMember.for_(email, company_id):
                 curr_session['invite_error'] = "Invite already sent"
             else:
                 company = Company.get_by_id(company_id)
-                self.create_invited_member(email, company_id)
+                InvitedMember.create_(email, company)
                 mail.send_mail(sender="Pirates Admin <ranju@b-eagles.com>",
                                to=email,
                                subject="Invitation to join " + company.name,
@@ -165,9 +162,6 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
         user = User(key_name = email, name = req_handler['name'], password = password_hash, photo = photo)
         user.put()
 
-    def delete_invited_member(self, email, company_id):
-        InvitedMember.delete(email, company_id)
-
     def delete_signedup_member(self, email):
         SignedUpMember.delete(email)
 
@@ -175,7 +169,9 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
     def post(self):
         email = self['email']
         company_id = get_company_id_from_session()
-        self.delete_invited_member(email, company_id)
+        invited_member = InvitedMember.for_(email, company_id)
+        if invited_member:
+            invited_member.delete()
         self.delete_signedup_member(email)
         self.create_user(self)
         if company_id:
