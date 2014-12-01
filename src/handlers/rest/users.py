@@ -101,7 +101,7 @@ class MemberInviteHandler(WebRequestHandler):
                 curr_session['invite_error'] = "Invite already sent"
             else:
                 company = Company.get_by_id(company_id)
-                InvitedMember.create_(email, company)
+                InvitedMember.create_(email, company_id)
                 mail.send_mail(sender="Pirates Admin <ranju@b-eagles.com>",
                                to=email,
                                subject="Invitation to join " + company.name,
