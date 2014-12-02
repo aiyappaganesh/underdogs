@@ -15,7 +15,8 @@ def get_template_values_for_landing():
     template_values['startup_icons']['description'] = 'Startups have very good developers and designers but are constantly looking for working capital.'
     template_values['startup_icons']['icons_first'] = True
     template_values['startup_icons']['buttons'] = [{'link':'/startups/registration','name':'Add Your Startup'},
-                                                   {'link':'/projects/list','name':'Find projects'}]
+                                                   {'link':'/projects/list','name':'Find projects'},
+                                                   {'link':'/surveys/startups','name':'Startups Survey'}]
 
     template_values['enterprise_icons'] = {}
     template_values['enterprise_icons']['icon_sets'] = \
@@ -29,7 +30,8 @@ def get_template_values_for_landing():
     template_values['enterprise_icons']['description'] = 'Enterprises often give projects to outsourcing companies and freelancers, both of who lack the dev and design talent of startups.'
     template_values['enterprise_icons']['icons_first'] = False
     template_values['enterprise_icons']['buttons'] = [{'link':'/projects/registration','name':'Register a project'},
-                                                      {'link':'/startups/search/criteria','name':'Fitting Startups'}]
+                                                      {'link':'/startups/search/criteria','name':'Fitting Startups'},
+                                                      {'link':'/surveys/enterprises','name':'Enterprises Survey'}]
     return template_values
 
 class LandingPage(WebRequestHandler):

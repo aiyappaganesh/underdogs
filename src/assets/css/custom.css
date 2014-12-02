@@ -48,6 +48,10 @@ body a {
     text-align: center;
 }
 
+.icons-desc-padding {
+    padding-top: 70px;
+}
+
 .horizontal-center {
     margin:auto;
 }
@@ -193,7 +197,7 @@ a small {
 }
 
 .footer-button-row {
-    margin: 30px;
+    margin: 20px;
 }
 
 .header {
