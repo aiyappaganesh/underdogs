@@ -172,16 +172,19 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
         invited_member = InvitedMember.for_(email, company_id)
         if invited_member:
             invited_member.delete()
-        self.delete_signedup_member(email)
-        self.create_user(self)
-        if company_id:
-            self.create_company_member(email, company_id)
-        if self['network'] != 'custom':
-            create_tpld(email, self['network'])
-        modify_session(email)
-        util.add_user_to_memcache(email)
-        redirect_url = util.get_redirect_url_from_session()
-        self.redirect(redirect_url)
+        if not self.user_exists():
+            self.delete_signedup_member(email)
+            self.create_user(self)
+            if company_id:
+                self.create_company_member(email, company_id)
+            if self['network'] != 'custom':
+                create_tpld(email, self['network'])
+            modify_session(email)
+            util.add_user_to_memcache(email)
+            redirect_url = util.get_redirect_url_from_session()
+            self.redirect(redirect_url)
+        else:
+            self.redirect('/member/already_exists?email=' + email + '&network=' + self['network'])
 
 class MemberProfileUpdateHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
     @web_login_required
