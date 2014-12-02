@@ -183,6 +183,7 @@ class CustomLoginHandler(WebRequestHandler):
             curr_session.terminate()
         curr_session['me_email'] = self['email']
         curr_session['me_name'] = User.get_by_key_name(self['email']).name
+        curr_session['me_id'] = self['email']
 
     def post(self):
         email = self['email']
@@ -247,6 +248,7 @@ class EmailConfirmationHandler(WebRequestHandler):
         if curr_session.is_active():
             curr_session.terminate()
         curr_session['auth_only'] = True
+        curr_session['me_id'] = self['email']
         if invite_email:
             curr_session['invite_email'] = invite_email
         if invite_company_id:

@@ -177,8 +177,7 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
             self.create_user(self)
             if company_id:
                 self.create_company_member(email, company_id)
-            if self['network'] != 'custom':
-                create_tpld(email, self['network'])
+            create_tpld(email, self['network'])
             modify_session(email)
             util.add_user_to_memcache(email)
             redirect_url = util.get_redirect_url_from_session()
