@@ -4,7 +4,7 @@ import urllib2
 import urllib
 import json
 import sys
-
+import urlparse
 
 from google.appengine.ext.webapp import template
 from google.appengine.api import urlfetch
@@ -128,7 +128,7 @@ class Auth(object):
         return "%s?%s"%(self.token_url, urllib.urlencode(params))
 
     def get_access_token(self, response):
-        return response.split('&')[0].split('=')[1]
+        return urlparse.parse_qs(response)['access_token'][0]
 
     def save_user(self, access_token, company_id, user_id):
         key_name = self.network + util.separator + str(company_id) + util.separator + str(user_id)
