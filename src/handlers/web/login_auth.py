@@ -126,16 +126,16 @@ class ThirdPartyLoginSuccessHandler(WebRequestHandler):
     def authenticate_user(self, user_id):
         curr_session = get_current_session()
         redirect_url = curr_session['redirect_url'] if 'redirect_url' in curr_session else None
-        invite_email = curr_session['invite_email'] if 'invite_email' in curr_session else None
-        invite_company_id = curr_session['invite_company_id'] if 'invite_company_id' in curr_session else None
+        email = curr_session['email'] if 'email' in curr_session else None
+        company_id = curr_session['company_id'] if 'company_id' in curr_session else None
         if curr_session.is_active():
             curr_session.terminate()
         curr_session['me_id'] = user_id
         curr_session['auth_only'] = True
-        if invite_email:
-            curr_session['invite_email'] = invite_email
-        if invite_company_id:
-            curr_session['invite_company_id'] = invite_company_id
+        if email:
+            curr_session['email'] = email
+        if company_id:
+            curr_session['company_id'] = company_id
         if redirect_url:
             curr_session['redirect_url'] = redirect_url
 
@@ -243,16 +243,16 @@ Thanks!
 class EmailConfirmationHandler(WebRequestHandler):
     def authenticate_user(self):
         curr_session = get_current_session()
-        invite_email = curr_session['invite_email'] if 'invite_email' in curr_session else None
-        invite_company_id = curr_session['invite_company_id'] if 'invite_company_id' in curr_session else None
+        email = curr_session['email'] if 'email' in curr_session else self['email'] if self['email'] else None
+        company_id = curr_session['company_id'] if 'company_id' in curr_session else None
         if curr_session.is_active():
             curr_session.terminate()
         curr_session['auth_only'] = True
         curr_session['me_id'] = self['email']
-        if invite_email:
-            curr_session['invite_email'] = invite_email
-        if invite_company_id:
-            curr_session['invite_company_id'] = invite_company_id
+        if email:
+            curr_session['email'] = email
+        if company_id:
+            curr_session['company_id'] = company_id
 
     def get(self):
         email = self['email']

@@ -102,7 +102,7 @@ def get_redirect_url_from_session():
 
 def get_company_id_from_session():
     session = get_current_session()
-    return int(session['invite_company_id']) if 'invite_company_id' in session else None
+    return int(session['company_id']) if 'company_id' in session else None
 
 def get_captcha_markup():
     was_previous_solution_incorrect=False

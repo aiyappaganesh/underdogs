@@ -135,10 +135,10 @@ def modify_session(email):
     session = get_current_session()
     session['me_email'] = email
     session.pop('auth_only')
-    if 'invite_email' in session:
-        session.pop('invite_email')
-    if 'invite_company_id' in session:
-        session.pop('invite_company_id')
+    if 'email' in session:
+        session.pop('email')
+    if 'company_id' in session:
+        session.pop('company_id')
 
 
 class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
