@@ -12,8 +12,34 @@
 
 .landing-copy {
     margin-top: 300px;
+    font-family: SanFranciscoText;
+    color: #ffffff;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 72px;
+    text-align: center;
 }
 
 .section2-icons {
     padding-top: 30px;
+}
+
+.landing-overlay {
+    background-color: rgba(19, 159, 225, 0.85);
+}
+
+.landing-section {
+    position: relative;
+    background-size: cover !important;
+}
+
+.landing_logo {
+    position:absolute;
+    top: 29px;
+    left: 33px;
+    z-index:1000;
+}
+
+.carousel-inner>.item {
+    transition: 0s ease left;
 }

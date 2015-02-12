@@ -1,0 +1,17 @@
+.startups-overlay {
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+.startups-copy {
+    margin-top: 300px;
+    font-family: SanFranciscoText;
+    color: #1c1c1c;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 72px;
+    text-align: center;
+}
+
+.carousel-inner>.item {
+    transition: 0s ease left;
+}

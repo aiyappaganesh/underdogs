@@ -119,8 +119,16 @@ class StartupsListingPage(WebRequestHandler):
         template_values = {'startups' : sorted_companies, 'donut_size' : donut_size, 'score_font_size' : score_font_size, 'tooltip_font_size' : tooltip_font_size}
         self.write(self.get_rendered_html(path, template_values), 200)
 
+class StartupsHomePage(WebRequestHandler):
+    def get(self):
+        path = 'startups_home.html'
+        template_values = {}
+        template_values['no_navbar_onload'] = True
+        self.write(self.get_rendered_html(path, template_values), 200)
+
 app = webapp2.WSGIApplication(
     [
+        ('/startups_home', StartupsHomePage),
         ('/startups/registration', StartupsRegistrationPage),
         ('/startups/edit', StartupsEditPage),
         ('/startups/search/criteria', StartupsCriteriaPage),

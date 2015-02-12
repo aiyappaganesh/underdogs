@@ -1,11 +1,5 @@
 $(document).ready(function(){
-    set_page_height();
-});
-
-$(document).ready(function(){
-    $(window).resize(function(){
-        set_page_height();
-    });
+    $('#section1-carousel').carousel('cycle');
 });
 
 $(document).ready(function(){
@@ -24,8 +18,12 @@ $(document).ready(function(){
     });
 });
 
-function set_page_height() {
-    var window_height = $(window).height();
-    $('.landing-section').height(window_height);
-    $('.landing-copy').css('margin-top',window_height/2);
+function set_copy(window_width, window_height) {
+    $('.landing-copy').css('margin-top',window_height/2.5);
+    if(window_width < 1280) {
+        var font_size = (window_width*48)/1280;
+        var line_height = (window_width*72)/1280;
+        $('.landing-copy').css('font-size',font_size);
+        $('.landing-copy').css('line-height',line_height+'px');
+    }
 }

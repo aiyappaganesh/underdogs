@@ -20,35 +20,35 @@
         <header class="header white-background">
             <div>
             {% block Navbar %}
-                <div class="container base-nav">
-                    <div class="nav-content row">
-                        <div id="nav-icon" class="nav-icon pull-icon-left col-lg-6">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                            <a href="/new_home"><img src="/assets/img/pirates_nav.png"></a>
-                        </div>
-                        <div id="navbar-menu" class="nav-menubar col-lg-4">
-                            <ul class="nav navbar-nav">
-                                {% if hide_navbar_join != 'true' %}
-                                    <li id="nav-section-1"><a href="#section-1">HOME</a></li>
-                                    <li id="nav-section-2"><a href="#section-2">STARTUPS</a></li>
-                                    <!--<li><a href="/startups/registration">ADD STARTUP</a></li>-->
-                                {% endif %}
-                                {% if hide_navbar_login != 'true' %}
-                                    {% if false|is_user_logged_in %}
-                                        <!--<li><a href="/member/profile">PROFILE</a></li>-->
-                                        <!--<li><a href="/member/logout">LOG OUT</a></li>-->
-                                    {% else %}
-                                        <!--<li><a href="/member/login?redirect_url=/">LOG IN</a></li>-->
-                                    {% endif %}
-                                {% endif %}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="container base-nav">-->
+                    <!--<div class="nav-content row">-->
+                        <!--<div id="nav-icon" class="nav-icon pull-icon-left col-lg-6">-->
+                            <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">-->
+                                <!--<span class="icon-bar"></span>-->
+                                <!--<span class="icon-bar"></span>-->
+                                <!--<span class="icon-bar"></span>-->
+                            <!--</button>-->
+                            <!--<a href="/new_home"><img style="position:absolute;top: 29px;left: 33px;" src="/assets/img/logo_color.png"></a>-->
+                        <!--</div>-->
+                        <!--<div id="navbar-menu" class="nav-menubar col-lg-4">-->
+                            <!--<ul class="nav navbar-nav">-->
+                                <!--{% if hide_navbar_join != 'true' %}-->
+                                    <!--<li id="nav-section-1"><a href="#section-1">HOME</a></li>-->
+                                    <!--<li id="nav-section-2"><a href="#section-2">STARTUPS</a></li>-->
+                                    <!--&lt;!&ndash;<li><a href="/startups/registration">ADD STARTUP</a></li>&ndash;&gt;-->
+                                <!--{% endif %}-->
+                                <!--{% if hide_navbar_login != 'true' %}-->
+                                    <!--{% if false|is_user_logged_in %}-->
+                                        <!--&lt;!&ndash;<li><a href="/member/profile">PROFILE</a></li>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<li><a href="/member/logout">LOG OUT</a></li>&ndash;&gt;-->
+                                    <!--{% else %}-->
+                                        <!--&lt;!&ndash;<li><a href="/member/login?redirect_url=/">LOG IN</a></li>&ndash;&gt;-->
+                                    <!--{% endif %}-->
+                                <!--{% endif %}-->
+                            <!--</ul>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
             {% endblock %}
             </div>
         </header>
@@ -63,6 +63,7 @@
         <script src="/assets/js/jquery.js"></script>
         <script src="/assets/js/bootstrap.min.js"></script>
         <script src="/assets/js/jquery.stellar.min.js"></script>
+        <script src="/assets/js/new_base.js"></script>
         <script>
             $(document).ready(function(){
                 $(window).stellar(

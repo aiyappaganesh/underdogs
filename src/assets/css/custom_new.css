@@ -14,7 +14,7 @@ body a {
 }
 
 .content {
-    margin-bottom: 50px;
+    margin-bottom: 0px;
 }
 
 .landing-selection {
@@ -62,6 +62,14 @@ body a {
 @media (min-width: 992px) {
     .container {
         //width: 960px;
+        margin: 0px;
+        width: 100%;
+        padding: 0px;
+    }
+}
+
+@media (min-width: 0px) {
+    .container {
         margin: 0px;
         width: 100%;
         padding: 0px;
@@ -225,9 +233,9 @@ a small {
     padding-top: 100px;
 }
 
-.row [class*=col-] {
+/*.row [class*=col-] {
 margin-bottom: 10px;
-}
+}*/
 
 .nav-tabs>li>a:hover {
     background-color: #e6e9ed;
@@ -330,4 +338,24 @@ margin-bottom: 10px;
     float: none !important;
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
+}
+
+.fullscreen-section {
+    position: relative;
+    background-size: cover !important;
+    background-position: center !important;
+}
+
+.overlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+.width960 {
+    max-width: 960px;
+    margin: auto;
 }

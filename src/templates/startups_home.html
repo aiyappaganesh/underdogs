@@ -1,0 +1,52 @@
+{% extends "base_new.html" %}
+
+{% block Styles %}
+    <link href="/assets/css/startups.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block Content %}
+    <!--<div class="col-lg-12">-->
+        <!--<div id="section-1" class="fullscreen-section" style="background:url('/assets/img/startups/enterprise_logos.jpg');">-->
+            <!--<div class="startups-overlay overlay"></div>-->
+            <!--<div class="row">-->
+                <!--<div class="col-lg-12">-->
+                    <!--<p class="blue-font lead center-align startups-copy">Build beautiful apps for some of the largest enterprises</p>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="col-lg-12">
+        <div id="section1-carousel" class="carousel slide" style="height:100%;" data-interval="3000" data-pause="false">
+            <div class="carousel-inner" style="height:100%">
+                <div id="section-1" class="item active fullscreen-section" style="background:url('/assets/img/startups/enterprise_logos.jpg');">
+                    <div class="startups-overlay overlay"></div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p class="center-align startups-copy width960">Build beautiful apps for some of the largest enterprises</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="section-2" class="item fullscreen-section" style="background:url('/assets/img/startups/enterprise_logos.jpg');">
+                    <div class="startups-overlay overlay"></div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p class="center-align startups-copy width960">Earn working capital while you strive for product market fit</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="section-3" class="item fullscreen-section" style="background:url('/assets/img/startups/enterprise_logos.jpg');">
+                    <div class="startups-overlay overlay"></div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p class="center-align startups-copy width960">Get street cred among large enterprises and show social proof to investors</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block Scripts %}
+    <script src="/assets/js/startups.js"></script>
+{% endblock %}
