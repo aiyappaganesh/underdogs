@@ -333,9 +333,8 @@ margin-bottom: 10px;
 }
 
 .navbar-nav {
-    opacity: 0;
-    margin-left: 251px;
-    float: none !important;
+    opacity: 1;
+    margin-left: 50%;
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
 }
@@ -358,4 +357,18 @@ margin-bottom: 10px;
 .width960 {
     max-width: 960px;
     margin: auto;
+}
+
+.navbar-header {
+    min-width: 50%;
+    min-height: 50px;
+}
+
+.navbar-nav a {
+    color: #ffffff;
+    font-size: 20px;
+}
+
+.navbar-collapse {
+    margin-top: 2%;
 }
