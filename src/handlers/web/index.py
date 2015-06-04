@@ -52,6 +52,7 @@ class LatestLandingPage(WebRequestHandler):
         path = 'landing_latest.html'
         template_values = get_template_values_for_landing()
         template_values['no_navbar_onload'] = True
+        template_values['nav_color'] = 'light-nav'
         self.write(self.get_rendered_html(path, template_values), 200)
 
 app = webapp2.WSGIApplication(

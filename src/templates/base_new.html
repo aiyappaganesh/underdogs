@@ -11,13 +11,14 @@
         <link href="/assets/css/bootflat.min.css" type="text/css" rel="stylesheet">
         <link href="/assets/css/custom_new.css" type="text/css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:800,800italic,700normal,700italic,600,100,400,500,500italic,600italic,700,400italic,300,300italic|Raleway:800,800italic,700normal,700italic,600,100,400,500,500italic,600italic,700,400italic,300,300italic">
+        <link rel="stylesheet" href="/assets/fonts/SanFrancisco/sample.css" type="text/css" media="all" />
         <script src="/assets/js/Chart.js"></script>
         {% block Styles %}{% endblock %}
         <title>{% block Title %}Pirates{% endblock %}</title>
     </head>
 
     <body style="position:relative">
-        <header class="header">
+        <header class="header {{nav_color}}">
             <div>
             {% block Navbar %}
                 <div class="container">
@@ -29,7 +30,7 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a class="navbar-brand landing-logo" href="/">
+                                <a class="navbar-brand landing-logo" href="/new_home">
                                 </a>
                             </div>
                             <div class="col-md-9 nav-left-copy">
@@ -41,7 +42,7 @@
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
                             {% if hide_navbar_join != 'true' %}
-                                <li><a href="/startups/listing">STARTUPS</a></li>
+                                <li><a href="/startups/new_listing">STARTUPS</a></li>
                                 <li><a href="/projects/list">PROJECTS</a></li>
                             {% endif %}
                             {% if hide_navbar_login != 'true' %}
