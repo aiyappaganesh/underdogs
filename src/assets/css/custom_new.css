@@ -203,11 +203,11 @@ a small {
 }
 
 .nav-left-copy {
-    font-size: 30px;
+    font-size: 24px;
     -webkit-transition: all 0.1s ease;
     transition: all 0.1s ease;
     font-family: nevis, sans-serif;
-    font-weight: normal !important;
+    font-weight: lighter !important;
     padding-left: 20px !important;
 }
 
@@ -414,7 +414,7 @@ margin-bottom: 10px;
 }
 
 .navbar-nav a {
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .nav-padded {
@@ -511,8 +511,23 @@ margin-bottom: 10px;
     background-color: #ffffff !important;
 }
 
-@font-face { font-family: nevis; src: url('/assets/fonts/nevis.ttf'); }
+@font-face { font-family: nevis; font-weight: lighter; src: url('/assets/fonts/nevis.ttf'); }
 
 .navbar-nav>li>a {
     font-family: Helvetica Neue !important;
+    font-weight: 500;
+}
+
+.startup-section {
+    background-color:  #ffffff;
+    box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.05);
+}
+
+.startup-title {
+    font-family: nevis;
+    color:  #333333;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 36px;
+    text-align: left;
 }
