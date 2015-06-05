@@ -7,8 +7,8 @@ from google.appengine.ext import deferred
 from handlers.request_handler import RequestHandler
 from google.appengine.ext.webapp import blobstore_handlers
 from model.third_party_user import ThirdPartyUser
-from networks import GITHUB, LINKEDIN, ANGELLIST
-from user_data import github, linkedin, angellist
+from networks import GITHUB, LINKEDIN, ANGELLIST, DRIBBBLE
+from user_data import github, linkedin, angellist, dribbble
 from util import util
 from handlers.web.web_request_handler import WebRequestHandler
 from google.appengine.api import mail
@@ -25,7 +25,8 @@ from model.company import Company
 networks = {
 GITHUB: github,
 LINKEDIN: linkedin,
-ANGELLIST: angellist
+ANGELLIST: angellist,
+DRIBBBLE: dribbble
 }
 
 def fetch_users_for(company):
@@ -61,6 +62,7 @@ def update_averages(member, influence_total, expertise_total):
 
 def pull_company_data(company):
     members = fetch_users_for(company)
+    logging.info(members)
     init_company(company)
     influence_total = 0.0
     expertise_total = {}
