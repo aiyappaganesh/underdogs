@@ -101,10 +101,6 @@ body a {
     border-bottom: 1px solid #eee;
 }
 
-.navbar {
-    background-color: rgba(255, 255, 255, 1);
-}
-
 .btn-bootflat {
     color: white;
     background-color: transparent;
@@ -203,8 +199,7 @@ a small {
     left: 0;
     z-index: 9999;
     width: 100%;
-    margin-top: 2%;
-    margin-left: 2%;
+    padding-top: 2%;
 }
 
 .nav-left-copy {
@@ -217,7 +212,7 @@ a small {
     color: #000000 !important;
 }
 
-.dark-nav .navbar-right {
+.dark-nav {
     background-color: rgba(255,255,255,0.8);
 }
 
@@ -235,11 +230,11 @@ a small {
     }
 
     .scrolled .header {
-        margin-top: 1%;
+        padding-top: 1%;
     }
 
     .scrolled .nav-left-copy {
-        visibility: hidden;
+        display: none;
     }
 
     .scrolled .landing-logo {
@@ -251,10 +246,13 @@ a small {
 
 .landing-logo {
     background-image: url('/assets/img/logo_color.png');
+    background-size: cover;
+    background-repeat: no-repeat;
     width: 104px;
     height: 84px;
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
+    margin-left: 10px;
 }
 
 .bottom-margin-sm {
@@ -468,4 +466,44 @@ margin-bottom: 10px;
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
     opacity: 1;
+}
+
+.startup-logo {
+    height: 120px;
+    width: 120px;
+    margin: auto;
+    background-size: cover;
+}
+
+.startup-copy {
+    padding-top: 10px !important;
+    color: #333333;
+    font-family: Helvetica Neue;
+}
+
+.startup-copy p {
+    margin: 0px !important;
+}
+
+.startup-name {
+    font-size: 24px;
+}
+
+.startup-desc {
+    font-size: 20px;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #ffffff !important;
+    font-size: 24px;
+    margin-left: 10px !important;
+}
+
+.navbar-inverse .navbar-nav a {
+    color: #ffffff !important;
+}
+
+.navbar-inverse .navbar-nav .active>a {
+    color: #333333 !important;
+    background-color: #ffffff !important;
 }
