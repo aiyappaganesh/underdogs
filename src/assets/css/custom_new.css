@@ -206,6 +206,9 @@ a small {
     font-size: 30px;
     -webkit-transition: all 0.1s ease;
     transition: all 0.1s ease;
+    font-family: nevis, sans-serif;
+    font-weight: normal !important;
+    padding-left: 20px !important;
 }
 
 .dark-nav, .dark-nav a {
@@ -252,7 +255,7 @@ a small {
     height: 84px;
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
-    margin-left: 10px;
+    float: right;
 }
 
 .bottom-margin-sm {
@@ -506,4 +509,10 @@ margin-bottom: 10px;
 .navbar-inverse .navbar-nav .active>a {
     color: #333333 !important;
     background-color: #ffffff !important;
+}
+
+@font-face { font-family: nevis; src: url('/assets/fonts/nevis.ttf'); }
+
+.navbar-nav>li>a {
+    font-family: Helvetica Neue !important;
 }
