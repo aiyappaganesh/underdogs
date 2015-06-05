@@ -10,5 +10,5 @@ from model.skill import Skill
 from model.experience import Experience
 
 def pull_data(member, third_party_user):
-    response = json.loads(urlfetch.fetch('http://api.dribbble.com/v1/shots?access_token=' + third_party_user.access_token).content)
+    response = json.loads(urlfetch.fetch('https://api.dribbble.com/v1/shots?access_token=' + third_party_user.access_token).content)
     logging.info(response)
