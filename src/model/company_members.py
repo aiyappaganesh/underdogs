@@ -1,5 +1,6 @@
 from google.appengine.ext import db
 from util.util import convert_string_list_to_dict
+from model.design import Design
 import logging
 
 class CompanyMember(db.Model):
@@ -45,6 +46,11 @@ class CompanyMember(db.Model):
             for skill, score in updated_expertise.iteritems():
                 self.expertise.append(skill + " : " + str(score))
         self.put()
+
+    def update_design_score(self, dribbble_user, shots_data):
+        design = Design(parent=self.parent(), key_name=self.user_id)
+        design.update_score(shots_data, dribbble_user['followers_count'])
+        design.put()
 
     def get_expertise(self):
         return convert_string_list_to_dict(self.expertise)

@@ -10,7 +10,8 @@ from model.skill import Skill
 from model.experience import Experience
 
 def pull_data(member, third_party_user):
-    response = json.loads(urlfetch.fetch('https://api.dribbble.com/v1/shots?access_token=' + third_party_user.access_token).content)
-    logging.info(len(response))
-    for shot in response:
-        logging.info(shot['title'])
+    user_response = json.loads(urlfetch.fetch('https://api.dribbble.com/v1/user?access_token=' + third_party_user.access_token).content)
+    shots_url = user_response['shots_url']
+    logging.info(third_party_user.access_token)
+    shots_response = json.loads(urlfetch.fetch(shots_url + '?access_token=' + third_party_user.access_token).content)
+    member.update_design_score(user_response, shots_response)
