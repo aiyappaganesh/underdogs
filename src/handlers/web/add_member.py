@@ -20,6 +20,7 @@ from util.util import registration_breadcrumbs, get_user_companies, get_user_pro
 from networks import LINKEDIN, FACEBOOK, TWITTER
 from model.third_party_login_data import ThirdPartyLoginData
 from model.third_party_profile_data import ThirdPartyProfileData
+from model.design import Design
 
 class ExposeThirdPartyPage(WebRequestHandler):
     @web_login_required
@@ -98,16 +99,28 @@ class LatestListMemberPage(WebRequestHandler):
         if not c:
             self.write('no company')
             return
+        aggregated_designs = Design.aggregate_data_for(c)
         session = get_current_session()
         user_id = session['me_email']
         access_type = self.get_access_type(c, user_id)
         q = CompanyMember.all().ancestor(c)
         users = [{'name': User.get_by_key_name(company_member.user_id).name, 'influence': company_member.influence, 'expertise': company_member.expertise} for company_member in q]
         design_stats = {}
-        design_stats['live_apps'] = 3
-        design_stats['shots'] = 6
-        design_stats['likes'] = 9
-        design_stats['followers'] = 7
+        design_stats['live_apps'] = aggregated_designs['live_apps']
+        design_stats['shots'] = aggregated_designs['shots']
+        design_stats['likes'] = aggregated_designs['likes']
+        design_stats['followers'] = aggregated_designs['followers']
+        picture_rows = []
+        picture_row = []
+        picture_urls = aggregated_designs['shot_urls']
+        for index, picture_url in enumerate(picture_urls, start=1):
+            picture_row.append(picture_url)
+            if index%3 == 0:
+                picture_rows.append(picture_row)
+                picture_row = []
+            elif index == len(picture_urls):
+                picture_rows.append(picture_row)
+        design_stats['pictures'] = picture_rows
         donuts = 2
         donuts -= 1
         donut_size = 200-(5*donuts)

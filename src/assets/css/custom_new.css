@@ -584,10 +584,6 @@ sup {
     text-align: center;
 }
 
-.20-pad {
-    padding: 20px;
-}
-
 .right-down-shadow {
     box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.05);
     height: 74px;
@@ -600,4 +596,15 @@ sup {
     font-size: 24px;
     font-weight: 500;
     line-height: 36px;
+}
+
+.shot {
+    height: 225px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.shot-row {
+    margin-bottom: 45px !important;
 }
