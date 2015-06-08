@@ -11,4 +11,6 @@ from model.experience import Experience
 
 def pull_data(member, third_party_user):
     response = json.loads(urlfetch.fetch('https://api.dribbble.com/v1/shots?access_token=' + third_party_user.access_token).content)
-    logging.info(response)
+    logging.info(len(response))
+    for shot in response:
+        logging.info(shot['title'])
