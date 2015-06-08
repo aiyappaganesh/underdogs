@@ -51,6 +51,11 @@ class CompanyMember(db.Model):
         design = Design(parent=self.parent(), key_name=self.user_id)
         design.update_score(shots_data, dribbble_user['followers_count'])
         design.put()
+        self.get_design_score()
+
+    def get_design_score(self):
+        logging.info(Design.aggregate_data_for(self.parent()))
+        return Design.aggregate_data_for(self.parent())
 
     def get_expertise(self):
         return convert_string_list_to_dict(self.expertise)
