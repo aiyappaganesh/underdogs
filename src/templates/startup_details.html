@@ -56,9 +56,9 @@
         }
     </script>
     <div class="container nav-padded">
-        <div class="row">
+        <div class="row startup-section" id="overview">
             <div class="col-lg-12">
-                <div class="row">
+                <div class="row shadowed-box">
                     <div class="col-md-2">
                         <div class="startup-logo" style="background-image:url('{% if image %}/api/common/download_image/{{image}}{% else %}/assets/img/company/company.png{% endif %}');"></div>
                     </div>
@@ -74,109 +74,65 @@
                         </div>
                     </div>
                 </div>
-                {% ifequal access_type "admin" %}<a href="/startups/edit?company_id={{company_id}}"><h6 class="page-header">EDIT STARTUP</h6></a>{% endifequal %}
-                <div class="row page-header">
-                    <div class="col-lg-4">
-                        <small>Influence:</small>
+                <div class="row startup-title shadowed-box">
+                    <p>Scores</p>
+                </div>
+                <div class="row shadowed-box">
+                    <div class="col-md-4 expertise-td-donut">
                         <div class="donut_td">
-                            {% include "components/donut_chart.html" with donut_score=influence donut_size=donut_size tooltip_font_size=tooltip_font_size %}
+                            {% include "components/new_donut_chart.html" with donut_score=score_design donut_size=donut_size tooltip_font_size=tooltip_font_size %}
                         </div>
+                        <p class="score-desc">Design</p>
                     </div>
-                    <div class="col-lg-8">
-                        <div class="row expertise_td">
-                            <div class="col-lg-6">
-                                <small>Expertise:</small>
-                                <select class="expertise-select" id="company-expertise-select" style="padding-top:15px;">
-                                <option id="companyitem0" value="">Select Expertise</option>
-                                {% for item in expertise %}
-                                <option id="companyitem{{forloop.counter}}" value=""></option>
-                                <script>
-                                    var str = '{{item}}';
-                                    var arr = str.split(' : ');
-                                    document.getElementById("companyitem{{forloop.counter}}").innerHTML = arr[0];
-                                    document.getElementById("companyitem{{forloop.counter}}").setAttribute('value', parseFloat(arr[1]));
-                                </script>
-                                {% endfor %}
-                                </select>
-                            </div>
-                            <div class="col-lg-6" style="padding-top:24px;">
-                                <div class="donut_td">
-                                    {% include "components/donut_chart.html" with donut_score="no_load" donut_size=donut_size tooltip_font_size=tooltip_font_size %}
-                                </div>
-                            </div>
+                    <div class="col-md-4 expertise-td-donut">
+                        <div class="donut_td">
+                            {% include "components/new_donut_chart.html" with donut_score=score_development donut_size=donut_size tooltip_font_size=tooltip_font_size %}
                         </div>
+                        <p class="score-desc">Development</p>
+                    </div>
+                    <div class="col-md-4 expertise-td-donut">
+                        <div class="donut_td">
+                            {% include "components/new_donut_chart.html" with donut_score=score_community donut_size=donut_size tooltip_font_size=tooltip_font_size %}
+                        </div>
+                        <p class="score-desc">Community</p>
                     </div>
                 </div>
-                {% ifequal access_type "admin" %}
-                    <div class="row page-header center-align">
-                        <div class="col-lg-4">
-                            <a class="btn btn-bootflat btn-bootflat-top-padded" href="/member/expose_third_party?company_id={{company_id}}">Add myself</a>
-                        </div>
-                        <div class="col-lg-4">
-                            <a class="btn btn-bootflat btn-bootflat-top-padded" href="/member/dashboard_invite?company_id={{company_id}}">Invite team member</a>
-                        </div>
-                        <div class="col-lg-4">
-                            <a class="btn btn-bootflat btn-bootflat-top-padded" href="" onclick="return triggerDataPull();">Acquire data</a>
-                        </div>
-                    </div>
-                {% endifequal %}
-                {% if access_type == "admin" or access_type == "member"%}
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h4 class="page-header">Team members</h4>
-                            <div class="container">
-                                <div class="row">
-                                    <table class="table table-hover scores-table">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>Member</th>
-                                                <th>Influence</th>
-                                                <th>Expertise</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {% for member in users %}
-                                            <tr class="list-row original-pos">
-                                                <td>{{forloop.counter}}</td>
-                                                <td>{{member.name}}</td>
-                                                <td>
-                                                    <div class="donut_td">
-                                                        {% include "components/donut_chart.html" with donut_score=member.influence donut_size=donut_size tooltip_font_size=tooltip_font_size %}
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="row expertise_td">
-                                                        <div class="col-lg-6 expertise-td-select">
-                                                            <select class="expertise-select" id="expertise-select{{forloop.counter}}">
-                                                            <option id="item{{forloop.parentloop.counter}}0" value="">Select Expertise</option>
-                                                            {% for item in member.expertise %}
-                                                            <option id="item{{forloop.parentloop.counter}}{{forloop.counter}}" value=""></option>
-                                                            <script>
-                                                                var str = '{{item}}';
-                                                                var arr = str.split(' : ');
-                                                                document.getElementById("item{{forloop.parentloop.counter}}{{forloop.counter}}").innerHTML = arr[0];
-                                                                document.getElementById("item{{forloop.parentloop.counter}}{{forloop.counter}}").setAttribute('value', parseFloat(arr[1]));
-                                                            </script>
-                                                            {% endfor %}
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-lg-6 expertise-td-donut">
-                                                            <div class="donut_td">
-                                                                {% include "components/donut_chart.html" with donut_score="no_load" donut_size=donut_size tooltip_font_size=tooltip_font_size %}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
+            </div>
+        </div>
+        <div class="row startup-section" id="design">
+            <div class="col-lg-12">
+                <div class="row startup-title shadowed-box">
+                    <p>Design Stats</p>
+                </div>
+                <div class="shadowed-box">
+
+                </div>
+                <div class="row startup-title shadowed-box">
+                    <p>Design Portfolio</p>
+                </div>
+                <div class="shadowed-box">
+
+                </div>
+            </div>
+        </div>
+        <div class="row startup-section" id="dev">
+            <div class="col-lg-12">
+                <div class="row startup-title shadowed-box">
+                    <p>Dev Stats</p>
+                </div>
+                <div class="shadowed-box">
+
+                </div>
+            </div>
+        </div>
+        <div class="row startup-section" id="community">
+            <div class="col-lg-12">
+                <div class="row startup-title shadowed-box">
+                    <p>Community</p>
+                </div>
+                <div class="shadowed-box">
+
+                </div>
             </div>
         </div>
     </div>
@@ -186,7 +142,7 @@
     <script src="/assets/js/jquery.fs.selecter.min.js"></script>
     <script src="/assets/js/jquery.fs.scroller.min.js"></script>
     <script src="/assets/js/add_selecter.js"></script>
-    {% include "components/donut_chart_script.html" %}
+    {% include "components/new_donut_chart_script.html" %}
     <script src="/assets/js/listing_animation.js"></script>
     <script>
         function set_copy(window_width, window_height) {

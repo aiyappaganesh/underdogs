@@ -105,7 +105,7 @@ class LatestListMemberPage(WebRequestHandler):
         users = [{'name': User.get_by_key_name(company_member.user_id).name, 'influence': company_member.influence, 'expertise': company_member.expertise} for company_member in q]
         donuts = 2
         donuts -= 1
-        donut_size = 80-(5*donuts)
+        donut_size = 200-(5*donuts)
         score_font_size = 40-(3*donuts)
         tooltip_font_size = 14-donuts
         template_values = {'company_id': company_id,
@@ -115,12 +115,17 @@ class LatestListMemberPage(WebRequestHandler):
                            'profile': c.profile,
                            'influence': c.influence_avg if c.influence_avg else 0.0,
                            'expertise': c.expertise_avg if c.expertise_avg else [],
+                           'score_design': c.influence_avg if c.influence_avg else 0.0,
+                           'score_development': (c.influence_avg + 0.23) if c.influence_avg else 0.0,
+                           'score_community': (c.influence_avg + 0.37) if c.influence_avg else 0.0,
                            'users': users,
                            'access_type': access_type,
                            'admin_id': user_id,
                            'donut_size': donut_size,
                            'score_font_size': score_font_size,
                            'tooltip_font_size': tooltip_font_size,
+                           'full_color': '#139fe1',
+                           'empty_color': 'transparent',
                            'show_sub_nav':True,
                            'nav_color':'dark-nav'}
         self.write(self.get_rendered_html(path, template_values), 200)
