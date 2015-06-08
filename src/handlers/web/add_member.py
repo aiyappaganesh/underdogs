@@ -103,6 +103,11 @@ class LatestListMemberPage(WebRequestHandler):
         access_type = self.get_access_type(c, user_id)
         q = CompanyMember.all().ancestor(c)
         users = [{'name': User.get_by_key_name(company_member.user_id).name, 'influence': company_member.influence, 'expertise': company_member.expertise} for company_member in q]
+        design_stats = {}
+        design_stats['live_apps'] = 3
+        design_stats['shots'] = 6
+        design_stats['likes'] = 9
+        design_stats['followers'] = 7
         donuts = 2
         donuts -= 1
         donut_size = 200-(5*donuts)
@@ -118,6 +123,7 @@ class LatestListMemberPage(WebRequestHandler):
                            'score_design': c.influence_avg if c.influence_avg else 0.0,
                            'score_development': (c.influence_avg + 0.23) if c.influence_avg else 0.0,
                            'score_community': (c.influence_avg + 0.37) if c.influence_avg else 0.0,
+                           'design_stats': design_stats,
                            'users': users,
                            'access_type': access_type,
                            'admin_id': user_id,

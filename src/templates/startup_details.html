@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row startup-title shadowed-box">
+                <div class="row startup-title">
                     <p>Scores</p>
                 </div>
                 <div class="row shadowed-box">
@@ -101,23 +101,70 @@
         </div>
         <div class="row startup-section" id="design">
             <div class="col-lg-12">
-                <div class="row startup-title shadowed-box">
+                <div class="row startup-title">
                     <p>Design Stats</p>
                 </div>
-                <div class="shadowed-box">
-
+                <div class="row shadowed-box">
+                    <div class="col-md-4 expertise-td-donut">
+                        <div class="donut_td">
+                            {% include "components/new_donut_chart.html" with donut_score=score_design donut_size=donut_size tooltip_font_size=tooltip_font_size %}
+                        </div>
+                        <p class="score-desc">Design</p>
+                    </div>
+                    <div class="col-md-8 20-pad design-table">
+                        <div class="row">
+                            <div class="col-md-8 right-down-shadow left-align">
+                                <p>Live Apps</p>
+                            </div>
+                            <div class="col-md-2 right-down-shadow center-align">
+                                <p>{{design_stats.live_apps}}</p>
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8 right-down-shadow left-align">
+                                <p>Shots</p>
+                            </div>
+                            <div class="col-md-2 right-down-shadow center-align">
+                                <p>{{design_stats.shots}}</p>
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8 right-down-shadow left-align">
+                                <p>Likes</p>
+                            </div>
+                            <div class="col-md-2 right-down-shadow center-align">
+                                <p>{{design_stats.likes}}</p>
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8 right-down-shadow left-align">
+                                <p>Followers</p>
+                            </div>
+                            <div class="col-md-2 right-down-shadow center-align">
+                                <p>{{design_stats.followers}}</p>
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="row startup-title shadowed-box">
+                <div class="row startup-title">
                     <p>Design Portfolio</p>
                 </div>
-                <div class="shadowed-box">
+                <div class="row shadowed-box">
 
                 </div>
             </div>
         </div>
         <div class="row startup-section" id="dev">
             <div class="col-lg-12">
-                <div class="row startup-title shadowed-box">
+                <div class="row startup-title">
                     <p>Dev Stats</p>
                 </div>
                 <div class="shadowed-box">
@@ -127,7 +174,7 @@
         </div>
         <div class="row startup-section" id="community">
             <div class="col-lg-12">
-                <div class="row startup-title shadowed-box">
+                <div class="row startup-title">
                     <p>Community</p>
                 </div>
                 <div class="shadowed-box">
