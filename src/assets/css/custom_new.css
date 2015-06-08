@@ -51,7 +51,7 @@ body a {
 }
 
 .nav-offset {
-    margin-top: 100px;
+    margin-top: 104px;
 }
 
 .nav-offset-padding {
@@ -207,7 +207,6 @@ a small {
     left: 0;
     z-index: 9999;
     width: 100%;
-    padding-top: 2%;
 }
 
 .nav-left-copy {
@@ -241,7 +240,6 @@ a small {
     }
 
     .scrolled .header {
-        padding-top: 1%;
     }
 
     .scrolled .nav-left-copy {
@@ -251,14 +249,15 @@ a small {
     .scrolled .landing-logo {
         background-image: url('/assets/img/logo_color_small.png');
         width: 48px;
-        height: 38px;
+        height: 50px;
     }
 }
 
 .landing-logo {
     background-image: url('/assets/img/logo_color.png');
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
+    background-position: center center;
     width: 104px;
     height: 84px;
     -webkit-transition: all 0.5s ease;
@@ -426,7 +425,7 @@ margin-bottom: 10px;
 }
 
 .nav-padded {
-    margin-top: 10%;
+    margin-top: 50px;
 }
 
 .company-img .caption {
@@ -504,6 +503,10 @@ margin-bottom: 10px;
 
 .startup-desc {
     font-size: 20px;
+}
+
+.navbar-inverse {
+    border: none;
 }
 
 .navbar-inverse .navbar-brand {
@@ -607,4 +610,23 @@ sup {
 
 .shot-row {
     margin-bottom: 45px !important;
+}
+
+.top-nav {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.scrollspied {
+    position: relative;
+}
+
+.sub-menu>li>a {
+    font-family: Helvetica Neue;
+    color:  #333333;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: center;
+    transform: scaleY(1.0008);
 }
