@@ -651,3 +651,49 @@ sup {
     text-align: center;
     transform: scaleY(1.0008);
 }
+
+.footer {
+    min-height: 207px;
+    background-color:  #1c1c1c;
+}
+
+.footer-logo-small {
+    background-image: url('/assets/img/logo_color_small.png') !important;
+    margin: auto;
+    height: 50px !important;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.footer-logo-copy {
+    font-family: Helvetica Neue;
+    color:  #ffffff;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: left;
+    transform: scaleY(1.001);
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.footer-title {
+    font-family: Helvetica Neue;
+    color:  #e6e9ed;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 36px;
+    text-align: left;
+    transform: scaleY(1.001);
+}
+
+.footer-link {
+    font-family: Helvetica Neue;
+    color:  #aab2bd;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 28px;
+    text-align: left;
+    transform: scaleY(1.001);
+}

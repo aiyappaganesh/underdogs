@@ -84,7 +84,9 @@
                     {% block Content %}{% endblock %}
                 </div>
             </div>
-            {% block Footer %}{% endblock %}
+            {% block Footer %}
+                {% include "components/footer.html" %}
+            {% endblock %}
         </div>
         <script src="/assets/js/jquery.js"></script>
         <script src="/assets/js/bootstrap.min.js"></script>
