@@ -407,6 +407,7 @@ margin-bottom: 10px;
     position: relative;
     background-size: cover !important;
     background-position: center !important;
+    background-repeat: no-repeat !important;
 }
 
 .overlay {
