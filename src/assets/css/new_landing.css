@@ -67,3 +67,27 @@
 .section-slide-3-center-margin {
     margin-top: 128px;
 }
+
+.section-slide-6-copy {
+    font-family: nevis;
+    color:  #333333;
+    font-size: 48px;
+    font-weight: 700;
+    text-align: center;
+    transform: scaleX(1.0007);
+}
+
+.section-slide-6-center-margin {
+    margin-top: 35px;
+}
+
+.section-slide-6-img {
+    background-size: 128px 128px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 128px;
+}
+
+.section-slide-6-img-row-margin {
+    margin-top: 35px;
+}

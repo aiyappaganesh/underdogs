@@ -20,7 +20,7 @@ $(document).ready(function(){
 
 function set_copy(window_width, window_height) {
     $('.landing-copy').css('margin-top',window_height/2.85);
-    $('.first-content').css('margin-top',window_height/4.5);
+    $('.first-content').css('margin-top',window_height/6.5);
     if(window_width < 1280) {
         var font_size = (window_width*48)/1280;
         var line_height = (window_width*72)/1280;
