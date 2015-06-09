@@ -425,8 +425,7 @@ margin-bottom: 10px;
 }
 
 .navbar-header {
-    min-width: 50%;
-    min-height: 50px;
+    padding-left: 40px !important;
 }
 
 .navbar-nav a {
@@ -649,6 +648,28 @@ sup {
     line-height: 20px;
     text-align: center;
     transform: scaleY(1.0008);
+}
+
+.navbar {
+    margin-bottom: 0px !important;
+}
+
+.nav-startup-name {
+    font-family: nevis;
+    color: #ffffff !important;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 36px;
+    text-align: left;
+    transform: scaleY(1.005);
+}
+
+.navbar-inverse .container-fluid {
+    padding: 0px !important;
+}
+
+.navbar-inverse .navbar-header {
+    padding-top: 9px;
 }
 
 .footer {

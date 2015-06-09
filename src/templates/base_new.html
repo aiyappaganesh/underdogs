@@ -18,22 +18,18 @@
     </head>
 
     <body class="scrollspied scrolled" data-spy="scroll" data-target="#submenu">
-        <header class="header {{nav_color}}">
+        <header class="header">
             <div>
             {% block Navbar %}
-                <div class="container top-nav">
+                <div class="container top-nav {{nav_color}}">
                     <div class="navbar-header">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                                <a class="navbar-brand landing-logo" href="/new_home">
-                                </a>
-                            </div>
-                        </div>
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand landing-logo" href="/new_home">
+                        </a>
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
@@ -62,7 +58,7 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="#">{{name}}</a>
+                            <a class="nav-startup-name" href="#">{{name}}</a>
                         </div>
                         <div class="collapse navbar-collapse" id="submenu">
                             <ul class="nav navbar-nav sub-menu">
