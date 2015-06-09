@@ -251,6 +251,10 @@ a small {
         width: 48px;
         height: 50px;
     }
+
+    .scrolled .light-nav {
+        background-color: rgba(0,0,0,0.6);
+    }
 }
 
 .landing-logo {
@@ -619,6 +623,10 @@ sup {
 
 .scrollspied {
     position: relative;
+}
+
+.sub-menu {
+    float: right !important;
 }
 
 .sub-menu>li>a {
