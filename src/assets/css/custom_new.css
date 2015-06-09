@@ -344,6 +344,10 @@ margin-bottom: 10px;
     background-color: #FFFFFF;
 }
 
+.dark-background {
+    background-color: #1c1c1c;
+}
+
 .base-nav {
     height: 50px;
     text-align: center;

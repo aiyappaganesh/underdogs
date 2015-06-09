@@ -37,3 +37,33 @@
     font-weight: normal;
     text-align: center;
 }
+
+.section-slide-3-copy {
+    font-family: nevis;
+    color:  #ffffff;
+    font-size: 48px;
+    font-weight: 700;
+    text-align: center;
+    transform: scaleY(1.0004);
+}
+
+.section-slide-3-copy-small {
+    font-family: nevis;
+    color:  #ffffff;
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+    transform: scaleY(1.0004);
+    margin-top: 38px;
+}
+
+.section-slide-3-img {
+    background-size: auto auto;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 75px;
+}
+
+.section-slide-3-center-margin {
+    margin-top: 128px;
+}
