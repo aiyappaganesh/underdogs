@@ -105,11 +105,10 @@ class LatestListMemberPage(WebRequestHandler):
         access_type = self.get_access_type(c, user_id)
         q = CompanyMember.all().ancestor(c)
         users = [{'name': User.get_by_key_name(company_member.user_id).name, 'influence': company_member.influence, 'expertise': company_member.expertise} for company_member in q]
-        design_stats = {}
-        design_stats['live_apps'] = aggregated_designs['live_apps']
-        design_stats['shots'] = aggregated_designs['shots']
-        design_stats['likes'] = aggregated_designs['likes']
-        design_stats['followers'] = aggregated_designs['followers']
+        design_stats = [('Live Apps', aggregated_designs['live_apps']),
+                        ('Shots', aggregated_designs['shots']),
+                        ('Likes', aggregated_designs['likes']),
+                        ('Followers', aggregated_designs['followers'])]
         picture_rows = []
         picture_row = []
         picture_urls = aggregated_designs['shot_urls']
@@ -120,12 +119,14 @@ class LatestListMemberPage(WebRequestHandler):
                 picture_row = []
             elif index == len(picture_urls):
                 picture_rows.append(picture_row)
-        design_stats['pictures'] = picture_rows
         donuts = 2
         donuts -= 1
         donut_size = 200-(5*donuts)
         score_font_size = 40-(3*donuts)
         tooltip_font_size = 14-donuts
+        donut_scores = [('Design', c.influence_avg if c.influence_avg else 0.0),
+                        ('Development', (c.influence_avg + 0.23) if c.influence_avg else 0.0),
+                        ('Community', (c.influence_avg + 0.37) if c.influence_avg else 0.0)]
         template_values = {'company_id': company_id,
                            'name': c.name,
                            'image': c.image,
@@ -133,10 +134,9 @@ class LatestListMemberPage(WebRequestHandler):
                            'profile': c.profile,
                            'influence': c.influence_avg if c.influence_avg else 0.0,
                            'expertise': c.expertise_avg if c.expertise_avg else [],
-                           'score_design': c.influence_avg if c.influence_avg else 0.0,
-                           'score_development': (c.influence_avg + 0.23) if c.influence_avg else 0.0,
-                           'score_community': (c.influence_avg + 0.37) if c.influence_avg else 0.0,
+                           'donut_scores': donut_scores,
                            'design_stats': design_stats,
+                           'pictures':picture_rows,
                            'users': users,
                            'access_type': access_type,
                            'admin_id': user_id,

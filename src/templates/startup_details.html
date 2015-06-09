@@ -78,24 +78,14 @@
                     <p>Scores</p>
                 </div>
                 <div class="row shadowed-box">
+                    {% for donut in donut_scores %}
                     <div class="col-md-4 expertise-td-donut">
                         <div class="donut_td">
-                            {% include "components/new_donut_chart.html" with donut_score=score_design donut_size=donut_size tooltip_font_size=tooltip_font_size %}
+                            {% include "components/new_donut_chart.html" with donut_score=donut.1 donut_size=donut_size tooltip_font_size=tooltip_font_size %}
                         </div>
-                        <p class="score-desc">Design</p>
+                        <p class="score-desc">{{donut.0}}</p>
                     </div>
-                    <div class="col-md-4 expertise-td-donut">
-                        <div class="donut_td">
-                            {% include "components/new_donut_chart.html" with donut_score=score_development donut_size=donut_size tooltip_font_size=tooltip_font_size %}
-                        </div>
-                        <p class="score-desc">Development</p>
-                    </div>
-                    <div class="col-md-4 expertise-td-donut">
-                        <div class="donut_td">
-                            {% include "components/new_donut_chart.html" with donut_score=score_community donut_size=donut_size tooltip_font_size=tooltip_font_size %}
-                        </div>
-                        <p class="score-desc">Community</p>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -113,46 +103,18 @@
                     </div>
                     <div class="col-md-8 design-table">
                         <div class="list-group">
+                        {% for stat in design_stats %}
                             <div class="list-group-item">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <p class="list-group-item-heading">Live Apps</p>
+                                        <p class="list-group-item-heading">{{stat.0}}</p>
                                     </div>
                                     <div class="col-lg-6">
-                                        <p class="list-group-item-text">{{design_stats.live_apps}}</p>
+                                        <p class="list-group-item-text">{{stat.1}}</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="list-group-item">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <p class="list-group-item-heading">Shots</p>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <p class="list-group-item-text">{{design_stats.shots}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="list-group-item">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <p class="list-group-item-heading">Likes</p>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <p class="list-group-item-text">{{design_stats.likes}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="list-group-item">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <p class="list-group-item-heading">Followers</p>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <p class="list-group-item-text">{{design_stats.followers}}</p>
-                                    </div>
-                                </div>
-                            </div>
+                        {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -161,7 +123,7 @@
                 </div>
                 <div class="row shadowed-box">
                     <div class="col-md-12">
-                        {% for picture_row in design_stats.pictures %}
+                        {% for picture_row in picture_rows %}
                         <div class="row shot-row">
                             {% for picture_url in picture_row %}
                             <div class="col-md-4 shot" style="background-image:url('{{picture_url}}')"></div>
