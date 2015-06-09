@@ -17,7 +17,7 @@
         <title>{% block Title %}Pirates{% endblock %}</title>
     </head>
 
-    <body class="scrollspied" data-spy="scroll" data-target="#submenu">
+    <body class="scrollspied scrolled" data-spy="scroll" data-target="#submenu">
         <header class="header {{nav_color}}">
             <div>
             {% block Navbar %}
@@ -100,16 +100,6 @@
                         verticalOffset: 0
                     }
                 );
-                $(window).scroll(function(){
-                    var top = $('body').scrollTop();
-                    if(top <= 0) {
-                        $('body').removeClass('scrolled');
-                    } else {
-                        if(!$('body').hasClass('scrolled')){
-                            $('body').addClass('scrolled');
-                        }
-                    }
-                });
             });
             $(document).ready(function(){
                 $('.sub-menu>li>a').click(function(event){
