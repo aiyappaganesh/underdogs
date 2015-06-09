@@ -1,0 +1,39 @@
+.section-slide {
+    height:100% !important;
+}
+
+.landing-strike {
+    color: #ffffff;
+}
+
+.get-started-button {
+    border-radius: 10px;
+    background-color:  #ffffff;
+    width: 268px;
+    height: 66px;
+    margin: auto;
+    margin-top: 56px;
+    font-family: Helvetica Neue;
+    color:  #333333;
+    font-size: 24px;
+    font-weight: 500;
+    border: 0px;
+}
+
+.section-slide-2-copy {
+    font-family: nevis;
+    color:  #333333;
+    font-size: 48px;
+    font-weight: 700;
+    text-align: center;
+}
+
+@font-face { font-family: sobrushitalic; src: url('/assets/fonts/sobrushitalic.ttf'); }
+
+.section-slide-2-special-copy {
+    font-family: sobrushitalic;
+    color:  #139fe1;
+    font-size: 48px;
+    font-weight: normal;
+    text-align: center;
+}

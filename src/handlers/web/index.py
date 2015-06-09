@@ -1,5 +1,6 @@
 import webapp2
 from handlers.web import WebRequestHandler
+from model.company import Company
 
 def get_template_values_for_landing():
     template_values = {}
@@ -51,6 +52,19 @@ class LatestLandingPage(WebRequestHandler):
     def get(self):
         path = 'landing_latest.html'
         template_values = get_template_values_for_landing()
+        q = Company.all()
+        sorted_companies = {}
+        for c in q.fetch(3):
+            id = c.key().id()
+            sorted_companies[id] = {}
+            score = float(c.influence_avg) if c.influence_avg else 0.0
+            sorted_companies[id]['score'] = score
+            sorted_companies[id]['image'] = c.image
+            sorted_companies[id]['name'] = c.name
+            sorted_companies[id]['hello'] = c.hello
+            sorted_companies[id]['profile'] = c.profile
+        sorted_companies = sorted(sorted_companies.iteritems(), key=lambda (k,v): v['score'], reverse = True)
+        template_values['startups'] = sorted_companies
         template_values['no_navbar_onload'] = True
         template_values['nav_color'] = 'light-nav'
         self.write(self.get_rendered_html(path, template_values), 200)
