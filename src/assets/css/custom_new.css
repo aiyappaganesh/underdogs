@@ -615,7 +615,7 @@ sup {
     font-family: Helvetica Neue;
     color:  #333333;
     font-size: 24px;
-    font-weight: 250;
+    font-weight: 300;
     line-height: 36px;
 }
 
@@ -739,6 +739,23 @@ sup {
         width: 48px;
         height: 50px;
         float: left;
+    }
+
+    .startup-copy {
+        text-align: center;
+        max-width: 280px;
+        margin: auto;
+    }
+
+    .design-table {
+        text-align: center;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        margin-top: 60px;
+    }
+
+    .shot-row {
+        margin-bottom: 0px !important;
     }
 
     .footer-title {
