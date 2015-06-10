@@ -1,23 +1,15 @@
-.section-slide {
-    height:100% !important;
-}
-
 .landing-strike {
     color: #ffffff;
 }
 
 .get-started-button {
-    border-radius: 10px;
-    background-color:  #ffffff;
-    width: 268px;
-    height: 66px;
-    margin: auto;
-    margin-top: 56px;
-    font-family: Helvetica Neue;
-    color:  #333333;
-    font-size: 24px;
-    font-weight: 400;
-    border: 0px;
+    width: 268px !important;
+    height: 66px !important;
+    margin-top: 56px !important;
+    font-family: Helvetica Neue !important;
+    font-size: 24px !important;
+    font-weight: 400 !important;
+    padding-top: 14px !important;
 }
 
 .section-slide-2-copy {
@@ -91,24 +83,68 @@
 
 .section-slide-6-img-row-margin {
     margin-top: 35px;
+    margin-bottom: 65px;
 }
 
-.btn-bootflat {
-    color: rgb(59, 175, 218);
-    background-color: transparent;
-    border-color: #3bafda;
-    transition: 0.1s background-color linear;
-    height: 44px;
-    width: 200px;
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 3px;
-    text-align: center;
-    text-transform: uppercase;
-}
+@media (max-width: 766px) {
+    .landing-copy {
+        font-size: 24px;
+        line-height: 44px;
+    }
 
-.btn-bootflat:hover, .btn-bootflat:active {
-    background-color: #3bafda;
-    color: #ffffff;
-    border-color: #3bafda;
+    .get-started-button {
+        width: 201px !important;
+        height: 49.5px !important;
+        margin-top: 42px !important;
+        font-size: 18px !important;
+        padding-top: 10.5px !important;
+    }
+
+    .section-slide-2-copy {
+        font-size: 24px;
+    }
+
+    .section-slide-2-special-copy {
+        font-size: 24px;
+    }
+
+    .section-slide-3-copy {
+        font-size: 24px;
+    }
+
+    .section-slide-3-copy-small {
+        font-size: 18px;
+        line-height: 20px;
+        margin-top: 10px;
+    }
+
+    .section-slide-3-center-margin {
+        margin-top: 25px;
+    }
+
+    .section-slide-3-img {
+        margin-top: 15px;
+    }
+
+    .section-slide-6-copy {
+        font-size: 20px;
+        line-height: 50px;
+    }
+
+    .section-slide-6-center-margin {
+        margin-top: 70px;
+    }
+
+    .section-slide-6-img {
+        background-size: 64px 64px;
+        height: 64px;
+    }
+
+    .section-slide-6-img-row-margin {
+        margin-bottom: 0px;
+    }
+
+    .section-slide-7-copy {
+        font-size: 20px !important;
+    }
 }

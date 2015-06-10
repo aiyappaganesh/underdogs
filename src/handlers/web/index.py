@@ -67,6 +67,7 @@ class LatestLandingPage(WebRequestHandler):
         template_values['startups'] = sorted_companies
         template_values['no_navbar_onload'] = True
         template_values['nav_color'] = 'light-nav'
+        template_values['unscrolled'] = True
         self.write(self.get_rendered_html(path, template_values), 200)
 
 app = webapp2.WSGIApplication(

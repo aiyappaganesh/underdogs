@@ -102,9 +102,9 @@ body a {
 }
 
 .btn-bootflat {
-    color: white;
+    color: rgb(59, 175, 218);
     background-color: transparent;
-    border-color: white;
+    border-color: #3bafda;
     transition: 0.1s background-color linear;
     height: 44px;
     width: 200px;
@@ -116,9 +116,9 @@ body a {
 }
 
 .btn-bootflat:hover, .btn-bootflat:active {
-    background-color: white;
-    color: #22A7F0;
-    border-color: white;
+    background-color: #3bafda;
+    color: #ffffff;
+    border-color: #3bafda;
 }
 
 .input-group-addon {
@@ -218,6 +218,11 @@ a small {
     padding-left: 20px !important;
 }
 
+.light-nav, .dark-nav {
+    -webkit-transition: all 0.1s ease;
+    transition: all 0.1s ease;
+}
+
 .dark-nav, .dark-nav a {
     color: #000000 !important;
 }
@@ -234,27 +239,25 @@ a small {
     color: #4FC1E9 !important;
 }
 
-@media (min-width: 767px) {
-    .header {
-        border-bottom-color: white;
-    }
+.header {
+    border-bottom-color: white;
+}
 
-    .scrolled .header {
-    }
+.scrolled .header {
+}
 
-    .scrolled .nav-left-copy {
-        display: none;
-    }
+.scrolled .nav-left-copy {
+    display: none;
+}
 
-    .scrolled .landing-logo {
-        background-image: url('/assets/img/logo_color_small.png');
-        width: 48px;
-        height: 50px;
-    }
+.scrolled .landing-logo {
+    background-image: url('/assets/img/logo_color_small.png');
+    width: 48px;
+    height: 50px;
+}
 
-    .scrolled .light-nav {
-        background-color: rgba(0,0,0,0.6);
-    }
+.scrolled .light-nav {
+    background-color: rgba(0,0,0,0.6);
 }
 
 .landing-logo {
@@ -716,4 +719,25 @@ sup {
     line-height: 28px;
     text-align: left;
     transform: scaleY(1.001);
+}
+
+@media (max-width: 766px) {
+    .caption-name {
+        max-width: 100px;
+        font-size: 10px !important;
+    }
+
+    .caption-profile {
+        max-width: 100px;
+        font-size: 8px;
+        line-height: 18px;
+        margin-top: 5px;
+    }
+
+    .landing-logo {
+        background-image: url('/assets/img/logo_color_small.png');
+        width: 48px;
+        height: 50px;
+        float: left;
+    }
 }

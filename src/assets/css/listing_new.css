@@ -28,3 +28,20 @@
     padding-top: 54px !important;
     border-radius: 125px;
 }
+
+@media (max-width: 766px) {
+    .company-img {
+        width: 125px;
+        height: 125px;
+        max-width: 125px !important;
+        max-height: 125px !important;
+        min-width: 125px !important;
+        min-height: 125px !important;
+    }
+
+    .company-img .caption {
+        height: 125px !important;
+        width: 125px !important;
+        padding-top: 27px !important;
+    }
+}

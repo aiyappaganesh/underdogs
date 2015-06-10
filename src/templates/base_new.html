@@ -17,7 +17,7 @@
         <title>{% block Title %}Pirates{% endblock %}</title>
     </head>
 
-    <body class="scrollspied scrolled" data-spy="scroll" data-target="#submenu">
+    <body class="scrollspied {% if not unscrolled %}scrolled{% endif %}" data-spy="scroll" data-target="#submenu">
         <header class="header">
             <div>
             {% block Navbar %}
@@ -52,7 +52,7 @@
                 <nav class="navbar navbar-inverse">
                     <div class="container-fluid">
                         <div class="navbar-header">
-                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-9">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#submenu">
                                 <span class="sr-only">Toggle navigation</span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
