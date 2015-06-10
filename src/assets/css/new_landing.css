@@ -92,6 +92,10 @@
         line-height: 44px;
     }
 
+    .landing-copy-bottom-padding {
+        padding-bottom: 100px;
+    }
+
     .get-started-button {
         width: 201px !important;
         height: 49.5px !important;
@@ -143,10 +147,6 @@
     .section-slide-6-img {
         background-size: 64px 64px;
         height: 64px;
-    }
-
-    .section-slide-6-img-row-margin {
-        margin-bottom: 0px;
     }
 
     .section-slide-7-copy {
