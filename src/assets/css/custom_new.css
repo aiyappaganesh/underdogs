@@ -684,7 +684,7 @@ sup {
     background-image: url('/assets/img/logo_color_small.png') !important;
     margin: auto;
     height: 50px !important;
-    background-size: contain;
+    background-size: 48px 38px;
     background-repeat: no-repeat;
     background-position: center center;
 }
@@ -739,5 +739,25 @@ sup {
         width: 48px;
         height: 50px;
         float: left;
+    }
+
+    .footer-title {
+        font-size: 10px;
+        line-height: 18px;
+    }
+
+    .footer-link {
+        font-size:12px;
+        line-height: 14px;
+    }
+
+    .footer-links-pad {
+        padding-left: 10px !important;
+        padding-top: 10px !important;
+    }
+
+    .footer-logo-small {
+        background-position: center left;
+        margin-left: 10px;
     }
 }
