@@ -39,6 +39,9 @@ class LoginAuth():
         return self.config['login_auth_dialog']
 
 class FacebookAuth(LoginAuth):
+    def get_success_handler(self):
+        return 'http://hirepirates.com/users/login_success?network=' + FACEBOOK
+
     def __init__(self):
         LoginAuth.__init__(self)
         self.config = fb_config
@@ -49,12 +52,12 @@ class FacebookAuth(LoginAuth):
 
     def get_login_dialog_redirect_url(self):
         url = self.config['login_auth_dialog']
-        return url%(self.config['client_id'], 'http://hirepirates.com/users/login_success?network=' + FACEBOOK)
+        return url%(self.config['client_id'], self.get_success_handler())
 
     def exchange_accesstoken(self, req_handler):
         at = None
         if not req_handler['error']:
-            redirect_url = 'http://minyattra.appspot.com/users/login_success?network=' + FACEBOOK
+            redirect_url = self.get_success_handler()
             at_url = self.config['accesstoken_url']%(self.config['client_id'], redirect_url, self.config['client_secret'], req_handler['code'])
             response = urlfetch.fetch(at_url).content
             at = self.parse_at(response)
