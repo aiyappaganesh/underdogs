@@ -675,6 +675,18 @@ sup {
     padding-top: 9px;
 }
 
+.design-logo {
+    margin-right: 10px;
+    height: 28px;
+    width: 48px;
+}
+
+.dev-logo {
+    margin-right: 10px;
+    height: 20px;
+    width: 48px;
+}
+
 .footer {
     min-height: 207px;
     background-color:  #1c1c1c;
