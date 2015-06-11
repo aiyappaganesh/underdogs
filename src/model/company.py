@@ -5,7 +5,7 @@ class Company(db.Model):
     name = db.StringProperty(indexed=False)
     website = db.StringProperty(indexed=False)
     hello = db.StringProperty(indexed=False)
-    profile = db.StringProperty(indexed=False)
+    profile = db.TextProperty(indexed=False)
     image = db.StringProperty(indexed=False)
     tags = db.StringProperty(indexed=False)
     influence_avg = db.FloatProperty(indexed=False)
