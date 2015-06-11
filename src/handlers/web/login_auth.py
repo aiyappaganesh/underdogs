@@ -49,7 +49,7 @@ class FacebookAuth(LoginAuth):
 
     def get_login_dialog_redirect_url(self):
         url = self.config['login_auth_dialog']
-        return url%(self.config['client_id'], 'http://minyattra.appspot.com/users/login_success?network=' + FACEBOOK)
+        return url%(self.config['client_id'], 'http://hirepirates.com/users/login_success?network=' + FACEBOOK)
 
     def exchange_accesstoken(self, req_handler):
         at = None
