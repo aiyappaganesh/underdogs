@@ -112,7 +112,7 @@ class MemberInviteHandler(WebRequestHandler):
 
         Please follow this link to add yourself:
 
-        https://minyattra.appspot.com/member/finish_invite?company_id={0}&email={1}
+        http://hirepirates.com/member/finish_invite?company_id={0}&email={1}
 
         Thanks!
         """.format(self['company_id'], self['email']))
