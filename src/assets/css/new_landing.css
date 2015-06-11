@@ -2,14 +2,27 @@
     color: #ffffff;
 }
 
+.landing-copy-small {
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: 300;
+}
+
 .get-started-button {
-    width: 268px !important;
-    height: 66px !important;
-    margin-top: 56px !important;
-    font-family: Helvetica Neue !important;
-    font-size: 24px !important;
+    width: 156px !important;
+    height: 40px !important;
+    margin-top: 30px !important;
+    font-family: Helvetica !important;
+    font-size: 12px !important;
     font-weight: 400 !important;
-    padding-top: 14px !important;
+    border-radius: 4px;
+    border-style: none;
+    color: #ffffff;
+    background-color:rgba(255,255,255,0.5);
+}
+
+.get-started-button:hover {
+    background-color:rgba(0,0,0,0.2);
 }
 
 .section-slide-2-copy {
