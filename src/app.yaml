@@ -14,19 +14,15 @@ handlers:
 ######################### REST ENDPOINTS #########################
 - url: /api/members/.*
   script: handlers.rest.users.app
-  secure: always
 
 - url: /api/startups/.*
   script: handlers.rest.startups.app
-  secure: always
 
 - url: /api/projects/.*
   script: handlers.rest.projects.app
-  secure: always
 
 - url: /api/common/.*
   script: handlers.rest.common.app
-  secure: always
 
 ######################### STATIC ENDPOINTS #########################
 - url: /assets/css
@@ -55,55 +51,42 @@ handlers:
 ######################### WEB ENDPOINTS #########################
 - url: /temp.*
   script: handlers.web.temp.app
-  secure: always
 
 - url: /member/.*
   script: handlers.web.add_member.app
-  secure: always
 
 - url: /users/.*/login_callback
   script: handlers.web.login_auth.app
-  secure: always
 
 - url: /users/login_success
   script: handlers.web.login_auth.app
-  secure: always
 
 - url: /users/handle_custom_login
   script: handlers.web.login_auth.app
-  secure: always
 
 - url: /users/confirm_email
   script: handlers.web.login_auth.app
-  secure: always
 
 - url: /users/handle_verify_email
   script: handlers.web.login_auth.app
-  secure: always
 
 - url: /users/.*
   script: handlers.web.auth.app
-  secure: always
 
 - url: /surveys/.*
   script: handlers.web.surveys.app
-  secure: always
 
 - url: /add_company
   script: handlers.web.add_member.app
-  secure: always
 
 - url: /startups.*
   script: handlers.web.startups.app
-  secure: always
 
 - url: /projects.*
   script: handlers.web.projects.app
-  secure: always  
 
 - url: /.*
   script: handlers.web.index.app
-  secure: always
 
 libraries:
 - name: django
