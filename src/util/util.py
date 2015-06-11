@@ -10,8 +10,8 @@ from model.third_party_login_data import ThirdPartyLoginData
 from recaptcha import RecaptchaClient
 from google.appengine.api import memcache
 
-RECAPTCHA_PUBLIC_KEY = '6LeA6PwSAAAAAOeT-mnBNsppSoKgygqv1xqChz2s'
-RECAPTCHA_PRIVATE_KEY = '6LeA6PwSAAAAAB9Wv1qmmnxnsZySbb8nQwdqUvbv'
+RECAPTCHA_PUBLIC_KEY = '6LcyMggTAAAAAHLKAfeOIooqXQ-1Lo4mJ_366q4E'
+RECAPTCHA_PRIVATE_KEY = '6LcyMggTAAAAAIvXBKsOHu6t8qmgMmeKkZJel1G1'
 
 recaptcha_client = RecaptchaClient(RECAPTCHA_PRIVATE_KEY, RECAPTCHA_PUBLIC_KEY, recaptcha_options={'theme':'clean'})
 
