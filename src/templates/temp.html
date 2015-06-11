@@ -1,55 +1,250 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<style>
-.node {
-  stroke: #fff;
-  stroke-width: 1.5px;
-}
-.link {
-  stroke: #999;
-  stroke-opacity: .6;
-}
-</style>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Bootstrap 3 Responsive Layout Example</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-theme.min.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+</head>
 <body>
-  <script src="http://d3js.org/d3.v3.min.js"></script>
-  <script>
-    var width = 960,
-        height = 500;
-    var color = d3.scale.category20();
-    var force = d3.layout.force()
-        .charge(-120)
-        .linkDistance(30)
-        .size([width, height]);
-    var svg = d3.select("body").append("svg")
-        .attr("width", width)
-        .attr("height", height);
-    d3.json("/assets/miserables", function(error, graph) {
-      force
-          .nodes(graph.nodes)
-          .links(graph.links)
-          .start();
-      var link = svg.selectAll(".link")
-          .data(graph.links)
-        .enter().append("line")
-          .attr("class", "link")
-          .style("stroke-width", function(d) { return Math.sqrt(d.value); });
-      var node = svg.selectAll(".node")
-          .data(graph.nodes)
-        .enter().append("circle")
-          .attr("class", "node")
-          .attr("r", 5)
-          .style("fill", function(d) { return color(d.group); })
-          .call(force.drag);
-      node.append("title")
-          .text(function(d) { return d.name; });
-      force.on("tick", function() {
-        link.attr("x1", function(d) { return d.source.x; })
-            .attr("y1", function(d) { return d.source.y; })
-            .attr("x2", function(d) { return d.target.x; })
-            .attr("y2", function(d) { return d.target.y; });
-        node.attr("cx", function(d) { return d.x; })
-            .attr("cy", function(d) { return d.y; });
-      });
-    });
-  </script>
+  <nav role="navigation" class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-header">
+        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a href="#" class="navbar-brand">Brand</a>
+    </div>
+    <div id="navbarCollapse" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Messages</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Login</a></li>
+        </ul>
+    </div>
+  </nav>
+  <div class="table-responsive"> 
+      <table class="table table-bordered">
+          <thead>
+              <tr>
+                  <th>Row</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Biography</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>1</td>
+                  <td>John</td>
+                  <td>Carter</td>
+                  <td>johncarter@mail.com</td>
+                  <td>Lorem ipsum dolor sit amet…</td>
+              </tr>
+              <tr>
+                  <td>2</td>
+                  <td>Peter</td>
+                  <td>Parker</td>
+                  <td>peterparker@mail.com</td>
+                  <td>Vestibulum consectetur scelerisque…</td>
+              </tr>
+              <tr>
+                  <td>3</td>
+                  <td>John</td>
+                  <td>Rambo</td>
+                  <td>johnrambo@mail.com</td>
+                  <td>Integer pulvinar leo id risus…</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+  <div class="table-responsive"> 
+      <table class="table table-bordered">
+          <thead>
+              <tr>
+                  <th>Row</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Biography</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>1</td>
+                  <td>John</td>
+                  <td>Carter</td>
+                  <td>johncarter@mail.com</td>
+                  <td>Lorem ipsum dolor sit amet…</td>
+              </tr>
+              <tr>
+                  <td>2</td>
+                  <td>Peter</td>
+                  <td>Parker</td>
+                  <td>peterparker@mail.com</td>
+                  <td>Vestibulum consectetur scelerisque…</td>
+              </tr>
+              <tr>
+                  <td>3</td>
+                  <td>John</td>
+                  <td>Rambo</td>
+                  <td>johnrambo@mail.com</td>
+                  <td>Integer pulvinar leo id risus…</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+  <div class="table-responsive"> 
+      <table class="table table-bordered">
+          <thead>
+              <tr>
+                  <th>Row</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Biography</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>1</td>
+                  <td>John</td>
+                  <td>Carter</td>
+                  <td>johncarter@mail.com</td>
+                  <td>Lorem ipsum dolor sit amet…</td>
+              </tr>
+              <tr>
+                  <td>2</td>
+                  <td>Peter</td>
+                  <td>Parker</td>
+                  <td>peterparker@mail.com</td>
+                  <td>Vestibulum consectetur scelerisque…</td>
+              </tr>
+              <tr>
+                  <td>3</td>
+                  <td>John</td>
+                  <td>Rambo</td>
+                  <td>johnrambo@mail.com</td>
+                  <td>Integer pulvinar leo id risus…</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+  <div class="table-responsive"> 
+      <table class="table table-bordered">
+          <thead>
+              <tr>
+                  <th>Row</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Biography</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>1</td>
+                  <td>John</td>
+                  <td>Carter</td>
+                  <td>johncarter@mail.com</td>
+                  <td>Lorem ipsum dolor sit amet…</td>
+              </tr>
+              <tr>
+                  <td>2</td>
+                  <td>Peter</td>
+                  <td>Parker</td>
+                  <td>peterparker@mail.com</td>
+                  <td>Vestibulum consectetur scelerisque…</td>
+              </tr>
+              <tr>
+                  <td>3</td>
+                  <td>John</td>
+                  <td>Rambo</td>
+                  <td>johnrambo@mail.com</td>
+                  <td>Integer pulvinar leo id risus…</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+  <div class="table-responsive"> 
+      <table class="table table-bordered">
+          <thead>
+              <tr>
+                  <th>Row</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Biography</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>1</td>
+                  <td>John</td>
+                  <td>Carter</td>
+                  <td>johncarter@mail.com</td>
+                  <td>Lorem ipsum dolor sit amet…</td>
+              </tr>
+              <tr>
+                  <td>2</td>
+                  <td>Peter</td>
+                  <td>Parker</td>
+                  <td>peterparker@mail.com</td>
+                  <td>Vestibulum consectetur scelerisque…</td>
+              </tr>
+              <tr>
+                  <td>3</td>
+                  <td>John</td>
+                  <td>Rambo</td>
+                  <td>johnrambo@mail.com</td>
+                  <td>Integer pulvinar leo id risus…</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+  <div class="table-responsive"> 
+      <table class="table table-bordered">
+          <thead>
+              <tr>
+                  <th>Row</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Biography</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>1</td>
+                  <td>John</td>
+                  <td>Carter</td>
+                  <td>johncarter@mail.com</td>
+                  <td>Lorem ipsum dolor sit amet…</td>
+              </tr>
+              <tr>
+                  <td>2</td>
+                  <td>Peter</td>
+                  <td>Parker</td>
+                  <td>peterparker@mail.com</td>
+                  <td>Vestibulum consectetur scelerisque…</td>
+              </tr>
+              <tr>
+                  <td>3</td>
+                  <td>John</td>
+                  <td>Rambo</td>
+                  <td>johnrambo@mail.com</td>
+                  <td>Integer pulvinar leo id risus…</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
 </body>
+</html>
