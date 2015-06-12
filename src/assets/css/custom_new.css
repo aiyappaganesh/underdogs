@@ -253,6 +253,7 @@ a small {
 }
 
 .animate .nav-left-copy, .animate .nav-left-copy:hover {
+    display: none;
     color: #1b1e37 !important;
     line-height: 34px;
 }
