@@ -5,6 +5,7 @@ from google.appengine.api import users
 import logging
 import json
 
+from cities_mapping import cities_map
 from handlers.web.auth import web_login_required
 from model.user import User
 from model.company_members import CompanyMember
@@ -144,6 +145,7 @@ class LatestListMemberPage(WebRequestHandler):
                         ('Development', (c.influence_avg + 0.23) if c.influence_avg else 0.0),
                         ('Community', (c.influence_avg + 0.37) if c.influence_avg else 0.0)]
         template_values = {'company_id': company_id,
+                           'city': cities_map[str(company_id)],
                            'name': c.name,
                            'image': c.image,
                            'hello': c.hello,

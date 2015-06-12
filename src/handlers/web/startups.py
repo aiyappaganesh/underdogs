@@ -9,6 +9,7 @@ from util.util import registration_breadcrumbs
 from util.util import get_user_projects, isAdminAccess
 from model.skills.defn import skills_heirarchy
 from model.project import Project
+from cities_mapping import cities_map
 
 import operator
 import logging
@@ -110,6 +111,7 @@ class StartupsListingPage(WebRequestHandler):
             sorted_companies[id]['image'] = c.image
             sorted_companies[id]['name'] = c.name
             sorted_companies[id]['hello'] = c.hello
+            sorted_companies[id]['city'] = cities_map[str(id)]
         sorted_companies = sorted(sorted_companies.iteritems(), key=lambda (k,v): v['score'], reverse = True)
         donuts = 1
         donuts = donuts - 1
@@ -133,6 +135,7 @@ class LatestStartupsListingPage(WebRequestHandler):
             sorted_companies[id]['name'] = c.name
             sorted_companies[id]['hello'] = c.hello
             sorted_companies[id]['profile'] = c.profile
+
         sorted_companies = sorted(sorted_companies.iteritems(), key=lambda (k,v): v['score'], reverse = True)
         template_values = {'startups' : sorted_companies, 'nav_color':'dark-nav'}
         self.write(self.get_rendered_html(path, template_values), 200)
