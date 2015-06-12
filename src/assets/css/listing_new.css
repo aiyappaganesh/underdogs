@@ -11,11 +11,12 @@
     padding: 0px !important;
     border-radius: 125px;
     margin: auto;
+    position: relative;
 }
 
 .company-img .caption {
     opacity: 0;
-    transition: 0.5s opacity ease;
+    //transition: 0.5s opacity ease;
     background-color: rgba(224,224,224,0.7);
     color: #0C3240;
     text-shadow: 1px 1px #ffffff;
@@ -27,6 +28,15 @@
     padding: 0px !important;
     padding-top: 54px !important;
     border-radius: 125px;
+}
+
+.company-image {
+    width: 50% !important;
+    height: 50% !important;
+    position: absolute;
+    top: 25% !important;
+    left: 25% !important;
+    border-radius: 10px;
 }
 
 @media (max-width: 766px) {
