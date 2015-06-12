@@ -20,5 +20,6 @@ $(document).ready(function(){
 
 function set_copy(window_width, window_height) {
     $('.landing-copy').css('margin-top',window_height/2.85);
+    $('.landing-copy-big').css('margin-top',window_height/2.85);
     $('.first-content').css('margin-top',window_height/6.5);
 }

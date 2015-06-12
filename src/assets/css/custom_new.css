@@ -763,6 +763,25 @@ sup {
 }
 
 @media (max-width: 766px) {
+    .header {
+        background-color: #ffffff;
+    }
+
+    .top-nav {
+        padding: 0px 30px;
+    }
+
+    .landing-logo {
+        background-image: url('/assets/img/pirates_landing.png');
+        width: 48px;
+        height: 60px;
+    }
+
+    .navbar-nav>li>a {
+        line-height: 60px;
+        color: #1b1e37 !important;
+    }
+
     .caption-name {
         max-width: 100px;
         font-size: 10px !important;
@@ -773,13 +792,6 @@ sup {
         font-size: 8px;
         line-height: 18px;
         margin-top: 5px;
-    }
-
-    .landing-logo {
-        background-image: url('/assets/img/logo_white_small.png');
-        width: 48px;
-        height: 100px;
-        float: left;
     }
 
     .startup-copy {
@@ -797,6 +809,11 @@ sup {
 
     .shot-row {
         margin-bottom: 0px !important;
+    }
+
+    .navbar-header .nav-left-copy, .navbar-header .nav-left-copy:hover {
+        color: #1b1e37 !important;
+        line-height: 34px;
     }
 
     .footer-title {
