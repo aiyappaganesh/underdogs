@@ -125,3 +125,17 @@ th, td {
 .invite-member-form {
     min-height: 250px;
 }
+
+.form-image {
+    height: auto !important;
+    width: auto !important;
+}
+
+.fileinput-preview {
+    margin: auto;
+    margin-bottom: 10px !important;
+}
+
+.fileinput {
+    text-align: center;
+}
