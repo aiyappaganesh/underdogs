@@ -35,7 +35,7 @@
                         </a>
                     </div>
                     <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-right main-nav-right">
                             {% if hide_navbar_join != 'true' %}
                                 <li><a href="/startups/new_listing">STARTUPS</a></li>
                                 <li><a href="/projects/list">PROJECTS</a></li>
@@ -45,7 +45,7 @@
                                     <li><a href="/member/profile">PROFILE</a></li>
                                     <li><a href="/member/logout">SIGN OUT</a></li>
                                 {% else %}
-                                    <li><a href="/member/login?redirect_url=/">REGISTER</a></li>
+                                    <li><a class="navbar-btn" href="/member/login?redirect_url=/">REGISTER</a></li>
                                 {% endif %}
                             {% endif %}
                         </ul>

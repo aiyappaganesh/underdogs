@@ -212,7 +212,8 @@ a small {
 }
 
 .animate .landing-logo {
-    background-image: url('/assets/img/pirates_landing.png');
+    background-image: url('/assets/img/logo_black_small.png');
+    background-size: 34px 34px;
     width: 48px;
     height: 60px;
 }
@@ -220,7 +221,9 @@ a small {
 .nav-left-copy {
     font-family: 'Montserrat', sans-serif;
     line-height: 74px;
+    font-weight: 900 !important;
     -webkit-font-smoothing: antialiased;
+    padding-left: 0px;
 }
 
 .light-nav, .dark-nav {
@@ -237,7 +240,8 @@ a small {
 }
 
 .dark-nav .landing-logo {
-    background-image: url('/assets/img/pirates_landing.png');
+    background-image: url('/assets/img/logo_black_small.png');
+    background-size: 34px 34px;
 }
 
 .light-nav, .light-nav a {
@@ -250,6 +254,11 @@ a small {
 
 .light-nav .nav-left-copy:hover, .dark-nav .nav-left-copy:hover {
     color: inherit !important;
+}
+
+.light-nav .navbar-btn:hover {
+    background-color: #ffffff !important;
+    color: #1b1e37 !important;
 }
 
 .animate .nav-left-copy, .animate .nav-left-copy:hover {
@@ -276,7 +285,7 @@ a small {
 
 .landing-logo {
     background-image: url('/assets/img/logo_white_small.png');
-    background-size: contain;
+    background-size: 34px 26px;
     background-repeat: no-repeat;
     background-position: center center;
     width: 48px;
@@ -526,6 +535,43 @@ margin-bottom: 10px;
     font-size: 20px;
 }
 
+.main-nav-right>li {
+    width: 113px;
+}
+
+.navbar-btn {
+    border-radius: 4px;
+    border-width: 1px;
+    border-color:  #ffffff;
+    border-style: solid;
+    height: 32px;
+    line-height: 28px !important;
+    margin-top: 35px !important;
+    width: 94px;
+    margin: auto;
+    padding: 0px !important;
+    text-align: center;
+}
+
+.dark-nav .navbar-btn {
+    border-color:  #1b1e37;
+}
+
+.dark-nav .navbar-btn:hover {
+    color:  #ffffff !important;
+    background-color: #1b1e37 !important;
+}
+
+.animate .navbar-btn {
+    margin-top: 15px !important;
+    border-color: #1b1e37 !important;
+}
+
+.animate .navbar-btn:hover {
+    color: #ffffff !important;
+    background-color: #1b1e37 !important;
+}
+
 .navbar-inverse {
     border: none;
 }
@@ -773,7 +819,8 @@ sup {
     }
 
     .landing-logo {
-        background-image: url('/assets/img/pirates_landing.png');
+        background-image: url('/assets/img/logo_black_small.png');
+        background-size: 34px 34px;
         width: 48px;
         height: 60px;
     }
@@ -781,6 +828,16 @@ sup {
     .navbar-nav>li>a {
         line-height: 60px;
         color: #1b1e37 !important;
+    }
+
+    .navbar-btn {
+        margin-top: 15px !important;
+        border-color: #1b1e37 !important;
+    }
+
+    .light-nav .navbar-btn:hover {
+        color: #ffffff !important;
+        background-color: #1b1e37 !important;
     }
 
     .caption-name {
