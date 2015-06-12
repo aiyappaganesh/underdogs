@@ -161,7 +161,6 @@ class LatestListMemberPage(WebRequestHandler):
                            'tooltip_font_size': tooltip_font_size,
                            'full_color': '#139fe1',
                            'empty_color': 'transparent',
-                           'show_sub_nav':True,
                            'nav_color':'dark-nav',
                            'dev_stats':dev_stats}
         self.write(self.get_rendered_html(path, template_values), 200)
