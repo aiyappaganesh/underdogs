@@ -145,7 +145,7 @@ class LatestListMemberPage(WebRequestHandler):
                         ('Development', (c.influence_avg + 0.23) if c.influence_avg else 0.0),
                         ('Community', (c.influence_avg + 0.37) if c.influence_avg else 0.0)]
         template_values = {'company_id': company_id,
-                           'city': cities_map[str(company_id)],
+                           'city': cities_map[str(company_id)] if str(company_id) in cities_map else cities_map['default'],
                            'name': c.name,
                            'image': c.image,
                            'hello': c.hello,

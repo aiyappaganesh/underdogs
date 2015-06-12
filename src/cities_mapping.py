@@ -3,5 +3,6 @@ cities_map = {
 	'5642779036221440': 'Los Angeles',
 	'5675267779461120': 'Chicago',
 	'5706803308396544': 'San Francisco',
-	'5755685136498688': 'Philadelphia'
+	'5755685136498688': 'Philadelphia',
+    'default': 'New York'
 }

@@ -111,7 +111,7 @@ class StartupsListingPage(WebRequestHandler):
             sorted_companies[id]['image'] = c.image
             sorted_companies[id]['name'] = c.name
             sorted_companies[id]['hello'] = c.hello
-            sorted_companies[id]['city'] = cities_map[str(id)]
+            sorted_companies[id]['city'] = cities_map[str(id)] if str(id) in cities_map else cities_map['default']
         sorted_companies = sorted(sorted_companies.iteritems(), key=lambda (k,v): v['score'], reverse = True)
         donuts = 1
         donuts = donuts - 1
