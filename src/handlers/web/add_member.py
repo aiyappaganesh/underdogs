@@ -93,10 +93,10 @@ class LatestListMemberPage(WebRequestHandler):
         return 'public'
 
     def get_dev_stats(self):
-        company_expertise = ["c# : 0.33", "java : 0.42", "python : 0.44", "scala : 0.85", "php : 0.18", "software development : 0.28", "software engineering : 0.3", "javascript : 0.79", "objective-c : 0.37", "java : 0.91", "java enterprise edition : 0.56", "jsp : 0.76", "java : 0.65", "scala : 0.64", "html : 0.61", "web services : 0.54", "xml : 0.53", "perl : 0.19", "php : 0.8", "javascript : 0.41", "python : 0.5", "css : 0.5", "web development : 0.95", "google appengine : 0.66", "eclipse : 0.46", "subversion : 0.89", "sql : 0.19", "mysql : 0.16", "soa : 0.69", "agile methodologies : 0.23", "software project management : 0.28", "program management : 0.46", "requirements analysis : 0.91", "objective-c : 0.29", "c# : 0.8"]
+        company_id = int(str(self['company_id']))
+        company = Company.get_by_id(company_id)
         dev_stats = []
-        #logging.info(get_skills_json(company_expertise))
-        first_levels = get_children_for(0, 'skills', company_expertise)
+        first_levels = get_children_for(0, 'skills', company.get_expertise_avg())
         for first_level in first_levels:
             level_stats = []
             for second_level in first_level['children']:
