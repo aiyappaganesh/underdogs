@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $('#section1-carousel').carousel('cycle');
+    $('#section4-carousel').carousel('cycle');
 });
 
 $(document).ready(function(){
