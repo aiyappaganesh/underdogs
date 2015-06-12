@@ -35,12 +35,13 @@ class LoginAuth():
             return LinkedinAuth()
         return None
 
-    def get_login_dialog_redirect_url(self):
+    def get_login_dialog_redirect_url(self, host_url):
         return self.config['login_auth_dialog']
 
 class FacebookAuth(LoginAuth):
-    def get_success_handler(self):
-        return 'http://hirepirates.com/users/login_success?network=' + FACEBOOK
+    def get_success_handler(self, host_url):
+        logging.info('Reurning, ' + host_url + '/users/login_success?network=' + FACEBOOK)
+        return host_url + '/users/login_success?network=' + FACEBOOK
 
     def __init__(self):
         LoginAuth.__init__(self)
@@ -50,14 +51,14 @@ class FacebookAuth(LoginAuth):
         at = response.split('&')[0]
         return at.split('=')[1]
 
-    def get_login_dialog_redirect_url(self):
+    def get_login_dialog_redirect_url(self, host_url):
         url = self.config['login_auth_dialog']
-        return url%(self.config['client_id'], self.get_success_handler())
+        return url%(self.config['client_id'], self.get_success_handler(host_url))
 
     def exchange_accesstoken(self, req_handler):
         at = None
         if not req_handler['error']:
-            redirect_url = self.get_success_handler()
+            redirect_url = self.get_success_handler(req_handler.request.host_url)
             at_url = self.config['accesstoken_url']%(self.config['client_id'], redirect_url, self.config['client_secret'], req_handler['code'])
             response = urlfetch.fetch(at_url).content
             at = self.parse_at(response)
@@ -74,7 +75,7 @@ class TwitterAuth(LoginAuth):
         LoginAuth.__init__(self)
         self.config = tw_config
 
-    def get_login_dialog_redirect_url(self):
+    def get_login_dialog_redirect_url(self, host_url):
         tw = Twitter(self.config['consumer_key'],
                      self.config['consumer_secret'],
                      'http://hirepirates.com/users/login_success?network=' + TWITTER)
@@ -104,7 +105,7 @@ class LinkedinAuth(LoginAuth):
         LoginAuth.__init__(self)
         self.config = li_config
 
-    def get_login_dialog_redirect_url(self):
+    def get_login_dialog_redirect_url(self, host_url):
         url = 'https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=%s&state=STATE&redirect_uri=%s'
         return url%(self.config['client_id'], 'http://minyattra.appspot.com/users/login_success?network='+ LINKEDIN)
 
@@ -123,7 +124,7 @@ class LinkedinAuth(LoginAuth):
 class ThirdPartyLoginHandler(WebRequestHandler):
     def get(self, network):
         handler = LoginAuth.get_handler_obj(network)
-        self.redirect(handler.get_login_dialog_redirect_url())
+        self.redirect(handler.get_login_dialog_redirect_url(self.request.host_url))
 
 class ThirdPartyLoginSuccessHandler(WebRequestHandler):
     def authenticate_user(self, user_id):

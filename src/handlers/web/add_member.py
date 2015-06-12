@@ -21,6 +21,7 @@ from networks import LINKEDIN, FACEBOOK, TWITTER
 from model.third_party_login_data import ThirdPartyLoginData
 from model.third_party_profile_data import ThirdPartyProfileData
 from model.design import Design
+from model.skills.defn import get_skills_json, get_children_for
 
 class ExposeThirdPartyPage(WebRequestHandler):
     @web_login_required
@@ -91,9 +92,24 @@ class LatestListMemberPage(WebRequestHandler):
                 return 'admin' if company_member.is_admin else 'member'
         return 'public'
 
+    def get_dev_stats(self):
+        company_expertise = ["c# : 0.33", "java : 0.42", "python : 0.44", "scala : 0.85", "php : 0.18", "software development : 0.28", "software engineering : 0.3", "javascript : 0.79", "objective-c : 0.37", "java : 0.91", "java enterprise edition : 0.56", "jsp : 0.76", "java : 0.65", "scala : 0.64", "html : 0.61", "web services : 0.54", "xml : 0.53", "perl : 0.19", "php : 0.8", "javascript : 0.41", "python : 0.5", "css : 0.5", "web development : 0.95", "google appengine : 0.66", "eclipse : 0.46", "subversion : 0.89", "sql : 0.19", "mysql : 0.16", "soa : 0.69", "agile methodologies : 0.23", "software project management : 0.28", "program management : 0.46", "requirements analysis : 0.91", "objective-c : 0.29", "c# : 0.8"]
+        dev_stats = []
+        #logging.info(get_skills_json(company_expertise))
+        first_levels = get_children_for(0, 'skills', company_expertise)
+        for first_level in first_levels:
+            level_stats = []
+            for second_level in first_level['children']:
+                tup = (second_level['name'], str(second_level['score']))
+                level_stats.append(tup)
+            dev_stats.append((first_level['name'], level_stats))
+        logging.info(dev_stats)
+        return dev_stats
+
     @web_login_required
     def get(self):
         path = 'startup_details.html'
+        dev_stats = self.get_dev_stats()
         company_id = int(str(self['company_id']))
         c = Company.get_by_id(company_id)
         if not c:
@@ -146,7 +162,8 @@ class LatestListMemberPage(WebRequestHandler):
                            'full_color': '#139fe1',
                            'empty_color': 'transparent',
                            'show_sub_nav':True,
-                           'nav_color':'dark-nav'}
+                           'nav_color':'dark-nav',
+                           'dev_stats':dev_stats}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberLoginPageHandler(WebRequestHandler):
