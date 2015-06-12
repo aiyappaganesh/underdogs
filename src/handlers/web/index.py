@@ -1,6 +1,7 @@
 import webapp2
 from handlers.web import WebRequestHandler
 from model.company import Company
+from cities_mapping import cities_map
 
 def get_template_values_for_landing():
     template_values = {}
@@ -63,6 +64,7 @@ class LatestLandingPage(WebRequestHandler):
             sorted_companies[id]['name'] = c.name
             sorted_companies[id]['hello'] = c.hello
             sorted_companies[id]['profile'] = c.profile
+            sorted_companies[id]['city'] = cities_map[str(id)] if str(id) in cities_map else cities_map['default']
         sorted_companies = sorted(sorted_companies.iteritems(), key=lambda (k,v): v['score'], reverse = True)
         template_values['startups'] = sorted_companies
         template_values['no_navbar_onload'] = True

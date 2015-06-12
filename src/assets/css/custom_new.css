@@ -484,6 +484,14 @@ margin-bottom: 10px;
     margin-top: 10px;
 }
 
+.caption-city {
+    color:  #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 36px;
+    text-align: center;
+}
+
 .original-pos {
     -moz-transform: translate(0,2em);
     -ms-transform: translate(0,2em);
