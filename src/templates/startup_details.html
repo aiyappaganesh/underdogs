@@ -149,8 +149,8 @@
                         </div>
                         <p class="score-desc">Development</p>
                     </div>
-                    <div class="col-md-8">
-                        <div id="accordion" class="panel-group">
+                    <div class="col-md-6">
+                        <div id="accordion" class="panel-group dev-scores">
                             {% for stat in dev_stats %}
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
@@ -162,7 +162,7 @@
                                     </div>
                                     <div id="collapse{{forloop.counter}}" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                            <div class="design-table">
+                                            <div class="dev-scores-table">
                                                 <div class="list-group">
                                                 {% for sec_stat in stat.1 %}
                                                     <div class="list-group-item">
@@ -184,6 +184,7 @@
                             {% endfor %}
                         </div>
                     </div>
+                    <div class="col-md-2"></div>
                 </div>
             </div>
         </div>

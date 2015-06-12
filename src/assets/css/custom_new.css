@@ -775,6 +775,40 @@ sup {
     width: 48px;
 }
 
+.dev-scores {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.dev-scores .panel {
+    margin-bottom: 3px;
+    text-align: center;
+}
+
+.dev-scores .panel-heading {
+    border-radius: 4px 4px 4px 4px;
+    -webkit-border-radius: 4px 4px 4px 4px;
+    -moz-border-radius: 4px 4px 4px 4px;
+}
+
+.dev-scores .panel-title {
+    font-size: 18px;
+}
+
+.dev-scores .panel-body {
+    padding: 0px !important;
+}
+
+.dev-scores-table {
+    color: #333333;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 18px;
+}
+
+.dev-scores-table .list-group {
+    margin-bottom: 0px;
+}
+
 .footer {
     min-height: 207px;
     background-color:  #1c1c1c;
