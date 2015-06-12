@@ -468,6 +468,10 @@ margin-bottom: 10px;
   margin-bottom: 30px;
 }
 
+.caption {
+    font-family: 'Montserrat', sans-serif;
+}
+
 .caption-name {
     max-width: 200px;
     margin: auto !important;
@@ -528,7 +532,7 @@ margin-bottom: 10px;
 .startup-copy {
     padding-top: 10px !important;
     color: #333333;
-    font-family: Helvetica Neue;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .startup-copy p {
@@ -623,7 +627,7 @@ margin-bottom: 10px;
 }
 
 .startup-title {
-    font-family: nevis;
+    font-family: 'Montserrat', sans-serif;
     color:  #333333;
     font-size: 24px;
     font-weight: 700;
@@ -631,7 +635,7 @@ margin-bottom: 10px;
     text-align: left;
     padding-left: 40px !important;
     background-color:  #ffffff;
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
 .shadowed-box {
@@ -668,7 +672,7 @@ margin-bottom: 10px;
     width: 80px;
     font-weight: 500;
     text-align: center;
-    font-family: Helvetica Neue;
+    font-family: 'Montserrat', sans-serif;
 }
 
 sup {
@@ -677,7 +681,7 @@ sup {
 }
 
 .score-desc {
-    font-family: nevis;
+    font-family: 'Montserrat', sans-serif;
     color:  #333333;
     font-size: 24px;
     font-weight: 700;
@@ -692,7 +696,7 @@ sup {
 }
 
 .design-table {
-    font-family: Helvetica Neue;
+    font-family: 'Montserrat', sans-serif;
     color:  #333333;
     font-size: 24px;
     font-weight: 300;
@@ -741,7 +745,7 @@ sup {
 }
 
 .nav-startup-name {
-    font-family: nevis;
+    font-family: 'Montserrat', sans-serif;
     color: #ffffff !important;
     font-size: 24px;
     font-weight: 700;
@@ -786,7 +790,7 @@ sup {
 }
 
 .footer-logo-copy {
-    font-family: Helvetica Neue;
+    font-family: 'Montserrat', sans-serif;
     color:  #ffffff;
     font-size: 22px;
     font-weight: 700;
@@ -798,7 +802,7 @@ sup {
 }
 
 .footer-title {
-    font-family: Helvetica Neue;
+    font-family: 'Montserrat', sans-serif;
     color:  #e6e9ed;
     font-size: 15px;
     font-weight: 700;
@@ -808,7 +812,7 @@ sup {
 }
 
 .footer-link {
-    font-family: Helvetica Neue;
+    font-family: 'Montserrat', sans-serif;
     color:  #aab2bd;
     font-size: 15px;
     font-weight: 700;

@@ -4,9 +4,9 @@
 
 .landing-copy-big {
     margin-top: 300px;
-    font-family: 'Montserrat'; //Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: 'Montserrat';
     color: #ffffff;
-    font-size: 48px;
+    font-size: 36px;
     font-weight: 400;
     line-height: 55px;
     text-align: center;
@@ -43,9 +43,9 @@
 }
 
 .section-slide-2-copy {
-    font-family: nevis;
+    font-family: 'Montserrat', sans-serif;
     color:  #333333;
-    font-size: 48px;
+    font-size: 36px;
     font-weight: 700;
     text-align: center;
 }
@@ -55,24 +55,24 @@
 .section-slide-2-special-copy {
     font-family: sobrushitalic;
     color:  #139fe1;
-    font-size: 48px;
+    font-size: 36px;
     font-weight: normal;
     text-align: center;
 }
 
 .section-slide-3-copy {
-    font-family: nevis;
+    font-family: 'Montserrat', sans-serif;
     color:  #ffffff;
-    font-size: 48px;
+    font-size: 36px;
     font-weight: 700;
     text-align: center;
     transform: scaleY(1.0004);
 }
 
 .section-slide-3-copy-small {
-    font-family: nevis;
+    font-family: 'Montserrat', sans-serif;
     color:  #ffffff;
-    font-size: 36px;
+    font-size: 24px;
     font-weight: 500;
     text-align: center;
     line-height: 40px;
@@ -92,9 +92,9 @@
 }
 
 .section-slide-6-copy {
-    font-family: nevis;
+    font-family: 'Montserrat', sans-serif;
     color:  #333333;
-    font-size: 48px;
+    font-size: 36px;
     font-weight: 700;
     text-align: center;
     transform: scaleX(1.0007);
