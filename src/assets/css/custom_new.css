@@ -475,7 +475,7 @@ margin-bottom: 10px;
 .caption-name {
     max-width: 200px;
     margin: auto !important;
-    font-size: 20px !important;
+    font-size: 18px !important;
     word-wrap: break-word;
     text-transform: uppercase;
 }
@@ -483,14 +483,14 @@ margin-bottom: 10px;
 .caption-profile {
     max-width: 200px;
     margin: auto;
-    font-size: 17px;
+    font-size: 15px;
     line-height: 21px;
     margin-top: 10px;
 }
 
 .caption-city {
     color:  #ffffff;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     line-height: 36px;
     text-align: center;
@@ -540,11 +540,11 @@ margin-bottom: 10px;
 }
 
 .startup-name {
-    font-size: 24px;
+    font-size: 22px;
 }
 
 .startup-desc {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .main-nav-right>li {
@@ -629,7 +629,7 @@ margin-bottom: 10px;
 .startup-title {
     font-family: 'Montserrat', sans-serif;
     color:  #333333;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 700;
     line-height: 57px;
     text-align: left;
@@ -683,7 +683,7 @@ sup {
 .score-desc {
     font-family: 'Montserrat', sans-serif;
     color:  #333333;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 700;
     line-height: 36px;
     text-align: center;
@@ -698,7 +698,7 @@ sup {
 .design-table {
     font-family: 'Montserrat', sans-serif;
     color:  #333333;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 300;
     line-height: 36px;
 }

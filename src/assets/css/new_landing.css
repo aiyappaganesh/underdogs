@@ -45,7 +45,7 @@
 .section-slide-2-copy {
     font-family: 'Montserrat', sans-serif;
     color:  #333333;
-    font-size: 36px;
+    font-size: 30px;
     font-weight: 700;
     text-align: center;
 }
@@ -63,7 +63,7 @@
 .section-slide-3-copy {
     font-family: 'Montserrat', sans-serif;
     color:  #ffffff;
-    font-size: 36px;
+    font-size: 30px;
     font-weight: 700;
     text-align: center;
     transform: scaleY(1.0004);
@@ -94,7 +94,7 @@
 .section-slide-6-copy {
     font-family: 'Montserrat', sans-serif;
     color:  #333333;
-    font-size: 36px;
+    font-size: 30px;
     font-weight: 700;
     text-align: center;
     transform: scaleX(1.0007);
