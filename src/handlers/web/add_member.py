@@ -93,9 +93,7 @@ class LatestListMemberPage(WebRequestHandler):
                 return 'admin' if company_member.is_admin else 'member'
         return 'public'
 
-    def get_dev_stats(self):
-        company_id = int(str(self['company_id']))
-        company = Company.get_by_id(company_id)
+    def get_dev_stats(self, company):
         dev_stats = []
         first_levels = get_children_for(0, 'skills', company.get_expertise_avg())
         for first_level in first_levels:
@@ -104,15 +102,21 @@ class LatestListMemberPage(WebRequestHandler):
                 tup = (second_level['name'], str(second_level['score']))
                 level_stats.append(tup)
             dev_stats.append((first_level['name'], level_stats))
-        logging.info(dev_stats)
         return dev_stats
+
+    def get_tl_stats(self):
+        return [('Forks',2),
+                ('Stars',10),
+                ('Contributors',2),
+                ('Projects',6)]
 
     @web_login_required
     def get(self):
         path = 'startup_details.html'
-        dev_stats = self.get_dev_stats()
         company_id = int(str(self['company_id']))
         c = Company.get_by_id(company_id)
+        dev_stats = self.get_dev_stats(c)
+        tl_stats = self.get_tl_stats()
         if not c:
             self.write('no company')
             return
@@ -164,7 +168,8 @@ class LatestListMemberPage(WebRequestHandler):
                            'full_color': '#139fe1',
                            'empty_color': 'transparent',
                            'nav_color':'dark-nav',
-                           'dev_stats':dev_stats}
+                           'dev_stats':dev_stats,
+                           'tl_stats':tl_stats}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberLoginPageHandler(WebRequestHandler):

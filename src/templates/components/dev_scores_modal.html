@@ -1,0 +1,40 @@
+<div id="myModal" class="modal fade">
+    <div class="container">
+        <div class="row" style="min-height: 60px !important">
+            <div class="col-lg-12">
+            </div>
+        </div>
+    </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Title</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body">
+                    <div class="dev-scores-table">
+                        <div class="list-group">
+                            {% for stat in tl_stats %}
+                            <div class="list-group-item">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <p class="list-group-item-heading">{{stat.0}}</p>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <p class="list-group-item-text">
+                                            {{stat.1}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

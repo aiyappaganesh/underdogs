@@ -170,8 +170,15 @@
                                                             <div class="col-lg-6">
                                                                 <p class="list-group-item-heading">{{sec_stat.0}}</p>
                                                             </div>
-                                                            <div class="col-lg-6">
-                                                                <p class="list-group-item-text">{{sec_stat.1}}</p>
+                                                            <div class="col-lg-4">
+                                                                <p class="list-group-item-text">
+                                                                    {{sec_stat.1}}
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                <a href="#" onclick="show_scores_modal('{{sec_stat.0}}');">
+                                                                    <span class="glyphicon glyphicon-zoom-in"/>
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -200,6 +207,7 @@
             </div>
         </div>
     </div>
+    {% include "components/dev_scores_modal.html" %}
 {% endblock %}
 
 {% block Scripts %}
@@ -210,6 +218,11 @@
     <script src="/assets/js/listing_animation.js"></script>
     <script>
         function set_copy(window_width, window_height) {
+        }
+
+        function show_scores_modal(title) {
+            $("#myModal").modal('show');
+            $("#myModal h4").text(title);
         }
     </script>
 {% endblock %}
