@@ -636,6 +636,8 @@ margin-bottom: 10px;
     padding-left: 40px !important;
     background-color:  #ffffff;
     margin-top: 30px;
+    border-top: 1px solid #ddd !important;
+    border-bottom: 1px solid #ddd !important;
 }
 
 .shadowed-box {
@@ -807,6 +809,10 @@ sup {
 
 .dev-scores-table .list-group {
     margin-bottom: 0px;
+}
+
+.startup-details-content {
+    padding-top: 60px;
 }
 
 .footer {

@@ -55,7 +55,7 @@
             });
         }
     </script>
-    <div class="container nav-padded">
+    <div class="container nav-padded list-group">
         <div class="row original-pos" id="overview">
             <div class="col-lg-12">
                 <div class="row">
@@ -77,10 +77,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="row startup-title">
-                    <p>Scores</p>
+                <div class="row startup-title list-group-item">
+                    <span>Scores</span>
                 </div>
-                <div class="row">
+                <div class="row startup-details-content">
                     {% for donut in donut_scores %}
                     <div class="col-md-4 expertise-td-donut">
                         <div class="donut_td">
@@ -94,10 +94,10 @@
         </div>
         <div class="row startup-section original-pos" id="design">
             <div class="col-lg-12">
-                <div class="row startup-title">
+                <div class="row startup-title list-group-item">
                     <span class="design-logo"><img src="/assets/img/design-logo.png"></span><span>Design Stats</span>
                 </div>
-                <div class="row">
+                <div class="row startup-details-content">
                     <div class="col-md-4 expertise-td-donut">
                         <div class="donut_td">
                             {% include "components/new_donut_chart.html" with donut_score=donut_scores.0.1 donut_size=donut_size tooltip_font_size=tooltip_font_size %}
@@ -121,10 +121,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="row startup-title">
+                <div class="row startup-title list-group-item">
                     <span class="design-logo"><img src="/assets/img/design-logo.png"></span><span>Design Portfolio</span>
                 </div>
-                <div class="row">
+                <div class="row startup-details-content">
                     <div class="col-md-12">
                         {% for picture_row in pictures %}
                         <div class="row shot-row">
@@ -139,10 +139,10 @@
         </div>
         <div class="row startup-section original-pos" id="dev">
             <div class="col-lg-12">
-                <div class="row startup-title">
+                <div class="row startup-title list-group-item">
                     <span class="dev-logo"><img src="/assets/img/dev-logo.png"></span><span>Dev Stats</span>
                 </div>
-                <div class="row">
+                <div class="row startup-details-content">
                     <div class="col-md-4 expertise-td-donut">
                         <div class="donut_td">
                             {% include "components/new_donut_chart.html" with donut_score=donut_scores.0.1 donut_size=donut_size tooltip_font_size=tooltip_font_size %}
@@ -197,10 +197,10 @@
         </div>
         <div class="row startup-section original-pos" id="community">
             <div class="col-lg-12">
-                <div class="row startup-title">
+                <div class="row startup-title list-group-item">
                     <span class="dev-logo"><img src="/assets/img/dev-logo.png"></span><span>Community</span>
                 </div>
-                <div class="row">
+                <div class="row startup-details-content">
                     <div class="col-md-12">
                     </div>
                 </div>
