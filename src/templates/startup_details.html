@@ -150,11 +150,7 @@
                         <p class="score-desc">Development</p>
                     </div>
                     <div class="col-md-6">
-                        <div id="accordion-0" class="panel-group dev-scores">
-                            {% for stat in dev_stats %}
-                                {% include "components/accordion.html" with heading=stat.0 body=stat.1 %}
-                            {% endfor %}
-                        </div>
+                        {% include "components/accordion.html" with heading=stat.0 body=stat.1 %}
                     </div>
                     <div class="col-md-2"></div>
                 </div>
