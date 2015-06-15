@@ -162,7 +162,7 @@
                                     </div>
                                     <div id="collapse{{forloop.counter}}" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                            <div class="dev-scores-table">
+                                            <div class="dev-scores-table" id="dev-scores">
                                                 <div class="list-group">
                                                 {% for sec_stat in stat.1 %}
                                                     <div class="list-group-item">
@@ -176,7 +176,7 @@
                                                                 </p>
                                                             </div>
                                                             <div class="col-lg-2">
-                                                                <a href="#" onclick="show_scores_modal('{{sec_stat.0}}');">
+                                                                <a href="#dev-scores" onclick="show_scores_modal('{{sec_stat.0}}');">
                                                                     <span class="glyphicon glyphicon-zoom-in"/>
                                                                 </a>
                                                             </div>
