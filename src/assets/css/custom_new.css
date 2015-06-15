@@ -537,9 +537,9 @@ margin-bottom: 10px;
 }
 
 .startup-copy {
-    padding-top: 10px !important;
     color: #333333;
     font-family: 'Montserrat', sans-serif;
+    line-height: 2;
 }
 
 .startup-copy p {
@@ -547,7 +547,7 @@ margin-bottom: 10px;
 }
 
 .startup-name {
-    font-size: 22px;
+    font-size: 24px;
 }
 
 .startup-desc {
