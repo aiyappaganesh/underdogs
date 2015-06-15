@@ -711,6 +711,7 @@ sup {
     font-size: 18px;
     font-weight: 300;
     line-height: 36px;
+    border: 1px solid #ddd !important;
 }
 
 .shot {

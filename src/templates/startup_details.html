@@ -102,7 +102,6 @@
                         <p class="score-desc">Design</p>
                     </div>
                     <div class="col-md-8 design-table">
-                        <div class="list-group">
                         {% for stat in design_stats %}
                             <div class="list-group-item">
                                 <div class="row">
@@ -115,7 +114,6 @@
                                 </div>
                             </div>
                         {% endfor %}
-                        </div>
                     </div>
                 </div>
                 <div class="row startup-title list-group-item">
@@ -154,6 +152,7 @@
                                         <h4 class="panel-title">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{forloop.counter}}">
                                                 {{stat.0}}
+                                                <span class="glyphicon glyphicon-chevron-down" style="float: right; padding-right:10px"/>
                                             </a>
                                         </h4>
                                     </div>
