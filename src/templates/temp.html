@@ -1,250 +1,113 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Bootstrap 3 Responsive Layout Example</title>
-  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-theme.min.css">
-  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-  <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-</head>
-<body>
-  <nav role="navigation" class="navbar navbar-default navbar-fixed-top">
-    <div class="navbar-header">
-        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a href="#" class="navbar-brand">Brand</a>
+{% extends "base_new.html" %}
+
+{% block Styles %}
+    <link href="/assets/css/jquery.fs.scroller.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block Content %}
+    <script type="text/javascript">
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '329949690519073',
+            xfbml      : false,
+            version    : 'v2.1',
+            status     : false
+          });
+        };
+
+        (function(d, s, id){
+           var js, fjs = d.getElementsByTagName(s)[0];
+           if (d.getElementById(id)) {return;}
+           js = d.createElement(s); js.id = id;
+           js.src = "//connect.facebook.net/en_US/sdk.js";
+           fjs.parentNode.insertBefore(js, fjs);
+         }(document, 'script', 'facebook-jssdk'));
+
+        function add_myself(){
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+
+            function statusChangeCallback(response){
+                if(response.status === "not_authorized" || response.status === "unknown"){
+                    window.location = '/member/login';
+                }
+                else if(response.status === "connected"){
+                    var accessToken = response.authResponse.accessToken;
+                    var userID = response.authResponse.userID;
+                    FB.api('/me', function(response) {
+                        var name = JSON.stringify(response.name);
+                        var redirect_url = "/member/expose_third_party?company_id=5348024557502464";
+                        window.location = redirect_url;
+                    });
+                }
+            }
+            return false;
+        }
+
+        function triggerDataPull(){
+            $.ajax({
+                url: '/api/members/pull_data?company_id=5348024557502464',
+                type: 'PUT',
+                success: function(result) {
+                    console.log('Triggered data pull');
+                }
+            });
+        }
+    </script>
+    <div class="container nav-padded">
+        <div class="row original-pos" id="overview">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="startup-logo" style="background-image:url('{% if image %}/api/common/download_image/{{image}}{% else %}/assets/img/company/company.png{% endif %}');"></div>
+                    </div>
+                    <div class="col-md-10 startup-copy">
+                        <div class="row startup-name">
+                            <p>{{name}}</p>
+                        </div>
+                        <div class="row startup-desc">
+                            <p>{{hello}}</p>
+                        </div>
+                        <div class="row startup-desc">
+                            <p>{{city}}</p>
+                        </div>
+                        <div class="row startup-desc">
+                            <p>{{profile}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row startup-title list-group-item">
+                    <span>Scores</span>
+                </div>
+                <div class="row startup-details-content">
+                    {% for donut in donut_scores %}
+                    <div class="col-md-4 expertise-td-donut">
+                        <div class="donut_td">
+                            {% include "components/new_donut_chart.html" with donut_score=donut.1 donut_size=donut_size tooltip_font_size=tooltip_font_size %}
+                        </div>
+                        <p class="score-desc">{{donut.0}}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="navbarCollapse" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Messages</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Login</a></li>
-        </ul>
-    </div>
-  </nav>
-  <div class="table-responsive"> 
-      <table class="table table-bordered">
-          <thead>
-              <tr>
-                  <th>Row</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Email</th>
-                  <th>Biography</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr>
-                  <td>1</td>
-                  <td>John</td>
-                  <td>Carter</td>
-                  <td>johncarter@mail.com</td>
-                  <td>Lorem ipsum dolor sit amet…</td>
-              </tr>
-              <tr>
-                  <td>2</td>
-                  <td>Peter</td>
-                  <td>Parker</td>
-                  <td>peterparker@mail.com</td>
-                  <td>Vestibulum consectetur scelerisque…</td>
-              </tr>
-              <tr>
-                  <td>3</td>
-                  <td>John</td>
-                  <td>Rambo</td>
-                  <td>johnrambo@mail.com</td>
-                  <td>Integer pulvinar leo id risus…</td>
-              </tr>
-          </tbody>
-      </table>
-  </div>
-  <div class="table-responsive"> 
-      <table class="table table-bordered">
-          <thead>
-              <tr>
-                  <th>Row</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Email</th>
-                  <th>Biography</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr>
-                  <td>1</td>
-                  <td>John</td>
-                  <td>Carter</td>
-                  <td>johncarter@mail.com</td>
-                  <td>Lorem ipsum dolor sit amet…</td>
-              </tr>
-              <tr>
-                  <td>2</td>
-                  <td>Peter</td>
-                  <td>Parker</td>
-                  <td>peterparker@mail.com</td>
-                  <td>Vestibulum consectetur scelerisque…</td>
-              </tr>
-              <tr>
-                  <td>3</td>
-                  <td>John</td>
-                  <td>Rambo</td>
-                  <td>johnrambo@mail.com</td>
-                  <td>Integer pulvinar leo id risus…</td>
-              </tr>
-          </tbody>
-      </table>
-  </div>
-  <div class="table-responsive"> 
-      <table class="table table-bordered">
-          <thead>
-              <tr>
-                  <th>Row</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Email</th>
-                  <th>Biography</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr>
-                  <td>1</td>
-                  <td>John</td>
-                  <td>Carter</td>
-                  <td>johncarter@mail.com</td>
-                  <td>Lorem ipsum dolor sit amet…</td>
-              </tr>
-              <tr>
-                  <td>2</td>
-                  <td>Peter</td>
-                  <td>Parker</td>
-                  <td>peterparker@mail.com</td>
-                  <td>Vestibulum consectetur scelerisque…</td>
-              </tr>
-              <tr>
-                  <td>3</td>
-                  <td>John</td>
-                  <td>Rambo</td>
-                  <td>johnrambo@mail.com</td>
-                  <td>Integer pulvinar leo id risus…</td>
-              </tr>
-          </tbody>
-      </table>
-  </div>
-  <div class="table-responsive"> 
-      <table class="table table-bordered">
-          <thead>
-              <tr>
-                  <th>Row</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Email</th>
-                  <th>Biography</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr>
-                  <td>1</td>
-                  <td>John</td>
-                  <td>Carter</td>
-                  <td>johncarter@mail.com</td>
-                  <td>Lorem ipsum dolor sit amet…</td>
-              </tr>
-              <tr>
-                  <td>2</td>
-                  <td>Peter</td>
-                  <td>Parker</td>
-                  <td>peterparker@mail.com</td>
-                  <td>Vestibulum consectetur scelerisque…</td>
-              </tr>
-              <tr>
-                  <td>3</td>
-                  <td>John</td>
-                  <td>Rambo</td>
-                  <td>johnrambo@mail.com</td>
-                  <td>Integer pulvinar leo id risus…</td>
-              </tr>
-          </tbody>
-      </table>
-  </div>
-  <div class="table-responsive"> 
-      <table class="table table-bordered">
-          <thead>
-              <tr>
-                  <th>Row</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Email</th>
-                  <th>Biography</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr>
-                  <td>1</td>
-                  <td>John</td>
-                  <td>Carter</td>
-                  <td>johncarter@mail.com</td>
-                  <td>Lorem ipsum dolor sit amet…</td>
-              </tr>
-              <tr>
-                  <td>2</td>
-                  <td>Peter</td>
-                  <td>Parker</td>
-                  <td>peterparker@mail.com</td>
-                  <td>Vestibulum consectetur scelerisque…</td>
-              </tr>
-              <tr>
-                  <td>3</td>
-                  <td>John</td>
-                  <td>Rambo</td>
-                  <td>johnrambo@mail.com</td>
-                  <td>Integer pulvinar leo id risus…</td>
-              </tr>
-          </tbody>
-      </table>
-  </div>
-  <div class="table-responsive"> 
-      <table class="table table-bordered">
-          <thead>
-              <tr>
-                  <th>Row</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Email</th>
-                  <th>Biography</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr>
-                  <td>1</td>
-                  <td>John</td>
-                  <td>Carter</td>
-                  <td>johncarter@mail.com</td>
-                  <td>Lorem ipsum dolor sit amet…</td>
-              </tr>
-              <tr>
-                  <td>2</td>
-                  <td>Peter</td>
-                  <td>Parker</td>
-                  <td>peterparker@mail.com</td>
-                  <td>Vestibulum consectetur scelerisque…</td>
-              </tr>
-              <tr>
-                  <td>3</td>
-                  <td>John</td>
-                  <td>Rambo</td>
-                  <td>johnrambo@mail.com</td>
-                  <td>Integer pulvinar leo id risus…</td>
-              </tr>
-          </tbody>
-      </table>
-  </div>
-</body>
-</html>
+{% endblock %}
+
+{% block Scripts %}
+    <script src="/assets/js/jquery.fs.selecter.min.js"></script>
+    <script src="/assets/js/jquery.fs.scroller.min.js"></script>
+    <script src="/assets/js/add_selecter.js"></script>
+    {% include "components/new_donut_chart_script.html" %}
+    <script src="/assets/js/listing_animation.js"></script>
+    <script>
+        function set_copy(window_width, window_height) {
+        }
+
+        function show_scores_popover(e, title, content) {
+            var options = {'html':true,'content':content,'placement':'auto left','title':title, 'trigger':'click focus','viewport':'#dev-stats-content'}
+            $(e).popover(options);
+        }
+    </script>
+{% endblock %}
