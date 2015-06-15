@@ -211,9 +211,9 @@ a small {
     top: -120px;
 }
 
-.animate .landing-logo {
+.animate .landing-logo, .animate .landing-logo:hover  {
     background-image: url('/assets/img/logo_black_small.png');
-    background-size: 34px 34px;
+    background-size: 34px 34px !important;
     width: 48px;
     height: 60px;
 }
@@ -224,6 +224,9 @@ a small {
     font-weight: 900 !important;
     -webkit-font-smoothing: antialiased;
     padding-left: 0px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    vertical-align: baseline;
 }
 
 .light-nav, .dark-nav {
@@ -252,7 +255,7 @@ a small {
     color: #4FC1E9 !important;
 }
 
-.light-nav .nav-left-copy:hover, .dark-nav .nav-left-copy:hover {
+.dark-nav .nav-left-copy:hover {
     color: inherit !important;
 }
 
@@ -262,7 +265,6 @@ a small {
 }
 
 .animate .nav-left-copy, .animate .nav-left-copy:hover {
-    display: none;
     color: #1b1e37 !important;
     line-height: 34px;
 }
@@ -285,11 +287,16 @@ a small {
 
 .landing-logo {
     background-image: url('/assets/img/logo_white_small.png');
-    background-size: 34px 26px;
+    background-size: 34px 26px !important;
     background-repeat: no-repeat;
     background-position: center center;
     width: 48px;
     height: 100px;
+}
+
+.landing-logo:hover {
+    background-image: url('/assets/img/logo_blue_small.png');
+    background-size: 34px 26px !important;
 }
 
 .bottom-margin-sm {
@@ -872,7 +879,14 @@ sup {
 
     .landing-logo {
         background-image: url('/assets/img/logo_black_small.png');
-        background-size: 34px 34px;
+        background-size: 34px 34px !important;
+        width: 48px;
+        height: 60px;
+    }
+
+    .landing-logo:hover {
+        background-image: url('/assets/img/logo_black_small.png');
+        background-size: 34px 34px !important;
         width: 48px;
         height: 60px;
     }
