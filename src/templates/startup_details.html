@@ -142,7 +142,7 @@
                 <div class="row startup-title list-group-item">
                     <span class="dev-logo"><img src="/assets/img/dev-logo.png"></span><span>Dev Stats</span>
                 </div>
-                <div class="row startup-details-content">
+                <div class="row startup-details-content" id="dev-stats-content">
                     <div class="col-md-4 expertise-td-donut">
                         <div class="donut_td">
                             {% include "components/new_donut_chart.html" with donut_score=donut_scores.0.1 donut_size=donut_size tooltip_font_size=tooltip_font_size %}
@@ -175,8 +175,8 @@
                                                                     {{sec_stat.1}}
                                                                 </p>
                                                             </div>
-                                                            <div class="col-lg-2">
-                                                                <a href="#dev-scores" onclick="show_scores_modal('{{sec_stat.0}}');">
+                                                            <div class="col-lg-2 dev-scores-popover">
+                                                                <a onmouseover="show_scores_popover(this, '{{sec_stat.0}}', '&lt;div class=&quot;dev-scores-table&quot;&gt;&lt;div class=&quot;list-group&quot;&gt;{% for stat in tl_stats %}&lt;div class=&quot;list-group-item&quot;&gt;&lt;div class=&quot;row&quot;&gt;&lt;div class=&quot;col-xs-10&quot;&gt;&lt;p class=&quot;list-group-item-heading&quot;&gt;{{stat.0}}&lt;&#x2F;p&gt;&lt;&#x2F;div&gt;&lt;div class=&quot;col-xs-2&quot;&gt;&lt;p class=&quot;list-group-item-text&quot;&gt;{{stat.1}}&lt;&#x2F;p&gt;&lt;&#x2F;div&gt;&lt;&#x2F;div&gt;&lt;&#x2F;div&gt;{% endfor %}&lt;&#x2F;div&gt;&lt;&#x2F;div&gt;')">
                                                                     <span class="glyphicon glyphicon-zoom-in"/>
                                                                 </a>
                                                             </div>
@@ -207,7 +207,6 @@
             </div>
         </div>
     </div>
-    {% include "components/dev_scores_modal.html" %}
 {% endblock %}
 
 {% block Scripts %}
@@ -220,9 +219,9 @@
         function set_copy(window_width, window_height) {
         }
 
-        function show_scores_modal(title) {
-            $("#myModal").modal('show');
-            $("#myModal h4").text(title);
+        function show_scores_popover(e, title, content) {
+            var options = {'html':true,'content':content,'placement':'auto left','title':title, 'trigger':'click focus','viewport':'#dev-stats-content'}
+            $(e).popover(options);
         }
     </script>
 {% endblock %}
