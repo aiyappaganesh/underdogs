@@ -99,7 +99,7 @@ class LatestListMemberPage(WebRequestHandler):
         for first_level in first_levels:
             level_stats = []
             for second_level in first_level['children']:
-                tup = (second_level['name'], str(second_level['score']))
+                tup = (second_level['name'], str(int(second_level['score'] * 100))+'%')
                 level_stats.append(tup)
             dev_stats.append((first_level['name'], level_stats))
         return dev_stats
