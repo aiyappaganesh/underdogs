@@ -12,12 +12,23 @@
                 <div class="panel-body">
                     <div class="dev-scores-table" id="dev-scores">
                         {% for item in stat.1 %}
-                        <div id="accordion-{{forloop.counter}}" class="panel-group dev-scores">
+                        <div id="accordion-{{forloop.counter}}" class="list-group-item">
                             <div class="panel panel-default">
-                                <div class="panel-heading">
+                                <div class="">
                                     <h6 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordion-{{forloop.counter}}" href="#collapse-{{forloop.parentloop.counter}}-{{forloop.counter}}">
-                                            {{ item.0 }} - {{ item.1 }}
+                                        <div class="design-table">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <p class="list-group-item-heading">{{item.0}}</p>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <p class="list-group-item-text">
+                                                        {{item.1}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
                                         </a>
                                     </h6>
                                 </div>
@@ -28,17 +39,17 @@
                                 <div class="dev-scores-table">
                                     <div class="list-group">
                                         {% for stat in tl_stats %}
-                                        <div class="list-group-item">
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <p class="list-group-item-heading">{{stat.0}}</p>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <p class="list-group-item-text">
-                                                        {{stat.1}}
-                                                    </p>
-                                                </div>
+                                        <div class="row">
+                                            <div class="col-lg-3"></div>
+                                            <div class="col-lg-3">
+                                                <p class="list-group-item-heading">{{stat.0}}</p>
                                             </div>
+                                            <div class="col-lg-3">
+                                                <p class="list-group-item-text">
+                                                    {{stat.1}}
+                                                </p>
+                                            </div>
+                                            <div class="col-lg-3"> </div>
                                         </div>
                                         {% endfor %}
                                     </div>
