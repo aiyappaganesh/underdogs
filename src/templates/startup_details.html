@@ -150,44 +150,9 @@
                         <p class="score-desc">Development</p>
                     </div>
                     <div class="col-md-6">
-                        <div id="accordion" class="panel-group dev-scores">
+                        <div id="accordion-0" class="panel-group dev-scores">
                             {% for stat in dev_stats %}
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{forloop.counter}}">
-                                                {{stat.0}}
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapse{{forloop.counter}}" class="panel-collapse collapse">
-                                        <div class="panel-body">
-                                            <div class="dev-scores-table" id="dev-scores">
-                                                <div class="list-group">
-                                                {% for sec_stat in stat.1 %}
-                                                    <div class="list-group-item">
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <p class="list-group-item-heading">{{sec_stat.0}}</p>
-                                                            </div>
-                                                            <div class="col-lg-4">
-                                                                <p class="list-group-item-text">
-                                                                    {{sec_stat.1}}
-                                                                </p>
-                                                            </div>
-                                                            <div class="col-lg-2">
-                                                                <a href="#dev-scores" onclick="show_scores_modal('{{sec_stat.0}}');">
-                                                                    <span class="glyphicon glyphicon-zoom-in"/>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                {% endfor %}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% include "components/accordion.html" with heading=stat.0 body=stat.1 %}
                             {% endfor %}
                         </div>
                     </div>

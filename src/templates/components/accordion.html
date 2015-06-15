@@ -1,0 +1,50 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-0" href="#collapse-0-{{forloop.counter}}">
+                {{heading}}
+            </a>
+        </h4>
+    </div>
+    <div id="collapse-0-{{forloop.counter}}" class="panel-collapse collapse">
+        <div class="panel-body">
+            <div class="dev-scores-table" id="dev-scores">
+                {% for item in body %}
+                <div id="accordion-{{forloop.counter}}" class="panel-group dev-scores">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h6 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion-{{forloop.counter}}" href="#collapse-{{forloop.parentloop.counter}}-{{forloop.counter}}">
+                                    {{ item.0 }} - {{ item.1 }}
+                                </a>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+                <div id="collapse-{{forloop.parentloop.counter}}-{{forloop.counter}}" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="dev-scores-table">
+                            <div class="list-group">
+                                {% for stat in tl_stats %}
+                                <div class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <p class="list-group-item-heading">{{stat.0}}</p>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <p class="list-group-item-text">
+                                                {{stat.1}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
