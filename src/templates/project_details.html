@@ -1,6 +1,7 @@
 {% extends "base_new.html" %}
 
 {% block Scripts %}
+    <script src="/assets/js/listing_animation.js"></script>
 {% endblock %}
 
 {% block Styles %}
@@ -28,7 +29,7 @@
                                     <div class="col-sm-6 col-xs-12 list-group">
                                         {% if skills %}
                                             {% for skill in skills %}
-                                                <div class="row list-group-item">{{skill}}</div>
+                                                <div class="row original-pos list-group-item">{{skill}}</div>
                                             {% endfor %}
                                         {% else %}
                                             <div class="row list-group-item">No Skills Specified</div>
