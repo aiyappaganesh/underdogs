@@ -3,6 +3,7 @@ body{
     font-weight: 400;
     line-height: 1.65;
     font-family: 'Montserrat', sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
 
 body a {
@@ -948,7 +949,7 @@ sup {
     font-family: 'Montserrat', sans-serif;
     color:  #ffffff;
     font-size: 22px;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 20px;
     text-align: left;
     margin-top: 15px;
@@ -958,19 +959,21 @@ sup {
 .footer-title {
     font-family: 'Montserrat', sans-serif;
     color:  #e6e9ed;
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 36px;
     text-align: left;
+    font-size: 15px;
+    line-height: 23px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
 }
 
 .footer-link {
     font-family: 'Montserrat', sans-serif;
     color:  #aab2bd;
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 28px;
     text-align: left;
+    font-size: 14px;
+    line-height: 26px;
+    font-weight: 400;
 }
 
 @media (max-width: 766px) {
