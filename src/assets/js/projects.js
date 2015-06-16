@@ -18,4 +18,5 @@ function updateProjectCategory() {
 
 $(document).ready(function(){
     updateProjectSkills();
+    updateProjectCategory();
 });
