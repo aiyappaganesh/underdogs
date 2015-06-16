@@ -6,3 +6,7 @@ class Project(db.Model):
     bid = db.FloatProperty()
     end_date = db.DateProperty()
     skills = db.StringListProperty(indexed=False)
+
+    @property
+    def id(self):
+        return self.key().id()

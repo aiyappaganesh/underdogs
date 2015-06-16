@@ -84,7 +84,7 @@ class ProjectStartupsMatchingPage(WebRequestHandler):
 
 class ProjectListPage(WebRequestHandler):
     def make_json(self, projects):
-        return [{'title': project.title, 'description': project.description, 'skills': project.skills, 'bid': project.bid, 'end_date': project.end_date} for project in projects]
+        return [{'id':project.id, 'title': project.title, 'description': project.description, 'skills': project.skills, 'bid': project.bid, 'end_date': project.end_date} for project in projects]
 
     def get_all_projects(self, order, column):
         q = Project.all()
@@ -102,12 +102,25 @@ class ProjectListPage(WebRequestHandler):
         template_values = {'projects': projects, 'order': order, 'column': column}
         self.write(self.get_rendered_html(path, template_values), 200)
 
+class ProjectDetailsPage(WebRequestHandler):
+    def make_json(self, project):
+        return {'title': project.title, 'description': project.description, 'skills': project.skills, 'bid': project.bid, 'end_date': project.end_date}
+
+    def get_project(self, id):
+        return Project.get_by_id(id)
+
+    def get(self):
+        project_id = long(self['id'])
+        path = 'project_details.html'
+        template_values = self.make_json(self.get_project(project_id))
+        self.write(self.get_rendered_html(path, template_values), 200)
 
 app = webapp2.WSGIApplication(
     [
         ('/projects/registration', ProjectsRegistrationPage),
         ('/projects/edit', ProjectsEditPage),
         ('/projects/list', ProjectListPage),
-        ('/projects/fitting_startups', ProjectStartupsMatchingPage)
+        ('/projects/fitting_startups', ProjectStartupsMatchingPage),
+        ('/projects/details', ProjectDetailsPage)
     ]
 )
