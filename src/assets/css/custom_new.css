@@ -547,6 +547,7 @@ margin-bottom: 10px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
+    border-radius: 10px;
 }
 
 .startup-copy {
