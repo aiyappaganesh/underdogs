@@ -18,6 +18,10 @@ body a {
     margin-bottom: 0px;
 }
 
+.page-padding {
+    padding: 0px 90px !important;
+}
+
 .landing-selection {
     text-align: center;
 }
@@ -966,6 +970,10 @@ sup {
         background-color: #ffffff;
     }
 
+    .page-padding {
+        padding: 0px 45px !important;
+    }
+
     .top-nav {
         padding: 0px 30px;
     }
@@ -1014,6 +1022,10 @@ sup {
     .caption-city {
         font-size: 10px;
         line-height: 14px;
+    }
+
+    .startup-logo {
+        margin: auto;
     }
 
     .startup-copy {
