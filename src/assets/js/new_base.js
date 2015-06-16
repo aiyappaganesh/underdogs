@@ -7,6 +7,11 @@ $(document).ready(function(){
 function set_page_height() {
     var window_height = $(window).height();
     var window_width = $(window).width();
+    var footer_height = $('.footer').height();
+    var min_body_height = window_height-footer_height;
+    if(min_body_height > 0) {
+        $('.content>.container').css('min-height',min_body_height);
+    }
     if(document.getElementsByClassName("fullscreen-section").length > 0) {
         $('.fullscreen-section').css('min-height',window_height);
     }
