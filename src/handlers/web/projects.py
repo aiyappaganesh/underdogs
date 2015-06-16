@@ -89,7 +89,7 @@ class ProjectStartupsMatchingPage(WebRequestHandler):
 
 class ProjectListPage(WebRequestHandler):
     def make_json(self, projects):
-        return [{'id':project.id, 'title': project.title, 'description': project.description, 'skills': project.skills, 'bid': project.bid, 'end_date': project.end_date} for project in projects]
+        return [{'id':project.id, 'title': project.title, 'description': project.description, 'skills': project.skills, 'bid': project.bid, 'end_date': project.end_date, 'image': project.image} for project in projects]
 
     def get_all_projects(self, order, column):
         q = Project.all()
