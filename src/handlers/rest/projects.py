@@ -1,5 +1,6 @@
 import logging
 
+from google.appengine.ext.webapp import blobstore_handlers
 from handlers.rest.rest_application import RestApplication
 from handlers import RequestHandler
 from handlers.web.auth import web_login_required
@@ -9,14 +10,20 @@ from model.project_members import ProjectMember
 from model.user import User
 from datetime import date, datetime
 
-class AddProjectHandler(RequestHandler):
-    def create_project(self):
+class AddProjectHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
+    def read_image(self):
+        image = self.get_uploads("project_image")
+        image_key = str(image[0].key()) if image else None
+        return image_key
+
+    def create_project(self, image_key):
         p = Project()
         p.title = self['project_title']
         p.description = self['description']
         p.skills = self['project_skills'].split(',') if self['project_skills'] else []
         p.end_date = datetime.strptime(str(self['project_end_date']), "%Y-%m-%d").date()
         p.bid = float(self['project_bid'])
+        p.image = image_key
         p.put()
         return p
 
@@ -26,7 +33,8 @@ class AddProjectHandler(RequestHandler):
 
     @web_login_required
     def post(self):
-        p = self.create_project()
+        image_key = self.read_image()
+        p = self.create_project(image_key)
         self.create_project_admin(p)
         self.redirect('/startups/search/criteria')
 

@@ -6,6 +6,7 @@ class Project(db.Model):
     bid = db.FloatProperty()
     end_date = db.DateProperty()
     skills = db.StringListProperty(indexed=False)
+    image = db.StringProperty(indexed=False)
 
     @property
     def id(self):
