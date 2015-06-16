@@ -1066,6 +1066,10 @@ sup {
         line-height: 34px;
     }
 
+    .bottom-padded {
+        padding-bottom: 50px !important;
+    }
+
     .footer-title {
         font-size: 10px;
         line-height: 18px;

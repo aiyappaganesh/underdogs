@@ -24,16 +24,23 @@
                                     <p>{{description}}</p>
                                 </div>
                                 <h4>Skills Required</h4>
-                                <div class="row startup-desc list-group">
-                                    {% for skill in skills %}
-                                        <div class="list-group-item">{{skill}}</div>
-                                    {% endfor %}
+                                <div class="row startup-desc">
+                                    <div class="col-sm-6 col-xs-12 list-group">
+                                        {% if skills %}
+                                            {% for skill in skills %}
+                                                <div class="row list-group-item">{{skill}}</div>
+                                            {% endfor %}
+                                        {% else %}
+                                            <div class="row list-group-item">No Skills Specified</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-sm-6"></div>
                                 </div>
                                 <h4>Bid</h4>
                                 <div class="row startup-desc">
-                                    <p>{{bid}}</p>
+                                    <p>${{bid}}</p>
                                 </div>
-                                <h4>Needed completed by</h4>
+                                <h4>Need completed by</h4>
                                 <div class="row startup-desc">
                                     <p>{{end_date}}</p>
                                 </div>
