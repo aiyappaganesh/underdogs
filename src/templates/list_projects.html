@@ -16,42 +16,34 @@
     <script src="/assets/js/listing_animation.js"></script>
 {% endblock %}
 
+{% block Styles %}
+    <link href="/assets/css/listing_new.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
 {% block Content %}
-    <div class="container">
+    <div class="container nav-padded page-padding">
         <div class="row">
             <div class="col-lg-12">
-                <table class="table table-hover table-striped">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Skills</th>
-                            <th onclick="sort(this)" id="bid" name="bid">Bid{% if column == "bid" %}{% if order == "desc" %}&#8593;{% else %}&#8595;{% endif %}{% endif %}</th>
-                            <th onclick="sort(this)" id="end_date" name="end_date">End Date{% if column == "end_date" %}{% if order == "desc" %}&#8593;{% else %}&#8595;{% endif %}{% endif %}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for project in projects %}
-                            <tr class="list-row original-pos">
-                                <td>
-                                    {{ project.title }}
-                                </td>
-                                <td>
-                                    {{ project.description }}
-                                </td>
-                                <td>
-                                    {{ project.skills|join:", " }}
-                                </td>
-                                <td>
-                                    {{ project.bid }}
-                                </td>
-                                <td>
-                                    {{ project.end_date }}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <div class="row startup-title list-group-item">
+                    <span>FEATURED PROJECTS</span>
+                </div>
+                <div class="row startup-details-content">
+                    {% for project in projects %}
+                        <div class="col-md-4 list-row">
+                            <a href="#">
+                                <div class="thumbnail company-dashboard-thumbnail company-img">
+                                    <img class="company-image" src="">
+                                    <div class="caption text-center wrapped">
+                                        <h3 class="caption-name">{{project.title}}</h3>
+                                        <p class="caption-profile">{{project.description}}</p>
+                                        <p class="caption-city">{{project.end_date}}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
+        </div>
     </div>
 {% endblock %}
