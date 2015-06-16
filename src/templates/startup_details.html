@@ -219,5 +219,34 @@
             var options = {'html':true,'content':content,'placement':'auto left','title':title, 'trigger':'click focus','viewport':'#dev-stats-content'}
             $(e).popover(options);
         }
+
+        var chevToggle = true;
+
+        function toggleChevron(e) {
+            if($(e).hasClass('glyphicon-chevron-down')) {
+                $(e).removeClass('glyphicon-chevron-down')
+                $(e).addClass('glyphicon-chevron-up');
+            } else if($(e).hasClass('glyphicon-chevron-up')) {
+                $(e).removeClass('glyphicon-chevron-up')
+                $(e).addClass('glyphicon-chevron-down');
+            }
+            chevToggle = true;
+        }
+
+        $('.collapse').on('shown.bs.collapse', function() {
+            if(chevToggle) {
+                var glyph = $(this).parent().find('.glyphicon-chevron-down');
+                chevToggle = false;
+                toggleChevron(glyph);
+            }
+        });
+
+        $('.collapse').on('hidden.bs.collapse', function() {
+            if(chevToggle) {
+                var glyph = $(this).parent().find('.glyphicon-chevron-up');
+                chevToggle = false;
+                toggleChevron(glyph);
+            }
+        });
     </script>
 {% endblock %}
