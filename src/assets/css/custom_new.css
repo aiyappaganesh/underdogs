@@ -9,6 +9,14 @@ body a {
     text-decoration: none;
 }
 
+.show-element {
+    display: block;
+}
+
+.hide-element {
+    display: none;
+}
+
 .navbar-toggle .icon-bar {
     background-color: #4FC1E9;
 }

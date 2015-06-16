@@ -9,51 +9,29 @@
 {% block Content %}
     <div class="col-lg-12">
         <div id="section1-carousel" class="carousel slide" data-interval="3000" data-pause="false">
+            <div class="stationary">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p class="center-align landing-copy-big width960">BUILD TOGETHER<br> <span class="landing-copy-small">Hire creative startups to build innovative apps</span></p>
+                    </div>
+                </div>
+                {% include "components/get_started_button.html" %}
+            </div>
             <div class="carousel-inner" style="height:100%">
-                <div id="section-1" class="item active fullscreen-section" style="background:url('/assets/img/landing/landing_1.png');">
+                <div class="item active fullscreen-section" style="background:url('/assets/img/landing/landing_1.png');">
                     <div class="landing-overlay overlay"></div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <p class="center-align landing-copy-big width960">BUILD TOGETHER<br> <span class="landing-copy-small">Hire creative startups to build innovative apps</span></p>
-                        </div>
-                    </div>
-                    {% include "components/get_started_button.html" %}
                 </div>
-                <div id="section-2" class="item fullscreen-section" style="background:url('/assets/img/landing/landing-carousel-2.jpg');">
+                <div class="item fullscreen-section" style="background:url('/assets/img/landing/landing-carousel-2.jpg');">
                     <div class="landing-overlay overlay"></div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <p class="center-align landing-copy-big width960">BUILD TOGETHER<br> <span class="landing-copy-small">Hire creative startups to build innovative apps</span></p>
-                        </div>
-                    </div>
-                    {% include "components/get_started_button.html" %}
                 </div>
-                <div id="section-3" class="item fullscreen-section" style="background:url('/assets/img/landing/landing-carousel-3.png');">
+                <div class="item fullscreen-section" style="background:url('/assets/img/landing/landing-carousel-3.png');">
                     <div class="landing-overlay overlay"></div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <p class="center-align landing-copy-big width960">BUILD TOGETHER<br> <span class="landing-copy-small">Hire creative startups to build innovative apps</span></p>
-                        </div>
-                    </div>
-                    {% include "components/get_started_button.html" %}
                 </div>
-                <div id="section-4" class="item fullscreen-section" style="background:url('/assets/img/landing/landing-carousel-4.jpg');">
+                <div class="item fullscreen-section" style="background:url('/assets/img/landing/landing-carousel-4.jpg');">
                     <div class="landing-overlay overlay"></div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <p class="center-align landing-copy-big width960">BUILD TOGETHER<br> <span class="landing-copy-small">Hire creative startups to build innovative apps</span></p>
-                        </div>
-                    </div>
-                    {% include "components/get_started_button.html" %}
                 </div>
-                <div id="section-4" class="item fullscreen-section" style="background:url('/assets/img/landing/landing-carousel-5.jpg');">
+                <div class="item fullscreen-section" style="background:url('/assets/img/landing/landing-carousel-5.jpg');">
                     <div class="landing-overlay overlay"></div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <p class="center-align landing-copy-big width960">BUILD TOGETHER<br> <span class="landing-copy-small">Hire creative startups to build innovative apps</span></p>
-                        </div>
-                    </div>
-                    {% include "components/get_started_button.html" %}
                 </div>
             </div>
         </div>
@@ -123,28 +101,31 @@
             </div>
         </div>
         <div id="section4-carousel" class="carousel slide" data-interval="3000" data-pause="false">
+            <div id="sec4-slide1-copy" class="stationary show-element">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p class="center-align landing-copy landing-copy-bottom-padding width960">The Pirates community assures<br> high quality of design through<br> a community review process</p>
+                    </div>
+                </div>
+            </div>
+            <div id="sec4-slide2-copy" class="stationary hide-element">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p class="center-align landing-copy landing-copy-bottom-padding width960">The dev community assures<br> a high quality of code through a<br> peer review process</p>
+                    </div>
+                </div>
+            </div>
+            <div id="sec4-slide3-copy" class="stationary hide-element">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p class="center-align landing-copy landing-copy-bottom-padding width960">All the IP generated from the project<br> is secure and 100% owned by you</p>
+                    </div>
+                </div>
+            </div>
             <div class="carousel-inner" style="height:100%">
-                <div class="item active fullscreen-section" style="background:url('/assets/img/landing/slide-4-bg.png');">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <p class="center-align landing-copy landing-copy-bottom-padding width960">The Pirates community assures<br> high quality of design through<br> a community review process</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="item fullscreen-section" style="background:url('/assets/img/landing/slide-5-bg.png');">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <p class="center-align landing-copy landing-copy-bottom-padding width960">The dev community assures<br> a high quality of code through a<br> peer review process</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="item fullscreen-section" style="background:url('/assets/img/landing/slide-7-bg.png');">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <p class="center-align landing-copy landing-copy-bottom-padding width960">All the IP generated from the project<br> is secure and 100% owned by you</p>
-                        </div>
-                    </div>
-                </div>
+                <div id="sec4-slide1" class="item active fullscreen-section" style="background:url('/assets/img/landing/slide-4-bg.png');"></div>
+                <div id="sec4-slide2" class="item fullscreen-section" style="background:url('/assets/img/landing/slide-5-bg.png');"></div>
+                <div id="sec4-slide3" class="item fullscreen-section" style="background:url('/assets/img/landing/slide-7-bg.png');"></div>
             </div>
         </div>
         <div class="fullscreen-section white-background">

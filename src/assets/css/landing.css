@@ -41,5 +41,11 @@
 }
 
 .carousel-inner>.item {
-    transition: 0s ease left;
+    transition: 1s ease left;
+}
+
+.stationary {
+    position: absolute;
+    width: 100%;
+    z-index: 999;
 }
