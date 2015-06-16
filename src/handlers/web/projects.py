@@ -109,7 +109,7 @@ class ProjectListPage(WebRequestHandler):
 
 class ProjectDetailsPage(WebRequestHandler):
     def make_json(self, project):
-        return {'title': project.title, 'description': project.description, 'skills': project.skills, 'bid': project.bid, 'end_date': project.end_date}
+        return {'title': project.title, 'image': project.image, 'category': project.category if project.category else categories[0], 'description': project.description, 'skills': project.skills, 'bid': project.bid, 'end_date': project.end_date}
 
     def get_project(self, id):
         return Project.get_by_id(id)
