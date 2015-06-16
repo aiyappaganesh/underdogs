@@ -14,6 +14,20 @@
         };
     </script>
     <script src="/assets/js/listing_animation.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.company-img').mouseover(function(){
+                $(this).find('.caption').css('opacity', 1);
+                $(this).find('.company-image').css('z-index', -100);
+            });
+            $('.company-img').mouseout(function(){
+                $(this).find('.caption').css('opacity', 0);
+                $(this).find('.company-image').css('z-index', 100);
+            });
+        });
+        function set_copy(window_width, window_height) {
+        }
+    </script>
 {% endblock %}
 
 {% block Styles %}
