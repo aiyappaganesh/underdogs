@@ -24,14 +24,14 @@ function drawDonutChartForScore(e, score) {
 }
 
 $(document).ready(function(){
-    $('.donut_td').height({{donut_size}});
-    $('.donut_td').width({{donut_size}});
+    $('.donut_td').height({% if donut_size %}{{donut_size}}{% else %}80{% endif %});
+    $('.donut_td').width({% if donut_size %}{{donut_size}}{% else %}80{% endif %});
     $('.donut_td').each(function(){
         drawDonutChart(this);
     });
     $('.score_text').width({{donut_size}});
-    $('.score_text').css('top',((30/80)*{{donut_size}})+'%');
-    $('.score_text').css('font-size',((23/80)*{{donut_size}})+'px');
+    $('.score_text').css('top',((30/80)*{% if donut_size %}{{donut_size}}{% else %}80{% endif %})+'%');
+    $('.score_text').css('font-size',((23/80)*{% if donut_size %}{{donut_size}}{% else %}80{% endif %})+'px');
 
     $('.expertise-select').change(function() {
         var score = $($($(this).parents('.expertise_td')[0]).find('.selected')[0]).attr('data-value');
