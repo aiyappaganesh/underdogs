@@ -23,6 +23,7 @@ class AddProjectHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHandle
         p.skills = self['project_skills'].split(',') if self['project_skills'] else []
         p.end_date = datetime.strptime(str(self['project_end_date']), "%Y-%m-%d").date()
         p.bid = float(self['project_bid'])
+        p.category = self['category']
         p.image = image_key
         p.put()
         return p

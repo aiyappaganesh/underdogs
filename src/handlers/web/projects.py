@@ -6,6 +6,7 @@ from handlers.web.auth import web_login_required
 from util.util import convert_string_list_to_dict, get_skills_json
 from model.company import Company
 from model.project import Project
+from model.category import categories
 from datetime import datetime
 from google.appengine.api.blobstore import blobstore
 import operator
@@ -21,6 +22,7 @@ class ProjectsRegistrationPage(WebRequestHandler):
         form_url = blobstore.create_upload_url('/api/projects/add_project')
         template_values = {}
         template_values['duration_options'] = DURATION_OPTIONS
+        template_values['categories'] = categories
         template_values['skills'] = get_skills_json()
         template_values['form_url'] = form_url
         self.write(self.get_rendered_html(path, template_values), 200)

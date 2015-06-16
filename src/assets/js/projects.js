@@ -10,6 +10,12 @@ function updateProjectSkills() {
     $('#project-skills').val(skills);
 }
 
+function updateProjectCategory() {
+    var selectedCategory = $($('#category-select').parent('.selecter').find('.selected')[0]).attr('data-value');
+    $('#category').val(selectedCategory);
+    console.log();
+}
+
 $(document).ready(function(){
     updateProjectSkills();
 });
