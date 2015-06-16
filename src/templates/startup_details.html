@@ -152,7 +152,7 @@
                                         <h4 class="panel-title">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{forloop.counter}}">
                                                 {{stat.0}}
-                                                <span class="glyphicon glyphicon-chevron-down" style="float: right; padding-right:10px"/>
+                                                <span class="glyphicon glyphicon-chevron-down" style="float: right; padding: 0 10px"/>
                                             </a>
                                         </h4>
                                     </div>
@@ -223,17 +223,15 @@
         var chevToggle = true;
 
         function toggleChevron(e) {
-            if($(e).hasClass('glyphicon-chevron-down')) {
-                $(e).removeClass('glyphicon-chevron-down')
-                $(e).addClass('glyphicon-chevron-up');
-            } else if($(e).hasClass('glyphicon-chevron-up')) {
-                $(e).removeClass('glyphicon-chevron-up')
-                $(e).addClass('glyphicon-chevron-down');
+            if($(e).hasClass('rotate-180')) {
+                $(e).removeClass('rotate-180');
+            } else {
+                $(e).addClass('rotate-180');
             }
             chevToggle = true;
         }
 
-        $('.collapse').on('shown.bs.collapse', function() {
+        $('.collapse').on('show.bs.collapse', function() {
             if(chevToggle) {
                 var glyph = $(this).parent().find('.glyphicon-chevron-down');
                 chevToggle = false;
@@ -241,9 +239,9 @@
             }
         });
 
-        $('.collapse').on('hidden.bs.collapse', function() {
+        $('.collapse').on('hide.bs.collapse', function() {
             if(chevToggle) {
-                var glyph = $(this).parent().find('.glyphicon-chevron-up');
+                var glyph = $(this).parent().find('.glyphicon-chevron-down');
                 chevToggle = false;
                 toggleChevron(glyph);
             }

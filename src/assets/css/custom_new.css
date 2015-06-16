@@ -243,6 +243,15 @@ a small {
     vertical-align: baseline;
 }
 
+.dev-scores .glyphicon {
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.rotate-180 {
+    -webkit-transform: rotate(180deg);
+}
+
 .light-nav, .dark-nav {
     -webkit-transition: all 0.1s ease;
     transition: all 0.1s ease;
