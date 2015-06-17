@@ -107,7 +107,7 @@ class ProjectListPage(WebRequestHandler):
         template_values = {'projects': projects, 'order': order, 'column': column}
         self.write(self.get_rendered_html(path, template_values), 200)
 
-class ProjectDetailsPage(WebRequestHandler):
+class UpcomingProjectDetailsPage(WebRequestHandler):
     def make_json(self, project):
         return {'title': project.title, 'image': project.image, 'category': project.category if project.category else categories[0], 'description': project.description, 'skills': project.skills, 'bid': project.bid, 'end_date': project.end_date}
 
@@ -116,7 +116,7 @@ class ProjectDetailsPage(WebRequestHandler):
 
     def get(self):
         project_id = long(self['id'])
-        path = 'project_details.html'
+        path = 'upcoming_project_details.html'
         template_values = self.make_json(self.get_project(project_id))
         self.write(self.get_rendered_html(path, template_values), 200)
 
@@ -126,6 +126,6 @@ app = webapp2.WSGIApplication(
         ('/projects/edit', ProjectsEditPage),
         ('/projects/list', ProjectListPage),
         ('/projects/fitting_startups', ProjectStartupsMatchingPage),
-        ('/projects/details', ProjectDetailsPage)
+        ('/projects/upcoming/details', UpcomingProjectDetailsPage)
     ]
 )
