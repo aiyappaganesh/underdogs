@@ -1,0 +1,57 @@
+{% extends "base_new.html" %}
+
+{% block Scripts %}
+    <script src="/assets/js/listing_animation.js"></script>
+{% endblock %}
+
+{% block Styles %}
+    <link href="/assets/css/projects.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block Content %}
+    <div class="container nav-padded page-padding bottom-padded project-copy">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="project-logo" style="background-image:url('{% if image %}/api/common/download_image/{{image}}{% else %}/assets/img/company/company.png{% endif %}');"></div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="row project-name">
+                            <span>{{title}}</span>
+                        </div>
+                        <div class="row project-desc">
+                            <span>{{description}}</span>
+                        </div>
+                        <div class="row project-category">
+                            <span>{{category}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row project-title">
+                    <span>STRATEGY</span>
+                </div>
+                <div class="row project-desc project-text-section">{{description}}</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row project-title">
+                    <span>DESIGN</span>
+                </div>
+                <div class="row project-desc project-text-section">{{description}}</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row project-image-section">
+                    <img src="/assets/img/projects/details/u100-showcase.png">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
