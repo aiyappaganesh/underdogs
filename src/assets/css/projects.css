@@ -90,6 +90,28 @@
     height: 199px;
 }
 
+.project-list-section {
+    padding-top: 45px;
+}
+
+.project-list-item {
+    padding: 25px;
+}
+
+.project-list-item-title {
+    font-size: 14px;
+    font-weight: 700;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.project-list-item-content {
+    color:  #656d78;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: right;
+}
+
 @media (max-width: 766px) {
     .project-logo {
         margin: auto;
