@@ -51,6 +51,45 @@
     padding-top: 28px;
 }
 
+.project-image-section {
+    padding-top: 45px;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.device-bg {
+    margin-top: 22px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.iphone {
+    background-image: url('/assets/img/projects/details/iphone.png');
+    height: 199px;
+}
+
+.ipad-mini {
+    background-image: url('/assets/img/projects/details/ipad-mini.png');
+    height: 262px;
+}
+
+.ipad-air {
+    background-image: url('/assets/img/projects/details/ipad-air.png');
+    height: 323px;
+}
+
+.iphone-landscape {
+    background-image: url('/assets/img/projects/details/iphone-landscape.png');
+    height: 97px;
+}
+
+.iphone-portrait {
+    background-image: url('/assets/img/projects/details/iphone-portrait.png');
+    height: 199px;
+}
+
 @media (max-width: 766px) {
     .project-logo {
         margin: auto;
@@ -58,5 +97,9 @@
 
     .project-copy {
         text-align: center;
+    }
+
+    .device {
+        margin-top: 30px;
     }
 }
