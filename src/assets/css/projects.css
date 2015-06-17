@@ -10,7 +10,7 @@
 .project-copy {
     color: #333333;
     font-family: 'Montserrat', sans-serif;
-    line-height: 2;
+    line-height: 1.5;
 }
 
 .project-copy p {
@@ -19,10 +19,32 @@
 
 .project-name {
     font-size: 24px;
+    font-weight: 700;
 }
 
 .project-desc {
-    font-size: 18px;
+    color:  #656d78;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.project-category {
+    color:  #139fe1;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.project-title {
+    font-size: 24px;
+    font-weight: 700;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px;
+    border-color:  #cccccc;
+    border-style: solid;
+    padding-bottom: 22px;
+    margin-top: 45px
 }
 
 @media (max-width: 766px) {

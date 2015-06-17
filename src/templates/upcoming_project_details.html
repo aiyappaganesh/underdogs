@@ -9,28 +9,31 @@
 {% endblock %}
 
 {% block Content %}
-    <div class="container nav-padded page-padding bottom-padded">
+    <div class="container nav-padded page-padding bottom-padded project-copy">
         <div class="row">
             <div class="col-lg-12">
-                <div class="row" id="overview">
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="project-logo" style="background-image:url('{% if image %}/api/common/download_image/{{image}}{% else %}/assets/img/company/company.png{% endif %}');"></div>
-                            </div>
-                            <div class="col-md-10 project-copy">
-                                <div class="row project-name">
-                                    <h3>{{title}}</h3>
-                                </div>
-                                <div class="row project-desc">
-                                    <p>{{description}}</p>
-                                </div>
-                                <div class="row project-desc">
-                                    <p>{{category}}</p>
-                                </div>
-                            </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="project-logo" style="background-image:url('{% if image %}/api/common/download_image/{{image}}{% else %}/assets/img/company/company.png{% endif %}');"></div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="row project-name">
+                            <span>{{title}}</span>
+                        </div>
+                        <div class="row project-desc">
+                            <span>{{description}}</span>
+                        </div>
+                        <div class="row project-category">
+                            <span>{{category}}</span>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row project-title">
+                    <span>PROJECT DESCRIPTION</span>
                 </div>
             </div>
         </div>
