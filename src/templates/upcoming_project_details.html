@@ -16,39 +16,17 @@
                     <div class="col-lg-12">
                         <div class="row">
                             <div class="col-md-2">
-                                <div class="startup-logo" style="background-image:url('{% if image %}/api/common/download_image/{{image}}{% else %}/assets/img/company/company.png{% endif %}');"></div>
+                                <div class="project-logo" style="background-image:url('{% if image %}/api/common/download_image/{{image}}{% else %}/assets/img/company/company.png{% endif %}');"></div>
                             </div>
-                            <div class="col-md-10 startup-copy">
-                                <div class="row startup-name">
+                            <div class="col-md-10 project-copy">
+                                <div class="row project-name">
                                     <h3>{{title}}</h3>
                                 </div>
-                                <div class="row startup-desc">
+                                <div class="row project-desc">
                                     <p>{{description}}</p>
                                 </div>
-                                <h4>Category</h4>
-                                <div class="row startup-desc">
+                                <div class="row project-desc">
                                     <p>{{category}}</p>
-                                </div>
-                                <h4>Skills Required</h4>
-                                <div class="row startup-desc">
-                                    <div class="col-sm-6 col-xs-12 list-group">
-                                        {% if skills %}
-                                            {% for skill in skills %}
-                                                <div class="row original-pos list-group-item">{{skill}}</div>
-                                            {% endfor %}
-                                        {% else %}
-                                            <div class="row list-group-item">No Skills Specified</div>
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-sm-6"></div>
-                                </div>
-                                <h4>Bid</h4>
-                                <div class="row startup-desc">
-                                    <p>${{bid}}</p>
-                                </div>
-                                <h4>Need completed by</h4>
-                                <div class="row startup-desc">
-                                    <p>{{end_date}}</p>
                                 </div>
                             </div>
                         </div>
