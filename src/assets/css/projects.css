@@ -47,6 +47,10 @@
     margin-top: 45px
 }
 
+.project-text-section {
+    padding-top: 28px;
+}
+
 @media (max-width: 766px) {
     .project-logo {
         margin: auto;
@@ -54,7 +58,5 @@
 
     .project-copy {
         text-align: center;
-        max-width: 280px;
-        margin: auto;
     }
 }
