@@ -1,46 +1,50 @@
-{% extends "base.html" %}
+{% extends "base_new.html" %}
 
 {% block Styles %}
     <link href="/assets/css/profile.css" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block Content %}
-    <div class="top-padded">
-        <div class="row">
-            <div class="col-lg-9">
+    <div class="container nav-padded page-padding bottom-padded">
+        <div class="row profile-section">
+            <div class="col-sm-6">
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-sm-3">
                         <img class="img-rounded profile-image" src="{% if member.image %}{{member.image}}{% else %}/assets/img/member/default_member.png{% endif %}">
                     </div>
-                    <div class="col-lg-9">
-                        <h4>{{member.name}}</h4>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-8">
+                        <h4 class="profile-name">{{member.name}}</h4>
                         <div class="">
                             {% if member.experiences.0.company %}<span>Worked at {{member.experiences.0.company}}. </span>{% endif %}{% if member.education.0.school %}<span>Studied at {{member.education.0.school}}.</span>{% endif %}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
-                <a href="/member/profile/edit" class="pull-right">Edit Profile</a>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+                <a href="/member/profile/edit" class="pull-left">Edit Profile</a>
             </div>
+            <div class="col-sm-2"></div>
         </div>
-        <div class="row">
-            <div class="col-lg-8">
+        <div class="row profile-section">
+            <div class="col-sm-6">
                 <h4>EXPERIENCE</h4>
-                <div class="list-group">
+                <div class="profile-list">
                 {% if member.experiences %}
                     {% for experience in member.experiences %}
-                        <div class="list-group-item list-row original-pos">
+                        <div class="list-group-item profile-list-row original-pos">
                             <div class="row">
-                                <div class="col-lg-2">
+                                <div class="col-xs-2">
                                     <div class="pull-left">
                                         <img class="experience-company-image img-rounded" src="/assets/img/company/company.png">
                                     </div>
                                 </div>
-                                <div class="col-lg-10">
-                                    <h5 class="list-group-item-heading">{{experience.company}}</h5>
-                                    <h6 class="list-group-item-heading">{{experience.title}}</h6>
-                                    <h6 class="list-group-item-heading">{{experience.start|date:"M Y"}}{% if experience.end %} - {{experience.end|date:"M Y"}}{% endif %}</h6>
+                                <div class="col-xs-1"></div>
+                                <div class="col-xs-9">
+                                    <h5 class="list-group-item-heading profile-exp-company">{{experience.company}}</h5>
+                                    <h6 class="list-group-item-heading profile-exp-title">{{experience.title}}</h6>
+                                    <h6 class="list-group-item-heading profile-exp-date">{{experience.start|date:"M Y"}}{% if experience.end %} - {{experience.end|date:"M Y"}}{% endif %}</h6>
                                     <p class="list-group-item-text">{{experience.summary}}</p>
                                 </div>
                             </div>
@@ -49,78 +53,79 @@
                 {% else %}
                     <div class="list-group-item">
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-sm-12">
                                 <p class="list-group-item-text">Data not available. Please expose social network data <a href="#expose-profile-data" onclick="$('#expose-profile-data').addClass('nav-offset-padding')">below</a> to view experience.</p>
                             </div>
                         </div>
                     </div>
                 {% endif %}
                 </div>
-                <div class="list-group">
+                <div class="profile-list">
                     <div class="list-group-item">
                         <h4><a href="/member/companies/dashboard">MY STARTUPS</a></h4>
                     </div>
                 </div>
-                <div class="list-group">
+                <div class="profile-list">
                     <div class="list-group-item">
                         <h4><a href="/member/projects/dashboard">MY PROJECTS</a></h4>
                     </div>
                 </div>
                 {% if not profile_data_provided %}
-                <div id="expose-profile-data" class="list-group">
+                <div id="expose-profile-data" class="profile-list">
                     <div class="list-group-item">
                         <h4>EXPOSE PROFILE DATA</h4>
                         <div class="row">
-                            <div class="col-lg-2"></div>
-                            <div class="col-lg-8">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-8">
                                 <div class="row">
-                                    <div class="col-lg-6"><a href="{{linkedin_auth_url}}" class="btn btn-bootflat sd-btn"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a></div>
-                                    <div class="col-lg-6"><a href="{{angellist_auth_url}}" class="btn btn-bootflat sd-btn"><i class="fa fa-angellist fa-fw"></i> <span class="network-name">Angellist</span></a></div>
+                                    <div class="col-sm-6"><a href="{{linkedin_auth_url}}" class="btn btn-bootflat sd-btn"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a></div>
+                                    <div class="col-sm-6"><a href="{{angellist_auth_url}}" class="btn btn-bootflat sd-btn"><i class="fa fa-angellist fa-fw"></i> <span class="network-name">Angellist</span></a></div>
                                 </div>
                             </div>
-                            <div class="col-lg-2"></div>
+                            <div class="col-sm-2"></div>
                         </div>
                     </div>
                 </div>
                 {% endif %}
             </div>
-            <div class="col-lg-4 profile-right-panel">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-4 profile-right-panel">
                 <h4>VITALS</h4>
 
                 <h6>EDUCATION</h6>
-                <div class="list-group">
+                <div class="profile-list profile-education">
                 {% if member.education %}
                     {% for education in member.education %}
                         <div class="list-group-item">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-xs-6">
                                     <p class="profile-right-panel-heading">NAME</p>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-xs-6">
                                     <p class="">{{education.school}}</p>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-xs-6">
                                     <p class="profile-right-panel-heading">FIELD</p>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-xs-6">
                                     <p class="">{{education.field}}</p>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-xs-6">
                                     <p class="profile-right-panel-heading">DEGREE</p>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-xs-6">
                                     <p class="">{{education.degree}}</p>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-xs-6">
                                     <p class="profile-right-panel-heading">YEAR</p>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-xs-6">
                                     <p class="">{{education.end|date:"Y"}}</p>
                                 </div>
                             </div>
@@ -129,7 +134,7 @@
                 {% else %}
                     <div class="list-group-item">
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-sm-12">
                                 <p class="profile-right-panel-heading">Data not available. Please expose social network data <a href="#expose-profile-data" onclick="$('#expose-profile-data').addClass('nav-offset-padding')">below</a> to view education.</p>
                             </div>
                         </div>
@@ -139,22 +144,22 @@
 
                 <h6>SKILLS</h6>
                 <p><a href="/temp/visualise_profile_skills">Click Here To Visualize Skills</a></p>
-                <div class="list-group">
+                <div class="profile-list">
                 {% for skill in member.skills %}
                     <div class="list-group-item">
                         <div class="row">
-                            <div class="col-lg-6">
-                                <p class="list-group-item-heading">{{skill.name}}</p>
+                            <div class="col-xs-6">
+                                <p class="list-group-item-heading profile-skill-name">{{skill.name}}</p>
                             </div>
-                            <div class="col-lg-6">
-                                <p class="list-group-item-text">{{skill.score}}</p>
+                            <div class="col-xs-6">
+                                <p class="list-group-item-text profile-skill-score">{{skill.score}}</p>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
                 </div>
-
             </div>
+            <div class="col-sm-1"></div>
         </div>
     </div>
 {% endblock %}
