@@ -112,6 +112,10 @@
     text-align: right;
 }
 
+.project-list {
+    border: 1px solid #ddd;
+}
+
 @media (max-width: 766px) {
     .project-logo {
         margin: auto;
