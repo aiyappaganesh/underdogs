@@ -226,7 +226,7 @@ class CompaniesDashboardHandler(WebRequestHandler):
 
 class ProjectsDashboardHandler(WebRequestHandler):
     def make_json(self, projects):
-        return [{'id': project['parent'].key().id(), 'title': project['parent'].title, 'description': project['parent'].description, 'end_date': project['parent'].end_date} for project in projects]
+        return [{'id': project['parent'].key().id(), 'title': project['parent'].title, 'description': project['parent'].description, 'end_date': project['parent'].end_date, 'image': project['parent'].image, 'company': project['parent'].company} for project in projects]
 
     @web_login_required
     def get(self):
