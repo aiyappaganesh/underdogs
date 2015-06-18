@@ -1,12 +1,12 @@
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-sm-3">
     </div>
-    <div class="col-md-6">
+    <div class="col-sm-6">
         <p>{{title}}</p>
         <select class="form-control" name="{{name}}" id="{{id}}" {{other}}>
             {% for option in options %}<option value="{{option.value}}" {% if option.value in selected_values %}selected{% endif %}>{{option.name}}</option>{% endfor %}
         </select>
     </div>
-    <div class="col-md-3">
+    <div class="col-sm-3">
     </div>
 </div>
