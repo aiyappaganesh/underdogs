@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_new.html" %}
 
 {% block Styles %}
     <link href="/assets/css/exposedata.css" type="text/css" rel="stylesheet">
@@ -12,24 +12,20 @@
 {% endblock %}
 
 {% block Content %}
-    <div style="text-align:center;background-size:cover;">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div>
-                        <h2>Sign Up With Email</h2>
-                        <hr class="intro-divider">
-                        <form role="form" action="{{login_form_url}}" method="POST" onsubmit="return validate()">
-                            <div class="col-lg-12">
-                                {% include "components/form_input.html" with id="email" name="email" placeholder="Email" other="required" type="email" value=email %}
-                                {% include "components/form_captcha.html" with captcha=captcha %}
-                                {% include "components/form_error_message.html" %}
-                                <input type="submit" name="submit" id="submit" value="Verify Email" class="btn btn-bootflat">
-                            </div>
-                        </form>
-                        <h6>Already have an account? <a href="/member/login">Log in</a></h6>
+    <div class="container nav-padded page-padding bottom-padded center-align">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 class="login-title">Sign Up With Email</h2>
+                <hr class="intro-divider">
+                <form role="form" action="{{login_form_url}}" method="POST" onsubmit="return validate()">
+                    <div class="col-sm-12">
+                        {% include "components/form_input.html" with id="email" name="email" placeholder="Email" other="required" type="email" value=email %}
+                        {% include "components/form_captcha.html" with captcha=captcha %}
+                        {% include "components/form_error_message.html" %}
+                        {% include "components/form_submit.html" with value="Verify Email" %}
                     </div>
-                </div>
+                </form>
+                <h6>Already have an account? <a href="/member/login">Log in</a></h6>
             </div>
         </div>
     </div>

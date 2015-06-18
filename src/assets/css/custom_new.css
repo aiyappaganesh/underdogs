@@ -16,6 +16,10 @@ body a {
     margin-bottom: 5px;
 }
 
+#recaptcha_table {
+    margin: auto !important;
+}
+
 .show-element {
     display: block;
 }
@@ -1003,6 +1007,10 @@ sup {
 
     .top-nav {
         padding: 0px 30px;
+    }
+
+    #captcha {
+        zoom: 0.5;
     }
 
     .landing-logo {
