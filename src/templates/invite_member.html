@@ -1,20 +1,20 @@
-{% extends "base.html" %}
+{% extends "base_padded.html" %}
 
 {% block Styles %}
     <link href="/assets/css/registration.css" type="text/css" rel="stylesheet">
 {% endblock %}
 
-{% block Content %}
+{% block PaddedContent %}
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-sm-12">
             <h3 class="center-align">Enter member details and we will send him a mail</h3>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-12">
             <div class="panel">
                 {% if breadcrumbs %}{% include "components/registration_breadcrumbs.html" with idx="1" %}{% endif %}
-                <div class="tab-content">
+                <div class="tab-content center-align">
                     <div class="tab-pane fade active in">
                         <form class="top-padding-sm invite-member-form" role="form" action="{{invite_form_url}}" method="POST" onsubmit="return validate()">
                             {% include "components/form_input.html" with id="new_member_email" name="email" placeholder="Email" type="email" other="required" value=email %}
@@ -22,15 +22,7 @@
                             {% include "components/form_error_message.html" %}
                             {% include "components/form_submit.html" with value="Invite" %}
                         </form>
-                        <div class="row">
-                            <div class="col-md-3">
-                            </div>
-                            <div class="col-md-6">
-                                <input type="button" id="done" value="Done inviting!" onclick="return done_inviting();" class="btn btn-bootflat pull-right" style="margin-left:10px;">
-                            </div>
-                            <div class="col-md-3">
-                            </div>
-                        </div>
+                        {% include "components/form_input.html" with id="done" name="done" placeholder="Done inviting!" type="button" other_classes="btn btn-bootflat" other="onclick='return done_inviting();'" value="Done inviting!" %}
                     </div>
                 </div>
             </div>
