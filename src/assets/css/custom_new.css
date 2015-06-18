@@ -10,6 +10,12 @@ body a {
     text-decoration: none;
 }
 
+.inputfield {
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .show-element {
     display: block;
 }

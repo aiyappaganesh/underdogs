@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_new.html" %}
 
 {% block Styles %}
     <link href="/assets/css/exposedata.css" type="text/css" rel="stylesheet">
@@ -12,35 +12,32 @@
 {% endblock %}
 
 {% block Content %}
-    <div style="text-align:center;background-size:cover;">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div>
-                        <h2>Sign In</h2>
-                        <hr class="intro-divider">
-                        <ul class="list-inline intro-social-buttons">
-                            {% for network in  networks %}
-                                <li>
-                                    <a class="btn btn-bootflat sd-btn" href='{{network.url}}'>
-                                        <i class="fa fa-{{network.name}} fa-fw"></i> 
-                                        <span class="network-name">Use {{network.display_name}}</span>
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                        <hr class="intro-divider">
-                        <h2>Sign In With Email</h2>
-                        <form role="form" action="{{login_form_url}}" method="POST">
-                            <div class="col-lg-12">
-                                {% include "components/form_input.html" with id="email" name="email" placeholder="Email" other="required" type="email" %}
-                                {% include "components/form_input.html" with type="password" id="password" name="password" placeholder="Password" other="required" %}
-                                <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-bootflat">
-                            </div>
-                        </form>
-                        <h6>Need an account? <a href="/member/signup_email">Sign Up</a></h6>
+    <div class="container nav-padded page-padding bottom-padded center-align">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 class="login-title">Social Sign In</h2>
+                <hr class="intro-divider">
+                <ul class="list-inline intro-social-buttons">
+                    {% for network in  networks %}
+                        <li>
+                            <a class="btn btn-bootflat sd-btn" href='{{network.url}}'>
+                                <i class="fa fa-{{network.name}} fa-fw"></i>
+                                <span class="network-name">Use {{network.display_name}}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <h2 class="login-title">Sign In With Email</h2>
+                <hr class="intro-divider">
+                <form role="form" action="{{login_form_url}}" method="POST">
+                    <div class="col-sm-12">
+                        {% include "components/form_input.html" with id="email" name="email" placeholder="Email" other="required" type="email" %}
+                        {% include "components/form_input.html" with type="password" id="password" name="password" placeholder="Password" other="required" %}
+                        {% include "components/form_submit.html" with value="Submit" %}
                     </div>
-                </div>
+                </form>
+                <h6>Need an account? <a href="/member/signup_email">Sign Up</a></h6>
             </div>
         </div>
     </div>
