@@ -8,6 +8,7 @@ class Project(db.Model):
     skills = db.StringListProperty(indexed=False)
     image = db.StringProperty(indexed=False)
     category = db.StringProperty(indexed=False)
+    company = db.StringProperty(indexed=False)
 
     @property
     def id(self):
