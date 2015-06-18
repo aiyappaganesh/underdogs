@@ -114,21 +114,6 @@ th, td {
     text-align: center;
 }
 
-@media (max-width: 992px) {
-    .data-input-tab {
-        display: block;
-        min-width: 89%;
-        max-width: 89%;
-        margin: auto;
-    }
-}
-
-@media(max-width:766px) {
-    .register-project-title {
-        font-size: 24px;
-        line-height: 44px;
-    }
-
 .fileinput {
     width: 100%;
 }
@@ -169,11 +154,23 @@ th, td {
     border: 1px solid #ddd;
 }
 
-@media (max-width: 766px) {
+@media (max-width: 992px) {
+    .data-input-tab {
+        display: block;
+        min-width: 89%;
+        max-width: 89%;
+        margin: auto;
+    }
+}
+
+@media(max-width:766px) {
+    .register-project-title {
+        font-size: 24px;
+        line-height: 44px;
+    }
 
     .registration-title {
         font-size: 24px;
         line-height: 44px;
     }
-
 }
