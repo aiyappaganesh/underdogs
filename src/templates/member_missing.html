@@ -1,18 +1,12 @@
-{% extends "base.html" %}
+{% extends "base_padded.html" %}
 
 {% block Styles %}
     <link href="/assets/css/exposedata.css" type="text/css" rel="stylesheet">
 {% endblock %}
 
-{% block Content %}
-	<div class="container">
-		<div class="row top-padded">
-			<h2 class="landing-selection">Sorry, this part of the site is available only to logged in members</h2>
-		</div>
-		<div class="row top-padded">
-			<a href="/member/login?redirect_url={{redirect_url}}" class="btn btn-bootflat sd-btn">
-				<span class="network-name">Log In</span>
-			</a>
-		</div>
+{% block PaddedContent %}
+    <div class="center-align">
+		<h2 class="error-message-title">Sorry, this part of the site is available only to logged in members</h2>
+		{% include "components/link_button.html" with value="Log In" link="/member/login?redirect_url={{redirect_url}}" %}
     </div>
 {% endblock %}
