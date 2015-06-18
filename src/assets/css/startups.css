@@ -1,17 +1,23 @@
-.startups-overlay {
-    background-color: rgba(255, 255, 255, 0.85);
+.startups-list-item {
+    transition-duration: 2s;
+    transition-property: transform, opacity;
+    transition-timing-function: ease;
+    padding: 15px !important;
+    box-shadow: none !important;
 }
 
-.startups-copy {
-    margin-top: 300px;
-    font-family: SanFranciscoText;
-    color: #1c1c1c;
-    font-size: 48px;
-    font-weight: 700;
-    line-height: 72px;
-    text-align: center;
+.startups-dashboard-thumbnail>img {
+    max-height: 100px !important;
+    max-width: 100px !important;
 }
 
-.carousel-inner>.item {
-    transition: 0s ease left;
+.startups-dashboard-thumbnail {
+    max-height: 275px;
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+}
+
+.startup-img {
+    max-height: 100px !important;
+    min-height: 100px !important;
 }
