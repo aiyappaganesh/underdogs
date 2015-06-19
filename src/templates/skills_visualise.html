@@ -1,12 +1,11 @@
-{% extends "base.html" %}
+{% extends "base_padded.html" %}
 
 {% block Styles %}
     <link href="/assets/css/visualiser.css" type="text/css" rel="stylesheet">
 {% endblock %}
 
-{% block Content %}
-  	<div class="col-lg-6" id="companies">
-
+{% block PaddedContent %}
+    <div class="col-sm-5 col-xs-12" id="companies">
 		<p>Select company</p>
 		<select class="form-control" onchange="{% if for_profile %}updateMember(){% else %}reload(){% endif %}">
 			{% for company in companies %}
@@ -16,7 +15,8 @@
 			{% endfor %}
 		</select>
 	</div>
-	<div class="col-lg-6" id="members">
+    <div class="col-sm-2"></div>
+	<div class="col-sm-5 col-xs-12" id="members">
 		<p>Select members</p>
 		<select {% if for_profile %}disabled{% endif %} class="form-control" {% if for_profile %}{% else %}onchange="loadMemberData()"{% endif %}>
 		</select>
