@@ -151,7 +151,16 @@ th, td {
 
 .registration-panel {
     box-shadow: none !important;
+}
+
+.registration-panel li.active>a, .registration-panel li.active>a:hover {
+    background-color: #22A7F0 !important;
+    color: #ffffff !important;
+}
+
+.registration-container {
     border: 1px solid #ddd;
+    padding-bottom: 30px !important;
 }
 
 @media (max-width: 992px) {
