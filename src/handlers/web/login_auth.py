@@ -78,13 +78,13 @@ class TwitterAuth(LoginAuth):
     def get_login_dialog_redirect_url(self, host_url):
         tw = Twitter(self.config['consumer_key'],
                      self.config['consumer_secret'],
-                     'http://hirepirates.com/users/login_success?network=' + TWITTER)
+                     'http://www.hirepirates.com/users/login_success?network=' + TWITTER)
         return tw.log_user_in()
 
     def exchange_accesstoken(self, req_handler):
         tw = Twitter(self.config['consumer_key'],
                      self.config['consumer_secret'],
-                     'http://hirepirates.com/users/login_success?network=' + TWITTER)
+                     'http://www.hirepirates.com/users/login_success?network=' + TWITTER)
         at, ts = tw.fetch_access_token(req_handler['oauth_verifier'])
         get_current_session()['__tmp_twitter_tokens__'] = (at, ts)
         return at
@@ -239,7 +239,7 @@ Hello!
 
 Please follow this link to confirm your email id:
 
-http://hirepirates.com/users/confirm_email?email={0}
+http://www.hirepirates.com/users/confirm_email?email={0}
 
 Thanks!
 """.format(email))
