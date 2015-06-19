@@ -52,6 +52,16 @@
     text-align: center;
 }
 
+.profile-data-expose-btn {
+    text-align: center;
+    margin: auto;
+}
+
+.profile-data-expose-btn .btn {
+    width: 175px;
+    margin: 5px;
+}
+
 @media (max-width: 766px) {
     .profile-list-row {
         padding: 5px;
