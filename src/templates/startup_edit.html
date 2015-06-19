@@ -1,8 +1,9 @@
-{% extends "base.html" %}
+{% extends "base_padded.html" %}
 
 {% block Styles %}
     <link href="/assets/css/jasny-bootstrap.css" type="text/css" rel="stylesheet">
     <link href="/assets/css/registration.css" type="text/css" rel="stylesheet">
+    <link href="/assets/css/profile.css" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block Navbar %}
@@ -11,21 +12,18 @@
   {% endwith %}
 {% endblock %}
 
-{% block Content %}
-    <div class="row">
-        <div class="col-lg-12">
-            <h3 class="center-align">Edit Company Info</h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel">
-                <div class="tab-content">
-                    <div class="tab-pane fade active in">
+{% block PaddedContent %}
+    <div class="center-align">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="profile-edit-title">Edit Company Info</h3>
+                <hr class="intro-divider">
+                <div class="row">
+                    <div class="col-md-12">
                         <form role="form" action={{form_url}} method="POST" enctype="multipart/form-data" class="startup-registration-form top-padding-sm">
                             <div class="col-lg-12">
-                                {% include "components/form_input.html" with id="company-name" name="company_name" placeholder="Company Name" value=company.name length="23" %}
                                 {% include "components/form_image.html" with name="company_image" button_text="Select Image" image=company.image %}
+                                {% include "components/form_input.html" with id="company-name" name="company_name" placeholder="Company Name" value=company.name length="23" %}
                                 {% include "components/form_input.html" with id="hello" name="hello" placeholder="Have them at hello!" value=company.hello %}
                                 {% include "components/form_input.html" with id="website" name="website" placeholder="Website" value=company.website%}
                                 {% include "components/form_textarea.html" with id="profile" name="profile" placeholder="What makes your company different?" rows="5" label_text="Profile" value=company.profile %}
