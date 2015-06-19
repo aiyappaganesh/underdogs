@@ -172,5 +172,7 @@ th, td {
     .registration-title {
         font-size: 24px;
         line-height: 44px;
+        margin-top: 20px;
+        margin-bottom: 15px;
     }
 }
