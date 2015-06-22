@@ -2,6 +2,7 @@
 
 {% block Scripts %}
     <script src="/assets/js/listing_animation.js"></script>
+    {% include "components/new_donut_chart_script.html" %}
 {% endblock %}
 
 {% block Styles %}
@@ -25,7 +26,7 @@
                 <span>{{sec_2_title}}</span>
             </div>
             <div class="row copy sec-2-copy">
-                <span>{{sec_2_copy|linebreaks}}</span>
+                <span>{{sec_2_copy|linebreaksbr}}</span>
             </div>
         </div>
     </div>
@@ -35,7 +36,20 @@
                 <span>{{sec_3_title}}</span>
             </div>
             <div class="row copy sec-3-copy">
-                <span>{{sec_3_copy|linebreaks}}</span>
+                <span>{{sec_3_copy|linebreaksbr}}</span>
+            </div>
+            <div class="row sec-3-subtitle">
+                <span>{{sec_3_subtitle}}</span>
+            </div>
+            <div class="row sec-3-donuts">
+                {% for donut in donut_scores %}
+                <div class="col-sm-4">
+                    <div class="donut_td">
+                        {% include "components/new_donut_chart.html" with donut_score=donut.1 donut_size=donut_size tooltip_font_size=tooltip_font_size %}
+                    </div>
+                    <p class="sec-3-donut-title">{{donut.0}}</p>
+                </div>
+                {% endfor %}
             </div>
         </div>
     </div>

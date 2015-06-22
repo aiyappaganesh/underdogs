@@ -147,6 +147,21 @@ class ProjectStudyPage(WebRequestHandler):
         template_values['sec_3_bg'] = '/assets/img/study/sec_3_bg.png'
         template_values['sec_3_title'] = 'HAZE'
         template_values['sec_3_copy'] = "After reviewing a short list of startups on the Pirates ship, HealthCo selected Haze.\n\nHaze is a startup in Boston, building a healthcare app to bring transparent pricing to all. HealthCo selected Haze based on Haze's excellent design portfolio and Health domain expertise."
+        template_values['sec_3_subtitle'] = "Haze's appeal to HealthCo"
+        donuts = 3
+        donuts -= 1
+        donut_size = 200-(5*donuts)
+        score_font_size = 40-(3*donuts)
+        tooltip_font_size = 14-donuts
+        donut_scores = [('Design', 0.58),
+                        ('Dev', 0.75),
+                        ('Domain', 0.28)]
+        template_values['donut_scores'] = donut_scores
+        template_values['donut_size'] = donut_size
+        template_values['score_font_size'] = score_font_size
+        template_values['tooltip_font_size'] = tooltip_font_size
+        template_values['full_color'] = '#139fe1'
+        template_values['empty_color'] = '#ffffff'
         template_values['no_navbar_onload'] = True
         template_values['nav_color'] = 'light-nav'
         template_values['unscrolled'] = True
