@@ -1,29 +1,41 @@
-{% extends "base.html" %}
+{% extends "base_padded.html" %}
 
 {% block Scripts %}
 {% endblock %}
 
-{% block Content %}
-    <div class="col-lg-12 center-align">
-        <h3 class="page-header">Oops..</h3>
-        <div class="row">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-6 justified-align">
-                <p>You have already logged in once before using: "<i><u>{{disp_str}}</u></i>".</p>
-                <p>You can either <a href="/member/login?redirect_url=/">log back in</a> using any of your previous networks or verify your email and password again to login using "<i><u>{{network}}</u></i>".</p>
-            </div>
-            <div class="col-lg-3"></div>
-        </div>
+{% block Styles %}
+    <link href="/assets/css/jasny-bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="/assets/css/registration.css" type="text/css" rel="stylesheet">
+    <link href="/assets/css/jquery.fs.scroller.css" type="text/css" rel="stylesheet">
+    <link href="/assets/css/profile.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block PaddedContent %}
+    <div class="center-align">
         <div class="row">
             <div class="col-lg-12">
-                <form role="form" action="/api/members/verify_cred" method="POST">
-                    <div class="col-lg-12">
-                        {% include "components/form_input.html" with id="email" name="email" value=email %}
-                        {% include "components/form_input.html" with type="password" id="password" name="password" placeholder="Password" %}
-                        <input type="hidden" name="network" value="{{network}}">
-                        {% include "components/form_submit.html" with value=verify_str %}
+                <h3 class="profile-edit-title">Oops...</h3>
+                <hr class="intro-divider">
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6 justified-align">
+                        <p>You have already logged in once before using: "<i><u>{{disp_str}}</u></i>".</p>
+                        <p>You can either <a href="/member/login?redirect_url=/">log back in</a> using any of your previous networks or verify your email and password again to login using "<i><u>{{network}}</u></i>".</p>
                     </div>
-                </form>
+                    <div class="col-lg-3"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form role="form" action="/api/members/verify_cred" method="POST">
+                            <div class="col-lg-12">
+                                {% include "components/form_input.html" with id="email" name="email" value=email %}
+                                {% include "components/form_input.html" with type="password" id="password" name="password" placeholder="Password" %}
+                                <input type="hidden" name="network" value="{{network}}">
+                                {% include "components/form_submit.html" with value=verify_str %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
