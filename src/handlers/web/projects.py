@@ -15,6 +15,9 @@ DURATION_OPTIONS = [{'name':'Less than 3 months','value':'3'},
                     {'name':'3 to 6 months','value':'6'},
                     {'name':'More than 6 months','value':'12'}]
 
+def get_project(id):
+    return Project.get_by_id(id)
+
 class ProjectsRegistrationPage(WebRequestHandler):
     @web_login_required
     def get(self):
@@ -109,31 +112,45 @@ class ProjectListPage(WebRequestHandler):
 
 class UpcomingProjectDetailsPage(WebRequestHandler):
     def make_json(self, project):
-        return {'title': project.title, 'image': project.image, 'category': project.category if project.category else categories[0], 'description': project.description, 'skills': project.skills, 'bid': project.bid, 'end_date': project.end_date}
-
-    def get_project(self, id):
-        return Project.get_by_id(id)
+        return {'id': project.id, 'title': project.title, 'image': project.image, 'category': project.category if project.category else categories[0], 'description': project.description, 'skills': project.skills, 'bid': project.bid, 'end_date': project.end_date}
 
     def get(self):
         project_id = long(self['id'])
         path = 'upcoming_project_details.html'
-        template_values = self.make_json(self.get_project(project_id))
+        template_values = self.make_json(get_project(project_id))
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class CompletedProjectDetailsPage(WebRequestHandler):
     def make_json(self, project):
         return {'title': project.title, 'image': project.image, 'category': project.category if project.category else categories[0], 'description': project.description, 'skills': project.skills, 'bid': project.bid, 'end_date': project.end_date}
 
-    def get_project(self, id):
-        return Project.get_by_id(id)
-
     def get(self):
         project_id = long(self['id'])
         path = 'completed_project_details.html'
-        template_values = self.make_json(self.get_project(project_id))
+        template_values = self.make_json(get_project(project_id))
         self.write(self.get_rendered_html(path, template_values), 200)
 
+class ProjectStudyPage(WebRequestHandler):
+    def make_json(self, project):
+        return {'id': project.id, 'title': project.title, 'image': project.image, 'category': project.category if project.category else categories[0], 'description': project.description, 'skills': project.skills, 'bid': project.bid, 'end_date': project.end_date}
 
+    def get(self):
+        project_id = long(self['id'])
+        path = 'project_study.html'
+        template_values = self.make_json(get_project(project_id))
+        template_values['sec_1_bg'] = '/assets/img/study/sec_1_bg.png'
+        template_values['sec_1_title'] = 'COMFORT'
+        template_values['sec_1_subtitle'] = 'Healthcare with TLC'
+        template_values['sec_2_title'] = 'MAKE HEALTHCARE APPEALING FOR THE YOUNG'
+        template_values['sec_2_copy'] = \
+            "HealthCo (name changed) is one of the largest Health Insurance companies. They wanted to freshen their brand and create an app that would appeal to a younger audience. All the internal efforts to create a new experience for their users had resulted in incremental improvements, but their app still felt very much like a stoic, health insurance app and they didn't see increased engagement among the 20s and 30s demographics.\n\nHealthCo put their project on the Pirate ship to see if the innovate Pirates startups could make a radical difference that would make them instantly more appealing to the 20 and 30 year olds.\nThey laid out three high level goals for the app.\n\n1. Create an app that would allow users to select their doctors based on community review and be able to connect with the doctor in real time.\n\n2. Create a use case for the users to engage with the app to track their health on a regular basis, and not only  when they have an ailment and need to see a doctor."
+        template_values['sec_3_bg'] = '/assets/img/study/sec_3_bg.png'
+        template_values['sec_3_title'] = 'HAZE'
+        template_values['sec_3_copy'] = "After reviewing a short list of startups on the Pirates ship, HealthCo selected Haze.\n\nHaze is a startup in Boston, building a healthcare app to bring transparent pricing to all. HealthCo selected Haze based on Haze's excellent design portfolio and Health domain expertise."
+        template_values['no_navbar_onload'] = True
+        template_values['nav_color'] = 'light-nav'
+        template_values['unscrolled'] = True
+        self.write(self.get_rendered_html(path, template_values), 200)
 
 app = webapp2.WSGIApplication(
     [
@@ -142,6 +159,7 @@ app = webapp2.WSGIApplication(
         ('/projects/list', ProjectListPage),
         ('/projects/fitting_startups', ProjectStartupsMatchingPage),
         ('/projects/upcoming/details', UpcomingProjectDetailsPage),
-        ('/projects/completed/details', CompletedProjectDetailsPage)
+        ('/projects/completed/details', CompletedProjectDetailsPage),
+        ('/projects/study', ProjectStudyPage)
     ]
 )

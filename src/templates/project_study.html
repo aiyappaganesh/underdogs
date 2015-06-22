@@ -1,0 +1,42 @@
+{% extends "base_new.html" %}
+
+{% block Scripts %}
+    <script src="/assets/js/listing_animation.js"></script>
+{% endblock %}
+
+{% block Styles %}
+    <link href="/assets/css/study.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block Content %}
+    <div class="fullscreen-section sec-1 white-font center-align" style="background:url('{{sec_1_bg}}');">
+        <div class="width960">
+            <div class="row sec-1-title">
+                <span>{{sec_1_title}}</span>
+            </div>
+            <div class="row sec-1-subtitle">
+                <span>{{sec_1_subtitle}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="white-background fullscreen-section">
+        <div class="width960">
+            <div class="row title">
+                <span>{{sec_2_title}}</span>
+            </div>
+            <div class="row copy sec-2-copy">
+                <span>{{sec_2_copy|linebreaks}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="fullscreen-section sec-3 white-font" style="background:url('{{sec_3_bg}}');">
+        <div class="width960">
+            <div class="row title">
+                <span>{{sec_3_title}}</span>
+            </div>
+            <div class="row copy sec-3-copy">
+                <span>{{sec_3_copy|linebreaks}}</span>
+            </div>
+        </div>
+    </div>
+{% endblock %}
