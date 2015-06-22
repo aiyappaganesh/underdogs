@@ -37,6 +37,10 @@ body a {
     margin-bottom: 0px;
 }
 
+.scrolled .content {
+    margin-top: 0px;
+}
+
 .page-padding {
     padding: 0px 90px !important;
 }
