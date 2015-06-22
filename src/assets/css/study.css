@@ -116,6 +116,10 @@
     padding-bottom: 125px;
 }
 
+.sec-5 {
+    min-height: 800px !important;
+}
+
 @media (max-width: 959px) {
     .width960 {
         padding-left: 20px;

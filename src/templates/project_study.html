@@ -56,12 +56,22 @@
     <div class="white-background fullscreen-section">
         <div class="width960">
             <div class="row startup-founder">
-                <div class="row founder-picture" style="background-image:url('{% if image %}/api/common/download_image/{{founder_image}}{% else %}/assets/img/company/company.png{% endif %}');"></div>
+                <div class="row founder-picture" style="background-image:url('{{founder_image}}');"></div>
                 <div class="row founder-name"><span>{{founder_name}}</span></div>
                 <div class="row founder-desc"><span>{{founder_desc}}</span></div>
             </div>
             <div class="row copy sec-4-copy">
                 <span>{{sec_4_copy|linebreaksbr}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="fullscreen-section sec-5 white-font" style="background-image:url('{{sec_5_bg}}');">
+        <div class="width960">
+            <div class="row title">
+                <span>{{sec_5_title}}</span>
+            </div>
+            <div class="row copy">
+                <span>{{sec_5_copy|linebreaksbr}}</span>
             </div>
         </div>
     </div>

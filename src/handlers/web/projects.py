@@ -148,10 +148,13 @@ class ProjectStudyPage(WebRequestHandler):
         template_values['sec_3_title'] = 'HAZE'
         template_values['sec_3_copy'] = "After reviewing a short list of startups on the Pirates ship, HealthCo selected Haze.\n\nHaze is a startup in Boston, building a healthcare app to bring transparent pricing to all. HealthCo selected Haze based on Haze's excellent design portfolio and Health domain expertise."
         template_values['sec_3_subtitle'] = "Haze's appeal to HealthCo"
-        template_values['founder_image'] = ''
+        template_values['founder_image'] = '/assets/img/study/founder.png'
         template_values['founder_name'] = 'Adam Jackson'
         template_values['founder_desc'] = 'Founder, Haze'
         template_values['sec_4_copy'] = "The first concepts that came up when we brainstormed HealthCo's app, were comfort, easy access and fun lifestyle. We all coalesced around the concept of comfort. When one's sick, one really wants some comfort and TLC and not anxiety about doctors, prescriptions and bills. So we branded the app Comfort and then we came up with the tag line \"Healthcare with TLC\". This really sets HealthCo apart from all the other Health Insurance companies, and makes it a friendly app the users would love to use as opposed to a stress inducing Health Insurance app.\n\nIn order to make the app relevant to users on a regular basis, we decided to make the focus of the app a healthy lifestyle, including fitness, nutrition and health tipcs, in addition to connecting with doctors."
+        template_values['sec_5_bg'] = '/assets/img/study/sec_5_bg.png'
+        template_values['sec_5_title'] = "EVERYONE'S CUP OF TEA"
+        template_values['sec_5_copy'] = "We created beautiful imagery of tea, as a symbol of comfort. Everyone has a story of how their mom or their grand-mom gave them lemon tea or chamomile tea to comfort them from a cold or a tummy ache. Before doctors there was tea. So we decided to use beautiful high resolution images of tea throughout the app to give the feeling of comfort and cosiness to users."
         donuts = 3
         donuts -= 1
         donut_size = 200-(5*donuts)
