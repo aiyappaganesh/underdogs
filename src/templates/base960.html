@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Pirates">
+        <link rel="icon" href="/assets/img/favicon.png" type="image/png">
+        <link rel="shortcut icon" href="/favicon.ico">
+        <link href="/assets/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+        <link href="/assets/css/bootflat.min.css" type="text/css" rel="stylesheet">
+        <link href="/assets/css/custom_new.css" type="text/css" rel="stylesheet">
+        <link href="/assets/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:800,800italic,700normal,700italic,600,100,400,500,500italic,600italic,700,400italic,300,300italic|Raleway:800,800italic,700normal,700italic,600,100,400,500,500italic,600italic,700,400italic,300,300italic|Montserrat:800,800italic,700normal,700italic,600,100,400,500,500italic,600italic,700,400italic,300,300italic">
+        <script src="/assets/js/Chart.js"></script>
+        {% block Styles %}{% endblock %}
+        <title>{% block Title %}Pirates{% endblock %}</title>
+    </head>
+
+    <body class="scrollspied {% if not unscrolled %}scrolled{% endif %}">
+        <header class="header {% if not unscrolled %}animate{% endif %}">
+            {% block Navbar %}
+                <div class="width960 {{nav_color}}">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand landing-logo" href="/">
+                        </a>
+                        <a class="navbar-brand nav-left-copy" href="/">PIRATES
+                        </a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right main-nav-right">
+                            {% if hide_navbar_join != 'true' %}
+                                <li><a href="/startups/new_listing">STARTUPS</a></li>
+                                <li><a href="/projects/list">PROJECTS</a></li>
+                            {% endif %}
+                            {% if hide_navbar_login != 'true' %}
+                                {% if false|is_user_logged_in %}
+                                    <li><a href="/member/profile">PROFILE</a></li>
+                                    <li><a href="/member/logout">SIGN OUT</a></li>
+                                {% else %}
+                                    <li><a class="navbar-btn" href="/member/login?redirect_url=/">REGISTER</a></li>
+                                {% endif %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            {% endblock %}
+        </header>
+        <a id="top-arrow" href="#" class="off">
+            <span class="fa-stack">
+                <i class="fa fa-arrow-up" style=""></i>
+            </span>
+        </a>
+        <div class="content {% if not no_navbar_onload %}nav-offset{% endif %}">
+            <div class="container">
+                <div class="row">
+                    {% block Content %}{% endblock %}
+                </div>
+            </div>
+            {% block Footer %}
+                {% include "components/footer.html" %}
+            {% endblock %}
+        </div>
+        <script src="/assets/js/jquery.js"></script>
+        <script src="/assets/js/bootstrap.min.js"></script>
+        <script src="/assets/js/jquery.stellar.min.js"></script>
+        <script src="/assets/js/new_base.js"></script>
+        <script>
+            $(document).ready(function(){
+                $(window).stellar(
+                    {
+                        horizontalOffset: 0,
+                        verticalOffset: 0
+                    }
+                );
+            });
+            $(document).ready(function(){
+                $('.sub-menu>li>a').click(function(event){
+                    event.preventDefault();
+                    var id = $(this).attr('href');
+                    var scrollTop = $(id).offset().top - 110;
+                    $(window).scrollTop(scrollTop);
+                    $('.sub-menu>li').each(function(){
+                        $(this).removeClass('active');
+                    });
+                    $(this).parent().addClass('active');
+                });
+            });
+        </script>
+        {% if unscrolled %}<script src="/assets/js/scroll_nav.js"></script>{% endif %}
+        {% block Scripts %}{% endblock %}
+    </body>
+
+</html>
