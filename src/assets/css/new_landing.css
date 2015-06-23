@@ -295,6 +295,32 @@
     text-align: left;
 }
 
+.track-img-1 {
+    height: 331px;
+}
+
+.track-img-2 {
+    height: 297px;
+}
+
+.sec-track {
+    margin-top: 92px;
+}
+
+.sec-track-last {
+    margin-bottom: 111px;
+}
+
+.track-copy {
+    font-family: 'Montserrat', sans-serif;
+    color:  #333333;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 30px;
+    text-align: center;
+    padding-top: 166px !important;
+}
+
 @media (max-width: 766px) {
     .landing-copy-big {
         font-size: 24px;
@@ -379,5 +405,21 @@
 
     .carousel-2-slide {
       min-height: 650px !important;
+    }
+
+    .track-img {
+        background-size: contain !important;
+    }
+
+    .track-copy {
+        padding-top: 60px !important;
+    }
+
+    .sec-track {
+        margin-bottom: 50px;
+    }
+
+    .sec-track-last {
+        margin-top: 50px;
     }
 }

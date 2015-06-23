@@ -39,6 +39,10 @@ def get_template_values_for_landing():
     template_values['carousel_2_2_des_1_copy_2'] = 'Try making the icons smaller and giving more whitespace'
     template_values['carousel_2_2_des_2_copy_1'] = 'Irea Jackson, Python Developer, Looking Glass'
     template_values['carousel_2_2_des_2_copy_2'] = 'Maybe change the preferences to action sheets'
+    template_values['track_img_1'] = '/assets/img/landing/track_1.gif' #'http://winnerhun.uw.hu/vigyorpofa.gif'
+    template_values['track_img_2'] = '/assets/img/landing/track_2.png'
+    template_values['track_copy_1'] = 'PARTICIPATE'
+    template_values['track_copy_2'] = 'TRACK REAL TIME'
     template_values['no_navbar_onload'] = True
     template_values['nav_color'] = 'light-nav'
     template_values['unscrolled'] = True
