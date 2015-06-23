@@ -595,6 +595,10 @@ margin-bottom: 10px;
     width: 113px;
 }
 
+.main-nav-right>li:active, .main-nav-right>li>a:active {
+    background-color: transparent !important;
+}
+
 .navbar-btn {
     border-radius: 4px;
     border-width: 1px;
