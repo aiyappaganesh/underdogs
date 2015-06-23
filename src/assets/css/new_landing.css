@@ -111,6 +111,45 @@
     margin-bottom: 65px;
 }
 
+.sec-steve-content {
+    padding-top: 105px;
+    padding-bottom: 150px;
+}
+
+.sec-steve-img {
+    height: 506px;
+}
+
+.sec-steve-copy-big {
+    font-family: 'Montserrat', sans-serif;
+    color:  #1c1c1c;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 36px;
+    text-align: center;
+    padding-top: 120px;
+}
+
+.sec-steve-copy-medium {
+    font-family: Helvetica;
+    color:  #1c1c1c;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 36px;
+    text-align: right;
+    padding-top: 30px;
+}
+
+.sec-steve-copy-small {
+    font-family: Helvetica;
+    color:  #1c1c1c;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: left;
+    padding-top: 45px;
+}
+
 @media (max-width: 766px) {
     .landing-copy-big {
         font-size: 24px;

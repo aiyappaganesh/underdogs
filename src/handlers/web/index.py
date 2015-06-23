@@ -19,6 +19,7 @@ def get_template_values_for_landing():
         sorted_companies[id]['city'] = cities_map[str(id)] if str(id) in cities_map else cities_map['default']
     sorted_companies = sorted(sorted_companies.iteritems(), key=lambda (k,v): v['score'], reverse = True)
     template_values['startups'] = sorted_companies
+    template_values['steve_img'] = '/assets/img/landing/steve.png'
     template_values['no_navbar_onload'] = True
     template_values['nav_color'] = 'light-nav'
     template_values['unscrolled'] = True

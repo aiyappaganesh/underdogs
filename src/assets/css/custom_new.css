@@ -10,6 +10,12 @@ body a {
     text-decoration: none;
 }
 
+.bg-img-fullscreen {
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
 .inputfield {
     margin: auto;
     margin-top: 5px;
@@ -1129,5 +1135,12 @@ sup {
 @media (min-width: 768px) {
     .navbar-nav>li>a {
       padding: 0px 17px;
+    }
+}
+
+@media (max-width: 959px) {
+    .width960 {
+        padding-left: 10px;
+        padding-right: 10px;
     }
 }
