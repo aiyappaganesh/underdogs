@@ -297,8 +297,9 @@ a small {
 }
 
 .light-nav .navbar-btn:hover {
-    background-color: #ffffff !important;
-    color: #1b1e37 !important;
+    background-color: #22A7F0 !important;
+    color: #ffffff !important;
+    border-color: #22A7F0 !important;
 }
 
 .animate .nav-left-copy, .animate .nav-left-copy:hover {
@@ -618,8 +619,9 @@ margin-bottom: 10px;
 }
 
 .dark-nav .navbar-btn:hover {
-    color:  #ffffff !important;
-    background-color: #1b1e37 !important;
+    background-color: #22A7F0 !important;
+    color: #ffffff !important;
+    border-color: #22A7F0 !important;
 }
 
 .animate .navbar-btn {
@@ -628,8 +630,9 @@ margin-bottom: 10px;
 }
 
 .animate .navbar-btn:hover {
+    background-color: #22A7F0 !important;
     color: #ffffff !important;
-    background-color: #1b1e37 !important;
+    border-color: #22A7F0 !important;
 }
 
 .navbar-inverse {
@@ -1046,8 +1049,9 @@ sup {
     }
 
     .light-nav .navbar-btn:hover {
+        background-color: #22A7F0 !important;
         color: #ffffff !important;
-        background-color: #1b1e37 !important;
+        border-color: #22A7F0 !important;
     }
 
     .caption-name {
