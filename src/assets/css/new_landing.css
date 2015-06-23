@@ -245,6 +245,56 @@
     padding-top: 45px;
 }
 
+.member-row {
+    padding-top: 68px !important;
+}
+
+.member-row-last {
+    padding-bottom: 200px !important;
+}
+
+.member-picture {
+    height: 128px;
+    width: 128px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border-radius: 50%;
+    margin: auto;
+}
+
+.carousel-2-slide {
+    min-height: 800px !important;
+}
+
+.carousel-2-copy-big {
+    color:  #ffffff;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 36px;
+    text-align: center;
+    padding-top: 200px !important;
+}
+
+.carousel-2-copy-medium {
+    font-family: Helvetica;
+    color:  #ffffff;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    padding-top: 40px !important;
+}
+
+.carousel-2-copy-small {
+    font-family: Helvetica;
+    color:  #ffffff;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+}
+
 @media (max-width: 766px) {
     .landing-copy-big {
         font-size: 24px;
@@ -305,5 +355,29 @@
 
     .section-slide-7-copy {
         font-size: 20px !important;
+    }
+
+    .carousel-2-copy-big {
+        font-size: 22px;
+        line-height: 26px;
+        padding-top: 100px !important;
+    }
+
+    .carousel-2-copy-medium {
+        font-size: 16px;
+        line-height: 18px;
+    }
+
+    .carousel-2-copy-small {
+        font-size: 12px;
+        line-height: 14px;
+    }
+
+    .member-row-last {
+        padding-bottom: 50px !important;
+    }
+
+    .carousel-2-slide {
+      min-height: 650px !important;
     }
 }
