@@ -43,17 +43,91 @@
     color: #1c1c1c;
 }
 
-.section-slide-2-copy {
+.sec-startups-copy-big {
     font-family: 'Montserrat', sans-serif;
-    color:  #333333;
-    font-size: 30px;
-    line-height: 50px;
-    font-weight: 500;
+    color: #333333;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 36px;
     text-align: center;
 }
 
-.section-slide-2-special-copy {
-    color:  #139fe1;
+.sec-startups-copy-big-1 {
+    padding-top: 125px !important;
+}
+
+.sec-startups-copy-big-2 {
+    padding-top: 83px !important;
+}
+
+.sec-startups-img {
+    background-size: auto auto;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 128px;
+    width: 128px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.sec-startups-img-copy-big {
+    font-family: Helvetica;
+    color:  #333333;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1;
+    text-align: center;
+    padding-top: 24px !important;
+}
+
+.sec-startups-img-copy-small {
+    font-family: Helvetica;
+    color:  #333333;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+    text-align: center;
+    padding-top: 19px !important;
+}
+
+.sec-startups-copy-medium {
+    font-family: Helvetica;
+    color:  #333333;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: center;
+    padding-top: 40px !important;
+}
+
+.sec-startups-donuts {
+    padding-top: 70px;
+    padding-bottom: 130px;
+}
+
+.sec-startups-donut-title {
+    font-family: Helvetica;
+    color:  #333333;
+    font-size: 27px;
+    font-weight: 400;
+    text-align: center;
+    padding-top: 25px;
+}
+
+.new-donut-container {
+    background-color: #ffffff;
+    border-radius: 50%;
+    height: 157px;
+    width: 158px;
+    position: absolute;
+    top: 17px;
+    left: 16px;
+}
+
+.score_text {
+    font-family: Helvetica;
+    color:  #333333;
+    font-weight: 400;
 }
 
 .section-slide-3-copy {
@@ -191,16 +265,8 @@
         padding-bottom: 100px;
     }
 
-    .section-slide-2-copy {
-        font-size: 24px;
-    }
-
-    .section-slide-2-special-copy {
-        font-size: 24px;
-    }
-
-    .section-slide-2-row-margin {
-        padding-bottom: 60px;
+    .sec-startups-copy-big {
+        font-size: 26px;
     }
 
     .section-slide-3-copy {

@@ -5,23 +5,26 @@ from cities_mapping import cities_map
 
 def get_template_values_for_landing():
     template_values = {}
-    q = Company.all()
-    sorted_companies = {}
-    for c in q.fetch(3):
-        id = c.key().id()
-        sorted_companies[id] = {}
-        score = float(c.influence_avg) if c.influence_avg else 0.0
-        sorted_companies[id]['score'] = score
-        sorted_companies[id]['image'] = c.image
-        sorted_companies[id]['name'] = c.name
-        sorted_companies[id]['hello'] = c.hello
-        sorted_companies[id]['profile'] = c.profile
-        sorted_companies[id]['city'] = cities_map[str(id)] if str(id) in cities_map else cities_map['default']
-    sorted_companies = sorted(sorted_companies.iteritems(), key=lambda (k,v): v['score'], reverse = True)
-    template_values['startups'] = sorted_companies
+    donuts = 3
+    donuts -= 1
+    donut_size = 200-(5*donuts)
+    score_font_size = 40-(3*donuts)
+    tooltip_font_size = 14-donuts
+    donut_scores = [('Design', 0.58),
+                    ('Dev', 0.75),
+                    ('Domain', 0.28)]
+    template_values['donut_scores'] = donut_scores
+    template_values['donut_size'] = donut_size
+    template_values['score_font_size'] = score_font_size
+    template_values['tooltip_font_size'] = tooltip_font_size
+    template_values['full_color'] = '#139fe1'
+    template_values['empty_color'] = '#333333'
     template_values['steve_img'] = '/assets/img/landing/steve.png'
     template_values['sec_3_copy_big'] = 'All great products are built by small teams'
     template_values['sec_3_copy_medium'] = 'Every Pirates startup has 3-4 team members who share a deep chemistry and dedication'
+    template_values['startups_copy_big_1'] = 'Browse through the best startups'
+    template_values['startups_copy_big_2'] = 'Select your favorite startup to build your app'
+    template_values['startups_copy_medium'] = "Startup Color Door's appeal to a Fortune 500 bank looking to build a new retail banking app"
     template_values['no_navbar_onload'] = True
     template_values['nav_color'] = 'light-nav'
     template_values['unscrolled'] = True

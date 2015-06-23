@@ -116,26 +116,81 @@
             </div>
         </div>
         <div class="fullscreen-section white-background">
-            <div class="row">
-                <div class="col-lg-12">
-                    <p class="first-content section-slide-2-copy">You can't outsource innovation<br> But you can <span class="section-slide-2-special-copy">HIRE THE BEST STARTUPS</span></p>
+            <div class="width960">
+                <div class="row">
+                    <div class="col-sm-12 sec-startups-copy-big sec-startups-copy-big-1">
+                        <span>{{startups_copy_big_1}}</span>
+                    </div>
                 </div>
-            </div>
-            <div class="row width960 section-slide-2-row-margin">
-                {% for startup in startups %}
-                <div class="col-sm-4 list-row">
-                    <a href="/member/new_list?company_id={{startup.0}}">
-                        <div class="thumbnail company-dashboard-thumbnail company-img">
-                            <img class="company-image" src="{% if startup.1.image %}/api/common/download_image/{{startup.1.image}}{% else %}/assets/img/company/company.png{% endif %}">
-                            <div class="caption text-center wrapped">
-                                <h3 class="caption-name">{{startup.1.name}}</h3>
-                                <p class="caption-profile">{% if startup.1.hello %}{{startup.1.hello}}{% else %}&nbsp;{% endif %}</p>
-                                <p class="caption-city">{% if startup.1.city %}{{startup.1.city}}{% endif %}</p>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="row">
+                            <div class="sec-startups-img" style="background-image:url('/assets/img/landing/slide-startups-1.png')"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 sec-startups-img-copy-big">
+                                <span>Haggle</span>
                             </div>
                         </div>
-                    </a>
+                        <div class="row">
+                            <div class="col-xs-12 sec-startups-img-copy-small">
+                                <span>Your World. Your Price.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="row">
+                            <div class="sec-startups-img" style="background-image:url('/assets/img/landing/slide-startups-2.png')"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 sec-startups-img-copy-big">
+                                <span>Color Door</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 sec-startups-img-copy-small">
+                                <span>Rent broker free</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="row">
+                            <div class="sec-startups-img" style="background-image:url('/assets/img/landing/slide-startups-3.png')"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 sec-startups-img-copy-big">
+                                <span>Haze</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 sec-startups-img-copy-small">
+                                <span>Transparent healthcare for all</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                {% endfor %}
+                <div class="row">
+                    <div class="col-sm-12 sec-startups-copy-big sec-startups-copy-big-2">
+                        <span>{{startups_copy_big_2}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6 sec-startups-copy-medium">
+                        <span>{{startups_copy_medium}}</span>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+                <div class="row sec-startups-donuts">
+                    {% for donut in donut_scores %}
+                    <div class="col-sm-4">
+                        <div class="donut_td">
+                            {% include "components/new_donut_chart.html" with donut_score=donut.1 donut_size=donut_size tooltip_font_size=tooltip_font_size %}
+                        </div>
+                        <p class="sec-startups-donut-title">{{donut.0}}</p>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
         <div id="section4-carousel" class="carousel slide" data-interval="false" data-pause="false">
@@ -229,6 +284,7 @@
 
 {% block Scripts %}
     <script src="/assets/js/landing.js"></script>
+    {% include "components/new_donut_chart_script.html" %}
     <script>
         $(document).ready(function(){
             $('.company-img').mouseover(function(){
