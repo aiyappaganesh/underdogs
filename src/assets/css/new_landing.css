@@ -59,31 +59,52 @@
 .section-slide-3-copy {
     font-family: 'Montserrat', sans-serif;
     color:  #ffffff;
-    font-size: 30px;
-    line-height: 50px;
-    font-weight: 500;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 36px;
     text-align: center;
+    padding-top: 170px !important;
+}
+
+.section-slide-3-copy-medium {
+    font-family: Helvetica;
+    color:  #ffffff;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: center;
+    padding-top: 55px !important;
 }
 
 .section-slide-3-copy-small {
-    font-family: 'Montserrat', sans-serif;
+    font-family: Helvetica;
     color:  #ffffff;
-    font-size: 24px;
-    font-weight: 500;
+    font-size: 28px;
+    font-weight: 700;
     text-align: center;
-    line-height: 40px;
+    line-height: 36px;
     margin-top: 38px;
+}
+
+.section-slide-3-img-container {
+    border-radius: 50%;
+    background-color:  #139fe1;
+    width: 128px;
+    height: 128px;
+    margin: auto;
 }
 
 .section-slide-3-img {
     background-size: auto auto;
     background-repeat: no-repeat;
     background-position: center center;
-    height: 75px;
+    height: 128px;
+    width: 128px;
 }
 
 .section-slide-3-center-margin {
-    margin-top: 128px;
+    padding-top: 64px;
+    padding-bottom: 170px;
 }
 
 .section-slide-6-copy {
@@ -184,6 +205,7 @@
 
     .section-slide-3-copy {
         font-size: 24px;
+        padding-top: 85px !important;
     }
 
     .section-slide-3-copy-small {
@@ -193,7 +215,7 @@
     }
 
     .section-slide-3-center-margin {
-        margin-top: 25px;
+        padding-top: 25px;
         padding-bottom: 75px;
     }
 

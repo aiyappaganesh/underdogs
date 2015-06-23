@@ -20,6 +20,8 @@ def get_template_values_for_landing():
     sorted_companies = sorted(sorted_companies.iteritems(), key=lambda (k,v): v['score'], reverse = True)
     template_values['startups'] = sorted_companies
     template_values['steve_img'] = '/assets/img/landing/steve.png'
+    template_values['sec_3_copy_big'] = 'All great products are built by small teams'
+    template_values['sec_3_copy_medium'] = 'Every Pirates startup has 3-4 team members who share a deep chemistry and dedication'
     template_values['no_navbar_onload'] = True
     template_values['nav_color'] = 'light-nav'
     template_values['unscrolled'] = True
