@@ -40,6 +40,10 @@
     z-index:1000;
 }
 
+#section1-carousel .carousel-inner>.item {
+    transition: 0s left;
+}
+
 .stationary {
     position: absolute;
     width: 100%;
