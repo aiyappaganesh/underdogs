@@ -7,6 +7,6 @@
 {% block PaddedContent %}
     <div class="center-align">
 		<h2 class="error-message-title">Sorry, this part of the site is available only to logged in members</h2>
-		{% include "components/link_button.html" with value="Log In" link="/member/login?redirect_url={{redirect_url}}" %}
+		{% include "components/link_button.html" with value="Log In" link="/member/login?redirect_url="|add:redirect_url %}
     </div>
 {% endblock %}
