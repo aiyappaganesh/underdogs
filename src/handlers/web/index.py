@@ -7,7 +7,7 @@ def get_template_values_for_landing():
     template_values = {}
     donuts = 3
     donuts -= 1
-    donut_size = 128
+    donut_size = 200-(5*donuts)
     score_font_size = 40-(3*donuts)
     tooltip_font_size = 14-donuts
     donut_scores = [('Design', 0.58),

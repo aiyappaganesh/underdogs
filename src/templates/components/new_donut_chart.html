@@ -1,7 +1,6 @@
-<div id="canvas_container" style="position:relative;height:128px">
-	<div class="score_text" style="height:128px;width:128px;line-height:128px;position:absolute;display:block;z-index:9999;"></div>
-	<canvas class="donut_canvas" height="{{donut_size|default:'80'}}" width="{{donut_size|default:'80'}}"></canvas>
-</div>
+<canvas class="donut_canvas" height="{{donut_size|default:'80'}}" width="{{donut_size|default:'80'}}"></canvas>
+<div class="new-donut-container"></div>
+<p class="score_text"></p>
 <input class="score_value" type="hidden" value="{% if donut_score %}{{donut_score}}{% else %}0.0{% endif %}">
 <input class="full_color" type="hidden" value="{% if full_color %}{{full_color}}{% else %}#68dff0{% endif %}">
 <input class="empty_color" type="hidden" value="{% if empty_color %}{{empty_color}}{% else %}#bdfdfd{% endif %}">

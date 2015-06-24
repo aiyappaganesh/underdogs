@@ -29,6 +29,7 @@ $(document).ready(function(){
     $('.donut_td').each(function(){
         drawDonutChart(this);
     });
+    $('.score_text').width({{donut_size}});
 
     $('.expertise-select').change(function() {
         var score = $($($(this).parents('.expertise_td')[0]).find('.selected')[0]).attr('data-value');
