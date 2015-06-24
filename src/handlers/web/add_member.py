@@ -110,7 +110,6 @@ class LatestListMemberPage(WebRequestHandler):
                 ('Contributors',2),
                 ('Projects',6)]
 
-    @web_login_required
     def get(self):
         path = 'startup_details.html'
         company_id = int(str(self['company_id']))
@@ -122,10 +121,7 @@ class LatestListMemberPage(WebRequestHandler):
             return
         aggregated_designs = Design.aggregate_data_for(c)
         session = get_current_session()
-        user_id = session['me_email']
-        access_type = self.get_access_type(c, user_id)
         q = CompanyMember.all().ancestor(c)
-        users = [{'name': User.get_by_key_name(company_member.user_id).name, 'influence': company_member.influence, 'expertise': company_member.expertise} for company_member in q]
         design_stats = [('Live Apps', aggregated_designs['live_apps']),
                         ('Shots', aggregated_designs['shots']),
                         ('Likes', aggregated_designs['likes']),
@@ -159,9 +155,6 @@ class LatestListMemberPage(WebRequestHandler):
                            'donut_scores': donut_scores,
                            'design_stats': design_stats,
                            'pictures':picture_rows,
-                           'users': users,
-                           'access_type': access_type,
-                           'admin_id': user_id,
                            'donut_size': donut_size,
                            'score_font_size': score_font_size,
                            'tooltip_font_size': tooltip_font_size,
