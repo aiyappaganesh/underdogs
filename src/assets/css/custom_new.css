@@ -724,9 +724,6 @@ margin-bottom: 10px;
 }
 
 .score_text {
-    position: absolute;
-    top: 28%;
-    left: 2%;
     font-size: 50px;
     color: #ffffff;
     width: 80px;
