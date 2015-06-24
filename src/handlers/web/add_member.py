@@ -110,6 +110,7 @@ class LatestListMemberPage(WebRequestHandler):
                 ('Contributors',2),
                 ('Projects',6)]
 
+    @web_login_required
     def get(self):
         path = 'startup_details.html'
         company_id = int(str(self['company_id']))

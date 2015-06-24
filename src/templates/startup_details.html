@@ -55,148 +55,150 @@
             });
         }
     </script>
-    <div class="row original-pos" id="overview">
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="startup-logo" style="background-image:url('{% if image %}/api/common/download_image/{{image}}{% else %}/assets/img/company/company.png{% endif %}');"></div>
-                </div>
-                <div class="col-md-10 startup-copy">
-                    <div class="row startup-name">
-                        <p>{{name}}</p>
+    <div class="width960 center-align">
+        <div class="row original-pos" id="overview">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="startup-logo" style="background-image:url('{% if image %}/api/common/download_image/{{image}}{% else %}/assets/img/company/company.png{% endif %}');"></div>
                     </div>
-                    <div class="row startup-desc">
-                        <p>{{hello}}</p>
-                    </div>
-                    <div class="row startup-desc">
-                        <p>{{city}}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row startup-title list-group-item">
-                <span>Scores</span>
-            </div>
-            <div class="row startup-details-content">
-                {% for donut in donut_scores %}
-                <div class="col-md-4 expertise-td-donut">
-                    <div class="donut_td">
-                        {% include "components/new_donut_chart.html" with donut_score=donut.1 donut_size=donut_size tooltip_font_size=tooltip_font_size %}
-                    </div>
-                    <p class="score-desc">{{donut.0}}</p>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-    <div class="row startup-section original-pos" id="design">
-        <div class="col-lg-12">
-            <div class="row startup-title list-group-item">
-                <span class="design-logo"><img src="/assets/img/design-logo.png"></span><span>Design Stats</span>
-            </div>
-            <div class="row startup-details-content">
-                <div class="col-md-4 expertise-td-donut">
-                    <div class="donut_td">
-                        {% include "components/new_donut_chart.html" with donut_score=donut_scores.0.1 donut_size=donut_size tooltip_font_size=tooltip_font_size %}
-                    </div>
-                    <p class="score-desc">Design</p>
-                </div>
-                <div class="col-md-8 design-table">
-                    {% for stat in design_stats %}
-                        <div class="list-group-item">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <p class="list-group-item-heading">{{stat.0}}</p>
-                                </div>
-                                <div class="col-lg-6">
-                                    <p class="list-group-item-text">{{stat.1}}</p>
-                                </div>
-                            </div>
+                    <div class="col-md-10 startup-copy">
+                        <div class="row startup-name">
+                            <p>{{name}}</p>
                         </div>
-                    {% endfor %}
+                        <div class="row startup-desc">
+                            <p>{{hello}}</p>
+                        </div>
+                        <div class="row startup-desc">
+                            <p>{{city}}</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row startup-title list-group-item">
-                <span class="design-logo"><img src="/assets/img/design-logo.png"></span><span>Design Portfolio</span>
-            </div>
-            <div class="row startup-details-content">
-                <div class="col-md-12">
-                    {% for picture_row in pictures %}
-                    <div class="row shot-row">
-                        {% for picture_url in picture_row %}
-                        <div class="col-md-4 shot" style="background-image:url('{{picture_url}}')"></div>
-                        {% endfor %}
+                <div class="row startup-title list-group-item">
+                    <span>Scores</span>
+                </div>
+                <div class="row startup-details-content">
+                    {% for donut in donut_scores %}
+                    <div class="col-md-4 expertise-td-donut">
+                        <div class="donut_td">
+                            {% include "components/new_donut_chart.html" with donut_score=donut.1 donut_size=donut_size tooltip_font_size=tooltip_font_size %}
+                        </div>
+                        <p class="score-desc">{{donut.0}}</p>
                     </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row startup-section original-pos" id="dev">
-        <div class="col-lg-12">
-            <div class="row startup-title list-group-item">
-                <span class="dev-logo"><img src="/assets/img/dev-logo.png"></span><span>Dev Stats</span>
-            </div>
-            <div class="row startup-details-content" id="dev-stats-content">
-                <div class="col-md-4 expertise-td-donut">
-                    <div class="donut_td">
-                        {% include "components/new_donut_chart.html" with donut_score=donut_scores.0.1 donut_size=donut_size tooltip_font_size=tooltip_font_size %}
-                    </div>
-                    <p class="score-desc">Development</p>
+        <div class="row startup-section original-pos" id="design">
+            <div class="col-lg-12">
+                <div class="row startup-title list-group-item">
+                    <span class="design-logo"><img src="/assets/img/design-logo.png"></span><span>Design Stats</span>
                 </div>
-                <div class="col-md-6">
-                    <div id="accordion" class="panel-group dev-scores">
-                        {% for stat in dev_stats %}
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{forloop.counter}}">
-                                            {{stat.0}}
-                                            <span class="glyphicon glyphicon-chevron-down" style="float: right; padding: 0 10px"/>
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapse{{forloop.counter}}" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <div class="dev-scores-table" id="dev-scores">
-                                            <div class="list-group">
-                                            {% for sec_stat in stat.1 %}
-                                                <div class="list-group-item">
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <p class="list-group-item-heading">{{sec_stat.0}}</p>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <p class="list-group-item-text">
-                                                                {{sec_stat.1}}
-                                                            </p>
-                                                        </div>
-                                                        <div class="col-lg-2 dev-scores-popover">
-                                                            <a onmouseover="show_scores_popover(this, '{{sec_stat.0}}', '{% include 'components/dev_scores_popover.html' %}')">
-                                                                <span class="glyphicon glyphicon-zoom-in"/>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            {% endfor %}
-                                            </div>
-                                        </div>
+                <div class="row startup-details-content">
+                    <div class="col-md-4 expertise-td-donut">
+                        <div class="donut_td">
+                            {% include "components/new_donut_chart.html" with donut_score=donut_scores.0.1 donut_size=donut_size tooltip_font_size=tooltip_font_size %}
+                        </div>
+                        <p class="score-desc">Design</p>
+                    </div>
+                    <div class="col-md-8 design-table">
+                        {% for stat in design_stats %}
+                            <div class="list-group-item">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <p class="list-group-item-heading">{{stat.0}}</p>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <p class="list-group-item-text">{{stat.1}}</p>
                                     </div>
                                 </div>
                             </div>
                         {% endfor %}
                     </div>
                 </div>
-                <div class="col-md-2"></div>
+                <div class="row startup-title list-group-item">
+                    <span class="design-logo"><img src="/assets/img/design-logo.png"></span><span>Design Portfolio</span>
+                </div>
+                <div class="row startup-details-content">
+                    <div class="col-md-12">
+                        {% for picture_row in pictures %}
+                        <div class="row shot-row">
+                            {% for picture_url in picture_row %}
+                            <div class="col-md-4 shot" style="background-image:url('{{picture_url}}')"></div>
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row startup-section original-pos" id="community">
-        <div class="col-lg-12">
-            <div class="row startup-title list-group-item">
-                <span class="dev-logo"><img src="/assets/img/dev-logo.png"></span><span>Community</span>
+        <div class="row startup-section original-pos" id="dev">
+            <div class="col-lg-12">
+                <div class="row startup-title list-group-item">
+                    <span class="dev-logo"><img src="/assets/img/dev-logo.png"></span><span>Dev Stats</span>
+                </div>
+                <div class="row startup-details-content" id="dev-stats-content">
+                    <div class="col-md-4 expertise-td-donut">
+                        <div class="donut_td">
+                            {% include "components/new_donut_chart.html" with donut_score=donut_scores.0.1 donut_size=donut_size tooltip_font_size=tooltip_font_size %}
+                        </div>
+                        <p class="score-desc">Development</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="accordion" class="panel-group dev-scores">
+                            {% for stat in dev_stats %}
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{forloop.counter}}">
+                                                {{stat.0}}
+                                                <span class="glyphicon glyphicon-chevron-down" style="float: right; padding: 0 10px"/>
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse{{forloop.counter}}" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="dev-scores-table" id="dev-scores">
+                                                <div class="list-group">
+                                                {% for sec_stat in stat.1 %}
+                                                    <div class="list-group-item">
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <p class="list-group-item-heading">{{sec_stat.0}}</p>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <p class="list-group-item-text">
+                                                                    {{sec_stat.1}}
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-2 dev-scores-popover">
+                                                                <a onmouseover="show_scores_popover(this, '{{sec_stat.0}}', '{% include 'components/dev_scores_popover.html' %}')">
+                                                                    <span class="glyphicon glyphicon-zoom-in"/>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
             </div>
-            <div class="row startup-details-content">
-                <div class="col-md-12">
+        </div>
+        <div class="row startup-section original-pos" id="community">
+            <div class="col-lg-12">
+                <div class="row startup-title list-group-item">
+                    <span class="dev-logo"><img src="/assets/img/dev-logo.png"></span><span>Community</span>
+                </div>
+                <div class="row startup-details-content">
+                    <div class="col-md-12">
+                    </div>
                 </div>
             </div>
         </div>
