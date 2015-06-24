@@ -120,78 +120,6 @@
     min-height: 800px !important;
 }
 
-.header {
-    transition: all .33s cubic-bezier(0.694,0.0482,0.335,1);
-    -webkit-transition: all .33s cubic-bezier(0.694,0.0482,0.335,1);
-}
-
-.landing-logo {
-    background-image: url('/assets/img/study/logo_white_small.png');
-    background-size: contain !important;
-    width: 42px;
-    height: 33px;
-    margin-top: 16px;
-    margin-bottom: 16px;
-}
-
-.landing-logo:hover {
-    background-image: url('/assets/img/logo_blue_small.png');
-    background-size: contain !important;
-    width: 42px;
-    height: 33px;
-    margin-top: 16px;
-    margin-bottom: 16px;
-}
-
-.animate .landing-logo, .animate .landing-logo:hover {
-    background-image: url('/assets/img/logo_black_small.png');
-    background-size: contain !important;
-    width: 42px;
-    height: 33px;
-    margin-top: 16px;
-    margin-bottom: 16px;
-}
-
-.nav-left-copy {
-    font-size: 14px;
-    font-weight: 700 !important;
-    line-height: 14px;
-    padding-top: 26px;
-    padding-left: 6px;
-}
-
-.animate .nav-left-copy, .animate .nav-left-copy:hover {
-  color: #1b1e37 !important;
-  line-height: 14px;
-}
-
-.main-nav-right>li {
-    width: auto;
-}
-
-.navbar-nav>li>a {
-    padding-left: 45px;
-    padding-right: 0px;
-    padding-top: 27px;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 12px;
-}
-
-.scrolled .navbar-nav>li>a {
-    line-height: 12px;
-    color: #1b1e37 !important;
-}
-
-.navbar-btn {
-    margin-left: 45px !important;
-    font-size: 12px !important;
-    font-weight: 700 !important;
-    line-height: 12px !important;
-    padding-top: 10px !important;
-    margin-top: 16px !important;
-}
-
 @media (max-width: 959px) {
     .width960 {
         padding-left: 20px;
@@ -200,14 +128,4 @@
 }
 
 @media (max-width: 766px) {
-    .landing-logo, .landing-logo:hover {
-        background-image: url('/assets/img/logo_black_small.png');
-        background-size: contain !important;
-        width: 42px;
-        height: 33px;
-    }
-
-    .navbar-header .nav-left-copy, .navbar-header .nav-left-copy:hover {
-        line-height: 14px;
-    }
 }
