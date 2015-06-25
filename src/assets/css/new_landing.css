@@ -192,11 +192,6 @@
     margin-bottom: 65px;
 }
 
-.sec-steve-content {
-    padding-top: 105px;
-    padding-bottom: 150px;
-}
-
 .sec-steve-img {
     height: 506px;
 }
@@ -305,6 +300,11 @@
     line-height: 30px;
     text-align: center;
     padding-top: 166px !important;
+}
+
+.centered-full-screen-element {
+    display: table-cell; 
+    vertical-align: middle;
 }
 
 @media (max-width: 766px) {
