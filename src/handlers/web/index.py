@@ -3,14 +3,24 @@ from handlers.web import WebRequestHandler
 from model.company import Company
 from cities_mapping import cities_map
 from model.ui_models.donut import Donut
+from model.ui_models.landing_page_team_member import TeamMember
 from model.ui_models.factories.donut_factory import DonutFactory
+
+def get_team_members():
+    members = [("Designer", '/assets/img/landing/slide-3-1.png'),
+               ("Back end Developer", '/assets/img/landing/slide-3-2.png'),
+               ("Mobile Developer", '/assets/img/landing/slide-3-3.png')]
+    ret_val = []
+    for member in members:
+        m = TeamMember(member[0], member[1])
+        ret_val.append(m)
+    return ret_val
 
 def get_template_values_for_landing():
     template_values = {}
+    template_values['team_members'] = get_team_members()
     template_values['donuts'] = DonutFactory.get_donuts(128, 0.8, [('Design', 0.58), ('Dev', 0.75), ('Domain', 0.28)], '#ffffff', '#139fe1', '#333333')
     template_values['steve_img'] = '/assets/img/landing/steve.png'
-    template_values['sec_3_copy_big'] = 'All great products are built by small teams'
-    template_values['sec_3_copy_medium'] = 'Every Pirates startup has 3-4 team members who share a deep chemistry and dedication'
     template_values['startups_copy_big_1'] = 'Browse through the best startups'
     template_values['startups_copy_big_2'] = 'Select your favorite startup to build your app'
     template_values['startups_copy_medium'] = "Startup Color Door's appeal to a Fortune 500 bank looking to build a new retail banking app"

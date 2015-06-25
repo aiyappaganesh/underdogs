@@ -51,56 +51,40 @@
                 </div>
             </div>
         </div>
-        <div class="fullscreen-section dark-background">
-            <div class="width960">
-                <div class="row">
-                    <div class="col-sm-12 section-slide-3-copy">
-                        <span>{{sec_3_copy_big}}</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-3"></div>
-                    <div class="col-xs-6 section-slide-3-copy-medium">
-                        <span>{{sec_3_copy_medium}}</span>
-                    </div>
-                    <div class="col-xs-3"></div>
-                </div>
-                <div class="row section-slide-3-center-margin">
-                    <div class="col-sm-4">
-                        <div class="row">
-                            <div class="section-slide-3-img-container">
-                                <div class="section-slide-3-img" style="background-image:url('/assets/img/landing/slide-3-1.png')"></div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <p class="section-slide-3-copy-small">Designer</p>
-                            </div>
+        <div id="teams-section" class="fullscreen-section dark-background">
+            <div class="centered-full-screen-element">
+                <div class="width960">
+                    <div class="row">
+                        <div class="col-sm-12 section-slide-3-copy">
+                            <span>All great products are built by small teams</span>
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="row">
-                            <div class="section-slide-3-img-container">
-                                <div class="section-slide-3-img" style="background-image:url('/assets/img/landing/slide-3-2.png')"></div>
-                            </div>
+                    <div class="row">
+                        <div class="col-xs-1 col-sm-3"></div>
+                        <div class="col-xs-10 col-sm-6 section-slide-3-copy-medium">
+                            <span>Every Pirates startup has 3-4 team members who share a deep chemistry and dedication</span>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <p class="section-slide-3-copy-small">Back end<br> Developer</p>
-                            </div>
-                        </div>
+                        <div class="col-xs-1 col-sm-3"></div>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="row">
-                            <div class="section-slide-3-img-container">
-                                <div class="section-slide-3-img" style="background-image:url('/assets/img/landing/slide-3-3.png')"></div>
+                    <div class="row">
+                        {% for m in team_members %}
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <div class="section-slide-3-img-container">
+                                    <div class="section-slide-3-img" style="background-image:url('{{m.image}}')"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 col-xs-1">
+                                </div>
+                                <div class="col-sm-6 col-xs-10">
+                                    <p class="section-slide-3-copy-small">{{m.title}}</p>
+                                </div>
+                                <div class="col-sm-3 col-xs-1">
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <p class="section-slide-3-copy-small">Mobile<br> Developer</p>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

@@ -123,7 +123,6 @@
     font-weight: 700;
     line-height: 36px;
     text-align: center;
-    padding-top: 170px !important;
 }
 
 .section-slide-3-copy-medium {
@@ -133,7 +132,6 @@
     font-weight: 400;
     line-height: 18px;
     text-align: center;
-    padding-top: 55px !important;
 }
 
 .section-slide-3-copy-small {
@@ -143,7 +141,7 @@
     font-weight: 700;
     text-align: center;
     line-height: 36px;
-    margin-top: 38px;
+    padding-top: 10px;
 }
 
 .section-slide-3-img-container {
@@ -160,11 +158,6 @@
     background-position: center center;
     height: 128px;
     width: 128px;
-}
-
-.section-slide-3-center-margin {
-    padding-top: 64px;
-    padding-bottom: 170px;
 }
 
 .section-slide-6-copy {
@@ -305,6 +298,10 @@
 .centered-full-screen-element {
     display: table-cell; 
     vertical-align: middle;
+}
+
+#teams-section .width960>.row{
+    padding: 20px;
 }
 
 @media (max-width: 766px) {
