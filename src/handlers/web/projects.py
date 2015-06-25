@@ -158,6 +158,9 @@ class ProjectStudyPage(WebRequestHandler):
         template_values['branding_copy_top'] = "We created beautiful imagery of tea, as a symbol of comfort. Everyone has a story of how their mom or their grand-mom gave them lemon tea or chamomile tea to comfort them from a cold or a tummy ache. Before doctors there was tea. So we decided to use beautiful high resolution images of tea throughout the app to give the feeling of comfort and cosiness to users."
         template_values['branding_img'] = '/assets/img/study/comfort.png'
         template_values['branding_copy_bottom'] = "As one of the first tasks of branding the app, we designed the app icon, which would also form the base for the logo. We used the concept of using tea as a symbol for comfort and added some personality to it. Once the logo was set, it coalesced everyone in the team strongly around the concept."
+        template_values['app_color_1'] = '#397ca0'
+        template_values['app_color_2'] = '#b5a330'
+        template_values['app_color_3'] = '#589a2d'
         template_values['donuts'] = DonutFactory.get_donuts(128, 0.8, [('Design', 0.58), ('Dev', 0.75), ('Domain', 0.28)], 'transparent', '#139fe1', '#ffffff')
         template_values['no_navbar_onload'] = True
         template_values['nav_color'] = 'light-nav'
