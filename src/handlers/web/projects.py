@@ -10,6 +10,7 @@ from model.category import categories
 from datetime import datetime
 from google.appengine.api.blobstore import blobstore
 import operator
+from model.ui_models.factories.donut_factory import DonutFactory
 
 DURATION_OPTIONS = [{'name':'Less than 3 months','value':'3'},
                     {'name':'3 to 6 months','value':'6'},
@@ -155,20 +156,7 @@ class ProjectStudyPage(WebRequestHandler):
         template_values['sec_5_bg'] = '/assets/img/study/sec_5_bg.png'
         template_values['sec_5_title'] = "EVERYONE'S CUP OF TEA"
         template_values['sec_5_copy'] = "We created beautiful imagery of tea, as a symbol of comfort. Everyone has a story of how their mom or their grand-mom gave them lemon tea or chamomile tea to comfort them from a cold or a tummy ache. Before doctors there was tea. So we decided to use beautiful high resolution images of tea throughout the app to give the feeling of comfort and cosiness to users."
-        donuts = 3
-        donuts -= 1
-        donut_size = 200-(5*donuts)
-        score_font_size = 40-(3*donuts)
-        tooltip_font_size = 14-donuts
-        donut_scores = [('Design', 0.58),
-                        ('Dev', 0.75),
-                        ('Domain', 0.28)]
-        template_values['donut_scores'] = donut_scores
-        template_values['donut_size'] = donut_size
-        template_values['score_font_size'] = score_font_size
-        template_values['tooltip_font_size'] = tooltip_font_size
-        template_values['full_color'] = '#139fe1'
-        template_values['empty_color'] = '#ffffff'
+        template_values['donuts'] = DonutFactory.get_donuts(128, 0.8, [('Design', 0.58), ('Dev', 0.75), ('Domain', 0.28)], 'transparent', '#139fe1', '#ffffff')
         template_values['no_navbar_onload'] = True
         template_values['nav_color'] = 'light-nav'
         template_values['unscrolled'] = True
