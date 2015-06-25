@@ -24,7 +24,7 @@
             </div>
             <div class="carousel-inner" style="height:100%">
                 {% for i in '12345' %}
-                    <div class="item {% if i == 1 %} active {% endif %} fullscreen-section" style="background:url('/assets/img/landing/landing-carousel-{{i}}.png');">
+                    <div class="item {% if forloop.first %} active {% endif %} fullscreen-section" style="background:url('/assets/img/landing/landing-carousel-{{i}}.png');">
                         <div class="landing-overlay overlay"></div>
                     </div>
                 {% endfor %}
@@ -36,15 +36,17 @@
                     <div class="col-sm-6 bg-img-fullscreen sec-steve-img" style="background-image:url('{{steve_img}}')">
                     </div>
                     <div class="col-sm-6">
-                        <div class="row sec-steve-copy-big">
-                            <span>It's better to be a pirate than join the navy</span>
-                        </div>
-                        <div class="row sec-steve-copy-medium">
-                            <span>Steve Jobs, 1984</span>
-                        </div>
-                        <div class="row sec-steve-copy-small">
-                            <span>Urban legend has it that the original Macintosh team flew a Pirate flag over the building as they raced against time and naysayers to build the Mac.</span>
-                        </div>
+                        <ul style="height:508px;display:table-cell;list-style-type:none;vertical-align:middle;padding-left:0px;line-height:1">
+                            <li class="sec-steve-copy-big">
+                                It's better to be a pirate than join the navy
+                            </li>
+                            <li class="sec-steve-copy-medium">
+                                Steve Jobs, 1984
+                            </li>
+                            <li class="sec-steve-copy-small">
+                                Urban legend has it that the original Macintosh team flew a Pirate flag over the building as they raced against time and naysayers to build the Mac.
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
