@@ -288,8 +288,6 @@
     {% include "components/new_donut_chart_script.html" %}
     <script>
         $(document).ready(function(){
-            $('.centered-full-screen-element').height($(window).height());
-            $('.centered-full-screen-element').width($(window).width());
             $('.company-img').mouseover(function(){
                 $(this).find('.caption').css('opacity', 1);
                 $(this).find('.company-image').css('z-index', -100);

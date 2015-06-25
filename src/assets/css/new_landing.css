@@ -295,11 +295,6 @@
     padding-top: 166px !important;
 }
 
-.centered-full-screen-element {
-    display: table-cell; 
-    vertical-align: middle;
-}
-
 #teams-section .width960>.row{
     padding: 20px;
 }

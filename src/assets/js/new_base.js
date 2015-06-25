@@ -2,6 +2,8 @@ $(document).ready(function(){
     set_page_height();
     topArrowDisplay();
     scrollTopArrow();
+    $('.centered-full-screen-element').height($(window).height());
+    $('.centered-full-screen-element').width($(window).width());
 });
 
 function set_page_height() {

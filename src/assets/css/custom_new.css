@@ -964,6 +964,11 @@ sup {
     background-color:#e8e8e8
 }
 
+.centered-full-screen-element {
+    display: table-cell;
+    vertical-align: middle;
+}
+
 .footer {
     min-height: 207px;
     background-color:  #1c1c1c;
