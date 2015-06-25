@@ -93,65 +93,37 @@
             <div class="width960">
                 <div class="row">
                     <div class="col-sm-12 sec-startups-copy-big sec-startups-copy-big-1">
-                        <span>{{startups_copy_big_1}}</span>
+                        <span>Browse through the best startups</span>
                     </div>
                 </div>
                 <div class="row">
+                    {% for s in startups %}
                     <div class="col-sm-4">
                         <div class="row">
-                            <div class="sec-startups-img" style="background-image:url('/assets/img/landing/slide-startups-1.png')"></div>
+                            <div class="sec-startups-img" style="background-image:url('{{s.image}}')"></div>
                         </div>
                         <div class="row">
                             <div class="col-xs-12 sec-startups-img-copy-big">
-                                <span>Haggle</span>
+                                <span>{{s.title}}</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-12 sec-startups-img-copy-small">
-                                <span>Your World. Your Price.</span>
+                                <span>{{s.sub_title}}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="row">
-                            <div class="sec-startups-img" style="background-image:url('/assets/img/landing/slide-startups-2.png')"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 sec-startups-img-copy-big">
-                                <span>Color Door</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 sec-startups-img-copy-small">
-                                <span>Rent broker free</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="row">
-                            <div class="sec-startups-img" style="background-image:url('/assets/img/landing/slide-startups-3.png')"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 sec-startups-img-copy-big">
-                                <span>Haze</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 sec-startups-img-copy-small">
-                                <span>Transparent healthcare for all</span>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
                 <div class="row">
                     <div class="col-sm-12 sec-startups-copy-big sec-startups-copy-big-2">
-                        <span>{{startups_copy_big_2}}</span>
+                        <span>Select your favorite startup to build your app</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3"></div>
                     <div class="col-sm-6 sec-startups-copy-medium">
-                        <span>{{startups_copy_medium}}</span>
+                        <span>Startup Color Door's appeal to a Fortune 500 bank looking to build a new retail banking app</span>
                     </div>
                     <div class="col-sm-3"></div>
                 </div>
@@ -170,24 +142,25 @@
                 <li data-target="#section4-carousel" data-slide-to="0" class="active"></li>
                 <li data-target="#section4-carousel" data-slide-to="1"></li>
             </ol>  
-            <div id="sec4-slide1-copy" class="stationary show-element">
+            {% for slide in community_carousel.slides %}
+            <div id="sec4-slide{{forloop.counter}}-copy" class="stationary {% if forloop.first %}show-element{% else %}hide-element{% endif %}">
                 <div class="width960">
                     <div class="row">
                         <div class="col-sm-12 carousel-2-copy-big">
-                            <span>{{carousel_2_1_copy_big|linebreaksbr}}</span>
+                            <span>{{slide.title}}</span>
                         </div>
                     </div>
                     <div class="row member-row">
                         <div class="col-sm-2 col-xs-5">
-                            <div class="member-picture" style="background-image:url('{{carousel_2_1_img_1}}');"></div>
+                            <div class="member-picture" style="background-image:url('{{slide.people.0.img}}');"></div>
                         </div>
                         <div class="col-sm-5 col-xs-5">
                             <ul style="list-style-type: none; height:128px; vertical-align:middle; display: table-cell;padding-left:0px">
                                 <li class="carousel-2-copy-medium">
-                                    {{carousel_2_1_des_1_copy_1}}
+                                    {{slide.people.0.name}}
                                 </li>
                                 <li class="carousel-2-copy-small">
-                                    {{carousel_2_1_des_1_copy_2}}
+                                    {{slide.people.0.desc}}
                                 </li>
                             </ul>
                         </div>
@@ -198,60 +171,20 @@
                         <div class="col-sm-5 col-xs-5">
                             <ul style="list-style-type: none; height:128px; vertical-align:middle; display: table-cell;padding-left:0px">
                                 <li class="carousel-2-copy-medium">
-                                    {{carousel_2_1_des_2_copy_1}}
+                                    {{slide.people.1.name}}
                                 </li>
                                 <li class="carousel-2-copy-small">
-                                    {{carousel_2_1_des_2_copy_2}}
+                                    {{slide.people.1.desc}}
                                 </li>
                             </ul>
                         </div>
                         <div class="col-sm-2 col-xs-5">
-                            <div class="member-picture" style="background-image:url('{{carousel_2_1_img_2}}');"></div>
+                            <div class="member-picture" style="background-image:url('{{slide.people.1.img}}');"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="sec4-slide2-copy" class="stationary hide-element">
-                <div class="width960">
-                    <div class="row">
-                        <div class="col-sm-12 carousel-2-copy-big">
-                            <span>{{carousel_2_2_copy_big|linebreaksbr}}</span>
-                        </div>
-                    </div>
-                    <div class="row member-row">
-                        <div class="col-sm-2 col-xs-5">
-                            <div class="member-picture" style="background-image:url('{{carousel_2_2_img_1}}');"></div>
-                        </div>
-                        <div class="col-sm-5 col-xs-5">
-                            <ul style="list-style-type: none; height:128px; vertical-align:middle; display: table-cell;padding-left:0px">
-                                <li class="carousel-2-copy-medium">
-                                    {{carousel_2_2_des_1_copy_1}}
-                                </li>
-                                <li class="carousel-2-copy-small">
-                                    {{carousel_2_2_des_1_copy_2}}
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-5 col-xs-2"></div>
-                    </div>
-                    <div class="row member-row-last">
-                        <div class="col-sm-5 col-xs-2"></div>
-                        <div class="col-sm-5 col-xs-5">
-                            <ul style="list-style-type: none; height:128px; vertical-align:middle; display: table-cell;padding-left:0px">
-                                <li class="carousel-2-copy-medium">
-                                    {{carousel_2_2_des_2_copy_1}}
-                                </li>
-                                <li class="carousel-2-copy-small">
-                                    {{carousel_2_2_des_2_copy_2}}
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-2 col-xs-5">
-                            <div class="member-picture" style="background-image:url('{{carousel_2_2_img_2}}');"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
             <div class="carousel-inner" style="height:100%">
                 <div id="sec4-slide1" class="item active fullscreen-section carousel-2-slide" style="background:url('/assets/img/landing/slide-4-bg.png');"></div>
                 <div id="sec4-slide2" class="item fullscreen-section carousel-2-slide" style="background:url('/assets/img/landing/slide-5-bg.png');"></div>
