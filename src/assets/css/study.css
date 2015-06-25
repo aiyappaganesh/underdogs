@@ -10,6 +10,7 @@
     font-size: 36px;
     font-weight: 700;
     line-height: 36px;
+    text-align: center;
 }
 
 .copy {
@@ -118,6 +119,17 @@
 
 .sec-5 {
     min-height: 800px !important;
+}
+
+.dark-circle {
+    border-radius: 50%;
+    height: 256px;
+    width: 256px;
+    background-color: #333333;
+}
+
+#joint-sprints .width960>.row {
+    padding: 20px;
 }
 
 @media (max-width: 959px) {
