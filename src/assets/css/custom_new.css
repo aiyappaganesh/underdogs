@@ -26,6 +26,10 @@ body a {
     margin: auto !important;
 }
 
+.auto-margin {
+    margin: auto;
+}
+
 .show-element {
     display: block;
 }
