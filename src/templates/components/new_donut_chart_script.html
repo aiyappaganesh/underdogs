@@ -20,8 +20,7 @@ function drawDonutChartForScore(e, score) {
                 color: empty_color
             }
         ];
-        console.log(empty_color);
-        var scoreDonut = new Chart(e.getElementsByClassName("donut_canvas")[0].getContext("2d")).Doughnut(doughnutData, {segmentShowStroke : false, percentageInnerCutout : cutout*100, segmentStrokeWidth : 1, animationEasing : "ease", animationSteps : 50, animateScale : false, tooltipCaretSize: 2,tooltipXOffset: 0{% if tooltip_font_size%},tooltipFontSize:{{tooltip_font_size}}{% endif %} });
+        var scoreDonut = new Chart(e.getElementsByClassName("donut_canvas")[0].getContext("2d")).Doughnut(doughnutData, {segmentShowStroke : false, percentageInnerCutout : cutout*100, segmentStrokeWidth : 1, animationEasing : "ease", animationSteps : 50, animateScale : false, showTooltips: false});
     }
 }
 
