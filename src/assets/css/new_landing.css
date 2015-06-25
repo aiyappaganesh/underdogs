@@ -114,16 +114,6 @@
     padding-top: 25px;
 }
 
-.new-donut-container {
-    background-color: #ffffff;
-    border-radius: 50%;
-    height: 157px;
-    width: 158px;
-    position: absolute;
-    top: 17px;
-    left: 16px;
-}
-
 .score_text {
     font-family: Helvetica;
     color:  #333333;

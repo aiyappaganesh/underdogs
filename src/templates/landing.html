@@ -182,12 +182,10 @@
                     <div class="col-sm-3"></div>
                 </div>
                 <div class="row sec-startups-donuts">
-                    {% for donut in donut_scores %}
+                    {% for donut in donuts %}
                     <div class="col-sm-4">
-                        <div class="donut_td">
-                            {% include "components/new_donut_chart.html" with donut_score=donut.1 donut_size=donut_size tooltip_font_size=tooltip_font_size %}
-                        </div>
-                        <p class="sec-startups-donut-title">{{donut.0}}</p>
+                        {% include "components/new_donut_chart.html" with donut=donut%}
+                        <p class="sec-startups-donut-title">{{donut.title}}</p>
                     </div>
                     {% endfor %}
                 </div>

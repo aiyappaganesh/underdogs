@@ -110,7 +110,6 @@ class LatestListMemberPage(WebRequestHandler):
                 ('Contributors',2),
                 ('Projects',6)]
 
-    @web_login_required
     def get(self):
         path = 'startup_details.html'
         company_id = int(str(self['company_id']))
@@ -139,7 +138,7 @@ class LatestListMemberPage(WebRequestHandler):
                 picture_rows.append(picture_row)
         donuts = 2
         donuts -= 1
-        donut_size = 200-(5*donuts)
+        donut_size = 128
         score_font_size = 40-(3*donuts)
         tooltip_font_size = 14-donuts
         donut_scores = [('Design', c.influence_avg if c.influence_avg else 0.0),

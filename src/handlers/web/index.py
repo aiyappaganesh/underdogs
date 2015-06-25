@@ -2,23 +2,20 @@ import webapp2
 from handlers.web import WebRequestHandler
 from model.company import Company
 from cities_mapping import cities_map
+from model.ui_models.donut import Donut
+
+def get_donuts():
+    size = 128
+    arr = [('Design', 0.58), ('Dev', 0.75), ('Domain', 0.28)]
+    ret_val = []
+    for donut_config in arr:
+        donut = Donut(size, 0.8, donut_config[0], donut_config[1], '#ffffff', '#139fe1', '#333333')
+        ret_val.append(donut)
+    return ret_val
 
 def get_template_values_for_landing():
     template_values = {}
-    donuts = 3
-    donuts -= 1
-    donut_size = 200-(5*donuts)
-    score_font_size = 40-(3*donuts)
-    tooltip_font_size = 14-donuts
-    donut_scores = [('Design', 0.58),
-                    ('Dev', 0.75),
-                    ('Domain', 0.28)]
-    template_values['donut_scores'] = donut_scores
-    template_values['donut_size'] = donut_size
-    template_values['score_font_size'] = score_font_size
-    template_values['tooltip_font_size'] = tooltip_font_size
-    template_values['full_color'] = '#139fe1'
-    template_values['empty_color'] = '#333333'
+    template_values['donuts'] = get_donuts()
     template_values['steve_img'] = '/assets/img/landing/steve.png'
     template_values['sec_3_copy_big'] = 'All great products are built by small teams'
     template_values['sec_3_copy_medium'] = 'Every Pirates startup has 3-4 team members who share a deep chemistry and dedication'

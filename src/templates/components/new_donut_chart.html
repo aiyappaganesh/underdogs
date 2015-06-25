@@ -1,6 +1,8 @@
-<canvas class="donut_canvas" height="{{donut_size|default:'80'}}" width="{{donut_size|default:'80'}}"></canvas>
-<div class="new-donut-container"></div>
-<p class="score_text"></p>
-<input class="score_value" type="hidden" value="{% if donut_score %}{{donut_score}}{% else %}0.0{% endif %}">
-<input class="full_color" type="hidden" value="{% if full_color %}{{full_color}}{% else %}#68dff0{% endif %}">
-<input class="empty_color" type="hidden" value="{% if empty_color %}{{empty_color}}{% else %}#bdfdfd{% endif %}">
+<div class="donut_td" style="height:{{donut.size}}px;width:{{donut.size}}px">
+	<canvas class="donut_canvas" height="{{donut.size|default:'80'}}" width="{{donut.size|default:'80'}}"></canvas>
+   <div class="score_text" style="height:{{donut.container_side}}px;width:{{donut.container_side}}px;line-height:{{donut.container_side}}px;position:absolute;display:block;z-index:9999;border-radius:50%;background-color: {% if donut.container_color %}{{donut.container_color}}{% else %}#333333{% endif %};top:{{donut.container_pos}}px;left:{{donut.container_pos}}px;font-size:{{donut.font_size}}px"></div>
+   <input class="score_value" type="hidden" value="{% if donut.score %}{{donut.score}}{% else %}0.0{% endif %}">
+	<input class="full_color" type="hidden" value="{% if donut.full_color %}{{donut.full_color}}{% else %}#68dff0{% endif %}">
+	<input class="empty_color" type="hidden" value="{% if donut.empty_color %}{{donut.empty_color}}{% else %}#bdfdfd{% endif %}">
+	<input class="donut_cutout" type="hidden" value="{{ donut.cutout }}">
+</div>
