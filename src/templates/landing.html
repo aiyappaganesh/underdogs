@@ -144,42 +144,44 @@
             </ol>  
             {% for slide in community_carousel.slides %}
             <div id="sec4-slide{{forloop.counter}}-copy" class="stationary {% if forloop.first %}show-element{% else %}hide-element{% endif %}">
-                <div class="width960">
-                    <div class="row">
-                        <div class="col-sm-12 carousel-2-copy-big">
-                            <span>{{slide.title}}</span>
+                <div class="centered-full-screen-element">
+                    <div class="width960">
+                        <div class="row">
+                            <div class="col-sm-12 carousel-2-copy-big">
+                                <span>{{slide.title}}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row member-row">
-                        <div class="col-sm-2 col-xs-5">
-                            <div class="member-picture" style="background-image:url('{{slide.people.0.img}}');"></div>
+                        <div class="row member-row">
+                            <div class="col-sm-2 col-xs-5">
+                                <div class="member-picture" style="background-image:url('{{slide.people.0.img}}');"></div>
+                            </div>
+                            <div class="col-sm-5 col-xs-5">
+                                <ul style="list-style-type: none; height:128px; vertical-align:middle; display: table-cell;padding-left:0px">
+                                    <li class="carousel-2-copy-medium">
+                                        {{slide.people.0.name}}
+                                    </li>
+                                    <li class="carousel-2-copy-small">
+                                        {{slide.people.0.desc}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-5 col-xs-2"></div>
                         </div>
-                        <div class="col-sm-5 col-xs-5">
-                            <ul style="list-style-type: none; height:128px; vertical-align:middle; display: table-cell;padding-left:0px">
-                                <li class="carousel-2-copy-medium">
-                                    {{slide.people.0.name}}
-                                </li>
-                                <li class="carousel-2-copy-small">
-                                    {{slide.people.0.desc}}
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-5 col-xs-2"></div>
-                    </div>
-                    <div class="row member-row-last">
-                        <div class="col-sm-5 col-xs-2"></div>
-                        <div class="col-sm-5 col-xs-5">
-                            <ul style="list-style-type: none; height:128px; vertical-align:middle; display: table-cell;padding-left:0px">
-                                <li class="carousel-2-copy-medium">
-                                    {{slide.people.1.name}}
-                                </li>
-                                <li class="carousel-2-copy-small">
-                                    {{slide.people.1.desc}}
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-2 col-xs-5">
-                            <div class="member-picture" style="background-image:url('{{slide.people.1.img}}');"></div>
+                        <div class="row member-row-last">
+                            <div class="col-sm-5 col-xs-2"></div>
+                            <div class="col-sm-5 col-xs-5">
+                                <ul style="list-style-type: none; height:128px; vertical-align:middle; display: table-cell;padding-left:0px">
+                                    <li class="carousel-2-copy-medium">
+                                        {{slide.people.1.name}}
+                                    </li>
+                                    <li class="carousel-2-copy-small">
+                                        {{slide.people.1.desc}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-2 col-xs-5">
+                                <div class="member-picture" style="background-image:url('{{slide.people.1.img}}');"></div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -220,14 +220,6 @@
     padding: 10px;
 } 
 
-.member-row {
-    padding-top: 68px !important;
-}
-
-.member-row-last {
-    padding-bottom: 200px !important;
-}
-
 .member-picture {
     height: 128px;
     width: 128px;
@@ -238,17 +230,12 @@
     margin: auto;
 }
 
-.carousel-2-slide {
-    min-height: 800px !important;
-}
-
 .carousel-2-copy-big {
     color:  #ffffff;
     font-size: 36px;
     font-weight: 700;
     line-height: 36px;
     text-align: center;
-    padding-top: 200px !important;
 }
 
 .carousel-2-copy-medium {
@@ -295,7 +282,7 @@
     padding-top: 166px !important;
 }
 
-#teams-section .width960>.row{
+#teams-section .width960>.row, #section4-carousel .width960>.row{
     padding: 20px;
 }
 
