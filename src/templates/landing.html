@@ -23,21 +23,11 @@
                 </ul>
             </div>
             <div class="carousel-inner" style="height:100%">
-                <div class="item active fullscreen-section" style="background:url('/assets/img/landing/landing_1.png');">
-                    <div class="landing-overlay overlay"></div>
-                </div>
-                <div class="item fullscreen-section" style="background:url('/assets/img/landing/landing-carousel-2.jpg');">
-                    <div class="landing-overlay overlay"></div>
-                </div>
-                <div class="item fullscreen-section" style="background:url('/assets/img/landing/landing-carousel-3.png');">
-                    <div class="landing-overlay overlay"></div>
-                </div>
-                <div class="item fullscreen-section" style="background:url('/assets/img/landing/landing-carousel-4.jpg');">
-                    <div class="landing-overlay overlay"></div>
-                </div>
-                <div class="item fullscreen-section" style="background:url('/assets/img/landing/landing-carousel-5.jpg');">
-                    <div class="landing-overlay overlay"></div>
-                </div>
+                {% for i in '12345' %}
+                    <div class="item {% if i == 1 %} active {% endif %} fullscreen-section" style="background:url('/assets/img/landing/landing-carousel-{{i}}.png');">
+                        <div class="landing-overlay overlay"></div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
         <div class="fullscreen-section white-background">
