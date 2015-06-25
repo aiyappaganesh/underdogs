@@ -23,6 +23,8 @@ from model.third_party_login_data import ThirdPartyLoginData
 from model.third_party_profile_data import ThirdPartyProfileData
 from model.design import Design
 from model.skills.defn import get_skills_json, get_children_for
+from model.ui_models.factories.donut_factory import DonutFactory
+from model.ui_models.donut import Donut
 
 class ExposeThirdPartyPage(WebRequestHandler):
     @web_login_required
@@ -136,14 +138,9 @@ class LatestListMemberPage(WebRequestHandler):
                 picture_row = []
             elif index == len(picture_urls):
                 picture_rows.append(picture_row)
-        donuts = 2
-        donuts -= 1
-        donut_size = 128
-        score_font_size = 40-(3*donuts)
-        tooltip_font_size = 14-donuts
-        donut_scores = [('Design', c.influence_avg if c.influence_avg else 0.0),
-                        ('Development', (c.influence_avg + 0.23) if c.influence_avg else 0.0),
-                        ('Community', (c.influence_avg + 0.37) if c.influence_avg else 0.0)]
+        scores = [('Design', c.influence_avg if c.influence_avg else 0.0),
+                  ('Development', (c.influence_avg + 0.23) if c.influence_avg else 0.0),
+                  ('Community', (c.influence_avg + 0.37) if c.influence_avg else 0.0)]
         template_values = {'company_id': company_id,
                            'city': cities_map[str(company_id)] if str(company_id) in cities_map else cities_map['default'],
                            'name': c.name,
@@ -152,17 +149,12 @@ class LatestListMemberPage(WebRequestHandler):
                            'profile': c.profile if c.profile else '',
                            'influence': c.influence_avg if c.influence_avg else 0.0,
                            'expertise': c.expertise_avg if c.expertise_avg else [],
-                           'donut_scores': donut_scores,
                            'design_stats': design_stats,
                            'pictures':picture_rows,
-                           'donut_size': donut_size,
-                           'score_font_size': score_font_size,
-                           'tooltip_font_size': tooltip_font_size,
-                           'full_color': '#139fe1',
-                           'empty_color': 'transparent',
                            'nav_color':'dark-nav',
                            'dev_stats':dev_stats,
-                           'tl_stats':tl_stats}
+                           'tl_stats':tl_stats,
+                           'donuts':DonutFactory.get_donuts(128, 0.8, scores, '#333333', '#139fe1', 'transparent')}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberLoginPageHandler(WebRequestHandler):

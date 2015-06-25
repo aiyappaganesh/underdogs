@@ -78,12 +78,10 @@
                     <span>Scores</span>
                 </div>
                 <div class="row startup-details-content">
-                    {% for donut in donut_scores %}
+                    {% for donut in donuts %}
                     <div class="col-md-4 expertise-td-donut">
-                        <div class="donut_td">
-                            {% include "components/new_donut_chart.html" with donut_score=donut.1 donut_size=donut_size tooltip_font_size=tooltip_font_size %}
-                        </div>
-                        <p class="score-desc">{{donut.0}}</p>
+                            {% include "components/new_donut_chart.html" with donut=donut %}
+                        <p class="score-desc">{{donut.title}}</p>
                     </div>
                     {% endfor %}
                 </div>
@@ -96,9 +94,7 @@
                 </div>
                 <div class="row startup-details-content">
                     <div class="col-md-4 expertise-td-donut">
-                        <div class="donut_td">
-                            {% include "components/new_donut_chart.html" with donut_score=donut_scores.0.1 donut_size=donut_size tooltip_font_size=tooltip_font_size %}
-                        </div>
+                        {% include "components/new_donut_chart.html" with donut=donuts.0 %}
                         <p class="score-desc">Design</p>
                     </div>
                     <div class="col-md-8 design-table">
@@ -139,9 +135,7 @@
                 </div>
                 <div class="row startup-details-content" id="dev-stats-content">
                     <div class="col-md-4 expertise-td-donut">
-                        <div class="donut_td">
-                            {% include "components/new_donut_chart.html" with donut_score=donut_scores.0.1 donut_size=donut_size tooltip_font_size=tooltip_font_size %}
-                        </div>
+                        {% include "components/new_donut_chart.html" with donut=donuts.1 %}
                         <p class="score-desc">Development</p>
                     </div>
                     <div class="col-md-6">
