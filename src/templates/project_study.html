@@ -116,14 +116,14 @@
             </div>
         </div>
     </div>
-    {% for i in '123' %}
-    <div class="app-shots fullscreen-section" style="background-color:{% if i == '1' %}{{app_color_1}}{% elif i == '2' %}{{app_color_2}}{% elif i == '3' %}{{app_color_3}}{% endif %}">
+    {% for color in bg_colors %}
+    <div class="app-shots fullscreen-section" style="background-color:{{color}}">
         <div class="centered-full-screen-element">
             <div class="row width960 center-align">
                 <div class="col-sm-1"></div>
-                <div class="col-sm-4"><img class="auto-margin" src="/assets/img/study/comfort_app_{{i}}_a.png"></div>
+                <div class="col-sm-4"><img class="auto-margin" src="/assets/img/study/comfort_app_{{forloop.counter}}_a.png"></div>
                 <div class="col-sm-2"></div>
-                <div class="col-sm-4"><img src="/assets/img/study/comfort_app_{{i}}_b.png"></div>
+                <div class="col-sm-4"><img src="/assets/img/study/comfort_app_{{forloop.counter}}_b.png"></div>
                 <div class="col-sm-1"></div>
             </div>
         </div>

@@ -19,7 +19,7 @@
     font-weight: 400;
     line-height: 24px;
     padding-top: 48px;
-    padding-bottom: 140px;
+    padding-bottom: 100px;
 }
 
 .sec-1 {
@@ -114,10 +114,6 @@
     padding-top: 10px;
 }
 
-.sec-4-copy {
-    padding-bottom: 125px;
-}
-
 .dark-circle {
     border-radius: 50%;
     height: 256px;
@@ -131,7 +127,11 @@
     padding-bottom: 30px;
 }
 
-#joint-sprints .width960>.row:first-child, #branding .width960>.row:first-child {
+#joint-sprints .width960>.row:first-child {
+    padding-top: 20px;
+}
+
+#branding .width960>.row:first-child {
     padding-top: 100px;
 }
 
@@ -155,5 +155,10 @@
     .app-shots img {
         padding-top: 40px;
         padding-bottom: 40px;
+    }
+
+    .dark-circle {
+      margin-top: 20px;
+      margin-bottom: 20px;
     }
 }
