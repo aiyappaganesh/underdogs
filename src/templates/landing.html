@@ -10,19 +10,17 @@
     <div class="col-lg-12">
         <div id="section1-carousel" class="carousel slide" data-interval="3000" data-pause="false">
             <div class="stationary">
-                <div class="width960 center-align">
-                    <div class="row">
-                        <div class="col-lg-12 landing-copy-big">
-                            <span>BUILD TOGETHER</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12 landing-copy-small">
-                            <span>Hire creative startups to build innovative apps</span>
-                        </div>
-                    </div>
-                </div>
-                {% include "components/get_started_button.html" %}
+                <ul style="list-style-type: none;vertical-align:middle;padding-left:0px;line-height:1">
+                    <li class="landing-copy-big">
+                        BUILD TOGETHER
+                    </li>
+                    <li class="landing-copy-small">
+                        Hire creative startups to build innovative apps
+                    </li>
+                    <li>
+                        {% include "components/get_started_button.html" %}
+                    </li>
+                </ul>
             </div>
             <div class="carousel-inner" style="height:100%">
                 <div class="item active fullscreen-section" style="background:url('/assets/img/landing/landing_1.png');">

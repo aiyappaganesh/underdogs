@@ -15,9 +15,6 @@ function set_page_height() {
     if(document.getElementsByClassName("fullscreen-section").length > 0) {
         $('.fullscreen-section').css('min-height',window_height);
     }
-    if(typeof set_copy === "function") {
-        set_copy(window_width, window_height);
-    }
 }
 
 
