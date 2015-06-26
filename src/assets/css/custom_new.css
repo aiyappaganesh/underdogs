@@ -1018,7 +1018,7 @@ sup {
     font-weight: 400;
 }
 
-@media (max-width: 766px) {
+@media (max-width: 767px) {
     .header {
         background-color: #ffffff;
     }

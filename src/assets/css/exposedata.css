@@ -113,7 +113,7 @@
     margin: 0px;
 }
 
-@media(max-width:766px) {
+@media(max-width:767px) {
     .login-title {
         font-size: 24px;
         line-height: 44px;

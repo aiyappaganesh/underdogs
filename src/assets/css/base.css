@@ -70,7 +70,7 @@
     margin-top: 16px !important;
 }
 
-@media (max-width: 766px) {
+@media (max-width: 767px) {
     .landing-logo, .landing-logo:hover {
         background-image: url('/assets/img/logo_black_small.png');
         background-size: cover !important;

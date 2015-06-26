@@ -62,7 +62,7 @@
     margin: 5px;
 }
 
-@media (max-width: 766px) {
+@media (max-width: 767px) {
     .profile-list-row {
         padding: 5px;
     }

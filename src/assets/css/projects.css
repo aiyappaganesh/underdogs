@@ -156,7 +156,7 @@
     border: 1px solid #ddd;
 }
 
-@media (max-width: 766px) {
+@media (max-width: 767px) {
     .project-logo {
         margin: auto;
     }
