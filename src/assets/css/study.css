@@ -114,11 +114,10 @@
     padding-top: 10px;
 }
 
-.dark-circle {
+.sprint-img {
     border-radius: 50%;
     height: 256px;
     width: 256px;
-    background-color: #333333;
     margin: auto;
 }
 
