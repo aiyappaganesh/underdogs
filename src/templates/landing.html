@@ -10,17 +10,9 @@
     <div class="col-lg-12">
         <div id="section1-carousel" class="carousel slide" data-interval="3000" data-pause="false">
             <div class="stationary">
-                <ul class="centered-full-screen-element" style="list-style-type:none;padding-left:0px;line-height:1">
-                    <li class="landing-copy-big">
-                        BUILD TOGETHER
-                    </li>
-                    <li class="landing-copy-small">
-                        Hire creative startups to build innovative apps
-                    </li>
-                    <li>
-                        {% include "components/get_started_button.html" %}
-                    </li>
-                </ul>
+                <div class="centered-full-screen-element">
+                    {% include "components/centered_content.html" with centered=landing_centered%}
+                </div>
             </div>
             <div class="carousel-inner" style="height:100%">
                 {% for i in '12345' %}
@@ -36,17 +28,7 @@
                     <div class="col-sm-6 bg-img-fullscreen sec-steve-img" style="background-image:url('{{steve_img}}')">
                     </div>
                     <div class="col-sm-6">
-                        <ul style="height:508px;display:table-cell;list-style-type:none;vertical-align:middle;padding-left:0px;line-height:1">
-                            <li class="sec-steve-copy-big">
-                                It's better to be a pirate than join the navy
-                            </li>
-                            <li class="sec-steve-copy-medium">
-                                Steve Jobs, 1984
-                            </li>
-                            <li class="sec-steve-copy-small">
-                                Urban legend has it that the original Macintosh team flew a Pirate flag over the building as they raced against time and naysayers to build the Mac.
-                            </li>
-                        </ul>
+                        {% include "components/centered_content.html" with centered=steve_centered%}
                     </div>
                 </div>
             </div>
@@ -156,28 +138,14 @@
                                 <div class="member-picture" style="background-image:url('{{slide.people.0.img}}');"></div>
                             </div>
                             <div class="col-sm-5 col-xs-5">
-                                <ul style="list-style-type: none; height:128px; vertical-align:middle; display: table-cell;padding-left:15px">
-                                    <li class="carousel-2-copy-medium">
-                                        {{slide.people.0.name}}
-                                    </li>
-                                    <li class="carousel-2-copy-small">
-                                        {{slide.people.0.desc}}
-                                    </li>
-                                </ul>
+                                {% include "components/centered_content.html" with centered=slide.people.0.centered%}
                             </div>
                             <div class="col-sm-5 col-xs-1"></div>
                         </div>
                         <div class="row member-row-last">
                             <div class="col-sm-5 col-xs-1"></div>
                             <div class="col-sm-5 col-xs-5">
-                                <ul style="list-style-type: none; height:128px; vertical-align:middle; display: table-cell;padding-left:15px">
-                                    <li class="carousel-2-copy-medium">
-                                        {{slide.people.1.name}}
-                                    </li>
-                                    <li class="carousel-2-copy-small">
-                                        {{slide.people.1.desc}}
-                                    </li>
-                                </ul>
+                                {% include "components/centered_content.html" with centered=slide.people.1.centered%}
                             </div>
                             <div class="col-sm-2 col-xs-6">
                                 <div class="member-picture" style="background-image:url('{{slide.people.1.img}}');"></div>

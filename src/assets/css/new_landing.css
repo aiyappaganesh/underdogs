@@ -8,6 +8,7 @@
     font-size: 36px;
     font-weight: 400;
     text-align: center;
+    line-height: 1;
 }
 
 .landing-copy-small {
@@ -16,6 +17,7 @@
     color: #ffffff;
     font-size: 18px;
     font-weight: 600;
+    line-height: 1;
 }
 
 .get-started-button {
