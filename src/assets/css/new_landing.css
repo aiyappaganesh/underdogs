@@ -350,27 +350,18 @@
     }
 
     .carousel-2-copy-big {
-        font-size: 22px;
-        line-height: 26px;
-        padding-top: 100px !important;
+        font-size: 16px;
+        line-height: 20px;
     }
 
     .carousel-2-copy-medium {
-        font-size: 16px;
-        line-height: 18px;
+        font-size: 14px;
+        line-height: 16px;
     }
 
     .carousel-2-copy-small {
         font-size: 12px;
         line-height: 14px;
-    }
-
-    .member-row-last {
-        padding-bottom: 50px !important;
-    }
-
-    .carousel-2-slide {
-      min-height: 650px !important;
     }
 
     .track-img {
@@ -387,5 +378,9 @@
 
     .sec-track-last {
         margin-top: 50px;
+    }
+
+    #section4-carousel .width960>.row{
+        padding: 10px;
     }
 }
