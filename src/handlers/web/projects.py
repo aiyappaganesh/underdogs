@@ -158,11 +158,16 @@ class ProjectStudyPage(WebRequestHandler):
         template_values['branding_copy_top'] = "We created beautiful imagery of tea, as a symbol of comfort. Everyone has a story of how their mom or their grand-mom gave them lemon tea or chamomile tea to comfort them from a cold or a tummy ache. Before doctors there was tea. So we decided to use beautiful high resolution images of tea throughout the app to give the feeling of comfort and cosiness to users."
         template_values['branding_img'] = '/assets/img/study/comfort.png'
         template_values['branding_copy_bottom'] = "As one of the first tasks of branding the app, we designed the app icon, which would also form the base for the logo. We used the concept of using tea as a symbol for comfort and added some personality to it. Once the logo was set, it coalesced everyone in the team strongly around the concept."
-        template_values['bg_colors'] = ['#397ca0', '#b5a330', '#589a2d']
         template_values['donuts'] = DonutFactory.get_donuts(128, 0.8, [('Design', 0.58), ('Dev', 0.75), ('Domain', 0.28)], 'transparent', '#139fe1', '#ffffff')
         template_values['no_navbar_onload'] = True
         template_values['nav_color'] = 'light-nav'
         template_values['unscrolled'] = True
+        template_values['app_shots'] = [ 
+                {'bg_color': '#397ca0', 'copy': 'A HOME SCREEN AND PROFILE THAT REFLECT THE CONFORT BRAND', 'image': '/assets/img/study/Comfort-ID-Animation.gif'},
+                {'bg_color': '#b5a330', 'copy': 'FITNESS AND NUTRITION DATA TO TAKE PRIDE IN', 'image': '/assets/img/study/Comfort-Health-Stats-mockup.gif'},
+                {'bg_color': '#589a2d', 'copy': 'FIND THE BEST DOCTORS AS EASY AS FINDING THE BEST RESTAURANTS', 'image': '/assets/img/study/Comfort-Doctor-Animation.gif'},
+                {'bg_color': '#b04f4f', 'copy': 'GET DIAGNOSIS AND TREATMENT THROUGH TEXT MESSAGE', 'image': '/assets/img/study/Comfort-Interact-Animation.gif'}
+        ]
         self.write(self.get_rendered_html(path, template_values), 200)
 
 app = webapp2.WSGIApplication(

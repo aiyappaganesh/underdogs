@@ -116,14 +116,37 @@
             </div>
         </div>
     </div>
-    {% for color in bg_colors %}
-    <div class="app-shots fullscreen-section" style="background-color:{{color}}">
+    {% for app_shot in app_shots %}
+    <div class="fullscreen-section" style="background-color:{{app_shot.bg_color}}">
         <div class="centered-full-screen-element">
             <div class="row width960 center-align">
                 <div class="col-sm-1"></div>
-                <div class="col-sm-4"><img class="auto-margin" src="/assets/img/study/comfort_app_{{forloop.counter}}_a.png"></div>
-                <div class="col-sm-2"></div>
-                <div class="col-sm-4"><img src="/assets/img/study/comfort_app_{{forloop.counter}}_b.png"></div>
+                {% if not forloop.counter|divisibleby:2 %}
+                <div class="col-sm-4">
+                    <img class="auto-margin sec-app-img" src="{{app_shot.image}}">
+                </div>
+                {% else %}
+                <div class="col-sm-6">
+                    <ul style="height:550px;display:table-cell;list-style-type:none;vertical-align:middle;padding-left:0px;line-height:1">
+                        <li class="sec-app-copy-big">
+                            {{app_shot.copy}}
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
+                {% if forloop.counter|divisibleby:2 %}
+                <div class="col-sm-4">
+                    <img class="auto-margin sec-app-img" src="{{app_shot.image}}">
+                </div>
+                {% else %}
+                <div class="col-sm-6">
+                    <ul style="height:550px;display:table-cell;list-style-type:none;vertical-align:middle;padding-left:0px;line-height:1">
+                        <li class="sec-app-copy-big">
+                            {{app_shot.copy}}
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
                 <div class="col-sm-1"></div>
             </div>
         </div>
