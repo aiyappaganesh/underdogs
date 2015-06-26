@@ -150,9 +150,9 @@
 .sec-app-copy-big {
     font-family: 'Montserrat', sans-serif;
     color: #ffffff;
-    font-size: 50px;
+    font-size: 45px;
     font-weight: 700;
-    line-height: 59px;
+    line-height: 50px;
     text-align: center;
 }
 
@@ -169,12 +169,21 @@
         padding-bottom: 40px;
     }
 
+    .sec-app-copy-big {
+        font-size: 30px;
+        line-height: 40px;
+    }
+
+    .sec-app-copy ul {
+        height: 250px !important;
+    }
+
     .sec-app-img{
         background-size: contain !important;
         height: 300px !important;
     }
 
-    .dark-circle {
+    .sprint-img {
       margin-top: 20px;
       margin-bottom: 20px;
     }
