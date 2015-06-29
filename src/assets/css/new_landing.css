@@ -51,11 +51,11 @@
 }
 
 .sec-startups-copy-big-1 {
-    padding-top: 125px !important;
+    padding-top: 128px !important;
 }
 
 .sec-startups-copy-big-2 {
-    padding-top: 83px !important;
+    padding-top: 96px !important;
 }
 
 .sec-startups-img {
@@ -65,7 +65,7 @@
     height: 128px;
     width: 128px;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 24px;
 }
 
 .sec-startups-img-copy-big {
@@ -85,7 +85,7 @@
     font-weight: 400;
     line-height: 1;
     text-align: center;
-    padding-top: 19px !important;
+    padding-top: 24px !important;
 }
 
 .sec-startups-copy-medium {
@@ -95,12 +95,12 @@
     font-weight: 400;
     line-height: 18px;
     text-align: center;
-    padding-top: 40px !important;
+    padding-top: 24px !important;
 }
 
 .sec-startups-donuts {
-    padding-top: 70px;
-    padding-bottom: 130px;
+    padding-top: 24px;
+    padding-bottom: 128px;
 }
 
 .sec-startups-donut-title {
@@ -142,7 +142,7 @@
     font-size: 28px;
     font-weight: 700;
     text-align: center;
-    line-height: 36px;
+    line-height: 1;
     padding-top: 10px;
 }
 
@@ -219,7 +219,7 @@
 }
 
 .sec-steve-content ul li{
-    padding: 10px;
+    padding: 12px;
 } 
 
 .member-picture {
@@ -261,7 +261,7 @@
 .track-img {
     height: 500px;
     background-size: contain !important;
-    margin-top: 200px;
+    margin-top: 242px;
 }
 
 .track-copy {
@@ -271,8 +271,8 @@
     font-weight: 700;
     line-height: 1;
     text-align: center;
-    padding-top: 75px;
-    padding-bottom: 75px;
+    padding-top: 96px;
+    padding-bottom: 96px;
 }
 
 #track .carousel-control {
@@ -294,7 +294,11 @@
 }
 
 #teams-section .width960>.row, #section4-carousel .width960>.row, #track .row{
-    padding: 20px;
+    padding: 12px;
+}
+
+#section4-carousel li{
+    padding: 5px;
 }
 
 @media (max-width: 767px) {

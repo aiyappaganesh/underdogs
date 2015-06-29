@@ -10,6 +10,22 @@ body a {
     text-decoration: none;
 }
 
+.spacing-small {
+    padding: 10px;
+}
+
+.spacing-medium {
+    padding: 24px;
+}
+
+.spacing-large {
+    padding: 96px;
+}
+
+.spacing-extra-large {
+    padding: 128px;
+}
+
 .bg-img-fullscreen {
     background-size: cover !important;
     background-position: center !important;
