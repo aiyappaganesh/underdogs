@@ -23,14 +23,14 @@ def get_startups():
     return [Startup(s[0], s[1], s[2]) for s in startups]
 
 def get_landing_centered_contents():
-    contents_arr = [("BUILD TOGETHER","landing-copy-big", None), ("Hire creative startups to build innovative apps","landing-copy-small", None), (None, None, "components/get_started_button.html")]
+    contents_arr = [("BUILD TOGETHER",["header-1","white-font"], None), ("Hire creative startups to build innovative apps",["header-3","white-font"], None), (None, None, "components/get_started_button.html")]
     contents = [CenteredContent(s[0], s[1], s[2]) for s in contents_arr]
     return CenteredContents(None, 0, contents, False)
 
 def get_steve_centered_contents():
-    contents_arr = [("\"It's better to be a pirate than join the navy\"", "sec-steve-copy-big"),
-        ("Steve Jobs, 1984","sec-steve-copy-medium"),
-        ("Urban legend has it that the original Macintosh team flew a Pirate flag over the building as they raced against time and naysayers to build the Mac.","sec-steve-copy-small")]
+    contents_arr = [("\"It's better to be a pirate than join the navy\"", ["header-2", "center-align"]),
+        ("Steve Jobs, 1984",["header-3", "right-align"]),
+        ("Urban legend has it that the original Macintosh team flew a Pirate flag over the building as they raced against time and naysayers to build the Mac.",["normal-copy"])]
     contents = [CenteredContent(s[0], s[1]) for s in contents_arr]
     return CenteredContents(508, 0, contents)
 

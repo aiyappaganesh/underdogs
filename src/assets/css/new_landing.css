@@ -69,32 +69,14 @@
 }
 
 .sec-startups-img-copy-big {
-    font-family: Helvetica;
-    color:  #333333;
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 1;
-    text-align: center;
     padding-top: 24px !important;
 }
 
 .sec-startups-img-copy-small {
-    font-family: Helvetica;
-    color:  #333333;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 1;
-    text-align: center;
     padding-top: 24px !important;
 }
 
 .sec-startups-copy-medium {
-    font-family: Helvetica;
-    color:  #333333;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 18px;
-    text-align: center;
     padding-top: 24px !important;
 }
 
@@ -104,11 +86,6 @@
 }
 
 .sec-startups-donut-title {
-    font-family: Helvetica;
-    color:  #333333;
-    font-size: 27px;
-    font-weight: 400;
-    text-align: center;
     padding-top: 25px;
 }
 
@@ -137,12 +114,6 @@
 }
 
 .section-slide-3-copy-small {
-    font-family: Helvetica;
-    color:  #ffffff;
-    font-size: 28px;
-    font-weight: 700;
-    text-align: center;
-    line-height: 1;
     padding-top: 10px;
 }
 
@@ -232,32 +203,6 @@
     margin: auto;
 }
 
-.carousel-2-copy-big {
-    color:  #ffffff;
-    font-size: 36px;
-    font-weight: 700;
-    line-height: 36px;
-    text-align: center;
-}
-
-.carousel-2-copy-medium {
-    font-family: Helvetica;
-    color:  #ffffff;
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 24px;
-    text-align: left;
-}
-
-.carousel-2-copy-small {
-    font-family: Helvetica;
-    color:  #ffffff;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 24px;
-    text-align: left;
-}
-
 .track-img {
     height: 500px;
     background-size: contain !important;
@@ -265,12 +210,6 @@
 }
 
 .track-copy {
-    font-family: 'Montserrat', sans-serif;
-    color:  #333333;
-    font-size: 50px;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
     padding-top: 96px;
     padding-bottom: 96px;
 }
@@ -338,12 +277,6 @@
         font-size: 24px;
     }
 
-    .section-slide-3-copy-small {
-        font-size: 18px;
-        line-height: 20px;
-        margin-top: 10px;
-    }
-
     .section-slide-3-center-margin {
         padding-top: 25px;
         padding-bottom: 75px;
@@ -371,24 +304,7 @@
         font-size: 20px !important;
     }
 
-    .carousel-2-copy-big {
-        font-size: 16px;
-        line-height: 20px;
-    }
-
-    .carousel-2-copy-medium {
-        font-size: 14px;
-        line-height: 16px;
-    }
-
-    .carousel-2-copy-small {
-        font-size: 12px;
-        line-height: 14px;
-    }
-
     .track-copy {
-        font-size: 24px;
-        line-height: 1;
         padding-top: 50px;
         padding-bottom: 50px;
     }

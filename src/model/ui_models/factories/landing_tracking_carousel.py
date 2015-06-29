@@ -8,8 +8,8 @@ class Slide():
 class TrackingCarousel():
     def build_slides(self):
         COPY_CLASS = 'track-copy'
-        s1 = Slide('/assets/img/landing/track_1.gif',CenteredContents(200, 0, [CenteredContent("COLLABORATE AT EVERY STAGE", COPY_CLASS)], False))
-        s2 = Slide('/assets/img/landing/track_2.png',CenteredContents(200, 0, [CenteredContent("TRACK IN REAL TIME", COPY_CLASS)], False))
+        s1 = Slide('/assets/img/landing/track_1.gif',CenteredContents(200, 0, [CenteredContent("COLLABORATE AT EVERY STAGE", [COPY_CLASS, "header-1", "center-align"])], False))
+        s2 = Slide('/assets/img/landing/track_2.png',CenteredContents(200, 0, [CenteredContent("TRACK IN REAL TIME", [COPY_CLASS, "header-1", "center-align"])], False))
         return [s1, s2]
 
     def __init__(self):
