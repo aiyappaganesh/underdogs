@@ -4,43 +4,24 @@
 }
 
 .landing-logo {
-    background-image: url('/assets/img/study/logo_white_small.png');
+    background-image: url('/assets/img/pirates_logo_white.png');
     background-size: contain !important;
-    width: 42px;
+    width: 109px;
     height: 33px;
     margin-top: 16px;
     margin-bottom: 16px;
 }
 
 .landing-logo:hover {
-    background-image: url('/assets/img/logo_blue_small.png');
-    background-size: contain !important;
-    width: 42px;
-    height: 33px;
-    margin-top: 16px;
-    margin-bottom: 16px;
+    background-image: url('/assets/img/pirates_logo_blue.png');
 }
 
 .animate .landing-logo, .animate .landing-logo:hover {
-    background-image: url('/assets/img/logo_black_small.png');
-    background-size: cover !important;
-    width: 42px;
-    height: 33px;
-    margin-top: 16px;
-    margin-bottom: 16px;
+    background-image: url('/assets/img/pirates_logo_black.png');
 }
 
-.nav-left-copy {
-    font-size: 14px;
-    font-weight: 700 !important;
-    line-height: 14px;
-    padding-top: 26px;
-    padding-left: 6px;
-}
-
-.animate .nav-left-copy, .animate .nav-left-copy:hover {
-  color: #1b1e37 !important;
-  line-height: 14px;
+.dark-nav .landing-logo {
+    background-image: url('/assets/img/pirates_logo_black.png');
 }
 
 .main-nav-right>li {
@@ -72,13 +53,6 @@
 
 @media (max-width: 767px) {
     .landing-logo, .landing-logo:hover {
-        background-image: url('/assets/img/logo_black_small.png');
-        background-size: cover !important;
-        width: 42px;
-        height: 33px;
-    }
-
-    .navbar-header .nav-left-copy, .navbar-header .nav-left-copy:hover {
-        line-height: 14px;
+        background-image: url('/assets/img/pirates_logo_black.png');
     }
 }

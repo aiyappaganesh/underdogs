@@ -249,24 +249,6 @@ a small {
     top: -120px;
 }
 
-.animate .landing-logo, .animate .landing-logo:hover  {
-    background-image: url('/assets/img/logo_black_small.png');
-    background-size: 34px 34px !important;
-    width: 48px;
-    height: 60px;
-}
-
-.nav-left-copy {
-    font-family: 'Montserrat', sans-serif;
-    line-height: 74px;
-    font-weight: 900 !important;
-    -webkit-font-smoothing: antialiased;
-    padding-left: 0px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    vertical-align: baseline;
-}
-
 .dev-scores .glyphicon {
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
@@ -289,11 +271,6 @@ a small {
     //background-color: rgba(255,255,255,0.8);
 }
 
-.dark-nav .landing-logo {
-    background-image: url('/assets/img/logo_black_small.png');
-    background-size: 34px 34px;
-}
-
 .light-nav, .light-nav a {
     color: #ffffff !important;
 }
@@ -302,19 +279,10 @@ a small {
     color: #4FC1E9 !important;
 }
 
-.dark-nav .nav-left-copy:hover {
-    color: inherit !important;
-}
-
 .light-nav .navbar-btn:hover {
     background-color: #22A7F0 !important;
     color: #ffffff !important;
     border-color: #22A7F0 !important;
-}
-
-.animate .nav-left-copy, .animate .nav-left-copy:hover {
-    color: #1b1e37 !important;
-    line-height: 34px;
 }
 
 .header {
@@ -331,20 +299,6 @@ a small {
 
 .scrolled .light-nav {
     //background-color: rgba(0,0,0,0.6);
-}
-
-.landing-logo {
-    background-image: url('/assets/img/logo_white_small.png');
-    background-size: 34px 26px !important;
-    background-repeat: no-repeat;
-    background-position: center center;
-    width: 48px;
-    height: 100px;
-}
-
-.landing-logo:hover {
-    background-image: url('/assets/img/logo_blue_small.png');
-    background-size: 34px 26px !important;
 }
 
 .bottom-margin-sm {
@@ -1035,20 +989,6 @@ sup {
         zoom: 0.5;
     }
 
-    .landing-logo {
-        background-image: url('/assets/img/logo_black_small.png');
-        background-size: 34px 34px !important;
-        width: 48px;
-        height: 60px;
-    }
-
-    .landing-logo:hover {
-        background-image: url('/assets/img/logo_black_small.png');
-        background-size: 34px 34px !important;
-        width: 48px;
-        height: 60px;
-    }
-
     .navbar-nav>li>a {
         line-height: 60px;
         color: #1b1e37 !important;
@@ -1105,11 +1045,6 @@ sup {
 
     .shot-row {
         margin-bottom: 0px !important;
-    }
-
-    .navbar-header .nav-left-copy, .navbar-header .nav-left-copy:hover {
-        color: #1b1e37 !important;
-        line-height: 34px;
     }
 
     .bottom-padded {
