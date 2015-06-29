@@ -71,15 +71,6 @@ body a {
     font-weight: 500;
 }
 
-/*.landing-section {
-    min-height: 350px;
-    padding-top: 75px !important;
-    padding-bottom: 80px !important;
-    position: absolute;
-    background-color: #ffffff;
-    text-align: center;
-}*/
-
 .horizontal-center {
     margin:auto;
 }
@@ -99,7 +90,6 @@ body a {
 
 @media (min-width: 992px) {
     .container {
-        //width: 960px;
         margin: 0px;
         width: 100%;
         padding: 0px;
@@ -236,9 +226,6 @@ a small {
 }
 
 .header {
-    //padding-top: 16px;
-    //padding-bottom: 16px;
-    //border-bottom: solid 1px #f2f2f2;
     position: relative;
     left: 0;
     z-index: 9999;
@@ -267,10 +254,6 @@ a small {
     color: #000000 !important;
 }
 
-.dark-nav {
-    //background-color: rgba(255,255,255,0.8);
-}
-
 .light-nav, .light-nav a {
     color: #ffffff !important;
 }
@@ -297,10 +280,6 @@ a small {
     background-color: #f6f6f6 !important;
 }
 
-.scrolled .light-nav {
-    //background-color: rgba(0,0,0,0.6);
-}
-
 .bottom-margin-sm {
     margin-bottom: 30px;
 }
@@ -324,10 +303,6 @@ a small {
 .top-padding-lg {
     padding-top: 100px;
 }
-
-/*.row [class*=col-] {
-margin-bottom: 10px;
-}*/
 
 .photo {
     max-width: 250px;
@@ -449,10 +424,6 @@ margin-bottom: 10px;
 .width960 {
     max-width: 960px;
     margin: auto;
-}
-
-.navbar-header {
-    //padding-left: 40px !important;
 }
 
 .navbar-nav a {
