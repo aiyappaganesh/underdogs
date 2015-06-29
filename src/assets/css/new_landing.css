@@ -259,16 +259,38 @@
 }
 
 .track-img {
-    height: 300px;
+    height: 500px;
+    background-size: contain !important;
+    margin-top: 200px;
 }
 
 .track-copy {
     font-family: 'Montserrat', sans-serif;
     color:  #333333;
-    font-size: 36px;
+    font-size: 50px;
     font-weight: 700;
-    line-height: 300px;
+    line-height: 1;
     text-align: center;
+    padding-top: 75px;
+    padding-bottom: 75px;
+}
+
+#track .carousel-control {
+    z-index: 5555;
+}
+
+#track .carousel-control.right {
+  background-image: -webkit-linear-gradient(left,rgba(0,0,0,.0001) 0,rgba(0,0,0,.19) 100%);
+  background-image: -o-linear-gradient(left,rgba(0,0,0,.0001) 0,rgba(0,0,0,.19) 100%);
+  background-image: -webkit-gradient(linear,left top,right top,from(rgba(0,0,0,.0001)),to(rgba(0,0,0,.19)));
+  background-image: linear-gradient(to right,rgba(0,0,0,.0001) 0,rgba(0,0,0,.19) 100%);
+}
+
+#track .carousel-control.left {
+  background-image: -webkit-linear-gradient(left,rgba(0,0,0,.19) 0,rgba(0,0,0,.0001) 100%);
+  background-image: -o-linear-gradient(left,rgba(0,0,0,.19) 0,rgba(0,0,0,.0001) 100%);
+  background-image: -webkit-gradient(linear,left top,right top,from(rgba(0,0,0,.19)),to(rgba(0,0,0,.0001)));
+  background-image: linear-gradient(to right,rgba(0,0,0,.19) 0,rgba(0,0,0,.0001) 100%);
 }
 
 #teams-section .width960>.row, #section4-carousel .width960>.row, #track .row{
@@ -363,7 +385,17 @@
     .track-copy {
         font-size: 24px;
         line-height: 1;
-        padding: 20px !important;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    .track-img {
+        margin-top: 0px;
+        height: 240px;
+    }
+
+    #track ul {
+        height: 150px !important;
     }
 
     #section4-carousel .width960>.row{

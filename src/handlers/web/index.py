@@ -6,6 +6,7 @@ from model.ui_models.donut import Donut
 from model.ui_models.landing_page_team_member import TeamMember
 from model.ui_models.landing_startup import Startup
 from model.ui_models.factories.landing_community_carousel import Carousel
+from model.ui_models.factories.landing_tracking_carousel import TrackingCarousel
 from model.ui_models.factories.donut_factory import DonutFactory
 from model.ui_models.centered_contents import CenteredContents, CenteredContent
 
@@ -42,10 +43,7 @@ def get_template_values_for_landing():
     template_values['donuts'] = DonutFactory.get_donuts(128, 0.8, [('Design', 0.58), ('Dev', 0.75), ('Domain', 0.28)], '#ffffff', '#139fe1', '#333333')
     template_values['steve_img'] = '/assets/img/landing/steve.png'
     template_values['community_carousel'] = Carousel()
-    template_values['track_img_1'] = '/assets/img/landing/track_1.gif' #'http://winnerhun.uw.hu/vigyorpofa.gif'
-    template_values['track_img_2'] = '/assets/img/landing/track_2.png'
-    template_values['track_copy_1'] = 'COLLABORATE AT EVERY STAGE'
-    template_values['track_copy_2'] = 'TRACK IN REAL TIME'
+    template_values['tracking_carousel'] = TrackingCarousel()
     template_values['no_navbar_onload'] = True
     template_values['nav_color'] = 'light-nav'
     template_values['unscrolled'] = True
