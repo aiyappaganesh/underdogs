@@ -98,29 +98,6 @@ class StartupsCriteriaPage(WebRequestHandler):
                            'projects':projects}
         self.write(self.get_rendered_html(path, template_values), 200)
 
-class StartupsListingPage(WebRequestHandler):
-    def get(self):
-        path = 'startups_listing_new.html'
-        q = Company.all()
-        sorted_companies = {}
-        for c in q.fetch(50):
-            id = c.key().id()
-            sorted_companies[id] = {}
-            score = float(c.influence_avg) if c.influence_avg else 0.0
-            sorted_companies[id]['score'] = score
-            sorted_companies[id]['image'] = c.image
-            sorted_companies[id]['name'] = c.name
-            sorted_companies[id]['hello'] = c.hello
-            sorted_companies[id]['city'] = cities_map[str(id)] if str(id) in cities_map else cities_map['default']
-        sorted_companies = sorted(sorted_companies.iteritems(), key=lambda (k,v): v['score'], reverse = True)
-        donuts = 1
-        donuts = donuts - 1
-        donut_size = 80-(5*donuts)
-        score_font_size = 40-(3*donuts)
-        tooltip_font_size = 14-donuts
-        template_values = {'startups' : sorted_companies, 'donut_size' : donut_size, 'score_font_size' : score_font_size, 'tooltip_font_size' : tooltip_font_size}
-        self.write(self.get_rendered_html(path, template_values), 200)
-
 class LatestStartupsListingPage(WebRequestHandler):
     def get(self):
         path = 'startups_latest.html'
@@ -138,7 +115,18 @@ class LatestStartupsListingPage(WebRequestHandler):
             sorted_companies[id]['city'] = cities_map[str(id)] if str(id) in cities_map else cities_map['default']
 
         sorted_companies = sorted(sorted_companies.iteritems(), key=lambda (k,v): v['score'], reverse = True)
-        template_values = {'startups' : sorted_companies, 'nav_color':'dark-nav'}
+        sorted_company_rows = []
+        count = 0
+        sorted_company_row = []
+        for sorted_company in sorted_companies:
+            count+=1
+            if count%3 == 1:
+                sorted_company_row = []
+            sorted_company_row.append(sorted_company)
+            if count%3 == 0:
+                sorted_company_rows.append(sorted_company_row)
+
+        template_values = {'startups' : sorted_company_rows, 'nav_color':'dark-nav'}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class StartupsHomePage(WebRequestHandler):
@@ -154,7 +142,6 @@ app = webapp2.WSGIApplication(
         ('/startups/registration', StartupsRegistrationPage),
         ('/startups/edit', StartupsEditPage),
         ('/startups/search/criteria', StartupsCriteriaPage),
-        ('/startups/listing', StartupsListingPage),
         ('/startups/new_listing', LatestStartupsListingPage),
         ('/startups', StartupsPage)
     ]

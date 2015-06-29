@@ -7,9 +7,10 @@
 {% block PaddedContent %}
     <div class="col-lg-12">
         <div class="width960 center-align">
-            <div class="row">
-                {% for startup in startups %}
-                <div class="col-md-4 list-row original-pos">
+            {% for startups_row in startups %}
+            <div class="row list-row">
+                {% for startup in startups_row %}
+                <div class="col-sm-4 original-pos startup-cell">
                     <a href="/member/new_list?company_id={{startup.0}}">
                         <div class="row company-img">
                             <div class="col-md-12 company-img">
@@ -19,14 +20,15 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <h3 class="company-name">{{startup.1.name}}</h3>
-                                <p class="company-desc">{{startup.1.hello}}</p>
-                                <p class="company-city">{{startup.1.city}}</p>
+                                <h4 class="company-desc">{{startup.1.hello}}</h4>
+                                <h4 class="company-city">{{startup.1.city}}</h4>
                             </div>
                         </div>
                     </a>
                 </div>
                 {% endfor %}
             </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

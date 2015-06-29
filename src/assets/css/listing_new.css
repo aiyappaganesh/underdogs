@@ -1,17 +1,15 @@
 .company-img {
-    width: 150px;
-    height: 150px;
-    max-width: 150px !important;
-    max-height: 150px !important;
-    min-width: 150px !important;
-    min-height: 150px !important;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 50% 50%;
+    width: 120px;
+    height: 120px;
+    max-width: 120px !important;
+    max-height: 120px !important;
+    min-width: 120px !important;
+    min-height: 120px !important;
     padding: 0px !important;
     border-radius: 125px;
     margin: auto;
     position: relative;
+    margin-bottom: 12px;
 }
 
 .company-img .caption {
@@ -35,8 +33,11 @@
     color: #333333;
     font-size: 24px;
     font-weight: 400;
-    line-height: 80%;
+    line-height: 1;
     text-align: center;
+    margin: 0px;
+    padding-top: 12px;
+    padding-bottom: 5px;
 }
 
 .company-desc {
@@ -46,6 +47,9 @@
     font-weight: 400;
     line-height: 100%;
     text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 0px;
 }
 
 .company-city {
@@ -55,15 +59,20 @@
     font-weight: 400;
     line-height: 100%;
     text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 0px;
 }
 
 .company-image {
-    width: 80% !important;
-    height: 80% !important;
-    position: absolute;
-    top: 10% !important;
-    left: 10% !important;
+    width: 100% !important;
+    height: 100% !important;
     border-radius: 10px;
+}
+
+.list-row {
+    margin-top: 96px;
+    margin-bottom: 0px;
 }
 
 @media (max-width: 767px) {
@@ -84,5 +93,15 @@
         height: 125px !important;
         width: 125px !important;
         padding-top: 27px !important;
+    }
+
+    .list-row {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    .startup-cell {
+        padding-top: 48px !important;
+        padding-bottom: 48px !important;
     }
 }

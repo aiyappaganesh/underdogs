@@ -420,7 +420,7 @@ a small {
 }
 
 .nav-padded {
-    margin-top: 100px;
+    margin-top: 64px;
 }
 
 .company-img .caption {
@@ -864,6 +864,10 @@ sup {
 .centered-full-screen-element {
     display: table-cell;
     vertical-align: middle;
+}
+
+#overview {
+    padding-top: 24px;
 }
 
 .footer {
