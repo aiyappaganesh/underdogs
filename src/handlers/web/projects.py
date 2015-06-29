@@ -165,7 +165,7 @@ class ProjectStudyPage(WebRequestHandler):
         template_values['app_shots'] = [ 
                 {'bg_color': '#397ca0', 'copy': 'A HOME SCREEN AND PROFILE THAT REFLECT THE COMFORT BRAND', 'image': '/assets/img/study/Comfort-ID-Animation.gif'},
                 {'bg_color': '#b5a330', 'copy': 'FITNESS AND NUTRITION DATA TO TAKE PRIDE IN', 'image': '/assets/img/study/Comfort-Health-Stats-mockup.gif'},
-                {'bg_color': '#589a2d', 'copy': 'FIND THE BEST DOCTORS AS EASY AS FINDING THE BEST RESTAURANTS', 'image': '/assets/img/study/Comfort-Doctor-Animation.gif'},
+                {'bg_color': '#589a2d', 'copy': 'FIND THE BEST DOCTORS AS EASY AS FINDING THE BEST RESTAURANTS', 'image': '/assets/img/study/Comfort-Doctor-Animation-2.gif'},
                 {'bg_color': '#b04f4f', 'copy': 'GET DIAGNOSIS AND TREATMENT THROUGH TEXT MESSAGE', 'image': '/assets/img/study/Comfort-Interact-Animation.gif'}
         ]
         template_values['sprint_images'] = ['/assets/img/study/sprints_img_1.png', '/assets/img/study/sprints_img_2.png']
