@@ -153,9 +153,9 @@ body a {
     transition: 0.1s background-color linear;
     height: 44px;
     width: 200px;
-    border-width: 2px;
+    border-width: 1.5px;
     border-style: solid;
-    border-radius: 3px;
+    border-radius: 4px;
     text-align: center;
     text-transform: uppercase;
 }
