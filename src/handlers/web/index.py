@@ -11,7 +11,7 @@ from model.ui_models.centered_contents import CenteredContents, CenteredContent
 
 def get_team_members():
     members = [("Designer", '/assets/img/landing/slide-3-1.png'),
-               ("Back end Developer", '/assets/img/landing/slide-3-2.png'),
+               ("Full Stack Developer", '/assets/img/landing/slide-3-2.png'),
                ("Mobile Developer", '/assets/img/landing/slide-3-3.png')]
     return [TeamMember(member[0], member[1]) for member in members]
 
@@ -27,7 +27,7 @@ def get_landing_centered_contents():
     return CenteredContents(None, 0, contents, False)
 
 def get_steve_centered_contents():
-    contents_arr = [("It's better to be a pirate than join the navy", "sec-steve-copy-big"),
+    contents_arr = [("\"It's better to be a pirate than join the navy\"", "sec-steve-copy-big"),
         ("Steve Jobs, 1984","sec-steve-copy-medium"),
         ("Urban legend has it that the original Macintosh team flew a Pirate flag over the building as they raced against time and naysayers to build the Mac.","sec-steve-copy-small")]
     contents = [CenteredContent(s[0], s[1]) for s in contents_arr]
@@ -44,8 +44,8 @@ def get_template_values_for_landing():
     template_values['community_carousel'] = Carousel()
     template_values['track_img_1'] = '/assets/img/landing/track_1.gif' #'http://winnerhun.uw.hu/vigyorpofa.gif'
     template_values['track_img_2'] = '/assets/img/landing/track_2.png'
-    template_values['track_copy_1'] = 'PARTICIPATE'
-    template_values['track_copy_2'] = 'TRACK REAL TIME'
+    template_values['track_copy_1'] = 'COLLABORATE AT EVERY STAGE'
+    template_values['track_copy_2'] = 'TRACK IN REAL TIME'
     template_values['no_navbar_onload'] = True
     template_values['nav_color'] = 'light-nav'
     template_values['unscrolled'] = True
