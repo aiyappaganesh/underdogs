@@ -25,7 +25,9 @@ def get_startups():
     return [Startup(s[0], s[1], s[2]) for s in startups]
 
 def get_landing_centered_contents():
-    contents_arr = [("BUILD TOGETHER",["header-1","white-font"], None), ("Hire creative startups to build innovative apps",["header-3","white-font"], None), (None, None, "components/get_started_button.html")]
+    contents_arr = [("BUILD TOGETHER",["header-1","white-font"], None), 
+                    ("Hire creative startups to build innovative apps",["header-3","white-font"], None), 
+                    (None, None, "components/get_started_button.html")]
     contents = [CenteredContent(s[0], s[1], s[2]) for s in contents_arr]
     return CenteredContents(None, 0, contents, False)
 
@@ -37,8 +39,8 @@ def get_steve_centered_contents():
     return CenteredContents(406, 0, contents)
 
 def get_footer_centered_contents():
-    contents_arr = [("HIRE PIRATES","landing-copy-big", None),
-                    ("Engage an innovative startup to build your app","landing-copy-small", None),
+    contents_arr = [("HIRE PIRATES",["header-1","dark-font"], None),
+                    ("Engage an innovative startup to build your app",["header-3","dark-font"], None),
                     (None, None, 'components/get_started_button_inverse.html')]
     contents = [CenteredContent(s[0], s[1], s[2]) for s in contents_arr]
     for c in contents:
