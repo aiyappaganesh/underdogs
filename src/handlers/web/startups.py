@@ -123,7 +123,7 @@ class LatestStartupsListingPage(WebRequestHandler):
             if count%3 == 1:
                 sorted_company_row = []
             sorted_company_row.append(sorted_company)
-            if count%3 == 0:
+            if count%3 == 0 or count%len(sorted_companies) == 0:
                 sorted_company_rows.append(sorted_company_row)
 
         template_values = {'startups' : sorted_company_rows, 'nav_color':'dark-nav'}
