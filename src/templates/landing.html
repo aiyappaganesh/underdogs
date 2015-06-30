@@ -10,7 +10,7 @@
     <div class="col-lg-12">
         <div id="section1-carousel" class="carousel slide" data-interval="3000" data-pause="false">
             <div class="stationary">
-                <div class="centered-full-screen-element">
+                <div class="centered-full-screen-element" style="color:#ffffff;">
                     {% include "components/centered_content.html" with centered=landing_centered%}
                 </div>
             </div>
@@ -203,6 +203,9 @@
             <div class="width960 header-1 white-font" style="min-height:682px;line-height:682px;text-align:center">
                 100% SECURE IP
             </div>
+        </div>
+        <div class="centered-full-width-element final-section" style="margin:60px;color:#000000;text-align:center">
+            {% include "components/centered_content.html" with centered=footer_centered %}
         </div>
     </div>
 {% endblock %}

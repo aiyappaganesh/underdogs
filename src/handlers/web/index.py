@@ -1,4 +1,6 @@
 import webapp2
+import logging
+
 from handlers.web import WebRequestHandler
 from model.company import Company
 from cities_mapping import cities_map
@@ -34,12 +36,22 @@ def get_steve_centered_contents():
     contents = [CenteredContent(s[0], s[1]) for s in contents_arr]
     return CenteredContents(508, 0, contents)
 
+def get_footer_centered_contents():
+    contents_arr = [("HIRE PIRATES","landing-copy-big", None),
+                    ("Engage an innovative startup to build your app","landing-copy-small", None),
+                    (None, None, 'components/get_started_button_inverse.html')]
+    contents = [CenteredContent(s[0], s[1], s[2]) for s in contents_arr]
+    for c in contents:
+        print c.component
+    return CenteredContents(0, 0, contents, False)
+
 def get_template_values_for_landing():
     template_values = {}
     template_values['team_members'] = get_team_members()
     template_values['startups'] = get_startups()
     template_values['landing_centered'] = get_landing_centered_contents()
     template_values['steve_centered'] = get_steve_centered_contents()
+    template_values['footer_centered'] = get_footer_centered_contents()
     template_values['donuts'] = DonutFactory.get_donuts(128, 0.8, [('Design', 0.58), ('Dev', 0.75), ('Domain', 0.28)], '#ffffff', '#139fe1', '#333333')
     template_values['steve_img'] = '/assets/img/landing/steve.png'
     template_values['community_carousel'] = Carousel()

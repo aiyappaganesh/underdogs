@@ -1,7 +1,9 @@
-<ul style="list-style-type: none; vertical-align:middle; {% if centered.table_cell %}display: table-cell;{% endif %} {% if centered.height %}height:{{centered.height}}px;{% endif %} padding-left:{{centered.padding_left|default:0}}px">
+<ul style="margin:0px; list-style-type: none; vertical-align:middle; {% if centered.table_cell %}display: table-cell;{% endif %} {% if centered.height %}height:{{centered.height}}px;{% endif %} padding-left:{{centered.padding_left|default:0}}px">
     {% for content in centered.contents %}
-        <li class="{% for css_class in content.css_classes %}{{css_class}} {% endfor %}">
-            {% if content.copy %}{{content.copy}}{% elif content.component %}{% include content.component %}{% endif %}
+        <li class="{% for css_class in content.css_classes %}{{css_class}}{% endfor %}">
+            {% if content.copy %}{{content.copy}}
+            {% elif content.component %}{% include content.component %}
+            {% endif %}
         </li>
     {% endfor %}
 </ul>

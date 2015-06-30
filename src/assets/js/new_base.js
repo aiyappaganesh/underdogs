@@ -4,6 +4,7 @@ $(document).ready(function(){
     scrollTopArrow();
     $('.centered-full-screen-element').height($(window).height());
     $('.centered-full-screen-element').width($(window).width());
+    $('.centered-full-width-element').width($(window).width());
 });
 
 function set_page_height() {

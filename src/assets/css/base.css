@@ -29,7 +29,7 @@
     border-color: #1b1e37 !important;
 }
 
-.animate .navbar-btn:hover {
+.animate .navbar-btn:hover, .get-started-button.inverse:hover {
     background-color: #22A7F0 !important;
     color: #ffffff !important;
     border-color: #22A7F0 !important;
