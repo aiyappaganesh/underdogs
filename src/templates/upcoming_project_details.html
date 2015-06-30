@@ -16,7 +16,7 @@
                     <div class="col-md-2">
                         <div class="project-logo" style="background-image:url('{% if image %}/api/common/download_image/{{image}}{% else %}/assets/img/company/company.png{% endif %}');"></div>
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-md-10 project-brief">
                         <div class="row project-name">
                             <a href="/projects/study?id={{id}}"><h2>{{title}}</h2></a>
                         </div>
@@ -35,7 +35,7 @@
                 <div class="row project-title">
                     <h2>PROJECT DESCRIPTION</h2>
                 </div>
-                <div class="row project-desc project-text-section normal-copy">{{description}}</div>
+                <div class="row project-desc normal-copy">{{description}}</div>
             </div>
         </div>
         <div class="row">
@@ -172,7 +172,7 @@
                 <div class="row project-title">
                     <h2>ABOUT {{title}}</h2>
                 </div>
-                <div class="row project-desc project-text-section normal-copy">{{description}}</div>
+                <div class="row project-desc normal-copy">{{description}}</div>
             </div>
         </div>
     </div>

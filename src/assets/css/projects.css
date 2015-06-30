@@ -62,8 +62,7 @@
 
 .project-desc {
     color:  #656d78;
-    font-size: 14px;
-    font-weight: 400;
+    padding-top: 10px;
 }
 
 .project-category {
@@ -77,16 +76,13 @@
     border-bottom: 1px;
     border-color:  #cccccc;
     border-style: solid;
-    padding-bottom: 22px;
-    margin-top: 45px
-}
-
-.project-text-section {
-    padding-top: 28px;
+    padding-bottom: 24px;
+    padding-top: 24px
 }
 
 .project-image-section {
     text-align: center;
+    padding-top: 10px;
 }
 
 .featured-project-title {
@@ -134,11 +130,11 @@
 }
 
 .project-list-section {
-    padding-top: 45px;
+    padding-top: 24px;
 }
 
 .project-list-item {
-    padding: 25px;
+    padding: 24px;
 }
 
 .project-list-item-title {
@@ -158,6 +154,11 @@
 #featured_project .row {
     padding-top: 12px;
     padding-bottom: 12px;
+}
+
+.project-brief .row {
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 @media (max-width: 767px) {
