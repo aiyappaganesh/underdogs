@@ -110,8 +110,8 @@ class LatestStartupsListingPage(WebRequestHandler):
             sorted_companies[id]['score'] = score
             sorted_companies[id]['image'] = c.image
             sorted_companies[id]['name'] = c.name
-            sorted_companies[id]['hello'] = c.hello
-            sorted_companies[id]['profile'] = c.profile
+            sorted_companies[id]['hello'] = c.hello if c.hello else '\n'
+            sorted_companies[id]['profile'] = c.profile if c.profile else '\n'
             sorted_companies[id]['city'] = cities_map[str(id)] if str(id) in cities_map else cities_map['default']
 
         sorted_companies = sorted(sorted_companies.iteritems(), key=lambda (k,v): v['score'], reverse = True)
