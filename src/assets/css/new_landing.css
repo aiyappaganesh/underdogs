@@ -162,7 +162,8 @@
 }
 
 .sec-steve-img {
-    height: 506px;
+    height: 406px;
+    background-size: contain !important;
 }
 
 .sec-steve-copy-big {
@@ -245,7 +246,6 @@
 
 @media (max-width: 767px) {
     .sec-steve-img{
-        background-size: contain !important;
         height: 300px !important;
     }
 

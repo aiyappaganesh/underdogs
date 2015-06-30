@@ -34,7 +34,7 @@ def get_steve_centered_contents():
         ("Steve Jobs, 1984",["header-3", "right-align"]),
         ("Urban legend has it that the original Macintosh team flew a Pirate flag over the building as they raced against time and naysayers to build the Mac.",["normal-copy"])]
     contents = [CenteredContent(s[0], s[1]) for s in contents_arr]
-    return CenteredContents(508, 0, contents)
+    return CenteredContents(406, 0, contents)
 
 def get_footer_centered_contents():
     contents_arr = [("HIRE PIRATES","landing-copy-big", None),
@@ -53,7 +53,6 @@ def get_template_values_for_landing():
     template_values['steve_centered'] = get_steve_centered_contents()
     template_values['footer_centered'] = get_footer_centered_contents()
     template_values['donuts'] = DonutFactory.get_donuts(128, 0.8, [('Design', 0.58), ('Dev', 0.75), ('Domain', 0.28)], '#ffffff', '#139fe1', '#333333')
-    template_values['steve_img'] = '/assets/img/landing/steve.png'
     template_values['community_carousel'] = Carousel()
     template_values['tracking_carousel'] = TrackingCarousel()
     template_values['no_navbar_onload'] = True
