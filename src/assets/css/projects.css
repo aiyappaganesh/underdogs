@@ -90,10 +90,21 @@
 }
 
 .project-image-section {
-    padding-top: 45px;
     font-size: 14px;
     font-weight: 700;
     text-align: center;
+}
+
+.featured-project-title {
+    border-bottom: 1px solid #000000 !important;
+    padding-bottom: 24px !important;
+    padding-top: 96px !important;
+}
+
+.projects-list-heading {
+    border-bottom: 1px solid #ddd !important;
+    padding-bottom: 24px !important;
+    padding-top: 96px !important;
 }
 
 .device-bg {
@@ -152,6 +163,11 @@
 
 .project-list {
     border: 1px solid #ddd;
+}
+
+#featured_project .row {
+    padding-top: 12px;
+    padding-bottom: 12px;
 }
 
 @media (max-width: 767px) {
