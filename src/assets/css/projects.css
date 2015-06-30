@@ -68,13 +68,9 @@
 
 .project-category {
     color:  #139fe1;
-    font-size: 14px;
-    font-weight: 400;
 }
 
 .project-title {
-    font-size: 24px;
-    font-weight: 700;
     border-top: 0px;
     border-left: 0px;
     border-right: 0px;
@@ -90,8 +86,6 @@
 }
 
 .project-image-section {
-    font-size: 14px;
-    font-weight: 700;
     text-align: center;
 }
 
@@ -148,16 +142,12 @@
 }
 
 .project-list-item-title {
-    font-size: 14px;
-    font-weight: 700;
     text-align: left;
     text-transform: uppercase;
 }
 
 .project-list-item-content {
     color:  #656d78;
-    font-size: 14px;
-    font-weight: 400;
     text-align: right;
 }
 
