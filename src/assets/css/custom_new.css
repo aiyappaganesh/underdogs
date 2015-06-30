@@ -27,32 +27,32 @@ body a {
     padding: 128px;
 }
 
-.header-1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 50px;
-    font-weight: bold;
-    line-height: 59px;
+.header-1, h1 {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 50px !important;
+    font-weight: bold !important;
+    line-height: 59px !important;
 }
 
-.header-2 {
-    font-family: 'PT Serif', serif;
-    font-size: 36px;
-    font-weight: bold;
-    line-height: 48px;
+.header-2, h2 {
+    font-family: 'PT Serif', serif !important;
+    font-size: 36px !important;
+    font-weight: bold !important;
+    line-height: 48px !important;
 }
 
-.header-3 {
-    font-family: 'PT Serif', serif;
-    font-size: 22px;
-    font-weight: bold;
-    line-height: 36px;
+.header-3, h3 {
+    font-family: 'PT Serif', serif !important;
+    font-size: 22px !important;
+    font-weight: bold !important;
+    line-height: 36px !important;
 }
 
 .normal-copy {
-    font-family: 'PT Serif', serif;
-    font-size: 22px;
-    font-weight: normal;
-    line-height: 29px;
+    font-family: 'PT Serif', serif !important;
+    font-size: 22px !important;
+    font-weight: normal !important;
+    line-height: 29px !important;
 }
 
 .nav-link {
@@ -60,6 +60,10 @@ body a {
     font-size: 12px !important;
     font-weight: bold !important;
     line-height: 12px !important;
+}
+
+h1, h2, h3 {
+    margin:0px;
 }
 
 .uppercase {
@@ -489,8 +493,6 @@ a small {
 .caption-profile {
     max-width: 200px;
     margin: auto;
-    font-size: 15px;
-    line-height: 21px;
     margin-top: 10px;
 }
 
@@ -957,24 +959,24 @@ sup {
         background-color: #ffffff;
     }
 
-    .header-1 {
-        font-size: 30px;
-        line-height: 36px;
+    .header-1, h1 {
+        font-size: 30px !important;
+        line-height: 36px !important;
     }
 
-    .header-2 {
-        font-size: 22px;
-        line-height: 26px;
+    .header-2, h2 {
+        font-size: 22px !important;
+        line-height: 26px !important;
     }
 
-    .header-3 {
-        font-size: 13px;
-        line-height: 20px;
+    .header-3, h3 {
+        font-size: 13px !important;
+        line-height: 20px !important;
     }
 
     .normal-copy {
-        font-size: 13px;
-        line-height: 17px;
+        font-size: 13px !important;
+        line-height: 17px !important;
     }
 
     .page-padding {
@@ -1006,8 +1008,6 @@ sup {
 
     .caption-profile {
         max-width: 100px;
-        font-size: 8px;
-        line-height: 12px;
         margin-top: 5px;
     }
 

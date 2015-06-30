@@ -36,13 +36,13 @@
 {% block PaddedContent %}
     <div id="featured_project">
         <div class="row">
-            <h1 style="margin:0px;text-align:center">COMFORT: A SUCCESS STORY</h1>
+            <h1 class="center-align">COMFORT: A SUCCESS STORY</h1>
         </div>
         <div class="row" style="height:1px;background-color:#000000;margin:20px"></div>
         <div class="row" style="background-image:url('/assets/img/projects/listing/app_showcase.png');background-repeat:no-repeat; background-position: center center; height:600px"></div>
         <div class="row">
             <div class="col-xs-offset-2 col-xs-8">
-                <p style="font-size:17px">
+                <p class="normal-copy">
                     HealthCo (name changed) is a Fortune 500 Health Insurance Company. They selected the New York startup Haze to build Comfort, their new Health Insurance app, targeted towards a younger demographic.
                 </p>
             </div>
@@ -56,19 +56,19 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="row startup-title list-group-item">
-                <span>FEATURED PROJECTS</span>
+                <h2>FEATURED PROJECTS</h2>
             </div>
             <div class="row project-image-section">
                 {% for project in projects %}
                     <div class="col-md-4 list-row">
                         <div class="row">
-                            <span>{{project.title}}</span>
+                            <h3>{{project.title}}</h3>
                         </div>
                         <a href="/projects/upcoming/details?id={{project.id}}">
                             <div class="thumbnail company-dashboard-thumbnail project-image" style="background-image:url('{% if project.image %}/api/common/download_image/{{project.image}}{% else %}/assets/img/company/company.png{% endif %}');">
                                 <div class="caption text-center wrapped">
-                                    <p class="caption-profile">{{project.description}}</p>
-                                    <p class="project-company">{{project.company}}</p>
+                                    <p class="caption-profile normal-copy">{{project.description}}</p>
+                                    <h3 class="project-company">{{project.company}}</h3>
                                 </div>
                             </div>
                         </a>
