@@ -306,7 +306,8 @@ a small {
     transition: all .33s cubic-bezier(0.694,0.0482,0.335,1);
     -webkit-transition: all .33s cubic-bezier(0.694,0.0482,0.335,1);
     top: 0 !important;
-    background-color: #f6f6f6 !important;
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #ddd !important;
 }
 
 .bottom-margin-sm {
