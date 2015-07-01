@@ -10,6 +10,7 @@ from model.project_members import ProjectMember
 from model.user import User
 from datetime import date, datetime
 from intercomio import api as intercomio_api
+from mixpanel import api as mixpanel_api
 
 class AddProjectHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
     def read_image(self):
@@ -40,6 +41,7 @@ class AddProjectHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHandle
         session = get_current_session()
         self.create_project_admin(p, session['me_email'])
         intercomio_api.events(session['me_email'], event_name='created_project')
+        mixpanel_api.events(session['me_email'], 'created_project')
         self.redirect('/startups/search/criteria')
 
 class UpdateProjectHandler(RequestHandler):
