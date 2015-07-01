@@ -1,6 +1,6 @@
 .title {
-    padding-top: 135px;
-    padding-bottom: 40px;
+    padding-top: 128px !important;
+    padding-bottom: 24px !important;
     border-top: 0px;
     border-left: 0px;
     border-right: 0px;
@@ -11,9 +11,8 @@
 }
 
 .copy {
-    font-family: Helvetica;
-    padding-top: 48px;
-    padding-bottom: 100px;
+    padding-top: 24px !important;
+    padding-bottom: 128px !important;
 }
 
 .sec-1 {
@@ -21,7 +20,7 @@
 }
 
 .sec-1-title {
-    padding-top: 118px;
+    padding-top: 128px;
 }
 
 .sec-1-subtitle {
@@ -32,10 +31,6 @@
     color: #656d78;
 }
 
-.sec-3 {
-    min-height: 800px !important;
-}
-
 .sec-3-copy {
     color: #ffffff;
     padding-bottom: 0px;
@@ -43,17 +38,17 @@
 
 .sec-3-subtitle {
     text-align: center;
-    padding-top: 55px;
+    padding-top: 24px;
 }
 
 .sec-3-donuts {
-    padding-top: 53px;
-    padding-bottom: 115px;
+    padding-top: 24px;
+    padding-bottom: 128px;
 }
 
 .sec-3-donut-title {
     text-align: center;
-    padding-top: 25px;
+    padding-top: 24px;
 }
 
 .new-donut-container {
@@ -67,8 +62,8 @@
     border-bottom: 1px;
     border-color:  #cccccc;
     border-style: solid;
-    padding-top: 115px;
-    padding-bottom: 45px;
+    padding-top: 128px;
+    padding-bottom: 24px;
 }
 
 .founder-picture {
@@ -83,7 +78,7 @@
 
 .founder-name {
     text-align: center;
-    padding-top: 50px;
+    padding-top: 24px;
 }
 
 .founder-desc {
@@ -98,21 +93,31 @@
     margin: auto;
 }
 
-#joint-sprints .width960>.row, #branding .width960>.row {
-    padding-top: 30px;
-    padding-bottom: 30px;
+#startup .copy {
+    padding-bottom: 48px !important;
 }
 
-#joint-sprints .width960>.row:first-child {
-    padding-top: 20px;
+#startup-project-desc .copy {
+    padding-bottom: 24px !important;
 }
 
-#branding .width960>.row:first-child {
-    padding-top: 100px;
+#joint-sprints .title {
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
 }
 
-#joint-sprints .width960>.row:last-child, #branding .width960>.row:last-child {
-    padding-bottom: 100px;
+#joint-sprints .copy, #branding .copy {
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
+}
+
+#joint-sprints .row {
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+#joint-sprints .copy:last-child, #branding .copy:last-child {
+    padding-bottom: 128px !important;
 }
 
 .app-shots img {
@@ -154,5 +159,10 @@
     .sprint-img {
       margin-top: 20px;
       margin-bottom: 20px;
+    }
+
+    .sec-3-donuts [class*=col-sm] {
+        padding-top: 12px;
+        padding-bottom: 12px;
     }
 }
