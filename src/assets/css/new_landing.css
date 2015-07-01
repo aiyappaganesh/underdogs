@@ -195,7 +195,12 @@
 
 .sec-steve-content ul li{
     padding: 12px;
-} 
+}
+
+.sec-steve-content {
+    padding-top: 128px;
+    padding-bottom: 128px;
+}
 
 .member-picture {
     height: 128px;
@@ -242,7 +247,11 @@
     }
 
     .sec-steve-content ul {
-        height: 300px !important;
+        height: 195px !important;
+    }
+
+    .sec-steve-content ul li:first-child{
+        padding-top: 48px !important;
     }
 
     .landing-copy-big {
