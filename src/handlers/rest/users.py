@@ -1,5 +1,6 @@
 import webapp2
 import logging
+import time
 
 from webapp2_extras.security import generate_password_hash, check_password_hash
 
@@ -164,7 +165,7 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
             photo = '/api/common/download_image/'+str(photo_blob_key)
         password_hash = generate_password_hash(req_handler['password'])
         user = User(key_name = email, name = req_handler['name'], password = password_hash, photo = photo)
-        intercomio_api.users(email=email, name=req_handler['name'])
+        intercomio_api.users(email=email, name=req_handler['name'], signed_up_at=int(time.time()))
         intercomio_api.events(email=email, event_name='signedup')
         mixpanel_api.users(email, req_handler['name'])
         mixpanel_api.events(email, 'signedup')
