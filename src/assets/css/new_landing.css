@@ -210,30 +210,22 @@
 .track-img {
     height: 500px;
     background-size: contain !important;
-    margin-top: 242px;
+    margin-top: 235px;
+    margin-bottom: 128px;
 }
 
 .track-copy {
-    padding-top: 96px;
-    padding-bottom: 96px;
+    padding-top: 128px;
+    padding-bottom: 548px;
 }
 
 #track .carousel-control {
     z-index: 5555;
+    color: #139fe1;
 }
 
-#track .carousel-control.right {
-  background-image: -webkit-linear-gradient(left,rgba(0,0,0,.0001) 0,rgba(0,0,0,.19) 100%);
-  background-image: -o-linear-gradient(left,rgba(0,0,0,.0001) 0,rgba(0,0,0,.19) 100%);
-  background-image: -webkit-gradient(linear,left top,right top,from(rgba(0,0,0,.0001)),to(rgba(0,0,0,.19)));
-  background-image: linear-gradient(to right,rgba(0,0,0,.0001) 0,rgba(0,0,0,.19) 100%);
-}
-
-#track .carousel-control.left {
-  background-image: -webkit-linear-gradient(left,rgba(0,0,0,.19) 0,rgba(0,0,0,.0001) 100%);
-  background-image: -o-linear-gradient(left,rgba(0,0,0,.19) 0,rgba(0,0,0,.0001) 100%);
-  background-image: -webkit-gradient(linear,left top,right top,from(rgba(0,0,0,.19)),to(rgba(0,0,0,.0001)));
-  background-image: linear-gradient(to right,rgba(0,0,0,.19) 0,rgba(0,0,0,.0001) 100%);
+#track .carousel-control.right, #track .carousel-control.left {
+  background-image: none;
 }
 
 #teams-section .width960>.row, #section4-carousel .width960>.row{
@@ -307,18 +299,19 @@
         font-size: 20px !important;
     }
 
-    .track-copy {
-        padding-top: 50px;
-        padding-bottom: 50px;
+    #track, #track ul {
+        height: 611px !important;
     }
 
     .track-img {
-        margin-top: 0px;
-        height: 240px;
+        height: 235px;
+        margin-top: 248px;
+        margin-bottom: 128px;
     }
 
-    #track ul {
-        height: 150px !important;
+    .track-copy {
+        padding-top: 128px;
+        padding-bottom: 411px;
     }
 
     #section4-carousel .width960>.row{

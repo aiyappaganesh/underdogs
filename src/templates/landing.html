@@ -173,8 +173,10 @@
             </ol>
             {% for slide in tracking_carousel.slides %}
             <div id="tracking{{forloop.counter}}-copy" class="stationary {% if forloop.first %}show-element{% else %}hide-element{% endif %}">
-                <div class="width960">
-                    {% include "components/centered_content.html" with centered=slide.centered%}
+                <div class="centered-full-screen-element">
+                    <div class="width960">
+                        {% include "components/centered_content.html" with centered=slide.centered%}
+                    </div>
                 </div>
             </div>
             {% endfor %}
