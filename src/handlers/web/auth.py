@@ -28,6 +28,7 @@ from util import util
 from user_data.linkedin import pull_profile_data as linkedin_profile_data_pull
 from user_data.angellist import pull_profile_data as angellist_profile_data_pull
 from intercomio import api as intercomio_api
+from mixpanel import api as mixpanel_api
 
 from odesk import Client
 
@@ -62,6 +63,7 @@ def _user_logged_in(handler):
             return False
         else:
             intercomio_api.users(session['me_email'], last_seen_ip=handler.request.remote_addr)
+            mixpanel_api.users(session['me_email'], ip=handler.request.remote_addr)
             return True
     return False
 

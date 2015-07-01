@@ -6,6 +6,11 @@ def events(email, event_name):
 	mp = Mixpanel(TOKEN)
 	mp.track(email, event_name)
 
-def users(email, name):
+def users(email, name=None, ip=None):
 	mp = Mixpanel(TOKEN)
-	mp.people_set(email, {'$first_name': name, '$email': email})
+	params = {'$email': email}
+	if name:
+		params['$name'] = name
+	if ip:
+		params['$ip'] = ip
+	mp.people_set(email, params)
