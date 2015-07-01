@@ -21,6 +21,7 @@ from model.company_members import CompanyMember
 from model.signedup_member import SignedUpMember
 from util import util
 from intercomio import api as intercomio_api
+from mixpanel import api as mixpanel_api
 
 class LoginAuth():
     def __init__(self):
@@ -191,6 +192,7 @@ class CustomLoginHandler(WebRequestHandler):
         curr_session['me_name'] = user.name
         curr_session['me_id'] = self['email']
         intercomio_api.events(email=curr_session['me_email'], event_name='loggedin')
+        mixpanel_api.events(curr_session['me_email'], 'loggedin')
 
 
     def post(self):

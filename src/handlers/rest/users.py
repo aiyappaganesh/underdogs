@@ -22,6 +22,7 @@ from util.util import separator, get_user, get_company_id_from_session, validate
 from model.user import User
 from model.company import Company
 from intercomio import api as intercomio_api
+from mixpanel import api as mixpanel_api
 
 networks = {
 GITHUB: github,
@@ -165,6 +166,8 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
         user = User(key_name = email, name = req_handler['name'], password = password_hash, photo = photo)
         intercomio_api.users(email=email, name=req_handler['name'])
         intercomio_api.events(email=email, event_name='signedup')
+        mixpanel_api.users(email, req_handler['name'])
+        mixpanel_api.events(email, 'signedup')
         user.put()
 
     def delete_signedup_member(self, email):
