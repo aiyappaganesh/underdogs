@@ -20,6 +20,7 @@ from model.company import Company
 from model.company_members import CompanyMember
 from model.signedup_member import SignedUpMember
 from util import util
+from intercomio import api as intercomio_api
 
 class LoginAuth():
     def __init__(self):
@@ -185,9 +186,12 @@ class CustomLoginHandler(WebRequestHandler):
         curr_session = get_current_session()
         if curr_session.is_active():
             curr_session.terminate()
+        user = User.get_by_key_name(self['email'])
         curr_session['me_email'] = self['email']
-        curr_session['me_name'] = User.get_by_key_name(self['email']).name
+        curr_session['me_name'] = user.name
         curr_session['me_id'] = self['email']
+        intercomio_api.events(email=curr_session['me_email'], event_name='loggedin')
+
 
     def post(self):
         email = self['email']

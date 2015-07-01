@@ -21,6 +21,7 @@ from gaesessions import get_current_session
 from util.util import separator, get_user, get_company_id_from_session, validate_captcha
 from model.user import User
 from model.company import Company
+from intercomio import api as intercomio_api
 
 networks = {
 GITHUB: github,
@@ -162,6 +163,8 @@ class MemberSignupHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHand
             photo = '/api/common/download_image/'+str(photo_blob_key)
         password_hash = generate_password_hash(req_handler['password'])
         user = User(key_name = email, name = req_handler['name'], password = password_hash, photo = photo)
+        intercomio_api.users(email=email, name=req_handler['name'])
+        intercomio_api.events(email=email, event_name='signedup')
         user.put()
 
     def delete_signedup_member(self, email):
