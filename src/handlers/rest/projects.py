@@ -9,6 +9,7 @@ from model.project import Project
 from model.project_members import ProjectMember
 from model.user import User
 from datetime import date, datetime
+from intercomio import api as intercomio_api
 
 class AddProjectHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
     def read_image(self):
@@ -28,15 +29,17 @@ class AddProjectHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHandle
         p.put()
         return p
 
-    def create_project_admin(self, p):
+    def create_project_admin(self, p, user_id):
         session = get_current_session()
-        ProjectMember(parent=p, user_id = session['me_email'], is_admin=True).put()
+        ProjectMember(parent=p, user_id = user_id, is_admin=True).put()
 
     @web_login_required
     def post(self):
         image_key = self.read_image()
         p = self.create_project(image_key)
-        self.create_project_admin(p)
+        session = get_current_session()
+        self.create_project_admin(p, session['me_email'])
+        intercomio_api.events(session['me_email'], event_name='created_project')
         self.redirect('/startups/search/criteria')
 
 class UpdateProjectHandler(RequestHandler):
