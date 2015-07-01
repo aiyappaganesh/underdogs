@@ -105,8 +105,9 @@ class ProjectListPage(WebRequestHandler):
         column = self['column'] if self['column'] else 'end_date'
         path = 'list_projects.html'
         projects = self.get_all_projects(order, column)
-        print projects
-        template_values = {'projects': projects, 'order': order, 'column': column}
+        project_rows = [projects[i:i+3] for i in range(0, len(projects), 3)]
+        logging.info(project_rows)
+        template_values = {'project_rows': project_rows, 'order': order, 'column': column}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class UpcomingProjectDetailsPage(WebRequestHandler):
