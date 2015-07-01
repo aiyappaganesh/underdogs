@@ -366,7 +366,7 @@ a small {
 }
 
 .blue-font {
-    color: #22A7F0;
+    color: #139fe1;
 }
 
 .white-font {
@@ -378,7 +378,7 @@ a small {
 }
 
 .blue-background {
-    background-color: #22A7F0;
+    background-color: #139fe1;
 }
 
 .white-background {
@@ -469,7 +469,7 @@ a small {
 }
 
 .company-img .caption {
-    background-color: #22A7F0 !important;
+    background-color: #139fe1 !important;
     color: #ffffff !important;
     text-shadow: none !important;
 }
@@ -825,11 +825,11 @@ sup {
 }
 
 .dev-scores-popover .popover.left .arrow, .dev-scores-popover .popover.left .arrow:after {
-    border-left-color: #22A7F0 !important;
+    border-left-color: #139fe1 !important;
 }
 
 .dev-scores-popover .popover.right .arrow, .dev-scores-popover .popover.right .arrow:after {
-    border-right-color: #22A7F0 !important;
+    border-right-color: #139fe1 !important;
 }
 
 .startup-details-content {

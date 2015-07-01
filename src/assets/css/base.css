@@ -30,9 +30,9 @@
 }
 
 .animate .navbar-btn:hover, .get-started-button.inverse:hover {
-    background-color: #22A7F0 !important;
+    background-color: #139fe1 !important;
     color: #ffffff !important;
-    border-color: #22A7F0 !important;
+    border-color: #139fe1 !important;
 }
 
 .dark-nav .landing-logo {
@@ -57,9 +57,9 @@
 }
 
 .light-nav .navbar-btn:hover {
-    background-color: #22A7F0 !important;
+    background-color: #139fe1 !important;
     color: #ffffff !important;
-    border-color: #22A7F0 !important;
+    border-color: #139fe1 !important;
 }
 
 .dark-nav .navbar-btn {
@@ -67,9 +67,9 @@
 }
 
 .dark-nav .navbar-btn:hover {
-    background-color: #22A7F0 !important;
+    background-color: #139fe1 !important;
     color: #ffffff !important;
-    border-color: #22A7F0 !important;
+    border-color: #139fe1 !important;
 }
 
 .main-nav-right>li {
@@ -102,8 +102,8 @@
     }
 
     .light-nav .navbar-btn:hover {
-        background-color: #22A7F0 !important;
+        background-color: #139fe1 !important;
         color: #ffffff !important;
-        border-color: #22A7F0 !important;
+        border-color: #139fe1 !important;
     }
 }
