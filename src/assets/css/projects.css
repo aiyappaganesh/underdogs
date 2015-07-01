@@ -69,6 +69,10 @@
     color:  #139fe1;
 }
 
+.section-slide-3-img{
+    border-radius: 50%;
+}
+
 .project-title {
     border-top: 0px;
     border-left: 0px;
