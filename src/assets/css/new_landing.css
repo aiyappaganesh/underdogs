@@ -121,20 +121,8 @@
 }
 
 .section-slide-3-img-container {
-    border-radius: 50%;
     background-color:  #139fe1;
-    width: 128px;
-    height: 128px;
-    margin: auto;
-}
-
-.section-slide-3-img {
-    background-size: auto auto;
-    background-repeat: no-repeat;
-    background-position: center center;
-    height: 128px;
-    width: 128px;
-}
+ }
 
 .section-slide-6-copy {
     font-family: 'Montserrat', sans-serif;

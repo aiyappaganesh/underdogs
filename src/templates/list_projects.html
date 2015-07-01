@@ -61,16 +61,28 @@
                 {% for project in projects %}
                     <div class="col-md-4 list-row">
                         <div class="row">
-                            <h3>{{project.title}}</h3>
-                        </div>
-                        <a href="/projects/upcoming/details?id={{project.id}}">
-                            <div class="thumbnail company-dashboard-thumbnail project-image" style="background-image:url('{% if project.image %}/api/common/download_image/{{project.image}}{% else %}/assets/img/company/company.png{% endif %}');">
-                                <div class="caption text-center wrapped">
-                                    <p class="caption-profile normal-copy">{{project.description}}</p>
-                                    <h3 class="project-company">{{project.company}}</h3>
-                                </div>
+                            <div class="section-slide-3-img-container">
+                                <div class="section-slide-3-img" style="background-image:url('{% if project.image %}/api/common/download_image/{{project.image}}{% else %}/assets/img/company/company.png{% endif %}')"></div>
                             </div>
-                        </a>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 col-xs-1">
+                            </div>
+                            <div class="col-sm-6 col-xs-10">
+                                <p class="header-3 dark-font center-align section-slide-3-copy-small">{{project.title}}</p>
+                            </div>
+                            <div class="col-sm-3 col-xs-1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 col-xs-1">
+                            </div>
+                            <div class="col-sm-6 col-xs-10">
+                                <p class="normal-copy blue-font center-align section-slide-3-copy-small">{{project.category}}</p>
+                            </div>
+                            <div class="col-sm-3 col-xs-1">
+                            </div>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
