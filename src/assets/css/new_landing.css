@@ -238,6 +238,15 @@
     padding: 5px;
 }
 
+.carousel-2-slide {
+    height: 715px;
+}
+
+.community-carousel-content {
+    padding-top: 128px;
+    padding-bottom: 128px;
+}
+
 @media (max-width: 767px) {
     .sec-steve-img{
         height: 300px !important;
@@ -322,5 +331,9 @@
 
     #section4-carousel .width960>.row{
         padding: 10px;
+    }
+
+    .carousel-2-slide {
+        min-height: 644px !important;
     }
 }
