@@ -234,7 +234,16 @@
 }
 
 #teams-section .width960>.row, #section4-carousel .width960>.row{
-    padding: 24px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+#teams-section .width960>.row:first-child{
+    padding-top: 128px;
+}
+
+#teams-section .width960>.row:last-child{
+    padding-bottom: 128px;
 }
 
 #section4-carousel li{
@@ -287,7 +296,7 @@
     }
 
     .section-slide-3-img {
-        margin-top: 15px;
+        margin-top: 24px;
     }
 
     .section-slide-6-copy {
