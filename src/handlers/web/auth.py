@@ -61,7 +61,7 @@ def _user_logged_in(handler):
             session.terminate()
             return False
         else:
-            intercomio_api.users(session['me_email'])
+            intercomio_api.users(session['me_email'], last_seen_ip=handler.request.remote_addr)
             return True
     return False
 
