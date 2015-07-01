@@ -1,1 +1,1 @@
-categories = ['Featured Projects', 'Fin Tech']
+categories = ['Health | Food | Lifestyle', 'Media | News', 'Media | Music', 'Health', 'Education', 'Finance', 'Finance | Banking', 'Health | Insurance', 'Finance | Investing']
