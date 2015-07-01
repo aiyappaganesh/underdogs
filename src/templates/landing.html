@@ -208,8 +208,10 @@
                 </div>
             </div>
         </div>
-        <div class="centered-full-width-element final-section" style="margin-top:60px;margin-bottom:60px;color:#000000;text-align:center">
-            {% include "components/centered_content.html" with centered=footer_centered %}
+        <div class="row centered-full-width-element final-section" style="padding-top:60px;padding-bottom:60px;color:#333333;text-align:center">
+            <div class="col-sm-12">
+                {% include "components/centered_content.html" with centered=footer_centered %}
+            </div>
         </div>
     </div>
 {% endblock %}

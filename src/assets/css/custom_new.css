@@ -872,7 +872,7 @@ sup {
     background-color:#e8e8e8
 }
 
-.centered-full-screen-element {
+.centered-full-screen-element, .centered-full-width-element {
     display: table-cell;
     vertical-align: middle;
 }
