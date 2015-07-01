@@ -1,7 +1,6 @@
 import webapp2
 import logging
 
-from gaesessions import get_current_session
 from handlers.web import WebRequestHandler
 from model.company import Company
 from cities_mapping import cities_map
@@ -49,10 +48,7 @@ def get_footer_centered_contents():
     return CenteredContents(0, 0, contents, False)
 
 def get_template_values_for_landing():
-    session = get_current_session()
     template_values = {}
-    template_values['current_user'] = session['me_email'] if 'me_email' in session else None
-    logging.info(template_values['current_user'])
     template_values['team_members'] = get_team_members()
     template_values['startups'] = get_startups()
     template_values['landing_centered'] = get_landing_centered_contents()
