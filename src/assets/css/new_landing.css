@@ -236,8 +236,8 @@
   background-image: linear-gradient(to right,rgba(0,0,0,.19) 0,rgba(0,0,0,.0001) 100%);
 }
 
-#teams-section .width960>.row, #section4-carousel .width960>.row, #track .row{
-    padding: 12px;
+#teams-section .width960>.row, #section4-carousel .width960>.row{
+    padding: 24px;
 }
 
 #section4-carousel li{
