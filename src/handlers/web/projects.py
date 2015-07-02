@@ -131,13 +131,9 @@ class CompletedProjectDetailsPage(WebRequestHandler):
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class ProjectStudyPage(WebRequestHandler):
-    def make_json(self, project):
-        return {'id': project.id, 'title': project.title, 'image': project.image, 'category': project.category if project.category else categories[0], 'description': project.description, 'skills': project.skills, 'bid': project.bid, 'end_date': project.end_date}
-
-    def get(self):
-        project_id = long(self['id'])
-        path = 'project_study.html'
-        template_values = self.make_json(get_project(project_id))
+    @classmethod
+    def get_comfort_template_values(cls):
+        template_values = {}
         template_values['sec_1_bg'] = '/assets/img/study/sec_1_bg.png'
         template_values['sec_1_title'] = 'COMFORT'
         template_values['sec_1_subtitle'] = 'Healthcare with TLC'
@@ -161,13 +157,25 @@ class ProjectStudyPage(WebRequestHandler):
         template_values['no_navbar_onload'] = True
         template_values['nav_color'] = 'light-nav'
         template_values['unscrolled'] = True
-        template_values['app_shots'] = [ 
+        template_values['app_shots'] = [
                 {'bg_color': '#397ca0', 'copy': 'A HOME SCREEN AND PROFILE THAT REFLECT THE COMFORT BRAND', 'image': '/assets/img/study/Comfort-ID-Animation.gif'},
                 {'bg_color': '#b5a330', 'copy': 'FITNESS AND NUTRITION DATA TO TAKE PRIDE IN', 'image': '/assets/img/study/Comfort-Health-Stats-mockup.gif'},
                 {'bg_color': '#589a2d', 'copy': 'FIND THE BEST DOCTORS AS EASY AS FINDING THE BEST RESTAURANTS', 'image': '/assets/img/study/Comfort-Doctor-Animation-2.gif'},
                 {'bg_color': '#b04f4f', 'copy': 'GET DIAGNOSIS AND TREATMENT THROUGH TEXT MESSAGE', 'image': '/assets/img/study/Comfort-Interact-Animation.gif'}
         ]
         template_values['sprint_images'] = ['/assets/img/study/sprints_img_1.png', '/assets/img/study/sprints_img_2.png']
+        return template_values
+
+    @classmethod
+    def get_template_values(cls, project_name):
+        template_value_map = {}
+        template_value_map['comfort'] = ProjectStudyPage.get_comfort_template_values()
+        return template_value_map[project_name]
+
+    def get(self):
+        project_name = str(self['name'])
+        path = 'project_study.html'
+        template_values = ProjectStudyPage.get_template_values(project_name)
         self.write(self.get_rendered_html(path, template_values), 200)
 
 app = webapp2.WSGIApplication(
