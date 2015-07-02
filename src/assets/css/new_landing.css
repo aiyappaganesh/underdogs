@@ -238,6 +238,10 @@
     padding: 5px;
 }
 
+#section4-carousel .header-3 {
+    line-height: 1 !important;
+}
+
 .carousel-2-slide {
     height: 715px;
 }
