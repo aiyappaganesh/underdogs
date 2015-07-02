@@ -42,15 +42,15 @@
     margin-top: 0px;
 }
 
-h3 {
+.list-row h3 {
     padding-top: 24px;
 }
 
-.normal-copy {
+.list-row .normal-copy {
     padding-top: 10px;
 }
 
-p {
+.list-row p {
     margin: 0px;
 }
 
