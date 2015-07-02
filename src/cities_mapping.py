@@ -4,5 +4,8 @@ cities_map = {
 	'5675267779461120': 'New York',
 	'5706803308396544': 'Berkeley',
 	'5755685136498688': 'New York',
+	'5726607939469312': 'San Francisco',
+	'5176769984331776': 'Cambridge',
+	'5104958131142656': 'New York',
     'default': 'New York'
 }
