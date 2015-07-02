@@ -120,11 +120,11 @@
             <div class="row width960 center-align section-content">
                 <div class="col-sm-1"></div>
                 {% if not forloop.counter|divisibleby:2 %}
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                     <img class="auto-margin sec-app-img sec-app-img-margin-bottom" src="{{app_shot.image}}">
                 </div>
                 {% else %}
-                <div class="col-sm-6 sec-app-copy" >
+                <div class="col-sm-5 sec-app-copy" >
                     <ul style="height:550px;display:table-cell;list-style-type:none;vertical-align:middle;padding-left:0px;line-height:1">
                         <li class="sec-app-copy-big header-1">
                             {{app_shot.copy}}
@@ -133,11 +133,11 @@
                 </div>
                 {% endif %}
                 {% if forloop.counter|divisibleby:2 %}
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                     <img class="auto-margin sec-app-img sec-app-img-margin-top" src="{{app_shot.image}}">
                 </div>
                 {% else %}
-                <div class="col-sm-6 sec-app-copy">
+                <div class="col-sm-5 sec-app-copy">
                     <ul style="height:550px;display:table-cell;list-style-type:none;vertical-align:middle;padding-left:0px;line-height:1">
                         <li class="sec-app-copy-big header-1">
                             {{app_shot.copy}}
