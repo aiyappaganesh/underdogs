@@ -274,11 +274,6 @@ a small {
     vertical-align: middle;
 }
 
-.company-img {
-    max-height: 150px;
-    min-height: 150px;
-}
-
 .center-align {
     text-align: center;
 }
@@ -481,12 +476,6 @@ a small {
 
 .nav-padded {
     margin-top: 192px;
-}
-
-.company-img .caption {
-    background-color: #139fe1 !important;
-    color: #ffffff !important;
-    text-shadow: none !important;
 }
 
 .list-row {

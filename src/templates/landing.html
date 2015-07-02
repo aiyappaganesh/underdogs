@@ -219,16 +219,4 @@
 {% block Scripts %}
     <script src="/assets/js/landing.js"></script>
     {% include "components/new_donut_chart_script.html" %}
-    <script>
-        $(document).ready(function(){
-            $('.company-img').mouseover(function(){
-                $(this).find('.caption').css('opacity', 1);
-                $(this).find('.company-image').css('z-index', -100);
-            });
-            $('.company-img').mouseout(function(){
-                $(this).find('.caption').css('opacity', 0);
-                $(this).find('.company-image').css('z-index', 100);
-            });
-        });
-    </script>
 {% endblock %}
