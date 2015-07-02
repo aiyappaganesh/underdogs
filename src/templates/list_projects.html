@@ -63,7 +63,7 @@
                         {% for row in project_rows %}
                             <div class="row list-row">
                             {% for project in row %}
-                                <div class="col-sm-4">
+                                <div class="col-sm-4 project-cell">
                                     <div class="row">
                                         <div class="section-slide-3-img-container">
                                             <div class="section-slide-3-img" style="background-image:url('{% if project.image %}/api/common/download_image/{{project.image}}{% else %}/assets/img/company/company.png{% endif %}')"></div>

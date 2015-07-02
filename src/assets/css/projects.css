@@ -97,7 +97,7 @@
 .projects-list-heading {
     border-bottom: 1px solid #ddd !important;
     padding-bottom: 24px !important;
-    padding-top: 96px !important;
+    padding-top: 72px !important;
 }
 
 .device-bg {
@@ -160,7 +160,7 @@
 }
 
 #featured_project .img-row {
-    margin-top: 48px;
+    margin-top: 24px;
     padding-top: 0px;
     padding-bottom: 0px;
     margin-bottom: 24px;
