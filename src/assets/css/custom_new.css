@@ -190,7 +190,7 @@ h1, h2, h3 {
 }
 
 .bottom-padded {
-    padding-bottom: 100px !important;
+    padding-bottom: 128px !important;
 }
 
 .scores-table {
@@ -480,7 +480,7 @@ a small {
 }
 
 .nav-padded {
-    margin-top: 64px;
+    margin-top: 192px;
 }
 
 .company-img .caption {
@@ -1004,7 +1004,7 @@ sup {
     }
 
     .bottom-padded {
-        padding-bottom: 50px !important;
+        padding-bottom: 48px !important;
     }
 
     .footer-title {
