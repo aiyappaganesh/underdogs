@@ -34,7 +34,7 @@
 }
 
 .dark-nav, .dark-nav a {
-    color: #000000 !important;
+    color: #333333 !important;
 }
 
 .light-nav, .light-nav a {
@@ -62,7 +62,7 @@
 
 .scrolled .navbar-nav>li>a {
     line-height: 12px;
-    color: #1b1e37 !important;
+    color: #333333 !important;
 }
 
 .navbar-nav>li>a:hover, .navbar-nav>li:hover {
@@ -104,7 +104,7 @@
 
 .animate .navbar-btn {
     margin-top: 15px !important;
-    border-color: #1b1e37 !important;
+    border-color: #333333 !important;
 }
 
 .animate .navbar-btn:hover, .get-started-button.inverse:hover {
@@ -120,7 +120,7 @@
 }
 
 .dark-nav .navbar-btn {
-    border-color:  #1b1e37;
+    border-color: #333333;
 }
 
 .dark-nav .navbar-btn:hover {
@@ -139,12 +139,12 @@
     }
 
     .navbar-nav>li>a {
-        color: #1b1e37 !important;
+        color: #333333 !important;
     }
 
     .navbar-btn {
         margin-top: 15px !important;
-        border-color: #1b1e37 !important;
+        border-color: #333333 !important;
     }
 
     .light-nav .navbar-btn:hover {
