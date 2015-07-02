@@ -1,5 +1,13 @@
+p {
+    margin:0px;
+}
+
+.section-content {
+    padding-top: 128px;
+    padding-bottom: 128px;
+}
+
 .title {
-    padding-top: 128px !important;
     padding-bottom: 24px !important;
     border-top: 0px;
     border-left: 0px;
@@ -11,24 +19,11 @@
 }
 
 .copy {
-    padding-top: 24px !important;
-    padding-bottom: 128px !important;
-}
-
-.sec-1 {
-    min-height: 795px !important;
-}
-
-.sec-1-title {
-    padding-top: 128px;
+    padding-top: 24px;
 }
 
 .sec-1-subtitle {
     padding-top: 10px;
-}
-
-.sec-2-copy {
-    color: #656d78;
 }
 
 .sec-3-copy {
@@ -38,17 +33,16 @@
 
 .sec-3-subtitle {
     text-align: center;
-    padding-top: 24px;
+    padding-top: 48px;
 }
 
 .sec-3-donuts {
-    padding-top: 24px;
-    padding-bottom: 128px;
+    padding-top: 48px;
 }
 
 .sec-3-donut-title {
     text-align: center;
-    padding-top: 24px;
+    padding-top: 10px;
 }
 
 .new-donut-container {
@@ -62,7 +56,6 @@
     border-bottom: 1px;
     border-color:  #cccccc;
     border-style: solid;
-    padding-top: 128px;
     padding-bottom: 24px;
 }
 
@@ -98,26 +91,34 @@
 }
 
 #startup-project-desc .copy {
+    padding-bottom: 48px !important;
+}
+
+#startup-project-desc .copy:first-of-type {
+    padding-bottom: 48px !important;
+}
+
+#startup-project-desc .copy:last-of-type {
+    padding-bottom: 0px !important;
+}
+
+#startup-project-desc .title {
+    padding-top: 48px !important;
     padding-bottom: 24px !important;
 }
 
-#joint-sprints .title {
-    padding-top: 24px !important;
-    padding-bottom: 24px !important;
+.joint-sprint-img {
+    padding-top: 48px;
+    padding-bottom: 48px;
 }
 
-#joint-sprints .copy, #branding .copy {
-    padding-top: 24px !important;
-    padding-bottom: 24px !important;
-}
-
-#joint-sprints .row {
+#branding .copy, .branding-img {
     padding-top: 24px;
     padding-bottom: 24px;
 }
 
-#joint-sprints .copy:last-child, #branding .copy:last-child {
-    padding-bottom: 128px !important;
+#branding .copy:last-child {
+    padding-bottom: 0px !important;
 }
 
 .app-shots img {
@@ -148,12 +149,20 @@
     }
 
     .sec-app-copy ul {
-        height: 250px !important;
+        height: auto !important;
     }
 
     .sec-app-img{
         background-size: contain !important;
         height: 300px !important;
+    }
+
+    .sec-app-img-margin-top {
+        margin-top: 24px;
+    }
+
+    .sec-app-img-margin-bottom {
+        margin-bottom: 24px;
     }
 
     .sprint-img {

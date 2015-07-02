@@ -11,7 +11,7 @@
 
 {% block Content %}
     <div class="fullscreen-section sec-1 white-font center-align" style="background:url('{{sec_1_bg}}');">
-        <div class="width960">
+        <div class="width960 section-content">
             <div class="row sec-1-title">
                 <h1>{{sec_1_title}}</h1>
             </div>
@@ -21,63 +21,59 @@
         </div>
     </div>
     <div class="white-background fullscreen-section">
-        <div class="width960">
-            <div class="row title">
-                <h2>{{sec_2_title}}</h2>
-            </div>
-            <div class="row copy sec-2-copy normal-copy">
-                <span>{{sec_2_copy|linebreaksbr}}</span>
+        <div class="centered-full-screen-element">
+            <div class="width960 section-content">
+                <div class="row title">
+                    <h2>{{sec_2_title}}</h2>
+                </div>
+                <div class="row copy sec-2-copy normal-copy">
+                    <span>{{sec_2_copy|linebreaksbr}}</span>
+                </div>
             </div>
         </div>
     </div>
     <div id="startup" class="fullscreen-section sec-3 white-font" style="background:url('{{sec_3_bg}}');">
-        <div class="width960">
-            <div class="row title">
-                <h2>{{sec_3_title}}</h2>
-            </div>
-            <div class="row copy sec-3-copy normal-copy">
-                <span>{{sec_3_copy|linebreaksbr}}</span>
-            </div>
-            <div class="row sec-3-subtitle">
-                <h3>{{sec_3_subtitle}}</h3>
-            </div>
-            <div class="row sec-3-donuts">
-                {% for donut in donuts %}
-                <div class="col-sm-4">
-                    {% include "components/new_donut_chart.html" with donut=donut %}
-                    <h3 class="sec-3-donut-title">{{donut.title}}</h3>
+        <div class="centered-full-screen-element">
+            <div class="width960 section-content">
+                <div class="row title">
+                    <h2>{{sec_3_title}}</h2>
                 </div>
-                {% endfor %}
+                <div class="row copy sec-3-copy normal-copy">
+                    <span>{{sec_3_copy|linebreaksbr}}</span>
+                </div>
+                <div class="row sec-3-subtitle">
+                    <h3>{{sec_3_subtitle}}</h3>
+                </div>
+                <div class="row sec-3-donuts">
+                    {% for donut in donuts %}
+                    <div class="col-sm-4">
+                        {% include "components/new_donut_chart.html" with donut=donut %}
+                        <h3 class="sec-3-donut-title">{{donut.title}}</h3>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
     <div id="startup-project-desc" class="white-background fullscreen-section">
-        <div class="width960">
-            <div class="row startup-founder">
-                <div class="row founder-picture" style="background-image:url('{{founder_image}}');"></div>
-                <div class="row founder-name"><h2>{{founder_name}}</h2></div>
-                <div class="row founder-desc"><h3>{{founder_desc}}</h3></div>
-            </div>
-            <div class="row copy normal-copy">
-                <span>{{sec_4_copy|linebreaksbr}}</span>
-            </div>
-        </div>
-    </div>
-    <div id="joint-sprints" class="white-background fullscreen-section">
         <div class="centered-full-screen-element">
-            <div class="width960">
+            <div class="width960 section-content">
+                <div class="row startup-founder">
+                    <div class="row founder-picture" style="background-image:url('{{founder_image}}');"></div>
+                    <div class="row founder-name"><h2>{{founder_name}}</h2></div>
+                    <div class="row founder-desc"><h3>{{founder_desc}}</h3></div>
+                </div>
+                <p class="copy normal-copy">{{sec_4_copy|linebreaksbr}}</p>
                 <div class="row title">
                     <h2>JOINT SPRINTS</h2>
                 </div>
-                <div class="row copy normal-copy">
-                    <span>
-                        Once we'd fixed on the concept of comfort, we started with a joint backlog for Design and Development.
-                        This was user to estimate and prioritize our work effort over 8 weeks.. We worked through our backlog
-                        in weekly sprints, building the product out, experimenting with different design directions, and
-                        gradually refining the experience.
-                    </span>
-                </div>
-                <div class="row center-align">
+                <p class="copy normal-copy">
+                    Once we'd fixed on the concept of comfort, we started with a joint backlog for Design and Development.
+                    This was user to estimate and prioritize our work effort over 8 weeks.. We worked through our backlog
+                    in weekly sprints, building the product out, experimenting with different design directions, and
+                    gradually refining the experience.
+                </p>
+                <div class="row center-align joint-sprint-img">
                     <div class="col-sm-1"></div>
                     {% for sprint_image in sprint_images %}
                     <div class="col-sm-1"></div>
@@ -91,27 +87,25 @@
                 <div class="row title">
                     <h2>WE DESIGNED IN CODE</h2>
                 </div>
-                <div class="row copy normal-copy">
-                    <span>
+                <p class="copy normal-copy">
                     It was important for us to get to working software as quickly as possible. Ideas that seemed great
                     in theory, and even looked great in flat comps, often broke down once we tried them out in code. By
                     coding from the very beginning, we were able to short-circuit this process, accelerating design
                     cycles and buying more time for iteration..
-                    </span>
-                </div>
+                </p>
             </div>
         </div>
     </div>
     <div id="branding" class="fullscreen-section branding white-font" style="background-image:url('{{branding_bg}}');">
         <div class="centered-full-screen-element">
-            <div class="width960">
+            <div class="width960 section-content">
                 <div class="row title">
                     <h2>{{branding_title}}</h2>
                 </div>
                 <div class="row copy normal-copy">
                     <span>{{branding_copy_top|linebreaksbr}}</span>
                 </div>
-                <div class="row center-align">
+                <div class="row center-align branding-img">
                     <img class="auto-margin" src="{{branding_img}}">
                 </div>
                 <div class="row copy normal-copy">
@@ -123,11 +117,11 @@
     {% for app_shot in app_shots %}
     <div class="fullscreen-section" style="background-color:{{app_shot.bg_color}}">
         <div class="centered-full-screen-element">
-            <div class="row width960 center-align">
+            <div class="row width960 center-align section-content">
                 <div class="col-sm-1"></div>
                 {% if not forloop.counter|divisibleby:2 %}
                 <div class="col-sm-4">
-                    <img class="auto-margin sec-app-img" src="{{app_shot.image}}">
+                    <img class="auto-margin sec-app-img sec-app-img-margin-bottom" src="{{app_shot.image}}">
                 </div>
                 {% else %}
                 <div class="col-sm-6 sec-app-copy" >
@@ -140,7 +134,7 @@
                 {% endif %}
                 {% if forloop.counter|divisibleby:2 %}
                 <div class="col-sm-4">
-                    <img class="auto-margin sec-app-img" src="{{app_shot.image}}">
+                    <img class="auto-margin sec-app-img sec-app-img-margin-top" src="{{app_shot.image}}">
                 </div>
                 {% else %}
                 <div class="col-sm-6 sec-app-copy">
