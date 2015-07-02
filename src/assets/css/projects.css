@@ -12,6 +12,11 @@
     text-align: center;
 }
 
+.comfort-image {
+    height: 600px;
+    background-size: contain;
+}
+
 .project-image {
     width: 250px;
     height: 250px;
@@ -176,6 +181,10 @@
         margin: auto;
     }
 
+    .comfort-image {
+        height: 300px !important;
+    }
+    
     .project-copy {
         text-align: center;
     }
