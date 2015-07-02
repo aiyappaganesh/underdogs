@@ -9,7 +9,6 @@
     border-radius: 125px;
     margin: auto;
     position: relative;
-    margin-bottom: 12px;
 }
 
 .company-img .caption {
@@ -28,24 +27,6 @@
     border-radius: 125px;
 }
 
-.company-name {
-    margin: 0px;
-    padding-top: 12px;
-    padding-bottom: 5px;
-}
-
-.company-desc {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin: 0px;
-}
-
-.company-city {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin: 0px;
-}
-
 .company-image {
     width: 100% !important;
     height: 100% !important;
@@ -59,6 +40,18 @@
 
 #startups-listing .list-row:first-child {
     margin-top: 0px;
+}
+
+h3 {
+    padding-top: 24px;
+}
+
+.normal-copy {
+    padding-top: 10px;
+}
+
+p {
+    margin: 0px;
 }
 
 @media (max-width: 767px) {
