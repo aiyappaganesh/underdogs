@@ -57,6 +57,10 @@
     margin-bottom: 0px;
 }
 
+#startups-listing .list-row:first-child {
+    margin-top: 0px;
+}
+
 @media (max-width: 767px) {
     .company-img {
         width: 125px;
