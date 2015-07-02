@@ -86,7 +86,6 @@
 
 .project-image-section {
     text-align: center;
-    padding-top: 10px;
 }
 
 .featured-project-title {
@@ -156,8 +155,15 @@
 }
 
 #featured_project .row {
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+#featured_project .img-row {
+    margin-top: 48px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 24px;
 }
 
 .project-brief .row {
