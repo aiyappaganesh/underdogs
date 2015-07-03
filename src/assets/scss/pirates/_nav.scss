@@ -1,3 +1,26 @@
+@import "_constants.scss";
+
+header {
+    position: relative;
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+    @at-root .scrolled & {
+    	position: fixed;
+	    transition: all .33s cubic-bezier(0.694,0.0482,0.335,1);
+	    -webkit-transition: all .33s cubic-bezier(0.694,0.0482,0.335,1);
+	    top: 0 !important;
+	    background-color: #ffffff !important;
+	    border-bottom: 1px solid #ddd !important;
+    }
+    @at-root .scrolled & .nav a {
+    	color: $black_color;
+    }
+    & .nav a {
+    	color: $white_color;
+    }
+}
+
 .nav {
     -webkit-transition: all 0.1s ease;
     transition: all 0.1s ease;
@@ -6,9 +29,6 @@
 .light-nav {
 	@extend .nav;
 	color: #ffffff !important;
-	a {
-		color: #ffffff !important;
-	}
 	a:hover {
 		color: #139fe1 !important;
 	}

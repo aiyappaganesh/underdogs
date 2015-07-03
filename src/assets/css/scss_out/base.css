@@ -1,11 +1,26 @@
+header {
+  position: relative;
+  left: 0;
+  z-index: 9999;
+  width: 100%; }
+  .scrolled header {
+    position: fixed;
+    transition: all 0.33s cubic-bezier(0.694, 0.0482, 0.335, 1);
+    -webkit-transition: all 0.33s cubic-bezier(0.694, 0.0482, 0.335, 1);
+    top: 0 !important;
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #ddd !important; }
+  .scrolled header .nav a, .scrolled header .light-nav a {
+    color: #333333; }
+  header .nav a, header .light-nav a {
+    color: #ffffff; }
+
 .nav, .light-nav {
   -webkit-transition: all 0.1s ease;
   transition: all 0.1s ease; }
 
 .light-nav {
   color: #ffffff !important; }
-  .light-nav a {
-    color: #ffffff !important; }
   .light-nav a:hover {
     color: #139fe1 !important; }
 
