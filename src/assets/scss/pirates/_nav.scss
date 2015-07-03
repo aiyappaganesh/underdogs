@@ -1,0 +1,15 @@
+.nav {
+    -webkit-transition: all 0.1s ease;
+    transition: all 0.1s ease;
+}
+
+.light-nav {
+	@extend: nav;
+	color: #ffffff !important;
+	a {
+		color: #ffffff !important;
+	}
+	a:hover {
+		color: #139fe1 !important;
+	}
+}

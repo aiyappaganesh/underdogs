@@ -6,28 +6,32 @@ $bg_btn_height: 50px;
 $sm_btn_width: 94px;
 $sm_btn_height: 32px;
 
-.button {
+@mixin button($text_color, $border_color, $width, $height) {
 	background-color:transparent;
 	-webkit-font-smoothing: antialiased;
+	color: $text_color;
 	border: {
 		radius: 4px;
 		width: 1px;
 		style: solid;
+		color:  $border_color;
+	}
+	&:hover {
+	    background-color:$white_color;
+	    color: $black_color;
 	}
 	font: {
 		weight: bold;
 		family: $btn_font;
 	}
+	width: $width;
+	height: $height;
 }
 
 .white-button {
-	@extend .button;
-	color: $white_color;
-	border-color:  $white_color;
-	&:hover {
-	    background-color:$white_color;
-	    color: $black_color;
-	}
-	width: $bg_btn_width;
-	height: $bg_btn_height;
+	
+}
+
+.navbar-btn {
+	@include button($white_color, $white_color, $sm_btn_width, $sm_btn_height);
 }

@@ -1,3 +1,5 @@
+@import "_constants.scss";
+
 @mixin reset-container {
 	.container {
         margin: 0px;
@@ -11,4 +13,28 @@
 
 @media (min-width: 0px) {
 	@include reset-container;
+}
+
+.width960 {
+    max-width: 960px;
+    margin: auto;
+}
+
+header {
+    position: relative;
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+}
+
+.row {
+    margin: 0px;
+    [class*=col-] {
+        padding: 0px;
+    }
+}
+
+.content {
+    margin-top: -$nav_height;
+    margin-bottom: 0px;
 }

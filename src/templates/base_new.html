@@ -21,7 +21,7 @@
     </head>
 
     <body class="scrollspied {% if not unscrolled %}scrolled{% endif %}">
-        <header class="header {% if not unscrolled %}animate{% endif %}">
+        <header class="{% if not unscrolled %}animate{% endif %}">
             {% block Navbar %}
                 <div class="width960 {{nav_color}}">
                     <div class="navbar-header">
@@ -52,11 +52,13 @@
                 </div>
             {% endblock %}
         </header>
+        <!--
         <a id="top-arrow" href="#" class="off">
             <span class="fa-stack">
                 <i class="fa fa-arrow-up" style=""></i>
             </span>
         </a>
+        -->
         <div class="content {% if not no_navbar_onload %}nav-offset{% endif %}">
             <div class="container">
                 <div class="row">

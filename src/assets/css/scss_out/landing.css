@@ -1,18 +1,16 @@
-.button, .white-button {
+.navbar-btn {
   background-color: transparent;
   -webkit-font-smoothing: antialiased;
+  color: #ffffff;
   border-radius: 4px;
   border-width: 1px;
   border-style: solid;
-  font-weight: bold;
-  font-family: "Montserrat", sans-serif !important; }
-
-.white-button {
-  color: #ffffff;
   border-color: #ffffff;
-  width: 180px;
-  height: 50px; }
-  .white-button:hover {
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif !important;
+  width: 94px;
+  height: 32px; }
+  .navbar-btn:hover {
     background-color: #ffffff;
     color: #333333; }
 
@@ -41,5 +39,23 @@
     margin: 0px;
     width: 100%;
     padding: 0px; } }
+.width960 {
+  max-width: 960px;
+  margin: auto; }
+
+header {
+  position: relative;
+  left: 0;
+  z-index: 9999;
+  width: 100%; }
+
+.row {
+  margin: 0px; }
+  .row [class*=col-] {
+    padding: 0px; }
+
+.content {
+  margin-top: -50px;
+  margin-bottom: 0px; }
 
 /*# sourceMappingURL=landing.css.map */
