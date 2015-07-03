@@ -154,6 +154,7 @@ class ThirdPartyLoginSuccessHandler(WebRequestHandler):
         curr_session['me_id'] = user_id
         curr_session['me_email'] = tpld.parent_id
         curr_session['me_name'] = user.name
+        mixpanel_api.events(curr_session['me_email'], 'loggedin', {'type': self['network']})
 
     def is_user_created(self, user_id):
         tpld = ThirdPartyLoginData.get_by_key_name(str(user_id))
@@ -192,7 +193,7 @@ class CustomLoginHandler(WebRequestHandler):
         curr_session['me_name'] = user.name
         curr_session['me_id'] = self['email']
         intercomio_api.events(email=curr_session['me_email'], event_name='loggedin')
-        mixpanel_api.events(curr_session['me_email'], 'loggedin')
+        mixpanel_api.events(curr_session['me_email'], 'loggedin', {'type': 'custom'})
 
 
     def post(self):

@@ -2,9 +2,9 @@ from mixpanel import Mixpanel
 
 TOKEN = '46a8b36996f1c18b64c39ec426254234'
 
-def events(email, event_name):
+def events(email, event_name, properties={}):
 	mp = Mixpanel(TOKEN)
-	mp.track(email, event_name)
+	mp.track(email, event_name, properties)
 
 def users(email, name=None, ip=None):
 	mp = Mixpanel(TOKEN)
