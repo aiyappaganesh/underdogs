@@ -84,15 +84,15 @@
         padding-bottom: 48px !important;
     }
 
-    .startup-cell:first-child {
+    .list-row:first-child .startup-cell:first-child {
         padding-top: 0px !important;
     }
 
-    .startup-cell:last-child, .project-cell:last-child {
+    .list-row:last-child .startup-cell:last-child, .list-row:last-child .project-cell:last-child {
         padding-bottom: 0px !important;
     }
 
-    .project-cell:first-child {
+    .list-row:first-child .project-cell:first-child {
         padding-top: 96px !important;
     }
 }
