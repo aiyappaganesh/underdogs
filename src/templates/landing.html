@@ -79,18 +79,14 @@
                 </div>
                 <div class="row">
                     {% for s in startups %}
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 startup-cell">
                         <div class="row">
                             <div class="sec-startups-img" style="background-image:url('{{s.image}}')"></div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-12 sec-startups-img-copy-big header-3 center-align">
-                                <span>{{s.title}}</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 sec-startups-img-copy-small normal-copy center-align">
-                                <span>{{s.sub_title}}</span>
+                            <div class="col-xs-12 center-align">
+                                <h3>{{s.title}}</h3>
+                                <p class="normal-copy">{{s.sub_title}}</p>
                             </div>
                         </div>
                     </div>

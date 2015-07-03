@@ -251,6 +251,22 @@
     padding-bottom: 128px;
 }
 
+.startup-cell p {
+    margin: 0px;
+}
+
+.startup-cell h3, .normal-copy {
+    line-height: 1 !important;
+}
+
+.startup-cell h3 {
+    padding-top: 24px;
+}
+
+.startup-cell .normal-copy {
+    padding-top: 10px;
+}
+
 @media (max-width: 767px) {
     .sec-steve-img{
         height: 300px !important;

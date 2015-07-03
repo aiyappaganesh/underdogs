@@ -54,6 +54,10 @@
     margin: 0px;
 }
 
+.list-row h3, .list-row .normal-copy {
+    line-height: 1 !important;
+}
+
 @media (max-width: 767px) {
     .company-img {
         width: 125px;
