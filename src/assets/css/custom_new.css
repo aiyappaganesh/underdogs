@@ -1095,6 +1095,10 @@ sup {
     #startup-details .shot {
         margin-bottom: 24px;
     }
+
+    .dev-scores-popover {
+        padding-top: 0px !important;
+    }
 }
 
 @media (min-width: 768px) {
