@@ -969,6 +969,19 @@ sup {
     font-weight: 400;
 }
 
+.final-section {
+    padding-top:96px;
+    padding-bottom:96px;
+    color:#333333;
+    text-align:center;
+    border-top: 1px solid #ddd !important;
+}
+
+.final-section li {
+    padding:12px;
+    line-height: 0.75 !important;
+}
+
 @media (max-width: 767px) {
     .header {
         background-color: #ffffff;
