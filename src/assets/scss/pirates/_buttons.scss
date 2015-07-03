@@ -1,0 +1,33 @@
+@import "_constants.scss";
+
+$bg_btn_width: 180px;
+$bg_btn_height: 50px;
+
+$sm_btn_width: 94px;
+$sm_btn_height: 32px;
+
+.button {
+	background-color:transparent;
+	-webkit-font-smoothing: antialiased;
+	border: {
+		radius: 4px;
+		width: 1px;
+		style: solid;
+	}
+	font: {
+		weight: bold;
+		family: $btn_font;
+	}
+}
+
+.white-button {
+	@extend .button;
+	color: $white_color;
+	border-color:  $white_color;
+	&:hover {
+	    background-color:$white_color;
+	    color: $black_color;
+	}
+	width: $bg_btn_width;
+	height: $bg_btn_height;
+}

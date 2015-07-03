@@ -1,0 +1,14 @@
+@mixin reset-container {
+	.container {
+        margin: 0px;
+        width: 100%;
+        padding: 0px;
+    }
+}
+@media (min-width: 992px) {
+	@include reset-container;
+}
+
+@media (min-width: 0px) {
+	@include reset-container;
+}

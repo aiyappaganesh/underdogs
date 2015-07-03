@@ -1,0 +1,45 @@
+.button, .white-button {
+  background-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  border-radius: 4px;
+  border-width: 1px;
+  border-style: solid;
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif !important; }
+
+.white-button {
+  color: #ffffff;
+  border-color: #ffffff;
+  width: 180px;
+  height: 50px; }
+  .white-button:hover {
+    background-color: #ffffff;
+    color: #333333; }
+
+.overlay, .landing-overlay {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%; }
+
+.landing-overlay {
+  background-color: rgba(51, 51, 51, 0.85); }
+
+.background-img {
+  background-size: cover !important;
+  background-repeat: no-repeat;
+  background-position: center center; }
+
+@media (min-width: 992px) {
+  .container {
+    margin: 0px;
+    width: 100%;
+    padding: 0px; } }
+@media (min-width: 0px) {
+  .container {
+    margin: 0px;
+    width: 100%;
+    padding: 0px; } }
+
+/*# sourceMappingURL=landing.css.map */
