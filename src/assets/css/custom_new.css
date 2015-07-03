@@ -982,6 +982,11 @@ sup {
     line-height: 0.75 !important;
 }
 
+.get-started-button.inverse {
+    color: #139fe1;
+    border-color:  #139fe1;
+}
+
 @media (max-width: 767px) {
     .header {
         background-color: #ffffff;

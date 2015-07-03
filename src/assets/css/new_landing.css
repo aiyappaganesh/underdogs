@@ -23,11 +23,6 @@
     color: #ffffff;
 }
 
-.get-started-button.inverse {
-    color: #139fe1;
-    border-color:  #139fe1;
-}
-
 .get-started-button:hover {
     background-color:#ffffff;
     color: #1c1c1c;
