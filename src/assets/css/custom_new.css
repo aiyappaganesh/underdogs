@@ -868,6 +868,7 @@ sup {
 
 #startup-details h2 {
     display: inline-block;
+    text-transform: uppercase;
 }
 
 #startup-details p {
