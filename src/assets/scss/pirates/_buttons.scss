@@ -6,26 +6,36 @@ $bg_btn_height: 50px;
 $sm_btn_width: 94px;
 $sm_btn_height: 32px;
 
-@mixin button($text_color, $border_color, $width, $height) {
+@mixin button($text_color, $border_color, $hover_color, $hover_text, $hover_border, $width, $height) {
 	background-color:transparent;
 	-webkit-font-smoothing: antialiased;
-	color: $text_color;
+	width: $width;
+	height: $height;
+	padding: 0px !important;
+	text-align: center;
+	@if $text_color != null{
+		color: $text_color;
+	}
 	border: {
 		radius: 4px;
 		width: 1px;
 		style: solid;
 		color:  $border_color;
 	}
-	&:hover {
-	    background-color:$white_color;
-	    color: $black_color;
+	@at-root a#{&}:hover {
+	    background-color:$hover_color !important;
+	    color: $hover_text !important;
+	    border-color: $hover_border;
 	}
 	font: {
 		weight: bold;
 		family: $btn_font;
 	}
-	width: $width;
-	height: $height;
+	span {
+		display: block;
+		height: $height;
+		line-height: $height;
+	}
 }
 
 .white-button {
@@ -33,5 +43,7 @@ $sm_btn_height: 32px;
 }
 
 .navbar-btn {
-	@include button($white_color, $white_color, $sm_btn_width, $sm_btn_height);
+	@include button(null, $white_color, 
+		            $blue_color, $white_color, $blue_color, 
+		            $sm_btn_width, $sm_btn_height);
 }

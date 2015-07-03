@@ -4,7 +4,7 @@
 }
 
 .light-nav {
-	@extend: nav;
+	@extend .nav;
 	color: #ffffff !important;
 	a {
 		color: #ffffff !important;
