@@ -23,7 +23,14 @@ header {
 
 .nav {
     -webkit-transition: all 0.1s ease;
+    -webkit-font-smoothing: antialiased;
     transition: all 0.1s ease;
+    letter-spacing: 1px;
+    font :{
+        size: 12px !important;
+        weight: bold !important;
+        family: $link_font;
+    };
 }
 
 .light-nav {

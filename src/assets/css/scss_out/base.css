@@ -17,7 +17,12 @@ header {
 
 .nav, .light-nav {
   -webkit-transition: all 0.1s ease;
-  transition: all 0.1s ease; }
+  -webkit-font-smoothing: antialiased;
+  transition: all 0.1s ease;
+  letter-spacing: 1px;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  font-family: "Montserrat", sans-serif !important; }
 
 .light-nav {
   color: #ffffff !important; }
