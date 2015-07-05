@@ -1,5 +1,12 @@
 @import "_constants.scss";
 
+$logo_height: 33px;
+$logo_width: 109px;
+
+$logo_white: '/assets/img/pirates_logo_white.png';
+$logo_blue: '/assets/img/pirates_logo_blue.png';
+$logo_black: '/assets/img/pirates_logo_black.png';
+
 header {
     position: relative;
     left: 0;
@@ -27,10 +34,28 @@ header {
     transition: all 0.1s ease;
     letter-spacing: 1px;
     font :{
-        size: 12px !important;
+        size: $small_font !important;
         weight: bold !important;
         family: $link_font;
     };
+}
+
+.landing-logo {
+    background-image: url($logo_white);
+    background-size: contain !important;
+    width: $logo_width;
+    height: $logo_height;
+    margin-top: ($nav_height - $logo_height)/2;
+    margin-bottom: ($nav_height - $logo_height)/2;
+    &:hover{
+        background-image: url($logo_blue);
+    };
+    @at-root .animate & {
+        background-image: url($logo_black);
+        &:hover{
+            background-image: url($logo_blue);
+        };
+    }
 }
 
 .light-nav {

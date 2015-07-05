@@ -24,6 +24,20 @@ header {
   font-weight: bold !important;
   font-family: "Montserrat", sans-serif !important; }
 
+.landing-logo {
+  background-image: url("/assets/img/pirates_logo_white.png");
+  background-size: contain !important;
+  width: 109px;
+  height: 33px;
+  margin-top: 16.5px;
+  margin-bottom: 16.5px; }
+  .landing-logo:hover {
+    background-image: url("/assets/img/pirates_logo_blue.png"); }
+  .animate .landing-logo {
+    background-image: url("/assets/img/pirates_logo_black.png"); }
+    .animate .landing-logo:hover {
+      background-image: url("/assets/img/pirates_logo_blue.png"); }
+
 .light-nav {
   color: #ffffff !important; }
   .light-nav a:hover {
