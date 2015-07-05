@@ -45,5 +45,26 @@ header {
     display: block;
     height: 32px;
     line-height: 32px; }
+  .scrolled .navbar-btn {
+    background-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    width: 94px;
+    height: 32px;
+    padding: 0px !important;
+    text-align: center;
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #333333;
+    font-weight: bold;
+    font-family: "Montserrat", sans-serif !important; }
+    a.scrolled .navbar-btn:hover {
+      background-color: #139fe1 !important;
+      color: #ffffff !important;
+      border-color: #139fe1; }
+    .scrolled .navbar-btn span {
+      display: block;
+      height: 32px;
+      line-height: 32px; }
 
 /*# sourceMappingURL=base.css.map */

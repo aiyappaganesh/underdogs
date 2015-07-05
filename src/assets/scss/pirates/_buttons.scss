@@ -46,4 +46,9 @@ $sm_btn_height: 32px;
 	@include button(null, $white_color, 
 		            $blue_color, $white_color, $blue_color, 
 		            $sm_btn_width, $sm_btn_height);
+	@at-root .scrolled & {
+		@include button(null, $black_color, 
+		            $blue_color, $white_color, $blue_color, 
+		            $sm_btn_width, $sm_btn_height);
+	}
 }
