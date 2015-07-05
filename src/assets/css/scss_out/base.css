@@ -1,3 +1,26 @@
+@media (min-width: 992px) {
+  .container {
+    margin: 0px;
+    width: 100%;
+    padding: 0px; } }
+@media (min-width: 0px) {
+  .container {
+    margin: 0px;
+    width: 100%;
+    padding: 0px; } }
+.width960 {
+  max-width: 960px;
+  margin: auto; }
+
+.row {
+  margin: 0px; }
+  .row [class*=col-] {
+    padding: 0px; }
+
+.content {
+  margin-top: -66px;
+  margin-bottom: 0px; }
+
 header {
   position: relative;
   left: 0;
@@ -13,7 +36,9 @@ header {
   .scrolled header .nav a, .scrolled header .light-nav a {
     color: #333333; }
   header .nav a, header .light-nav a {
-    color: #ffffff; }
+    color: #ffffff;
+    padding: 0px;
+    line-height: normal !important; }
 
 .nav, .light-nav {
   -webkit-transition: all 0.1s ease;
@@ -23,6 +48,20 @@ header {
   font-size: 12px !important;
   font-weight: bold !important;
   font-family: "Montserrat", sans-serif !important; }
+  .nav li > a, .light-nav li > a {
+    height: 32px;
+    line-height: 32px !important; }
+  .nav li, .light-nav li {
+    margin-right: 40px; }
+
+.navbar-collapse {
+  padding: 0px; }
+
+.navbar-right > div {
+  display: table-cell;
+  height: 66px;
+  line-height: 66px;
+  vertical-align: middle; }
 
 .landing-logo {
   background-image: url("/assets/img/pirates_logo_white.png");
@@ -44,6 +83,7 @@ header {
     color: #139fe1 !important; }
 
 .navbar-btn {
+  margin: 0px !important;
   background-color: transparent;
   -webkit-font-smoothing: antialiased;
   width: 94px;

@@ -31,24 +31,28 @@
                         </a>
                     </div>
                     <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav navbar-right main-nav-right">
-                            {% if hide_navbar_join != 'true' %}
-                                <li><a class="nav-link" href="/startups/new_listing">STARTUPS</a></li>
-                                <li><a class="nav-link" href="/projects/list">PROJECTS</a></li>
-                            {% endif %}
-                            {% if hide_navbar_login != 'true' %}
-                                {% if false|is_user_logged_in %}
-                                    <li><a class="nav-link" href="/member/profile">PROFILE</a></li>
-                                    <li><a class="nav-link" href="/member/logout">SIGN OUT</a></li>
-                                {% else %}
-                                    <li>
-                                        <a class="navbar-btn" href="/member/login?redirect_url=/" onclick="mixpanel.track('Login Clicked');">
-                                            <span>REGISTER</span>
-                                        </a>
-                                    </li>
-                                {% endif %}
-                            {% endif %}
-                        </ul>
+                        <div class="navbar-right">
+                            <div>
+                                <ul class="nav navbar-nav">
+                                    {% if hide_navbar_join != 'true' %}
+                                        <li><a class="nav-link" href="/startups/new_listing">STARTUPS</a></li>
+                                        <li><a class="nav-link" href="/projects/list">PROJECTS</a></li>
+                                    {% endif %}
+                                    {% if hide_navbar_login != 'true' %}
+                                        {% if false|is_user_logged_in %}
+                                            <li><a class="nav-link" href="/member/profile">PROFILE</a></li>
+                                            <li><a class="nav-link" href="/member/logout">SIGN OUT</a></li>
+                                        {% else %}
+                                            <li style="margin: 0px !important">
+                                                <a class="navbar-btn" href="/member/login?redirect_url=/" onclick="mixpanel.track('Login Clicked');">
+                                                    <span>REGISTER</span>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             {% endblock %}

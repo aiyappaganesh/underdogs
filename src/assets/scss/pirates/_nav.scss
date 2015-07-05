@@ -1,4 +1,5 @@
 @import "_constants.scss";
+@import "_standards.scss";
 
 $logo_height: 33px;
 $logo_width: 109px;
@@ -17,7 +18,7 @@ header {
 	    transition: all .33s cubic-bezier(0.694,0.0482,0.335,1);
 	    -webkit-transition: all .33s cubic-bezier(0.694,0.0482,0.335,1);
 	    top: 0 !important;
-	    background-color: #ffffff !important;
+	    background-color: $white_color !important;
 	    border-bottom: 1px solid #ddd !important;
     }
     @at-root .scrolled & .nav a {
@@ -25,6 +26,8 @@ header {
     }
     & .nav a {
     	color: $white_color;
+        padding: 0px;
+        line-height: normal !important;
     }
 }
 
@@ -38,6 +41,21 @@ header {
         weight: bold !important;
         family: $link_font;
     };
+    & li>a{
+        height: $sm_btn_height;
+        line-height: $sm_btn_height !important;
+    }
+    & li {
+        margin-right: 40px;
+    }
+}
+
+.navbar-collapse {
+    padding: 0px;
+}
+
+.navbar-right>div{
+    @include vertically-align-div($nav_height);
 }
 
 .landing-logo {
@@ -60,8 +78,8 @@ header {
 
 .light-nav {
 	@extend .nav;
-	color: #ffffff !important;
+	color: $white_color !important;
 	a:hover {
-		color: #139fe1 !important;
+		color: $blue_color !important;
 	}
 }

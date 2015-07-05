@@ -7,6 +7,14 @@
         padding: 0px;
     }
 }
+
+@mixin vertically-align-div($height) {
+    display: table-cell;
+    height: $height;
+    line-height: $height;
+    vertical-align: middle;
+}
+
 @media (min-width: 992px) {
 	@include reset-container;
 }

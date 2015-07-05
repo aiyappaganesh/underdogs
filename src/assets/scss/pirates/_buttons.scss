@@ -1,11 +1,5 @@
 @import "_constants.scss";
 
-$bg_btn_width: 180px;
-$bg_btn_height: 50px;
-
-$sm_btn_width: 94px;
-$sm_btn_height: 32px;
-
 @mixin button($text_color, $border_color, $hover_color, $hover_text, $hover_border, $width, $height) {
 	background-color:transparent;
 	-webkit-font-smoothing: antialiased;
@@ -43,6 +37,7 @@ $sm_btn_height: 32px;
 }
 
 .navbar-btn {
+	margin: 0px !important;
 	@include button(null, $white_color, 
 		            $blue_color, $white_color, $blue_color, 
 		            $sm_btn_width, $sm_btn_height);
