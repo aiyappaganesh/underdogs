@@ -99,33 +99,24 @@ class StartupsCriteriaPage(WebRequestHandler):
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class LatestStartupsListingPage(WebRequestHandler):
+    def make_dict(self, company):
+        company_dict = {}
+        company_dict['score'] = float(company.influence_avg) if company.influence_avg else 0.0
+        company_dict['image'] = '/api/common/download_image/' + str(company.image)
+        company_dict['name'] = company.name
+        company_dict['hello'] = company.hello if company.hello else '\n'
+        company_dict['profile'] = company.profile if company.profile else '\n'
+        company_dict['city'] = cities_map[str(id)] if str(id) in cities_map else cities_map['default']
+        company_dict['url'] = '/member/new_list?company_id=' + str(company.key().id())
+        return company_dict
+
     def get(self):
         path = 'startups_latest.html'
         q = Company.all()
-        sorted_companies = {}
-        for c in q.fetch(50):
-            id = c.key().id()
-            sorted_companies[id] = {}
-            score = float(c.influence_avg) if c.influence_avg else 0.0
-            sorted_companies[id]['score'] = score
-            sorted_companies[id]['image'] = c.image
-            sorted_companies[id]['name'] = c.name
-            sorted_companies[id]['hello'] = c.hello if c.hello else '\n'
-            sorted_companies[id]['profile'] = c.profile if c.profile else '\n'
-            sorted_companies[id]['city'] = cities_map[str(id)] if str(id) in cities_map else cities_map['default']
-
-        sorted_companies = sorted(sorted_companies.iteritems(), key=lambda (k,v): v['score'], reverse = True)
-        sorted_company_rows = []
-        count = 0
-        sorted_company_row = []
-        for sorted_company in sorted_companies:
-            count+=1
-            if count%3 == 1:
-                sorted_company_row = []
-            sorted_company_row.append(sorted_company)
-            if count%3 == 0 or count%len(sorted_companies) == 0:
-                sorted_company_rows.append(sorted_company_row)
-
+        logging.info(q.count())
+        companies = [self.make_dict(company) for company in q]
+        companies.insert(0, {'image': '/assets/img/new_startup.png', 'name': 'Your Startup', 'url': '/startups/registration'})
+        sorted_company_rows = [companies[i: i+3] for i in range(0, len(companies), 3)]
         template_values = {'startups' : sorted_company_rows, 'nav_color':'dark-nav'}
         self.write(self.get_rendered_html(path, template_values), 200)
 
