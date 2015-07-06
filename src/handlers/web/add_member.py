@@ -448,9 +448,30 @@ class UserExistsPage(WebRequestHandler):
         path = 'user_exists.html'
         self.write(self.get_rendered_html(path, {}), 200)
 
+class GetStartedPage(WebRequestHandler):
+    def get_networks_map(self):
+        tp_networks = []
+        for tp_network in [FACEBOOK, TWITTER, LINKEDIN]:
+            curr_dict = {'name' : tp_network,
+                         'url' : '/users/' + tp_network + '/login_callback',
+                         'display_name' : tp_network.capitalize()}
+            tp_networks.append(curr_dict)
+        return tp_networks
+
+    def get(self):
+        session = get_current_session()
+        session['redirect_url'] = self['redirect_url'] if self['redirect_url'] else '/'
+        path = 'get_started.html'
+        template_values = {'create_user': self['create_user'], ### remove this
+                           'company_id':self['company_id'], ### remove this
+                           'networks':self.get_networks_map(),
+                           'login_form_url':'/users/handle_custom_login'}
+        self.write(self.get_rendered_html(path, template_values), 200)
+
 app = webapp2.WSGIApplication(
     [
         ('/member/expose_third_party', ExposeThirdPartyPage),
+        ('/member/get_started', GetStartedPage),
         ('/member/list', ListMemberPage),
         ('/member/new_list', LatestListMemberPage),
         ('/member/login', MemberLoginPageHandler),

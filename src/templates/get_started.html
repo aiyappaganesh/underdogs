@@ -1,0 +1,76 @@
+{% extends "base_padded.html" %}
+
+{% block Styles %}
+    <link href="/assets/css/get-started.css" type="text/css" rel="stylesheet">
+    <link href="/assets/css/exposedata.css" type="text/css" rel="stylesheet">
+    <link href="/assets/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block Navbar %}
+  {% with hide_navbar_login='true' %}
+  {{block.super}}
+  {% endwith %}
+{% endblock %}
+
+{% block PaddedContent %}
+	<div class="col-sm-12">
+		<div class="width960 center-align">
+			<div class="row">
+				<div class="col-sm-12">
+					<p class="title">I NEED AN APP TO BE BUILT</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-3">
+							<p class="body">And I would like to</p>
+						</div>
+						<div class="col-sm-2">
+			                {% include "components/link_button.html" with link="" value="Hire Pirates" classes="btn-blue" %}
+						</div>
+						<div class="col-sm-4"></div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<p class="title">I WORK AT A STARTUP</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<p class="body">And I would like to <a>Join Pirates</a></p>
+				</div>
+			</div>
+	        <div class="row">
+	            <div class="col-sm-12">
+	                <h2 class="login-title">Social Sign In</h2>
+	                <hr class="intro-divider">
+	                <ul class="list-inline intro-social-buttons">
+	                    {% for network in  networks %}
+	                        <li>
+	                            <a class="btn btn-bootflat sd-btn" href='{{network.url}}'>
+	                                <i class="fa fa-{{network.name}} fa-fw"></i>
+	                                <span class="network-name">Use {{network.display_name}}</span>
+	                            </a>
+	                        </li>
+	                    {% endfor %}
+	                </ul>
+
+	                <h2 class="login-title">Sign In With Email</h2>
+	                <hr class="intro-divider">
+	                <form role="form" action="{{login_form_url}}" method="POST">
+	                    <div class="col-sm-12">
+	                        {% include "components/form_input.html" with id="email" name="email" placeholder="Email" other="required" type="email" %}
+	                        {% include "components/form_input.html" with type="password" id="password" name="password" placeholder="Password" other="required" %}
+	                        {% include "components/form_submit.html" with value="Submit" %}
+	                    </div>
+	                </form>
+	                <h6>Need an account? <a href="/member/signup_email">Sign Up</a></h6>
+	            </div>
+	        </div>
+		</div>
+	</div>
+{% endblock %}
