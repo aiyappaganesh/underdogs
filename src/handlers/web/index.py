@@ -25,7 +25,7 @@ def get_startups():
     return [Startup(s[0], s[1], s[2]) for s in startups]
 
 def get_landing_centered_contents():
-    contents_arr = [("BUILD TOGETHER",["header-1","white-font"], None), 
+    contents_arr = [("BUILD TOGETHER",["header-1"], None), 
                     ("Hire creative startups to build innovative apps",["header-3","white-font"], None), 
                     (None, None, "components/get_started_button.html")]
     contents = [CenteredContent(s[0], s[1], s[2]) for s in contents_arr]

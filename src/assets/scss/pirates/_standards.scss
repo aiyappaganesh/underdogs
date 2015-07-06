@@ -8,11 +8,19 @@
     }
 }
 
-@mixin vertically-align-div($height) {
+@mixin vertically-align-cell {
     display: table-cell;
+    vertical-align: middle;
+}
+
+@mixin vertically-align-div($height) {
+    @include vertically-align-cell;
     height: $height;
     line-height: $height;
-    vertical-align: middle;
+}
+
+.centered-full-screen-element, .centered-full-width-element {
+    @include vertically-align-cell;
 }
 
 @media (min-width: 992px) {
@@ -38,4 +46,22 @@
 .content {
     margin-top: -$nav_height;
     margin-bottom: 0px;
+}
+
+@mixin header($size, $family){
+    line-height: 100%;
+    -webkit-font-smoothing: antialiased;
+    font: {
+        family: $family;
+        size: $size !important;
+        weight: bold !important;
+    }
+}
+
+.header-1, h1 {
+    @include header($h1_font_size, $h1_font);
+}
+
+.header-3, h3 {
+    @include header($h3_font_size, $h_font);
 }

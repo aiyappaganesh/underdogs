@@ -16,7 +16,7 @@
 		style: solid;
 		color:  $border_color;
 	}
-	@at-root a#{&}:hover {
+	@at-root #{&}:hover {
 	    background-color:$hover_color !important;
 	    color: $hover_text !important;
 	    border-color: $hover_border;
@@ -32,8 +32,10 @@
 	}
 }
 
-.white-button {
-	
+.get-started-btn {
+	@include button($white_color, $white_color, 
+		            $white_color, $black_color, $white_color, 
+		            $bg_btn_width, $bg_btn_height);
 }
 
 .navbar-btn {
@@ -41,6 +43,9 @@
 	@include button(null, $white_color, 
 		            $blue_color, $white_color, $blue_color, 
 		            $sm_btn_width, $sm_btn_height);
+	a#{&}:hover{
+		color: $white_color !important;
+	};
 	@at-root .scrolled & {
 		@include button(null, $black_color, 
 		            $blue_color, $white_color, $blue_color, 
