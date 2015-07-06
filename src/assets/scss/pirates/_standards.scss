@@ -65,3 +65,15 @@
 .header-3, h3 {
     @include header($h3_font_size, $h_font);
 }
+
+.header-2, h2 {
+    @include header($h2_font_size, $h_font);   
+}
+
+.normal-copy {
+    font-family: 'PT Serif', serif !important;
+    font-size: $normal_font !important;
+    font-weight: normal !important;
+    line-height: 100%;
+    -webkit-font-smoothing: antialiased;
+}

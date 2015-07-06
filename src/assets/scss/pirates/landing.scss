@@ -11,6 +11,10 @@
     color: $white-color;
     line-height: normal;
     li {
-    	padding: 12px;
+    	padding: $sm_padding;
     }
+}
+
+.sec-steve-content ul li{
+    padding: $sm_padding;
 }

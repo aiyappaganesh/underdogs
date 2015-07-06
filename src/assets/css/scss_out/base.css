@@ -39,6 +39,20 @@
   font-size: 22px !important;
   font-weight: bold !important; }
 
+.header-2, h2 {
+  line-height: 100%;
+  -webkit-font-smoothing: antialiased;
+  font-family: "PT Serif", serif !important;
+  font-size: 36px !important;
+  font-weight: bold !important; }
+
+.normal-copy {
+  font-family: 'PT Serif', serif !important;
+  font-size: 22px !important;
+  font-weight: normal !important;
+  line-height: 100%;
+  -webkit-font-smoothing: antialiased; }
+
 header {
   position: relative;
   left: 0;
