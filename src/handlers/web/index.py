@@ -58,8 +58,14 @@ class LandingPage(WebRequestHandler):
         template_values = get_template_values_for_landing()
         self.write(self.get_rendered_html(path, template_values), 200)
 
+class GetStartedTypeformPage(WebRequestHandler):
+    def get(self):
+        path = 'get_started_typeform.html'
+        self.write(self.get_rendered_html(path, {}), 200)
+
 app = webapp2.WSGIApplication(
     [
+        ('/get_started_typeform', GetStartedTypeformPage),
         ('/', LandingPage)
     ]
 )
