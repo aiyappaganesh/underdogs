@@ -15,7 +15,7 @@
     <div class="row center-align">
         <div class="col-sm-12">
             <h3 class="registration-title">Create an account</h3>
-            <form role="form" action="{{form_url}}" method="POST" onsubmit="return validate()" enctype="multipart/form-data">
+            <form role="form" id="signup" action="{{form_url}}" method="POST" onsubmit="return validate()" enctype="multipart/form-data">
                 <div class="col-sm-12">
                     {% include "components/form_image.html" with name="uploaded_photo" button_text="Change Picture" %}
                     {% include "components/form_input.html" with id="email" name="email" placeholder="Email" other="required" value=email %}
@@ -33,6 +33,13 @@
 {% endblock %}
 
 {% block Scripts %}
+    <script src="/assets/js/mixpanel.js"></script>
+    <script>
+        $('#signup').submit(function(){
+            var email = $('#email').val();
+            mixpanel.alias(email);
+        });
+    </script>
     <script>
         function validate() {
             if($('#password').val() != $('#confirm-password').val()) {

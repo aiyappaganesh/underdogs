@@ -208,6 +208,19 @@
 
 {% block Scripts %}
     <script src="/assets/js/landing.js"></script>
+    <script src="/assets/js/mixpanel.js"></script>
+    {% if false|is_user_not_logged_in %}
+        <script>
+        mixpanel.init("46a8b36996f1c18b64c39ec426254234", {
+            loaded: function() {
+                distinct_id = mixpanel.get_distinct_id();
+                mixpanel.identify(distinct_id);
+                mixpanel.people.set({'$name': 'Guest'+distinct_id});
+                mixpanel.track('guest_visit');
+            }
+        });
+        </script>
+    {% endif %}
     <script>
       window.intercomSettings = { app_id: 'xouub8j6' };
     </script>

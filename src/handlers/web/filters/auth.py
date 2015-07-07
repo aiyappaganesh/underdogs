@@ -12,3 +12,7 @@ def is_user_logged_in(dummy):
 	   'auth_only' not in session:
 		return True
 	return False
+
+@register.filter
+def is_user_not_logged_in(dummy):
+	return not is_user_logged_in(dummy)
