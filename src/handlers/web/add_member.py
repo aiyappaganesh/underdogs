@@ -17,7 +17,7 @@ from util.util import isAdminAccess
 from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
 from handlers.web.auth import web_auth_required
-from util.util import registration_breadcrumbs, get_user_companies, get_user_projects, get_user, convert_string_list_to_dict, recaptcha_client, get_captcha_markup, flush_from_memcache
+from util.util import registration_breadcrumbs, get_user_companies, get_user_projects, get_user, convert_string_list_to_dict, flush_from_memcache
 from networks import LINKEDIN, FACEBOOK, TWITTER
 from model.third_party_login_data import ThirdPartyLoginData
 from model.third_party_profile_data import ThirdPartyProfileData
@@ -237,7 +237,6 @@ def prepare_template_values_for_invite(rd_url):
         elif 'captcha_error' in session:
             template_values['error'] = 'Captcha response provided was incorrect. Please try again.'
             template_values['captcha_error'] = True
-    template_values['captcha'] = get_captcha_markup()
     session['rd_url'] = rd_url
     return template_values
 
@@ -342,7 +341,6 @@ class MemberSignupEmailPage(WebRequestHandler):
                 session.pop('signup_email')
             if 'captcha_error' in session:
                 template_values['error'] = 'Captcha response provided was incorrect. Please try again.'
-        template_values['captcha'] = get_captcha_markup()
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class MemberAlreadyExistsHandler(WebRequestHandler):

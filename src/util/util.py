@@ -17,7 +17,7 @@ HIREPIRATES_RECAPTCHA_PRIVATE_KEY = '6LcyMggTAAAAAIvXBKsOHu6t8qmgMmeKkZJel1G1'
 MINYATTRA_RECAPTCHA_PUBLIC_KEY = '6LeA6PwSAAAAAOeT-mnBNsppSoKgygqv1xqChz2s'
 MINYATTRA_RECAPTCHA_PRIVATE_KEY = '6LeA6PwSAAAAAB9Wv1qmmnxnsZySbb8nQwdqUvbv'
 
-recaptcha_client = RecaptchaClient(MINYATTRA_RECAPTCHA_PRIVATE_KEY, MINYATTRA_RECAPTCHA_PUBLIC_KEY, recaptcha_options={'theme':'clean'})
+recaptcha_client = RecaptchaClient(HIREPIRATES_RECAPTCHA_PRIVATE_KEY, HIREPIRATES_RECAPTCHA_PUBLIC_KEY, recaptcha_options={'theme':'clean'})
 
 registration_breadcrumbs = [('Get started', 'Tell us about your startup!'),
                             ('Invite team members', 'Build your team'),

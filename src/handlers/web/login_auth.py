@@ -215,26 +215,16 @@ class CustomLoginHandler(WebRequestHandler):
 class VerifyEmailHandler(WebRequestHandler):
     def post(self):
         email = self['email']
-        challenge = self['recaptcha_challenge_field']
-        solution = self['recaptcha_response_field']
-        remote_ip = self.request.remote_addr
-        is_solution_correct = util.validate_captcha(solution, challenge, remote_ip)
-        if is_solution_correct:
-            if SignedUpMember.is_signedup(email):
+        if SignedUpMember.is_signedup(email):
+            rd_url = '/member/check_email?signup=true'
+        else:
+            user = util.get_user(email)
+            if not user:
+                SignedUpMember.create(email)
+                self.send_subscription_email(self['email'])
                 rd_url = '/member/check_email?signup=true'
             else:
-                user = util.get_user(email)
-                if not user:
-                    SignedUpMember.create(email)
-                    self.send_subscription_email(self['email'])
-                    rd_url = '/member/check_email?signup=true'
-                else:
-                    rd_url = '/member/user_exists'
-        else:
-            rd_url = '/member/signup_email'
-            curr_session = get_current_session()
-            curr_session['signup_email'] = self['email']
-            curr_session['captcha_error'] = True
+                rd_url = '/member/user_exists'
         self.redirect(rd_url)
 
     def send_subscription_email(self, email):

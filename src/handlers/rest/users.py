@@ -19,7 +19,7 @@ from model.invited_member import InvitedMember
 from model.signedup_member import SignedUpMember
 from model.company_members import CompanyMember
 from gaesessions import get_current_session
-from util.util import separator, get_user, get_company_id_from_session, validate_captcha
+from util.util import separator, get_user, get_company_id_from_session
 from model.user import User
 from model.company import Company
 from intercomio import api as intercomio_api
@@ -96,33 +96,25 @@ class MemberInviteHandler(WebRequestHandler):
             return
         if not util.isAdminAccess(self):
             return
-        challenge = self['recaptcha_challenge_field']
-        solution = self['recaptcha_response_field']
-        remote_ip = self.request.remote_addr
-        is_solution_correct = validate_captcha(solution, challenge, remote_ip)
         curr_session = get_current_session()
-        if is_solution_correct:
-            if InvitedMember.for_(email, company_id):
-                curr_session['invite_error'] = "Invite already sent"
-            else:
-                company = Company.get_by_id(company_id)
-                InvitedMember.create_(email, company_id)
-                mail.send_mail(sender="Pirates Admin <ranju@b-eagles.com>",
-                               to=email,
-                               subject="Invitation to join " + company.name,
-                               body="""
-        Hello!
-
-        Please follow this link to add yourself:
-
-        http://hirepirates.com/member/finish_invite?company_id={0}&email={1}
-
-        Thanks!
-        """.format(self['company_id'], self['email']))
-                curr_session['invite_success'] = True
+        if InvitedMember.for_(email, company_id):
+            curr_session['invite_error'] = "Invite already sent"
         else:
-            curr_session['invite_email'] = self['email']
-            curr_session['captcha_error'] = True
+            company = Company.get_by_id(company_id)
+            InvitedMember.create_(email, company_id)
+            mail.send_mail(sender="Pirates Admin <ranju@b-eagles.com>",
+                           to=email,
+                           subject="Invitation to join " + company.name,
+                           body="""
+    Hello!
+
+    Please follow this link to add yourself:
+
+    http://hirepirates.com/member/finish_invite?company_id={0}&email={1}
+
+    Thanks!
+    """.format(self['company_id'], self['email']))
+            curr_session['invite_success'] = True
         rd_url = curr_session['rd_url']
         curr_session.pop('rd_url')
         self.redirect(rd_url)

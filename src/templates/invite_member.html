@@ -18,7 +18,6 @@
                     <div class="tab-pane fade active in">
                         <form class="top-padding-sm invite-member-form" role="form" action="{{invite_form_url}}" method="POST" onsubmit="return validate()">
                             {% include "components/form_input.html" with id="new_member_email" name="email" placeholder="Email" type="email" other="required" value=email %}
-                            {% include "components/form_captcha.html" with captcha=captcha %}
                             {% include "components/form_error_message.html" %}
                             {% include "components/form_submit.html" with value="Invite" %}
                         </form>
@@ -31,7 +30,6 @@
 {% endblock %}
 
 {% block Scripts %}
-    {% include "components/captcha_script.html" %}
     <script type="text/javascript">
         function done_inviting(){
             window.location='{{done_redirect}}';
