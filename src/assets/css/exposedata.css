@@ -43,11 +43,9 @@
 }
 
 .intro-divider {
-    width: 400px;
-    border-top: 1px solid #f8f8f8;
-    border-bottom: 1px solid rgba(0,0,0,0.2);
-    margin-top: 5px;
-    margin-bottom: 15px;
+    border-top: 1px solid #ddd;
+    margin-top: 0px;
+    margin-bottom: 24px;
 }
 
 .network-name {
@@ -111,6 +109,15 @@
 .icon-text{
     padding-top: 12px;
     margin: 0px;
+}
+
+h2 {
+    text-transform: uppercase;
+    padding-bottom: 24px;
+}
+
+.intro-social-buttons {
+    margin-bottom: 96px;
 }
 
 @media(max-width:767px) {

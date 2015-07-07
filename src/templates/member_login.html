@@ -15,7 +15,7 @@
     <div class="center-align">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="login-title">Social Sign In</h2>
+                <h2>Social Sign In</h2>
                 <hr class="intro-divider">
                 <ul class="list-inline intro-social-buttons">
                     {% for network in  networks %}
@@ -25,7 +25,7 @@
                     {% endfor %}
                 </ul>
 
-                <h2 class="login-title">Sign In With Email</h2>
+                <h2>Sign In With Email</h2>
                 <hr class="intro-divider">
                 <form role="form" action="{{login_form_url}}" method="POST">
                     <div class="col-sm-12">
@@ -34,7 +34,7 @@
                         {% include "components/form_submit.html" with value="Submit" %}
                     </div>
                 </form>
-                <h6>Need an account? <a href="/member/signup_email">Sign Up</a></h6>
+                <h3>Need an account? <a href="/member/signup_email">Sign Up</a></h3>
             </div>
         </div>
     </div>
