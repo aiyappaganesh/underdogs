@@ -456,6 +456,7 @@ class GetStartedPage(WebRequestHandler):
             tp_networks.append(curr_dict)
         return tp_networks
 
+    @web_login_required
     def get(self):
         session = get_current_session()
         session['redirect_url'] = self['redirect_url'] if self['redirect_url'] else '/'
