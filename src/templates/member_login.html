@@ -20,10 +20,7 @@
                 <ul class="list-inline intro-social-buttons">
                     {% for network in  networks %}
                         <li>
-                            <a class="btn btn-bootflat sd-btn" href='{{network.url}}'>
-                                <i class="fa fa-{{network.name}} fa-fw"></i>
-                                <span class="network-name">Use {{network.display_name}}</span>
-                            </a>
+                            {% include "components/social_link_button.html" with network=network classes="btn-blue btn-line-height auto-margin" %}
                         </li>
                     {% endfor %}
                 </ul>
