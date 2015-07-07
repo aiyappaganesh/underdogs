@@ -62,6 +62,10 @@
     margin: 5px;
 }
 
+h3 {
+    padding-bottom: 24px;
+}
+
 @media (max-width: 767px) {
     .profile-list-row {
         padding: 5px;

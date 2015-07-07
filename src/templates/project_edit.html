@@ -16,12 +16,12 @@
 {% block PaddedContent %}
     <div class="center-align">
         <div class="row">
-            <div class="col-md-12">
-                <h3 class="profile-edit-title">Edit Project</h3>
-                <hr class="intro-divider">
+            <div class="col-lg-12">
+                <h3>Edit Project</h3>
                 <div class="row">
-                    <form role="form" action="/api/projects/update_project" method="POST" enctype="multipart/form-data">
-                        <div class="col-lg-12">
+                    <form role="form" action="{{ form_url }}" method="POST" enctype="multipart/form-data">
+                        <div class="col-sm-12">
+                            {% include "components/form_image.html" with name="project_image" button_text="Select Image" image=project.image %}
                             {% include "components/form_input.html" with id="project-title" name="project_title" placeholder="Project Title" other="required" value=project.title %}
                             {% include "components/form_select.html" with id="skills-select" name="skills_select" other="multiple onchange='updateProjectSkills()'" options=skills title="Select Skills" selected_values=project.skills %}
                             {% include "components/form_textarea.html" with id="description" name="description" placeholder="Description" rows="10" other="required" value=project.description %}
@@ -29,15 +29,7 @@
                             {% include "components/form_input.html" with type="date" id="project-end-date" name="project_end_date" placeholder="End Date" other="required" value=project.end_date %}
                             <input type="hidden" id="project-skills" name="project_skills">
                             <input type="hidden" id="project-id" name="project_id" value="{{project.id}}">
-                            <div class="row">
-                                <div class="col-md-3">
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="submit" name="submit" id="submit" value="Update Project" class="btn btn-bootflat">
-                                </div>
-                                <div class="col-md-3">
-                                </div>
-                            </div>
+                            {% include "components/form_submit.html" with value="Update Project" %}
                         </div>
                     </form>
                 </div>

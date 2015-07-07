@@ -38,6 +38,7 @@ class ProjectsEditPage(WebRequestHandler):
         template_values = {}
         template_values['duration_options'] = DURATION_OPTIONS
         template_values['skills'] = get_skills_json()
+        template_values['form_url'] = blobstore.create_upload_url('/api/projects/update_project')
         project = {}
         id = int(str(self['project_id']))
         if id:
@@ -48,6 +49,7 @@ class ProjectsEditPage(WebRequestHandler):
             project['skills'] = p.skills
             project['end_date'] = p.end_date.strftime("%Y-%m-%d")
             project['bid'] = p.bid
+            project['image'] = '/api/common/download_image/'+p.image if p.image else None
         template_values['project'] = project
         self.write(self.get_rendered_html(path, template_values), 200)
 

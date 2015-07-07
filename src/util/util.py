@@ -9,6 +9,7 @@ from gaesessions import get_current_session
 from model.third_party_login_data import ThirdPartyLoginData
 from recaptcha import RecaptchaClient
 from google.appengine.api import memcache
+from google.appengine.ext import blobstore
 
 HIREPIRATES_RECAPTCHA_PUBLIC_KEY = '6LcyMggTAAAAAHLKAfeOIooqXQ-1Lo4mJ_366q4E'
 HIREPIRATES_RECAPTCHA_PRIVATE_KEY = '6LcyMggTAAAAAIvXBKsOHu6t8qmgMmeKkZJel1G1'
@@ -128,3 +129,11 @@ def get_skills_json():
         skill_option['value'] = skill.name
         skill_options.append(skill_option)
     return skill_options
+
+def read_image(self, image_string):
+    image = self.get_uploads(image_string)
+    image_key = str(image[0].key()) if image else None
+    return image_key
+
+def delete_image(key):
+    blobstore.delete(key)
