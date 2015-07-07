@@ -58,3 +58,25 @@ function scrollTopArrow(){
         $('body,html').animate({scrollTop:0},$(window).scrollTop()/3,'linear')
     })
 }
+
+function displayPhotoThumbnail(e) {
+    console.log('Reached displayPhotoThumbnail for: '+e);
+    var photo_files = e.files;
+    var photo_file = photo_files[0];
+
+    if (!photo_file.type.match('image.*')) {
+        alert('Not an image file');
+        $('#photo').focus();
+        return;
+    }
+
+    var file_reader = new FileReader();
+    file_reader.onload = (function(photo) {
+      return function(ev) {
+        $('#photo-holder').attr('src', ev.target.result);
+        $('#photo-holder').attr('title', photo.name);
+      };
+    })(photo_file);
+
+    file_reader.readAsDataURL(photo_file);
+}
