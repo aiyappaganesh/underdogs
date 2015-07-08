@@ -1022,6 +1022,11 @@ sup {
     margin-top: 0px;
 }
 
+.section-content {
+    padding-top: 128px;
+    padding-bottom: 128px;
+}
+
 @media (max-width: 767px) {
     .header {
         background-color: #ffffff;
@@ -1133,6 +1138,16 @@ sup {
 
     .dev-scores-popover {
         padding-top: 0px !important;
+    }
+
+    .final-section {
+        padding-top:48px;
+        padding-bottom:48px;
+    }
+
+    .section-content {
+        padding-top: 64px;
+        padding-bottom: 64px;
     }
 }
 
