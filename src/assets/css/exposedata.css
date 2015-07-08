@@ -7,15 +7,6 @@
     margin-bottom: 0px;
 }
 
-.error-message-title {
-    font-size: 36px;
-    font-weight: 400;
-    line-height: 55px;
-    text-transform: uppercase;
-    margin-top: 50px;
-    margin-bottom: 20px;
-}
-
 .nouser-title {
     font-size: 18px;
     font-weight: 400;
@@ -122,11 +113,6 @@ h2 {
 
 @media(max-width:767px) {
     .login-title {
-        font-size: 24px;
-        line-height: 44px;
-    }
-
-    .error-message-title {
         font-size: 24px;
         line-height: 44px;
     }
