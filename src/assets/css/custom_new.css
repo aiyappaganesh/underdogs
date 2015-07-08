@@ -1079,6 +1079,14 @@ sup {
         line-height: 14px;
     }
 
+    .startup-title {
+        padding-top: 48px;
+    }
+
+    .startup-details-content {
+        padding-top: 24px;
+    }
+
     .startup-logo {
         margin: auto;
     }
@@ -1093,7 +1101,7 @@ sup {
         text-align: center;
         padding-left: 20px !important;
         padding-right: 20px !important;
-        margin-top: 60px;
+        margin-top: 24px;
     }
 
     .dev-scores-popover .list-group-item-heading {
@@ -1125,7 +1133,7 @@ sup {
     }
 
     #startup-details .panel-group {
-        margin-top: 48px;
+        margin-top: 24px;
     }
 
     #startup-details .expertise-td-donut {
@@ -1148,6 +1156,14 @@ sup {
     .section-content {
         padding-top: 64px;
         padding-bottom: 64px;
+    }
+
+    .nav-padded {
+        margin-top: 128px;
+    }
+
+    .bottom-padded {
+        padding-bottom: 64px !important;
     }
 }
 

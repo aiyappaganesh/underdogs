@@ -84,8 +84,8 @@
     }
 
     .startup-cell, .project-cell {
-        padding-top: 48px !important;
-        padding-bottom: 48px !important;
+        padding-top: 24px !important;
+        padding-bottom: 24px !important;
     }
 
     .list-row:first-child .startup-cell:first-child {
@@ -97,6 +97,6 @@
     }
 
     .list-row:first-child .project-cell:first-child {
-        padding-top: 96px !important;
+        padding-top: 48px !important;
     }
 }

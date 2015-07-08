@@ -2,11 +2,6 @@ p {
     margin:0px;
 }
 
-.section-content {
-    padding-top: 128px;
-    padding-bottom: 128px;
-}
-
 .title {
     padding-bottom: 24px !important;
     border-top: 0px;
@@ -173,5 +168,9 @@ p {
     .sec-3-donuts [class*=col-sm] {
         padding-top: 12px;
         padding-bottom: 12px;
+    }
+
+    .sec-1 .section-content:first-of-type {
+        padding-top: 128px;
     }
 }
