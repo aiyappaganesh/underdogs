@@ -8,12 +8,12 @@
             </div>
             <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 100%; max-height: 150px;"></div>
             <div>
-            <span class="btn btn-bootflat btn-file btn-image-select">
-                <span class="fileinput-new">{{button_text}}</span>
-                <span class="fileinput-exists">Change</span>
-                <input id="photo" onchange="displayPhotoThumbnail(this)" type="file" name="{{name}}">
-            </span>
-                <a href="#" class="btn btn-bootflat btn-image-select fileinput-exists" data-dismiss="fileinput">Remove</a>
+                <div class="btn-normal btn-blue btn-file auto-margin">
+                    <span class="fileinput-new btn-line-height">{{button_text}}</span>
+                    <span class="fileinput-exists btn-line-height">Change</span>
+                    <input id="photo" onchange="displayPhotoThumbnail(this)" type="file" name="{{name}}">
+                </div>
+                <a href="#" class="btn-normal btn-blue btn-line-height fileinput-exists" data-dismiss="fileinput">Remove</a>
             </div>
         </div>
     </div>
