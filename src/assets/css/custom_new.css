@@ -11,6 +11,10 @@ body a {
     text-decoration: none;
 }
 
+.mixpanel-badge {
+    padding-bottom: 25px;
+}
+
 .spacing-small {
     padding: 10px;
 }
