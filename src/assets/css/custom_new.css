@@ -996,6 +996,31 @@ sup {
     border-color:  #139fe1;
 }
 
+.scrollable {
+    list-style-type: none;
+    overflow: scroll;
+    padding: 0px;
+    margin: 0px;
+}
+
+.scrollable .focus {
+    opacity: 1;
+}
+
+.scrollable li {
+    opacity: 0.2;
+    margin-top: 96px;
+    transition: 0.2s opacity ease;
+}
+
+.scrollable li .row {
+    margin-top: 24px;
+}
+
+.scrollable li .row:first-child {
+    margin-top: 0px;
+}
+
 @media (max-width: 767px) {
     .header {
         background-color: #ffffff;
