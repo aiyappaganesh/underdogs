@@ -114,7 +114,7 @@ class ProjectListPage(WebRequestHandler):
         column = self['column'] if self['column'] else 'end_date'
         path = 'list_projects.html'
         projects = [self.make_json(project) for project in self.get_all_projects(order, column)]
-        projects.insert(0, {'image': '/assets/img/new_project.png', 'title': 'Your Project', 'url': '/projects/registration'})
+        projects.insert(0, {'image': '/assets/img/new_project.png', 'title': 'Your App', 'url': '/projects/registration'})
         project_rows = [projects[i:i+3] for i in range(0, len(projects), 3)]
         template_values = {'project_rows': project_rows, 'order': order, 'column': column}
         self.write(self.get_rendered_html(path, template_values), 200)
