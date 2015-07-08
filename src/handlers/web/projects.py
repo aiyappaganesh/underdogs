@@ -94,6 +94,13 @@ class ProjectStartupsMatchingPage(WebRequestHandler):
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class ProjectListPage(WebRequestHandler):
+    def make_json(self, project):
+        project_dict = {}
+        project_dict['title'] = project.title
+        project_dict['category'] = project.category
+        project_dict['image'] = '/api/common/download_image/' + project.image if project.image else '/assets/img/company/company.png'
+        return project_dict
+
     def get_all_projects(self, order, column):
         q = Project.all()
         if order == 'desc':
@@ -106,9 +113,9 @@ class ProjectListPage(WebRequestHandler):
         order = self['order'] if self['order'] else 'desc'
         column = self['column'] if self['column'] else 'end_date'
         path = 'list_projects.html'
-        projects = self.get_all_projects(order, column)
+        projects = [self.make_json(project) for project in self.get_all_projects(order, column)]
+        projects.insert(0, {'image': '/assets/img/new_project.png', 'title': 'Your Project', 'url': '/projects/registration'})
         project_rows = [projects[i:i+3] for i in range(0, len(projects), 3)]
-        logging.info(project_rows)
         template_values = {'project_rows': project_rows, 'order': order, 'column': column}
         self.write(self.get_rendered_html(path, template_values), 200)
 

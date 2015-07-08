@@ -102,7 +102,7 @@ class LatestStartupsListingPage(WebRequestHandler):
     def make_dict(self, company):
         company_dict = {}
         company_dict['score'] = float(company.influence_avg) if company.influence_avg else 0.0
-        company_dict['image'] = '/api/common/download_image/' + str(company.image)
+        company_dict['image'] = '/api/common/download_image/' + str(company.image) if company.image else '/assets/img/company/company.png'
         company_dict['name'] = company.name
         company_dict['hello'] = company.hello if company.hello else '\n'
         company_dict['profile'] = company.profile if company.profile else '\n'
