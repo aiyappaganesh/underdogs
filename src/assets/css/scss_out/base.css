@@ -159,8 +159,6 @@ header {
     display: block;
     height: 32px;
     line-height: 32px; }
-  .navbar-btn a.navbar-btn:hover {
-    color: #ffffff !important; }
   .scrolled .navbar-btn {
     background-color: transparent;
     -webkit-font-smoothing: antialiased;
