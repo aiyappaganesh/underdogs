@@ -85,7 +85,7 @@ p {
     padding-bottom: 48px !important;
 }
 
-#startup-project-desc .copy {
+#startup-project-desc .copy, #development .copy {
     padding-bottom: 48px !important;
 }
 
@@ -93,13 +93,17 @@ p {
     padding-bottom: 48px !important;
 }
 
-#startup-project-desc .copy:last-of-type {
+#startup-project-desc .copy:last-of-type, #development .copy:last-of-type {
     padding-bottom: 0px !important;
 }
 
-#startup-project-desc .title {
+#startup-project-desc .title, #development .title {
     padding-top: 48px !important;
     padding-bottom: 24px !important;
+}
+
+#development .title:first-of-type {
+    padding-top: 0px !important;
 }
 
 .joint-sprint-img {

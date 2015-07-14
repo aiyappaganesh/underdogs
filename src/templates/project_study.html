@@ -114,6 +114,58 @@
             </div>
         </div>
     </div>
+    <div id="development" class="white-background fullscreen-section">
+        <div class="centered-full-screen-element">
+            <div class="width960 section-content">
+                <div class="row title">
+                    <h2>DEVELOPMENT</h2>
+                </div>
+                <p class="copy normal-copy">
+                    Developing Comfort was very interesting for us because we had never worked on a healthcare app.
+                    It was a nice opportunity to jump on Health Kit that Apple had just released and learn more about it.
+                    This health kit also dictated the iOS version we were going to support, iOS 8.
+                    In this blog post we would like to share some of the architectural and design decisions we made.
+                    Hopefully, others can benefit from this too.
+                </p>
+                <div class="row center-align">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <img src="{{development_img_1}}">
+                    </div>
+                    <div class="col-sm-4"></div>
+                </div>
+                <div class="row title">
+                    <h2>Choice of networking library</h2>
+                </div>
+                <p class="copy normal-copy">
+                    The app was designed in a way to show a lot of images and it was important to have them at high-res to render properly on all form factors.
+                    This meant a lot of memory consumption on the device, which we wanted to avoid.
+                    We attempted to extend Apple's core networking technology like NSURLRequests and NSURLConnectionDataDelegate.
+                    This felt like a lot of work and felt like we were re-inventing the wheel.
+                    Instead we tried out other 3rd party libraries and settled on AFNetworking.
+                    This is a very mature library and has been around for sometime now and catered to all our needs.
+                    They have very well implemented caching which helped us load often used images without making network calls.
+                </p>
+                <div class="row center-align">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <img src="{{development_img_2}}">
+                    </div>
+                    <div class="col-sm-4"></div>
+                </div>
+                <div class="row title">
+                    <h2>Showing health data</h2>
+                </div>
+                <p class="copy normal-copy">
+                    We had worked on dynamic behaviors added to UIViews in iOS 7 to show nice graphs.
+                    While it did make it easy to add cool, life like animations to the charts, we found the dynamic behaviors unsuitable to render eye-catching graphs.
+                    Again, given the time restrictions and with an intention to not re-invent the wheel we started researching a lot of graphing libraries.
+                    We settled on Jawbone.
+                    They have the widest range of charts and are by far the most eye catching.
+                </p>
+            </div>
+        </div>
+    </div>
     {% for app_shot in app_shots %}
     <div class="fullscreen-section" style="background-color:{{app_shot.bg_color}}">
         <div class="centered-full-screen-element">
