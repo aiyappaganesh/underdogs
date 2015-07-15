@@ -184,4 +184,9 @@ p {
     .sec-1 .section-content:first-of-type {
         padding-top: 128px;
     }
+
+    .dev-img {
+        height: 175px;
+        width: 175px;
+    }
 }
