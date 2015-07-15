@@ -134,6 +134,13 @@ p {
     text-align: center;
 }
 
+.dev-img {
+    height: 275px;
+    width: 275px;
+    border: 1px solid #ddd;
+    border-radius: 25%;
+}
+
 @media (max-width: 959px) {
     .width960 {
         padding-left: 20px;
