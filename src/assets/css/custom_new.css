@@ -13,7 +13,9 @@ body a {
 }
 
 .mixpanel-badge {
-    padding-bottom: 25px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
 }
 
 .spacing-small {
@@ -836,27 +838,25 @@ sup {
   opacity: 1;
   filter: alpha(opacity=100);
   visibility: visible;
-  right: 25px;
 }
 
 #top-arrow.off {
   opacity:0;
   filter:alpha(opacity=0);
-  right:25px;
 }
 
 #top-arrow {
   color: #cdcdcd;
   height: auto;
   position: fixed;
-  bottom: 65px;
+  bottom: 75px;
   margin: 0;
   z-index: 10000;
   -webkit-transition: all .3s ease 0s;
   -moz-transition: all .3s ease 0s;
   -o-transition: all .3s ease 0s;
   transition: all .3s ease 0s;
-  right: 25px;
+  right: 20px;
   opacity: 0;
   filter: alpha(opacity=0);
   visibility: hidden;
@@ -985,6 +985,7 @@ sup {
     color:#333333;
     text-align:center;
     border-top: 1px solid #ddd !important;
+    position: relative;
 }
 
 .final-section li {
@@ -1164,6 +1165,20 @@ sup {
 
     .bottom-padded {
         padding-bottom: 64px !important;
+    }
+
+    #top-arrow {
+        right: 10px;
+    }
+
+    .mixpanel-badge {
+        bottom: 10px;
+        left: 10px;
+    }
+
+    #intercom-container .intercom-launcher {
+        bottom: 10px !important;
+        right: 10px !important;
     }
 }
 
