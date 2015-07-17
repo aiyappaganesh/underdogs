@@ -19,3 +19,9 @@
 .sec-steve-content ul li{
     padding: $sm_padding;
 }
+
+.carousel {
+    .carousel-control, .carousel-indicators {
+        z-index: 5555;
+    }
+}

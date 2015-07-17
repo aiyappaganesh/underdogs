@@ -61,6 +61,10 @@
   vertical-align: middle;
   text-align: center; }
 
+.fullscreen {
+  min-height: 100vh;
+  width: 100vw; }
+
 .section {
   padding-top: 128px;
   padding-bottom: 128px; }
@@ -70,6 +74,12 @@
 .donut_td {
   position: relative;
   margin: auto; }
+
+.show-element {
+  display: block; }
+
+.hide-element {
+  display: none; }
 
 header {
   position: relative;

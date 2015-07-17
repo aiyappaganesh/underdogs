@@ -100,34 +100,35 @@
         </div>
         <div id="section4-carousel" class="carousel slide" data-interval="false" data-pause="false">
             <ol class="carousel-indicators">
-                <li data-target="#section4-carousel" data-slide-to="0" class="active"></li>
-                <li data-target="#section4-carousel" data-slide-to="1"></li>
+                {% for slide in community_carousel.slides %}
+                <li data-target="#section4-carousel" data-slide-to="{{forloop.counter0}}" {% if forloop.first %}class="active"{% endif %}></li>
+                {% endfor %}
             </ol>  
             {% for slide in community_carousel.slides %}
             <div id="sec4-slide{{forloop.counter}}-copy" class="stationary {% if forloop.first %}show-element{% else %}hide-element{% endif %}">
-                <div class="centered-full-screen-element">
-                    <div class="width960 section-content">
+                <div class="centered-fullscreen">
+                    <div class="section">
                         <div class="row">
-                            <div class="col-sm-12 header-1 center-align white-font">
-                                <span>{{slide.title}}</span>
+                            <div class="col-sm-12">
+                                <h1>{{slide.title}}</h1>
                             </div>
                         </div>
-                        <div class="row member-row">
+                        <div class="row" style="text-align:left">
                             <div class="col-sm-2 col-xs-6">
-                                <div class="member-picture" style="background-image:url('{{slide.people.0.img}}');"></div>
+                                <img src="{{slide.people.0.img}}">
                             </div>
                             <div class="col-sm-5 col-xs-5">
                                 {% include "components/centered_content.html" with centered=slide.people.0.centered%}
                             </div>
                             <div class="col-sm-5 col-xs-1"></div>
                         </div>
-                        <div class="row member-row-last">
+                        <div class="row" style="text-align:left">
                             <div class="col-sm-5 col-xs-1"></div>
                             <div class="col-sm-5 col-xs-5">
                                 {% include "components/centered_content.html" with centered=slide.people.1.centered%}
                             </div>
                             <div class="col-sm-2 col-xs-6">
-                                <div class="member-picture" style="background-image:url('{{slide.people.1.img}}');"></div>
+                                <img src="{{slide.people.1.img}}">
                             </div>
                         </div>
                     </div>
@@ -135,8 +136,9 @@
             </div>
             {% endfor %}
             <div class="carousel-inner" style="height:100%">
-                <div id="sec4-slide1" class="item active fullscreen-section carousel-2-slide" style="background:url('/assets/img/landing/slide-4-bg.png');"></div>
-                <div id="sec4-slide2" class="item fullscreen-section carousel-2-slide" style="background:url('/assets/img/landing/slide-5-bg.png');"></div>
+                {% for slide in community_carousel.slides %}
+                <div id="sec4-slide{{forloop.counter}}" class="item fullscreen {% if forloop.first %}active{% endif %}" style="background:url('{{slide.bg_img}}') center center no-repeat; background-size: cover;"></div>
+                {% endfor %}
             </div>
             <a class="carousel-control left" href="#section4-carousel" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>

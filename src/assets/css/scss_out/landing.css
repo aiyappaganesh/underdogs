@@ -76,6 +76,10 @@
   vertical-align: middle;
   text-align: center; }
 
+.fullscreen {
+  min-height: 100vh;
+  width: 100vw; }
+
 .section {
   padding-top: 128px;
   padding-bottom: 128px; }
@@ -85,6 +89,12 @@
 .donut_td {
   position: relative;
   margin: auto; }
+
+.show-element {
+  display: block; }
+
+.hide-element {
+  display: none; }
 
 .dark-container-light-font {
   background-color: #333333;
@@ -103,5 +113,8 @@
 
 .sec-steve-content ul li {
   padding: 12px; }
+
+.carousel .carousel-control, .carousel .carousel-indicators {
+  z-index: 5555; }
 
 /*# sourceMappingURL=landing.css.map */

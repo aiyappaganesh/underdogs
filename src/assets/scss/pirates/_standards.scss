@@ -87,6 +87,11 @@
     text-align: center;
 }
 
+.fullscreen {
+    min-height: 100vh;
+    width: 100vw;
+}
+
 .section {
     @extend .width960;
     padding-top: 128px;
@@ -99,4 +104,12 @@
 .donut_td {
     position: relative;
     margin: auto;
+}
+
+.show-element {
+    display: block;
+}
+
+.hide-element {
+    display: none;
 }
