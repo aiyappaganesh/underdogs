@@ -13,9 +13,9 @@ from model.ui_models.factories.donut_factory import DonutFactory
 from model.ui_models.centered_contents import CenteredContents, CenteredContent
 
 def get_team_members():
-    members = [("Designer", '/assets/img/landing/slide-3-1.png'),
-               ("Full Stack Developer", '/assets/img/landing/slide-3-2.png'),
-               ("Mobile Developer", '/assets/img/landing/slide-3-3.png')]
+    members = [("Designer", '/assets/img/landing/designer.png'),
+               ("Full Stack Developer", '/assets/img/landing/backend_dev.png'),
+               ("Mobile Developer", '/assets/img/landing/mobile_dev.png')]
     return [TeamMember(member[0], member[1]) for member in members]
 
 def get_startups():

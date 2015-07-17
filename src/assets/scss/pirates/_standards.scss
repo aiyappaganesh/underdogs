@@ -60,6 +60,7 @@
 
 .header-1, h1 {
     @include header($h1_font_size, $h1_font);
+    text-transform: uppercase;
 }
 
 .header-3, h3 {
@@ -76,4 +77,21 @@
     font-weight: normal !important;
     line-height: 100%;
     -webkit-font-smoothing: antialiased;
+}
+
+.centered-fullscreen {
+    display: table-cell;
+    height: 100vh;
+    width: 100vw;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.section {
+    @extend .width960;
+    padding-top: 128px;
+    padding-bottom: 128px;
+    .row {
+        padding: $sm_padding;
+    }
 }
