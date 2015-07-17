@@ -58,47 +58,43 @@
                 </div>
             </div>
         </div>
-        <div class="centered-full-screen-element white-background">
-            <div class="width960 section-content">
-                <div class="row">
-                    <div class="col-sm-12 header-1 center-align sec-startups-copy-big-1">
-                        <span>CHECK OUT THE BEST STARTUPS</span>
-                    </div>
-                </div>
-                <div class="row">
-                    {% for s in startups %}
-                    <div class="col-sm-4 startup-cell">
-                        <div class="row">
-                            <div class="sec-startups-img" style="background-image:url('{{s.image}}')"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 center-align">
-                                <h3>{{s.title}}</h3>
-                                <p class="normal-copy">{{s.sub_title}}</p>
-                            </div>
+        <div>
+            <div class="centered-fullscreen">
+                <div class="section">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h1>CHECK OUT THE BEST STARTUPS</h1>
                         </div>
                     </div>
-                    {% endfor %}
-                </div>
-                <div class="row">
-                    <div class="col-sm-12 header-1 center-align sec-startups-copy-big-2">
-                        <span>HIRE YOUR FAVORITE STARTUP</span>
+                    <div class="row">
+                        {% for s in startups %}
+                        <div class="col-sm-4">
+                            <img src="{{s.image}}">
+                            <h3>{{s.title}}</h3>
+                            <p class="normal-copy">{{s.sub_title}}</p>
+                        </div>
+                        {% endfor %}
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3"></div>
-                    <div class="col-sm-6 sec-startups-copy-medium normal-copy center-align">
-                        <span>Startup Color Door's appeal to a Fortune 500 bank looking to build a new retail banking app</span>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h1>HIRE YOUR FAVORITE STARTUP</h1>
+                        </div>
                     </div>
-                    <div class="col-sm-3"></div>
-                </div>
-                <div class="row sec-startups-donuts">
-                    {% for donut in donuts %}
-                    <div class="col-sm-4">
-                        {% include "components/new_donut_chart.html" with donut=donut%}
-                        <p class="sec-startups-donut-title header-3 center-align">{{donut.title}}</p>
+                    <div class="row">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6">
+                            <p class="normal-copy">Startup Color Door's appeal to a Fortune 500 bank looking to build a new retail banking app</p>
+                        </div>
+                        <div class="col-sm-3"></div>
                     </div>
-                    {% endfor %}
+                    <div class="row">
+                        {% for donut in donuts %}
+                        <div class="col-sm-4">
+                            {% include "components/new_donut_chart.html" with donut=donut%}
+                            <h3>{{donut.title}}</h3>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>

@@ -82,6 +82,10 @@
   .section .row {
     padding: 12px; }
 
+.donut_td {
+  position: relative;
+  margin: auto; }
+
 .dark-container-light-font {
   background-color: #333333;
   color: #ffffff; }

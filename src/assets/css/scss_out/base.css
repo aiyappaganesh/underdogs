@@ -67,6 +67,10 @@
   .section .row {
     padding: 12px; }
 
+.donut_td {
+  position: relative;
+  margin: auto; }
+
 header {
   position: relative;
   left: 0;
