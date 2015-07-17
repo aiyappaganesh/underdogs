@@ -53,3 +53,6 @@ target/
 .idea/
 .idlerc
 .DS_Store
+
+# Sass cache files
+*.scssc
