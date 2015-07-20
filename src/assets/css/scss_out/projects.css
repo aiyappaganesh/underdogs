@@ -98,8 +98,11 @@
   padding-bottom: 24px;
   border-bottom: 1px solid #ddd; }
 
-.startup-logo {
+.project-logo {
   height: 128px;
   width: 128px; }
 
-/*# sourceMappingURL=startups.css.map */
+.project-category {
+  color: #139fe1; }
+
+/*# sourceMappingURL=projects.css.map */

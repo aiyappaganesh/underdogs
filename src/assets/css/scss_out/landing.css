@@ -109,6 +109,10 @@
 .pirates-footer {
   border-top: 1px solid #ddd; }
 
+.title {
+  padding-bottom: 24px;
+  border-bottom: 1px solid #ddd; }
+
 .dark-container-light-font {
   background-color: #333333;
   color: #ffffff; }

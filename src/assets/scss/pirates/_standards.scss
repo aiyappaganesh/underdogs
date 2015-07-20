@@ -137,3 +137,8 @@
 .pirates-footer {
     border-top: $sm_border_thickness solid $separator_color;
 }
+
+.title {
+    padding-bottom: $std_padding;
+    border-bottom: $sm_border_thickness solid $separator_color;
+}

@@ -1,85 +1,48 @@
 {% extends "base_padded.html" %}
 
 {% block Scripts %}
-    <script type="text/javascript">
-        function sort(data){
-            var column = $(data).attr("id");
-            var order = "{{ order }}"; 
-            if (order == "desc"){
-                order = "asc";
-            } else {
-                order = "desc";
-            }
-            window.location.replace("/projects/list?order=" + order + "&column=" + column);
-        };
-    </script>
     <script src="/assets/js/listing_animation.js"></script>
-    <script>
-        $(document).ready(function(){
-            $('.project-image').mouseover(function(){
-                $(this).find('.caption').css('opacity', 1);
-            });
-            $('.project-image').mouseout(function(){
-                $(this).find('.caption').css('opacity', 0);
-            });
-        });
-        function set_copy(window_width, window_height) {
-        }
-    </script>
 {% endblock %}
 
 {% block Styles %}
-    <link href="/assets/css/listing_new.css" type="text/css" rel="stylesheet">
-    <link href="/assets/css/projects.css" type="text/css" rel="stylesheet">
+    <link href="/assets/css/scss_out/projects.css" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block PaddedContent %}
-    <div class="col-lg-12">
-        <div class="width960 center-align">
-            <div id="featured_project">
-                <div class="row featured-project-title">
-                    <h1 class="center-align">COMFORT: A SUCCESS STORY</h1>
-                </div>
-                <div class="row img-row comfort-image" style="background-image:url('/assets/img/projects/listing/app_showcase.png');background-repeat:no-repeat; background-position: center center; height:600px"></div>
-                <div class="row">
-                    <div class="col-xs-offset-2 col-xs-8">
-                        <p class="normal-copy">
-                            HealthCo (name changed) is a Fortune 500 Health Insurance Company. They selected the New York startup Haze to build Comfort, their new Health Insurance app, targeted towards a younger demographic.
-                        </p>
-                    </div>
-                </div>
-                {% include "components/link_button.html" with link="/projects/study?name=comfort" value="VIEW CASE" classes="btn-blue" %}
+    <div class="row" style="text-align: center;">
+        <div class="col-sm-12">
+            <div class="title">
+                <h1>COMFORT: A SUCCESS STORY</h1>
             </div>
+            <div class="row img-row comfort-image" style="background-image:url('/assets/img/projects/listing/app_showcase.png');background-repeat:no-repeat; background-position: center center; height:600px"></div>
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="row projects-list-heading">
-                        <h1>FEATURED PROJECTS</h1>
-                    </div>
-                    <div class="row project-image-section">
-                        {% for row in project_rows %}
-                            <div class="row list-row">
-                            {% for project in row %}
-                                <div class="col-sm-4 project-cell">
-                                    {% if project.url %}<a href="{{project.url}}">{% endif %}
-                                        <div class="row">
-                                            <div class="section-slide-3-img-container">
-                                                <img class="section-slide-3-img" src="{{project.image}}">
-                                            </div>
-                                        </div>
-                                        <div class="row center-align">
-                                            <div class="col-md-12">
-                                                <h3 class="dark-font">{{project.title}}</h3>
-                                                <p class="normal-copy blue-font">{{project.category}}</p>
-                                            </div>
-                                        </div>
-                                    {% if project.url %}</a>{% endif %}
-                                </div>
-                            {% endfor %}
-                            </div>
-                        {% endfor %}
-                    </div>
+                <div class="col-xs-offset-2 col-xs-8">
+                    <p class="normal-copy">
+                        HealthCo (name changed) is a Fortune 500 Health Insurance Company. They selected the New York startup Haze to build Comfort, their new Health Insurance app, targeted towards a younger demographic.
+                    </p>
                 </div>
             </div>
+            {% include "components/link_button.html" with link="/projects/study?name=comfort" value="VIEW CASE" classes="btn-blue" %}
+        </div>
+    </div>
+    <div class="row" style="text-align: center;">
+        <div class="col-sm-12">
+            <div class="title">
+                <h1>FEATURED PROJECTS</h1>
+            </div>
+            {% for row in project_rows %}
+                <div class="row">
+                {% for project in row %}
+                    <div class="col-sm-4">
+                        {% if project.url %}<a href="{{project.url}}">{% endif %}
+                            <img class="project-logo" src="{{project.image}}">
+                            <h3>{{project.title}}</h3>
+                            <p class="normal-copy project-category">{{project.category}}</p>
+                        {% if project.url %}</a>{% endif %}
+                    </div>
+                {% endfor %}
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
