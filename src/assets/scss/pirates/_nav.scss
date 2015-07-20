@@ -24,10 +24,16 @@ header {
     @at-root .scrolled & .nav a {
     	color: $black_color;
     }
+    @at-root .scrolled & .nav a:hover {
+        color: $blue_color;
+    }
     & .nav a {
     	color: $white_color;
         padding: 0px;
         line-height: normal !important;
+    }
+    & .nav>li>a:hover, & .nav>li>a:focus {
+        background-color: transparent;
     }
 }
 
@@ -80,6 +86,6 @@ header {
 	@extend .nav;
 	color: $white_color !important;
 	a:hover {
-		color: $blue_color !important;
+		color: $blue_color;
 	}
 }

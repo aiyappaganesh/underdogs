@@ -79,12 +79,26 @@
     -webkit-font-smoothing: antialiased;
 }
 
-.centered-fullscreen {
+.centered {
     display: table-cell;
-    height: 100vh;
-    width: 100vw;
     vertical-align: middle;
     text-align: center;
+}
+
+.centered-fullscreen {
+    @extend .centered;
+    height: 100vh;
+    width: 100vw;
+}
+
+.centered-fullwidth {
+    @extend .centered;
+    width: 100vw;
+}
+
+.section-padding {
+    padding-top: $xl_padding;
+    padding-bottom: $xl_padding;
 }
 
 .fullscreen {
@@ -94,9 +108,11 @@
 
 .section {
     @extend .width960;
-    padding-top: 128px;
-    padding-bottom: 128px;
+    @extend .section-padding;
     .row {
+        padding: $sm_padding;
+    }
+    ul li{
         padding: $sm_padding;
     }
 }
@@ -112,4 +128,8 @@
 
 .hide-element {
     display: none;
+}
+
+.pirates-footer {
+    border-top: $sm_border_thickness solid $separator_color;
 }

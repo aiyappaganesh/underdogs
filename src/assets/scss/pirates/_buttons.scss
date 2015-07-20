@@ -1,6 +1,6 @@
 @import "_constants.scss";
 
-@mixin button($text_color, $border_color, $hover_color, $hover_text, $hover_border, $width, $height) {
+@mixin button($text_color, $border_color, $hover_color, $hover_text, $hover_border, $width, $height, $font_size: null) {
 	background-color:transparent;
 	-webkit-font-smoothing: antialiased;
 	width: $width;
@@ -24,6 +24,9 @@
 	font: {
 		weight: bold;
 		family: $btn_font;
+        @if $font_size != null{
+            size: $font_size;
+        }
 	}
 	span {
 		display: block;
@@ -35,7 +38,13 @@
 .get-started-btn {
 	@include button($white_color, $white_color, 
 		            $white_color, $black_color, $white_color, 
-		            $bg_btn_width, $bg_btn_height);
+		            $bg_btn_width, $bg_btn_height, $bg_btn_font_size);
+}
+
+.std-btn {
+	@include button($blue_color, $blue_color,
+		            $blue_color, $white_color, $blue_color,
+		            $bg_btn_width, $bg_btn_height, $bg_btn_font_size);
 }
 
 .navbar-btn {

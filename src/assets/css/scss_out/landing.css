@@ -69,22 +69,30 @@
   line-height: 100%;
   -webkit-font-smoothing: antialiased; }
 
-.centered-fullscreen {
+.centered, .centered-fullscreen, .centered-fullwidth {
   display: table-cell;
-  height: 100vh;
-  width: 100vw;
   vertical-align: middle;
   text-align: center; }
+
+.centered-fullscreen {
+  height: 100vh;
+  width: 100vw; }
+
+.centered-fullwidth {
+  width: 100vw; }
+
+.section-padding, .section {
+  padding-top: 128px;
+  padding-bottom: 128px; }
 
 .fullscreen {
   min-height: 100vh;
   width: 100vw; }
 
-.section {
-  padding-top: 128px;
-  padding-bottom: 128px; }
-  .section .row {
-    padding: 12px; }
+.section .row {
+  padding: 12px; }
+.section ul li {
+  padding: 12px; }
 
 .donut_td {
   position: relative;
@@ -96,25 +104,39 @@
 .hide-element {
   display: none; }
 
+.pirates-footer {
+  border-top: 1px solid #ddd; }
+
 .dark-container-light-font {
   background-color: #333333;
   color: #ffffff; }
 
-.stationary {
+.stationary, .white-stationary, .black-stationary {
   position: absolute;
   width: 100%;
   height: 100%;
   z-index: 999;
   text-align: center;
-  color: #ffffff;
   line-height: normal; }
-  .stationary li {
+  .stationary li, .white-stationary li, .black-stationary li {
     padding: 12px; }
 
 .sec-steve-content ul li {
   padding: 12px; }
 
 .carousel .carousel-control, .carousel .carousel-indicators {
-  z-index: 5555; }
+  z-index: 5555;
+  background-image: none;
+  color: #139fe1; }
+
+.white-stationary {
+  color: #ffffff; }
+
+.black-stationary {
+  color: #333333; }
+
+.track-img {
+  height: 500px;
+  margin-top: 62px; }
 
 /*# sourceMappingURL=landing.css.map */

@@ -1,11 +1,14 @@
 $(document).ready(function(){
     $('#section1-carousel').carousel('cycle');
     $('#section4-carousel').on('slide.bs.carousel', function(e){
-        $(this).find('.stationary').fadeOut(500);
-        $('#'+e.relatedTarget.id+'-copy').fadeIn(1000);
+        changeCarouselCopy(this, e);
     });
     $('#track').on('slide.bs.carousel', function(e){
-        $(this).find('.stationary').fadeOut(500);
-        $('#'+e.relatedTarget.id+'-copy').fadeIn(1000);
+        changeCarouselCopy(this, e);
     });
 });
+
+function changeCarouselCopy(element, event) {
+    $(element).find('.carousel-copy').fadeOut(500);
+    $('#'+event.relatedTarget.id+'-copy').fadeIn(1000);
+}

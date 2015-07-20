@@ -9,7 +9,6 @@
     height: 100%;
     z-index: 999;
     text-align: center;
-    color: $white-color;
     line-height: normal;
     li {
     	padding: $sm_padding;
@@ -23,5 +22,22 @@
 .carousel {
     .carousel-control, .carousel-indicators {
         z-index: 5555;
+        background-image: none;
+        color: $blue_color;
     }
+}
+
+.white-stationary {
+    @extend .stationary;
+    color: $white_color;
+}
+
+.black-stationary {
+    @extend .stationary;
+    color: $black_color;
+}
+
+.track-img {
+    height: 500px;
+    margin-top: 62px;
 }
