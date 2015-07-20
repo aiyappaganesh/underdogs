@@ -24,6 +24,8 @@
 .content {
   margin-top: -66px;
   margin-bottom: 0px; }
+  .scrolled .content {
+    margin-top: 66px; }
 
 .header-1, h1 {
   line-height: 100%;

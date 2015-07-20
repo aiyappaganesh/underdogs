@@ -46,6 +46,10 @@
 .content {
     margin-top: -$nav_height;
     margin-bottom: 0px;
+
+    .scrolled & {
+        margin-top: $nav_height;
+    }
 }
 
 @mixin header($size, $family){

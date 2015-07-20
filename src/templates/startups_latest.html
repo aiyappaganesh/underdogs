@@ -1,36 +1,24 @@
 {% extends "base_padded.html" %}
 
 {% block Styles %}
-    <link href="/assets/css/listing_new.css" type="text/css" rel="stylesheet">
+    <link href="/assets/css/scss_out/startups.css" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block PaddedContent %}
-    <div id="startups-listing" class="col-sm-12">
-        <div class="width960 center-align">
-            {% for startups_row in startups %}
-            <div class="row list-row">
-                {% for startup in startups_row %}
-                <div class="col-sm-4 original-pos startup-cell">
-                    <a href="{{startup.url}}">
-                        <div class="row company-img">
-                            <div class="col-md-12 company-img">
-                                <img class="company-image" src="{{startup.image}}">
-                            </div>
-                        </div>
-                        <div class="row center-align dark-font">
-                            <div class="col-md-12">
-                                <h3>{{startup.name}}</h3>
-                                <p class="normal-copy">{{startup.hello|linebreaksbr}}</p>
-                                <p class="normal-copy">{{startup.city}}</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                {% endfor %}
+    {% for startups_row in startups %}
+        <div class="row">
+            {% for startup in startups_row %}
+            <div class="col-sm-4 original-pos" style="text-align:center;">
+                <a href="{{startup.url}}">
+                    <img class="startup-logo" src="{{startup.image}}">
+                    <h3>{{startup.name}}</h3>
+                    <p class="normal-copy">{{startup.hello|linebreaksbr}}</p>
+                    <p class="normal-copy">{{startup.city}}</p>
+                </a>
             </div>
             {% endfor %}
         </div>
-    </div>
+    {% endfor %}
 {% endblock %}
 
 {% block Scripts %}
