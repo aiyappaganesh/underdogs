@@ -26,7 +26,8 @@ class AddProjectHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHandle
         p = Project()
         p.title = self['project_title']
         p.description = self['description']
-        p.skills = self['project_skills'].split(',') if self['project_skills'] else []
+        if self['project_skills']:
+            p.skills = self['project_skills'].split(',') if self['project_skills'] else []
         p.end_date = datetime.strptime(str(self['project_end_date']), "%Y-%m-%d").date()
         p.bid = float(self['project_bid'])
         p.category = self['category']
@@ -46,7 +47,7 @@ class AddProjectHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHandle
         self.create_project_admin(p, session['me_email'])
         intercomio_api.events(session['me_email'], event_name='created_project')
         mixpanel_api.events(session['me_email'], 'created_project')
-        self.redirect('/startups/search/criteria')
+        self.redirect('/projects/skills?project_id='+str(p.id))
 
 class UpdateProjectHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
     def update_project(self, image_key):
@@ -68,6 +69,19 @@ class UpdateProjectHandler(blobstore_handlers.BlobstoreUploadHandler, RequestHan
         image_key = read_image(self, "project_image")
         self.update_project(image_key)
         self.redirect('/member/projects/dashboard')
+
+class UpdateProjectSkillsHandler(RequestHandler):
+    def update_project_skills(self):
+        id = int(str(self['project_id']))
+        if id:
+            p = Project.get_by_id(id)
+            p.skills = self['project_skills'].split(',') if self['project_skills'] else []
+            p.put()
+
+    @web_login_required
+    def post(self):
+        self.update_project_skills()
+        self.redirect('/projects/list')
 
 class FetchProjectsHandler(RequestHandler):
     questions_list = {'Name of your project':'title',
@@ -108,6 +122,7 @@ class FetchProjectsHandler(RequestHandler):
 
 app = RestApplication([
     ('/api/projects/add_project', AddProjectHandler),
+    ('/api/projects/update_project_skills', UpdateProjectSkillsHandler),
     ('/api/projects/update_project', UpdateProjectHandler),
     ('/api/projects/fetch_projects', FetchProjectsHandler)
 ])

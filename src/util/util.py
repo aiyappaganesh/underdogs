@@ -19,9 +19,20 @@ MINYATTRA_RECAPTCHA_PRIVATE_KEY = '6LeA6PwSAAAAAB9Wv1qmmnxnsZySbb8nQwdqUvbv'
 
 recaptcha_client = RecaptchaClient(HIREPIRATES_RECAPTCHA_PRIVATE_KEY, HIREPIRATES_RECAPTCHA_PUBLIC_KEY, recaptcha_options={'theme':'clean'})
 
-registration_breadcrumbs = [('Get started', 'Tell us about your startup!'),
-                            ('Invite team members', 'Build your team'),
-                            ('Give us access to your data', 'Help us learn more about you')]
+startups = 'startups'
+projects = 'projects'
+
+registration_breadcrumbs = {
+    startups: [
+        ('Get started', 'Tell us about your startup!'),
+        ('Invite team members', 'Build your team'),
+        ('Give us access to your data', 'Help us learn more about you')
+    ],
+    projects: [
+        ('Get started', 'Tell us about your project!'),
+        ('Add skills', 'Choose the skills required to execute the project')
+    ]
+}
 
 separator = '::'
 

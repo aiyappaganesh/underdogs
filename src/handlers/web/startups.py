@@ -5,7 +5,7 @@ from model.company import Company
 from google.appengine.api.blobstore import blobstore
 from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
-from util.util import registration_breadcrumbs
+from util.util import registration_breadcrumbs, startups
 from util.util import get_user_projects, isAdminAccess
 from model.skills.defn import skills_heirarchy
 from model.project import Project
@@ -27,7 +27,7 @@ class StartupsRegistrationPage(WebRequestHandler):
         form_url = blobstore.create_upload_url('/api/startups/add_company')
         template_values = {'form_url': form_url, 
                            'breadcrumb_idx':1,
-                           'breadcrumbs':registration_breadcrumbs}
+                           'breadcrumbs':registration_breadcrumbs[startups]}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class StartupsEditPage(WebRequestHandler):

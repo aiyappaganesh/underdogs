@@ -23,7 +23,7 @@
                 {% include "components/registration_breadcrumbs.html" with idx="1" %}
                 <div class="tab-content">
                     <div class="tab-pane fade active in">
-                        <form role="form" action={{form_url}} method="POST" enctype="multipart/form-data" class="startup-registration-form top-padding-sm center-align">
+                        <form role="form" action={{form_url}} method="POST" enctype="multipart/form-data" class="registration-form top-padding-sm center-align">
                             <div class="col-lg-12">
                                 {% include "components/form_image.html" with name="company_image" button_text="Select Image" %}
                                 {% include "components/form_input.html" with id="company-name" name="company_name" placeholder="Startup Name" length="23" other="required" %}

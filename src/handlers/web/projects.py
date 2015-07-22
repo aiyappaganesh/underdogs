@@ -3,7 +3,7 @@ import webapp2
 from model.skill import Skill
 from handlers.web import WebRequestHandler
 from handlers.web.auth import web_login_required
-from util.util import convert_string_list_to_dict, get_skills_json
+from util.util import convert_string_list_to_dict, get_skills_json, registration_breadcrumbs, projects
 from model.company import Company
 from model.project import Project
 from model.category import categories
@@ -24,11 +24,32 @@ class ProjectsRegistrationPage(WebRequestHandler):
     def get(self):
         path = 'project_registration.html'
         form_url = blobstore.create_upload_url('/api/projects/add_project')
-        template_values = {}
+        template_values = {'form_url': form_url,
+                           'breadcrumb_idx':1,
+                           'breadcrumbs':registration_breadcrumbs[projects]}
         template_values['duration_options'] = DURATION_OPTIONS
         template_values['categories'] = categories
         template_values['skills'] = get_skills_json()
-        template_values['form_url'] = form_url
+        self.write(self.get_rendered_html(path, template_values), 200)
+
+class ProjectSkillsPage(WebRequestHandler):
+    @web_login_required
+    def get(self):
+        project_id = self['project_id']
+        if not project_id:
+            self.write('no project id')
+            return
+        p = Project.get_by_id(int(str(project_id)))
+        if not p:
+            self.write('no project with id: '+project_id)
+            return
+        path = 'project_skills.html'
+        form_url = blobstore.create_upload_url('/api/projects/update_project_skills')
+        template_values = {'form_url': form_url,
+                           'breadcrumb_idx':2,
+                           'breadcrumbs':registration_breadcrumbs[projects],
+                           'project_id': p.id}
+        template_values['skills'] = get_skills_json()
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class ProjectsEditPage(WebRequestHandler):
@@ -192,6 +213,7 @@ class ProjectStudyPage(WebRequestHandler):
 app = webapp2.WSGIApplication(
     [
         ('/projects/registration', ProjectsRegistrationPage),
+        ('/projects/skills', ProjectSkillsPage),
         ('/projects/edit', ProjectsEditPage),
         ('/projects/list', ProjectListPage),
         ('/projects/fitting_startups', ProjectStartupsMatchingPage),
