@@ -11,8 +11,6 @@
     font-weight: 400;
     line-height: 55px;
     text-transform: uppercase;
-    margin-top: 50px;
-    margin-bottom: 45px;
 }
 
 #controls {
@@ -144,8 +142,13 @@ th, td {
     box-shadow: none !important;
 }
 
-.registration-panel li.active>a, .registration-panel li.active>a:hover {
+.registration-panel li.active, .registration-panel li.active:hover {
     background-color: #139fe1 !important;
+    color: #ffffff !important;
+}
+
+.registration-panel li.active>a {
+    background-color: transparent !important;
     color: #ffffff !important;
 }
 
