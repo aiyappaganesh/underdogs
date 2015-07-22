@@ -147,9 +147,17 @@ th, td {
     color: #ffffff !important;
 }
 
-.registration-panel li.active>a {
+.registration-panel li.active>a, .registration-panel li.active>a:hover {
     background-color: transparent !important;
     color: #ffffff !important;
+}
+
+.registration-panel li>a:hover {
+    background-color: transparent !important;
+}
+
+.registration-panel li:hover {
+    background-color: #F5F7FA !important;
 }
 
 .registration-container {
