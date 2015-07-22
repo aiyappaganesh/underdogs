@@ -21,7 +21,7 @@
                             {% include "components/form_error_message.html" %}
                             {% include "components/form_submit.html" with value="Invite" %}
                         </form>
-                        {% include "components/form_input.html" with id="done" name="done" placeholder="Done inviting!" type="button" other_classes="btn btn-bootflat" other="onclick='return done_inviting();'" value="Done inviting!" %}
+                        {% include "components/form_submit.html" with other="onclick='return done_inviting();'" value="Done inviting!" %}
                     </div>
                 </div>
             </div>
