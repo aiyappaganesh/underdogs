@@ -1,0 +1,19 @@
+<div class="row center-align">
+    <div class="col-sm-12 registration-container">
+        <div class="panel registration-panel">
+            {% include "components/registration_breadcrumbs.html" with idx=idx %}
+            <div class="tab-content">
+                <div class="tab-pane fade active in">
+                    {% if form_contents %}
+                    <form role="form" action={{form_url}} method="POST" enctype="multipart/form-data" class="{% if form_classes %}{{form_classes}}{% else %}registration-form{% endif %} top-padding-sm center-align" {% if onsubmit %} onsubmit="{{onsubmit}}" {% endif %}>
+                        <div class="col-sm-12">
+                            {% include form_contents %}
+                        </div>
+                    </form>
+                    {% endif %}
+                    {% include outside_form_contents %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

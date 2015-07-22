@@ -1,0 +1,4 @@
+{% include "components/form_select.html" with id="skills-select" name="skills_select" other="multiple onchange='updateProjectSkills()'" options=skills title="Select Skills" %}
+<input type="hidden" id="project-id" name="project_id" value="{{project_id}}">
+<input type="hidden" id="project-skills" name="project_skills">
+{% include "components/form_submit.html" with value="Add Skills" %}

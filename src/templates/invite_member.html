@@ -10,23 +10,7 @@
             <h2 class="registration-title center-align">INVITE A TEAM MEMBER</h2>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-12 registration-container">
-            <div class="panel registration-panel">
-                {% if breadcrumbs %}{% include "components/registration_breadcrumbs.html" with idx="1" %}{% endif %}
-                <div class="tab-content center-align">
-                    <div class="tab-pane fade active in">
-                        <form class="top-padding-sm invite-member-form" role="form" action="{{invite_form_url}}" method="POST" onsubmit="return validate()">
-                            {% include "components/form_input.html" with id="new_member_email" name="email" placeholder="Email" type="email" other="required" value=email %}
-                            {% include "components/form_error_message.html" %}
-                            {% include "components/form_submit.html" with value="Invite" %}
-                        </form>
-                        {% include "components/form_submit.html" with other="onclick='return done_inviting();'" value="Done inviting!" %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include "components/registration.html" with idx=breadcrumb_idx form_contents="components/member_invite_form_contents.html" outside_form_contents="components/member_invite_outside_form_contents.html" form_classes="invite-member-form" onsubmit="return validate()" %}
 {% endblock %}
 
 {% block Scripts %}

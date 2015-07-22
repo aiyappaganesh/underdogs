@@ -1,0 +1,8 @@
+{% include "components/form_image.html" with name="project_image" button_text="Select Image" %}
+{% include "components/form_input.html" with id="project-title" name="project_title" placeholder="Project Title" other="required" %}
+{% include "components/form_single_select.html" with id="category-select" name="category_select" other="onchange='updateProjectCategory()'" options=categories title="Select Category" %}
+{% include "components/form_textarea.html" with id="description" name="description" placeholder="Description" rows="10" other="required" %}
+{% include "components/form_input.html" with id="project-bid" name="project_bid" placeholder="Bid" other="required" %}
+{% include "components/form_input.html" with type="date" id="project-end-date" name="project_end_date" placeholder="End Date" other="required" %}
+<input type="hidden" id="category" name="category">
+{% include "components/form_submit.html" with value="Create Project" %}

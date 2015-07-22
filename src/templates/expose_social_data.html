@@ -25,56 +25,7 @@
             <h2 class="registration-title center-align">Click below to add social data</h2>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-12 registration-container">
-            <div class="panel registration-panel">
-                {% include "components/registration_breadcrumbs.html" with idx="1" %}
-                <div class="tab-content">
-                    <div class="tab-pane fade active in">
-                        <div class="top-padding-sm expose-data-form center-align">
-                            <div class="row">
-                                <div class="col-sm-1"></div>
-                                <div class="col-sm-10">
-                                    <div id="menu_icon" class="menu-icon">
-                                        <div class="wcircle-icon">
-                                            <p class="icon-text">OPEN</p>
-                                        </div>
-                                        <div class="wcircle-menu" style="display:none;">
-                                            <div class="wcircle-menu-item">
-                                            </div>
-                                            <div class="wcircle-menu-item">
-                                            </div>
-                                            <div class="wcircle-menu-item">
-                                            </div>
-                                            <div class="wcircle-menu-item">
-                                            </div>
-                                            <div class="wcircle-menu-item">
-                                                <a href="{{dribbble_auth_url}}" class="btn btn-bootflat sd-btn round-btn"><i class="fa fa-dribbble fa-fw"></i> <span class="network-name network-name-padding">Dribbble</span></a>
-                                            </div>
-                                            <div class="wcircle-menu-item">
-                                                <a href="{{odesk_auth_url}}" class="btn btn-bootflat sd-btn round-btn"><i class="fa fa-circle-o fa-fw"></i> <span class="network-name network-name-padding">o-Desk</span></a>
-                                            </div>
-                                            <div class="wcircle-menu-item">
-                                                <a href="{{linkedin_auth_url}}" class="btn btn-bootflat sd-btn round-btn"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name network-name-padding">Linkedin</span></a>
-                                            </div>
-                                            <div class="wcircle-menu-item">
-                                                <a href="{{github_auth_url}}" class="btn btn-bootflat sd-btn round-btn"><i class="fa fa-github fa-fw"></i> <span class="network-name network-name-padding">Github</span></a>
-                                            </div>
-                                            <div class="wcircle-menu-item">
-                                                <a href="{{angellist_auth_url}}" class="btn btn-bootflat sd-btn round-btn"><i class="fa fa-angellist fa-fw"></i> <span class="network-name network-name-padding">Angellist</span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-1"></div>
-                            </div>
-                            {% include "components/form_submit.html" with other="onclick='return triggerDataPull();'" value="Begin analytics!" %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include "components/registration.html" with idx=breadcrumb_idx outside_form_contents="components/member_expose_data_outside_form_contents.html" %}
 {% endblock %}
 
 {% block Scripts %}

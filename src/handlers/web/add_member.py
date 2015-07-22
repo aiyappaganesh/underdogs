@@ -17,7 +17,7 @@ from util.util import isAdminAccess
 from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
 from handlers.web.auth import web_auth_required
-from util.util import registration_breadcrumbs, get_user_companies, get_user_projects, get_user, convert_string_list_to_dict, flush_from_memcache
+from util.util import registration_breadcrumbs, get_user_companies, get_user_projects, get_user, convert_string_list_to_dict, flush_from_memcache, startups
 from networks import LINKEDIN, FACEBOOK, TWITTER
 from model.third_party_login_data import ThirdPartyLoginData
 from model.third_party_profile_data import ThirdPartyProfileData
@@ -45,7 +45,7 @@ class ExposeThirdPartyPage(WebRequestHandler):
                            'linkedin_auth_url': '/users/data/linkedin/update?company_id=' + company_id,
                            'dribbble_auth_url': '/users/data/dribbble/update?company_id=' + company_id,
                            'odesk_auth_url': '/users/data/odesk/update?company_id=' + company_id,
-                           'breadcrumbs' : registration_breadcrumbs,
+                           'breadcrumbs' : registration_breadcrumbs[startups],
                            'breadcrumb_idx':3}
         self.write(self.get_rendered_html(path, template_values), 200)
 
@@ -253,8 +253,8 @@ class MemberInvitePage(WebRequestHandler):
 
         rd_url = '/member/invite?company_id='+self['company_id']
         template_values = prepare_template_values_for_invite(rd_url)
-        template_values['invite_form_url'] = '/api/members/invite?company_id=' + company_id
-        template_values['breadcrumbs'] = registration_breadcrumbs
+        template_values['form_url'] = '/api/members/invite?company_id=' + company_id
+        template_values['breadcrumbs'] = registration_breadcrumbs[startups]
         template_values['breadcrumb_idx'] = 2
         template_values['done_redirect'] = '/member/expose_third_party?company_id=' + self['company_id']
         self.write(self.get_rendered_html(path, template_values), 200)

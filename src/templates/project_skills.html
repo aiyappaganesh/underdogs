@@ -15,25 +15,7 @@
 {% block PaddedContent %}
     <div class="center-align">
         <h2>Project Info</h2>
-        <div class="row">
-            <div class="col-sm-12 registration-container">
-                <div class="panel registration-panel">
-                    {% include "components/registration_breadcrumbs.html" with idx=breadcrumb_idx %}
-                    <div class="tab-content">
-                        <div class="tab-pane fade active in">
-                            <form role="form" action={{form_url}} method="POST" enctype="multipart/form-data" class="registration-form top-padding-sm center-align">
-                                <div class="col-sm-12">
-                                    {% include "components/form_select.html" with id="skills-select" name="skills_select" other="multiple onchange='updateProjectSkills()'" options=skills title="Select Skills" %}
-                                    <input type="hidden" id="project-id" name="project_id" value="{{project_id}}">
-                                    <input type="hidden" id="project-skills" name="project_skills">
-                                    {% include "components/form_submit.html" with value="Add Skills" %}
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% include "components/registration.html" with idx=breadcrumb_idx form_contents="components/project_skills_form_contents.html" %}
     </div>
 {% endblock %}
 
