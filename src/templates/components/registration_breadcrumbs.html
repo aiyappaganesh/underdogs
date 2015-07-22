@@ -3,7 +3,7 @@
         <li {% if forloop.counter == breadcrumb_idx %}class="active"{% endif %}>
             <a>
                 <div>
-                    <h4>{{breadcrumb.0}}</h4>
+                    <h4>Step {{forloop.counter}} : {{breadcrumb.0}}</h4>
                     <p>{{breadcrumb.1}}</p>
                 </div>
             </a>
