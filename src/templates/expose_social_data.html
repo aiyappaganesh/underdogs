@@ -22,7 +22,7 @@
     </script>
     <div class="row">
         <div class="col-sm-12">
-            <h3 class="registration-title center-align">Click below to add social data</h3>
+            <h2 class="registration-title center-align">Click below to add social data</h2>
         </div>
     </div>
     <div class="row">
@@ -31,7 +31,7 @@
                 {% include "components/registration_breadcrumbs.html" with idx="1" %}
                 <div class="tab-content">
                     <div class="tab-pane fade active in">
-                        <div class="top-padding-sm expose-data-form">
+                        <div class="top-padding-sm expose-data-form center-align">
                             <div class="row">
                                 <div class="col-sm-1"></div>
                                 <div class="col-sm-10">
@@ -68,17 +68,7 @@
                                 </div>
                                 <div class="col-sm-1"></div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-4"></div>
-                                <div class="col-sm-4">
-                                     <div class="row center-align">
-                                         <div class="col-xs-12 margin-auto">
-                                             <a href="" class="btn btn-bootflat sd-btn" onclick="return triggerDataPull()"><i class="fa-fw"></i> <span class="network-name">Kick off analytics!</span></a>
-                                         </div>
-                                     </div>
-                                </div>
-                                <div class="col-sm-4"></div>
-                            </div>
+                            {% include "components/form_submit.html" with other="onclick='return triggerDataPull();'" value="Begin analytics!" %}
                         </div>
                     </div>
                 </div>
