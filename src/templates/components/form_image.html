@@ -7,13 +7,19 @@
                 <img id="photo-holder" class="form-image" {% if image %}src="{{image}}"{% endif %} data-src="holder.js/100%x100%" alt="NO IMAGE UPLOADED">
             </div>
             <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 100%; max-height: 150px;"></div>
-            <div>
-                <div class="btn-normal btn-blue btn-file auto-margin">
-                    <span class="fileinput-new btn-line-height">{{button_text}}</span>
-                    <span class="fileinput-exists btn-line-height">Change</span>
-                    <input id="photo" onchange="displayPhotoThumbnail(this)" type="file" name="{{name}}">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="btn-normal btn-blue btn-file auto-margin">
+                        <span class="fileinput-new btn-line-height">{{button_text}}</span>
+                        <span class="fileinput-exists btn-line-height">Change</span>
+                        <input id="photo" onchange="displayPhotoThumbnail(this)" type="file" name="{{name}}">
+                    </div>
                 </div>
-                <a href="#" class="btn-normal btn-blue btn-line-height fileinput-exists" data-dismiss="fileinput">Remove</a>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="btn-normal btn-blue btn-line-height fileinput-exists auto-margin" style="cursor: pointer" data-dismiss="fileinput">Remove</div>
+                </div>
             </div>
         </div>
     </div>
