@@ -1,10 +1,10 @@
 <script type="text/javascript">
         function validate() {
-            $('.error-message').html("");
+            $('.error-message p').html("");
             $('.error-message').hide();
             if(!$('#recaptcha_response_field').val()) {
                 $('.error-message').show();
-                $('.error-message').html("Please enter captcha response");
+                $('.error-message p').html("Please enter captcha response");
                 $('#recaptcha_response_field').focus();
                 return false;
             }

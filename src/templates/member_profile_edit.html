@@ -34,7 +34,7 @@
         function validate() {
             if($('#password').val() && $('#password').val() != $('#confirm-password').val()) {
                 $('.error-message').show();
-                $('.error-message').html("Passwords don't match");
+                $('.error-message p').html("Passwords don't match");
                 $('#password').focus();
                 return false;
             } else {
