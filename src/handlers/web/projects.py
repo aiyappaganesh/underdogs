@@ -24,9 +24,12 @@ class ProjectsRegistrationPage(WebRequestHandler):
     def get(self):
         path = 'project_registration.html'
         form_url = blobstore.create_upload_url('/api/projects/add_project')
+        breadcrumb_idx = 1
         template_values = {'form_url': form_url,
-                           'breadcrumb_idx':1,
-                           'breadcrumbs':registration_breadcrumbs[projects]}
+                           'breadcrumb_idx':breadcrumb_idx,
+                           'breadcrumbs_len':len(registration_breadcrumbs[projects]),
+                           'breadcrumb':registration_breadcrumbs[projects][breadcrumb_idx-1],
+                           'progress': (100/len(registration_breadcrumbs[projects]))*breadcrumb_idx}
         template_values['duration_options'] = DURATION_OPTIONS
         template_values['categories'] = categories
         template_values['skills'] = get_skills_json()
@@ -45,9 +48,12 @@ class ProjectSkillsPage(WebRequestHandler):
             return
         path = 'project_skills.html'
         form_url = blobstore.create_upload_url('/api/projects/update_project_skills')
+        breadcrumb_idx = 2
         template_values = {'form_url': form_url,
-                           'breadcrumb_idx':2,
-                           'breadcrumbs':registration_breadcrumbs[projects],
+                           'breadcrumb_idx':breadcrumb_idx,
+                           'breadcrumbs_len':len(registration_breadcrumbs),
+                           'breadcrumb':registration_breadcrumbs[projects][breadcrumb_idx-1],
+                           'progress': (100/len(registration_breadcrumbs))*breadcrumb_idx,
                            'project_id': p.id}
         template_values['skills'] = get_skills_json()
         self.write(self.get_rendered_html(path, template_values), 200)

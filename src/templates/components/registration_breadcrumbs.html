@@ -1,12 +1,27 @@
-<ul class="nav nav-tabs nav-justified">
-    {% for breadcrumb in breadcrumbs %}
-        <li {% if forloop.counter == breadcrumb_idx %}class="active"{% endif %}>
-            <a>
-                <div>
-                    <h4>Step {{forloop.counter}} : {{breadcrumb.0}}</h4>
-                    <p>{{breadcrumb.1}}</p>
-                </div>
-            </a>
-        </li>
-    {% endfor %}
-</ul>
+<!--<ul class="nav nav-tabs nav-justified">-->
+    <!--{% for breadcrumb in breadcrumbs %}-->
+        <!--<li {% if forloop.counter == breadcrumb_idx %}class="active"{% endif %}>-->
+            <!--<a>-->
+                <!--<div>-->
+                    <!--<h4>Step {{forloop.counter}} : {{breadcrumb.0}}</h4>-->
+                    <!--<p>{{breadcrumb.1}}</p>-->
+                <!--</div>-->
+            <!--</a>-->
+        <!--</li>-->
+    <!--{% endfor %}-->
+<!--</ul>-->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="center-align">
+            Step {{breadcrumb_idx}} of {{breadcrumbs_len}}
+            <div class="progress">
+                <div style="width: {{progress}}%" class="progress-bar"  role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-8 col-sm-push-2">
+        <h2>{{breadcrumb.1}}</h2>
+    </div>
+</div>

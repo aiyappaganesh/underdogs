@@ -12,11 +12,6 @@
 {% endblock %}
 
 {% block PaddedContent %}
-    <div class="row">
-        <div class="col-lg-12">
-            <h2 class="center-align registration-title">Startup Info</h2>
-        </div>
-    </div>
     {% include "components/registration.html" with idx=breadcrumb_idx form_contents="components/startup_registration_form_contents.html" %}
 {% endblock %}
 

@@ -24,13 +24,13 @@ projects = 'projects'
 
 registration_breadcrumbs = {
     startups: [
-        ('Get started', 'Tell us about your startup!'),
-        ('Invite team members', 'Build your team'),
-        ('Give us access to your data', 'Help us learn more about you')
+        ('Get started', 'Tell us about your startup'),
+        ('Build your team', 'Invite members'),
+        ('Help us learn more about you', 'Access data')
     ],
     projects: [
-        ('Get started', 'Tell us about your project!'),
-        ('Add skills', 'Choose the skills required to execute the project')
+        ('Get started', 'Tell us about your project'),
+        ('Add skills', 'Choose skills required')
     ]
 }
 

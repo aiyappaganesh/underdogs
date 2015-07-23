@@ -113,7 +113,7 @@ th, td {
 }
 
 .invite-member-form {
-    min-height: 206px;
+    min-height: 186px;
 }
 
 .form-image {
@@ -132,6 +132,7 @@ th, td {
 
 .registration-panel {
     box-shadow: none !important;
+    margin: 0px;
 }
 
 .registration-panel li.active, .registration-panel li.active:hover {
@@ -152,23 +153,55 @@ th, td {
     background-color: #F5F7FA !important;
 }
 
-.registration-container {
-    border: 1px solid #ddd;
-    padding-bottom: 30px !important;
-}
-
 h2 {
     text-transform: uppercase;
     padding-bottom: 24px;
-    border-bottom: 1px solid #ddd;
+    padding-top: 24px;
 }
 
 form .row {
     padding-top: 24px;
 }
 
+form .row:first-of-type {
+    padding-top: 0px;
+}
+
 .selecter .selecter-options, .selecter .selecter-options.scroller .scroller-content {
     max-height: 500px;
+}
+
+.progress {
+    display: inline-block;
+    width: 100px;
+    height: 10px;
+    margin-bottom: 0px;
+    margin-left: 20px;
+}
+
+.selecter .selecter-selected, .form-control {
+    border-color: #e2e2e2;
+}
+
+.form-control {
+    height: 64px;
+    padding: 20px 10px;
+}
+
+::-webkit-input-placeholder {
+   color: #e2e2e2;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #e2e2e2;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #e2e2e2;
+}
+
+:-ms-input-placeholder {
+   color: #e2e2e2;
 }
 
 @media (max-width: 992px) {

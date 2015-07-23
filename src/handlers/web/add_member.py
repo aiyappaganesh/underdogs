@@ -38,6 +38,7 @@ class ExposeThirdPartyPage(WebRequestHandler):
         user_id = session['me_email']
         path = 'expose_social_data.html'
         user = User.get_by_key_name(str(user_id))
+        breadcrumb_idx = 3
         template_values = {'name':user.name,
                            'company_id': company_id,
                            'github_auth_url': '/users/data/github/update?company_id=' + company_id,
@@ -46,7 +47,10 @@ class ExposeThirdPartyPage(WebRequestHandler):
                            'dribbble_auth_url': '/users/data/dribbble/update?company_id=' + company_id,
                            'odesk_auth_url': '/users/data/odesk/update?company_id=' + company_id,
                            'breadcrumbs' : registration_breadcrumbs[startups],
-                           'breadcrumb_idx':3}
+                           'breadcrumb_idx':breadcrumb_idx,
+                           'breadcrumbs_len':len(registration_breadcrumbs[startups]),
+                           'breadcrumb':registration_breadcrumbs[startups][breadcrumb_idx-1],
+                           'progress': (100/len(registration_breadcrumbs[startups]))*breadcrumb_idx}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class ListMemberPage(WebRequestHandler):
@@ -252,10 +256,14 @@ class MemberInvitePage(WebRequestHandler):
         path = 'invite_member.html'
 
         rd_url = '/member/invite?company_id='+self['company_id']
+        breadcrumb_idx = 2
         template_values = prepare_template_values_for_invite(rd_url)
         template_values['form_url'] = '/api/members/invite?company_id=' + company_id
         template_values['breadcrumbs'] = registration_breadcrumbs[startups]
-        template_values['breadcrumb_idx'] = 2
+        template_values['breadcrumb_idx'] = breadcrumb_idx
+        template_values['breadcrumbs_len']=len(registration_breadcrumbs[startups])
+        template_values['breadcrumb']=registration_breadcrumbs[startups][breadcrumb_idx-1]
+        template_values['progress']=(100/len(registration_breadcrumbs[startups]))*breadcrumb_idx
         template_values['done_redirect'] = '/member/expose_third_party?company_id=' + self['company_id']
         self.write(self.get_rendered_html(path, template_values), 200)
 

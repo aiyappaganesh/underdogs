@@ -1,9 +1,9 @@
-{% include "components/form_image.html" with name="company_image" button_text="Select Image" %}
-{% include "components/form_input.html" with id="company-name" name="company_name" placeholder="Startup Name" length="23" other="required" %}
-{% include "components/form_input.html" with id="hello" name="hello" placeholder="Have them at hello!" other="required" %}
-{% include "components/form_input.html" with id="website" name="website" placeholder="Website" other="required" %}
-{% include "components/form_textarea.html" with id="profile" name="profile" placeholder="What makes your startup different?" rows="5" other="required" %}
-{% include "components/form_input.html" with id="geo-location" name="geo_location" placeholder="Enter your address" other="onFocus='geolocate()' onfocusout='needMap()'" %}
+{% include "components/form_image.html" with name="company_image" button_text="Select Image" title="Startup Logo" %}
+{% include "components/form_input.html" with id="company-name" name="company_name" placeholder="Startup Name" length="23" other="required" title="Startup Name" %}
+{% include "components/form_input.html" with id="hello" name="hello" placeholder="Have them at hello!" other="required" title="Hello" %}
+{% include "components/form_input.html" with id="website" name="website" placeholder="Website" other="required" title="Website" %}
+{% include "components/form_textarea.html" with id="profile" name="profile" placeholder="What makes your startup different?" rows="5" other="required" title="How is your startup different?" %}
+{% include "components/form_input.html" with id="geo-location" name="geo_location" placeholder="Enter your address" other="onFocus='geolocate()' onfocusout='needMap()'" title="Address" %}
 <div id="company-map" class="company-map input-container"></div>
-{% include "components/form_input.html" with id="tags" name="tags" placeholder="Tags" %}
+{% include "components/form_input.html" with id="tags" name="tags" placeholder="Tags" title="Tags" %}
 {% include "components/form_submit.html" with value="Create Startup" %}

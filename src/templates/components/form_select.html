@@ -2,7 +2,7 @@
     <div class="col-sm-3">
     </div>
     <div class="col-sm-6">
-        <h3>{{title}}</h3>
+        <h6 class="left-align">{{title}}</h6>
         <select class="form-control" name="{{name}}" id="{{id}}" {{other}}>
             {% for option in options %}<option value="{{option.value}}" {% if option.value in selected_values %}selected{% endif %}>{{option.name}}</option>{% endfor %}
         </select>

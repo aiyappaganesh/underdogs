@@ -25,9 +25,12 @@ class StartupsRegistrationPage(WebRequestHandler):
     def get(self):
         path = 'startup_registration.html'
         form_url = blobstore.create_upload_url('/api/startups/add_company')
+        breadcrumb_idx = 1
         template_values = {'form_url': form_url, 
-                           'breadcrumb_idx':1,
-                           'breadcrumbs':registration_breadcrumbs[startups]}
+                           'breadcrumb_idx':breadcrumb_idx,
+                           'breadcrumbs_len':len(registration_breadcrumbs[startups]),
+                           'breadcrumb':registration_breadcrumbs[startups][breadcrumb_idx-1],
+                           'progress': (100/len(registration_breadcrumbs[startups]))*breadcrumb_idx}
         self.write(self.get_rendered_html(path, template_values), 200)
 
 class StartupsEditPage(WebRequestHandler):
