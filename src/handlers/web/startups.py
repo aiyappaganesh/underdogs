@@ -45,7 +45,7 @@ class StartupsEditPage(WebRequestHandler):
         company_json['hello'] = company.hello
         company_json['profile'] = company.profile
         company_json['website'] = company.website
-        company_json['tags'] = company.tags
+        company_json['tags'] = ', '.join(str(x) for x in company.tags)
         return company_json
 
     @web_login_required

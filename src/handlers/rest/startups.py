@@ -1,5 +1,5 @@
 import logging
-
+import re
 from handlers.rest.rest_application import RestApplication
 from handlers import RequestHandler
 from google.appengine.ext.webapp import blobstore_handlers
@@ -23,7 +23,8 @@ class AddCompanyPage(blobstore_handlers.BlobstoreUploadHandler, RequestHandler):
         c.website = self['website']
         c.profile = self['profile']
         c.hello = self['hello']
-        c.tags = self['tags']
+        tags = re.findall(r"[\w']+", str(self['tags']))
+        c.tags = tags[0:3] if len(tags)>3 else tags
         c.image = image_key
         c.put()
         return c
@@ -56,7 +57,8 @@ class UpdateCompanyPage(blobstore_handlers.BlobstoreUploadHandler, RequestHandle
             c.website = self['website']
             c.profile = self['profile']
             c.hello = self['hello']
-            c.tags = self['tags']
+            tags = re.findall(r"[\w']+", str(self['tags']))
+            c.tags = tags[0:3] if len(tags)>3 else tags
             image = self.read_image()
             if image:
                 c.image = image

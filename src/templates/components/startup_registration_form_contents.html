@@ -5,5 +5,5 @@
 {% include "components/form_textarea.html" with id="profile" name="profile" placeholder="What makes your startup different?" rows="5" other="required" title="How is your startup different?" %}
 {% include "components/form_input.html" with id="geo-location" name="geo_location" placeholder="Enter your address" other="onFocus='geolocate()' onfocusout='needMap()'" title="Address" %}
 <div id="company-map" class="company-map input-container"></div>
-{% include "components/form_input.html" with id="tags" name="tags" placeholder="Tags" title="Tags" %}
+{% include "components/form_input.html" with id="tags" name="tags" placeholder="Add upto three tags" title="Tags" %}
 {% include "components/form_submit.html" with value="Create Startup" %}
