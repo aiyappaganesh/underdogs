@@ -1,1 +1,1 @@
-categories = ['Health | Food | Lifestyle', 'Media | News', 'Media | Music', 'Health', 'Education', 'Finance', 'Finance | Banking', 'Health | Insurance', 'Finance | Investing']
+categories = ['Books','Business','Catalogues','Education', 'Entertainment', 'Finance', 'Food & Drink','Games', 'Health & Fitness','Lifestyle','Medical','Music','Navigation','News','Newsstand','Photo & Video','Productivity','Reference','Social Networking','Sports','Travel','Utilities','Weather']
