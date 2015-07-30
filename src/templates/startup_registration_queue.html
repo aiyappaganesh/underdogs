@@ -1,0 +1,34 @@
+{% extends "base_padded.html" %}
+
+{% block Styles %}
+    <link href="/assets/css/jasny-bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="/assets/css/registration.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block Navbar %}
+  {% with hide_navbar_join='true' %}
+  {{block.super}}
+  {% endwith %}
+{% endblock %}
+
+{% block PaddedContent %}
+<div class="center-align">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Startup Registration</h2>
+            <h3>Please give us your startup's details to be added to the quue of startups that want to join the Pirates platform.</h3>
+            <hr class="intro-divider">
+            <form role="form" action="/api/startups/queue_company" method="POST">
+                <div class="col-sm-12">
+                    {% include "components/form_input.html" with id="name" name="name" placeholder="Startup Name" other="required" type="name" %}
+                    {% include "components/form_input.html" with id="email" name="email" placeholder="Email" other="required" %}
+                    {% include "components/form_submit.html" with value="Submit" %}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>    
+{% endblock %}
+
+{% block Scripts %}
+{% endblock %}

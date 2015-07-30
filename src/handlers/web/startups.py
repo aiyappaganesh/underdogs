@@ -118,7 +118,7 @@ class LatestStartupsListingPage(WebRequestHandler):
         q = Company.all()
         logging.info(q.count())
         companies = [self.make_dict(company) for company in q]
-        companies.insert(0, {'image': '/assets/img/new_startup.png', 'name': 'Your Startup', 'url': '/startups/registration'})
+        companies.insert(0, {'image': '/assets/img/new_startup.png', 'name': 'Your Startup', 'url': '/startups/registration/queue'})
         sorted_company_rows = [companies[i: i+3] for i in range(0, len(companies), 3)]
         template_values = {'startups' : sorted_company_rows, 'nav_color':'dark-nav'}
         self.write(self.get_rendered_html(path, template_values), 200)
@@ -130,10 +130,20 @@ class StartupsHomePage(WebRequestHandler):
         template_values['no_navbar_onload'] = True
         self.write(self.get_rendered_html(path, template_values), 200)
 
+class StartupsRegistrationQueuePage(WebRequestHandler):
+    @web_login_required
+    def get(self):
+        path = 'startup_registration_queue.html'
+        template_values = {}
+        self.write(self.get_rendered_html(path, template_values), 200)
+
+
+
 app = webapp2.WSGIApplication(
     [
         ('/startups_home', StartupsHomePage),
         ('/startups/registration', StartupsRegistrationPage),
+        ('/startups/registration/queue', StartupsRegistrationQueuePage),
         ('/startups/edit', StartupsEditPage),
         ('/startups/search/criteria', StartupsCriteriaPage),
         ('/startups/new_listing', LatestStartupsListingPage),

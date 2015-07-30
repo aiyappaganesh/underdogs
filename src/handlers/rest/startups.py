@@ -6,6 +6,7 @@ from google.appengine.ext.webapp import blobstore_handlers
 from model.company import Company
 from model.user import User
 from model.company_members import CompanyMember
+from model.registration_queue import RegistrationQueue
 from gaesessions import get_current_session
 from handlers.web.auth import web_login_required
 from util.util import isAdminAccess
@@ -71,7 +72,15 @@ class UpdateCompanyPage(blobstore_handlers.BlobstoreUploadHandler, RequestHandle
         self.update_company()
         self.redirect('/member/companies/dashboard')
 
+class QueueCompanyPage(RequestHandler):
+    def post(self):
+        name = self['name']
+        email = self['email']
+        RegistrationQueue(key_name=email, name=name).put()
+        self.redirect('/startups/new_listing')
+
 app = RestApplication([
     ('/api/startups/add_company', AddCompanyPage),
+    ('/api/startups/queue_company', QueueCompanyPage),
     ('/api/startups/update_company', UpdateCompanyPage)
 ])
